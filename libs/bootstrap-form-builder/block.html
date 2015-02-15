@@ -1,0 +1,51 @@
+<link href="<?php echo CMS_DEFAULT_URL_BASE;?>libs/bootstrap-form-builder/assets/css/custom.css?v=2" rel="stylesheet">
+    <div class="container">
+      <div class="row">
+        <!-- Building Form. -->
+        <div class="col-md-6">
+          <div class="clearfix">
+            <h2>Your Form</h2>
+            <hr>
+            <div id="build">
+              <form id="target" class="form-horizontal">
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- / Building Form. -->
+
+        <!-- Components -->
+        <div class="col-md-6">
+
+          <h2>Drag & Drop components</h2>
+          <a href="#" id="toggle_bs_style" class="btn btn-info btn-xs pull-right">Toggle bootstrap theme</a>
+          <div class="clearfix"></div>
+          <hr>
+          <div class="tabbable">
+            <ul class="nav nav-tabs" id="formtabs">
+              <!-- Tab nav -->
+            </ul>
+            <form id="components" class="form-horizontal">
+              <fieldset>
+                <div class="tab-content">
+                  <!-- Tabs of snippets go here -->
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <!-- / Components -->
+
+      </div>
+
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <hr>
+          By Adam Moore (<a href="http://twitter.com/minikomi" >@minikomi</a>).<br/>
+          Source on (<a href="https://github.com/minikomi/Bootstrap-Form-Builder" >Github</a>).
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script data-main="<?php echo CMS_DEFAULT_URL_BASE;?>libs/bootstrap-form-builder/assets/js/main-built.js" src="<?php echo CMS_DEFAULT_URL_BASE;?>libs/bootstrap-form-builder/assets/js/lib/require.js?v=3" ></script>
