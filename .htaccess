@@ -1,0 +1,7 @@
+Options -Indexes
+
+# Mod_Rewite
+RewriteEngine on  
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteCond %{REQUEST_FILENAME} !-d  
+RewriteRule ^(.*)$ /pharinix/index.php?rewrite=$1 [L,QSA]
