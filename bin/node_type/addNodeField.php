@@ -1,0 +1,94 @@
+<?php
+
+/*
+ * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
+ * Sources https://github.com/PSF1/pharinix
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+if (!defined("CMS_VERSION")) {
+    header("HTTP/1.0 404 Not Found");
+    die("");
+}
+
+//TODO: SECURITY !!
+/*
+ * Add a new field to a node type
+ * CREATE TABLE `node_type_field` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL,
+  `type` varchar(250) NOT NULL,
+  `len` int(10) unsigned NOT NULL,
+  `required` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Field required',
+  `readonly` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Not writeble field',
+  `locked` varchar(1) NOT NULL DEFAULT '0' COMMENT 'The cant be erased of the type',
+  `node_type` int(10) unsigned NOT NULL,
+  `default` longtext NOT NULL COMMENT 'Default value',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+ */
+
+$resp = array("ok" => false, "msg" => "");
+
+// Default values
+$params = array_merge(array(
+            "name" => "",
+            "type" => "",
+            "len" => 0,
+            "required" => false,
+            "readonly" => false,
+            "locked" => false,
+            "node_type" => 0,
+            "default" => "",
+        ), $params);
+if ($params["name"] == "") {
+    $resp["msg"] = "Field name is required. ";
+}
+if ($params["type"] == "") {
+    $resp["msg"] .= "Field type is required. ";
+}
+if ($params["node_type"] == 0) {
+    $resp["msg"] .= "Node type is required. ";
+}
+if ($resp["msg"] != "") return $resp;
+
+// Verify node type
+$sql = "select id from `node_type` where id = {$params["node_type"]}";
+$q = dbConn::get()->Execute($sql);
+if (!$q->EOF) {
+    // Verify that name is unique
+    $sql = "select id from `node_type_field` where name = '{$params["name"]}'";
+    $q = dbConn::get()->Execute($sql);
+    if ($q->EOF) {
+        // Insert new field
+        $sql = "insert into `node_type_field` set ";
+        $sql .= "`name` = '{$params["name"]}', ";
+        $sql .= "`type` = '{$params["type"]}', ";
+        $sql .= "`len` = '{$params["len"]}', ";
+        $sql .= "`required` = '".($params["required"]?1:0)."', ";
+        $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
+        $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
+        $sql .= "`node_type` = '{$params["node_type"]}', ";
+        $sql .= "`default` = '{$params["default"]}'";
+        dbConn::get()->Execute($sql);
+        $resp["ok"] = true;
+    } else {
+        $resp["ok"] = false;
+        $resp["msg"] = "Node field name '{$params["name"]}' already exist.";
+    }
+} else {
+    $resp["ok"] = false;
+    $resp["msg"] = "Node type '{$params["id"]}' don't exist.";
+}

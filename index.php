@@ -26,7 +26,7 @@ header("generator: Pharinix ".CMS_VERSION);
 include_once("libs/adodb/cmsapi.php");
 include_once("drivers/tools.php");
 include_once("drivers/command.php");
-include_once("drivers/user.php");
+//include_once("drivers/user.php");
 include_once("drivers/urlRewrite.php");
 
 // Main user interface
@@ -40,7 +40,7 @@ if (CMS_DEBUG) {
     $output["used_time"] = array();
     $output["used_time"]["start"] = $mtime;
 }
-$cmsUsr = new driverUser();
+//$cmsUsr = new driverUser();
 new driverUrlRewrite();
 
 if (!isset($_POST["interface"])) {
