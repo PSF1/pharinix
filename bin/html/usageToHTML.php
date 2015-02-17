@@ -24,6 +24,8 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
  ?>
+<div class="row">
+<div class="col-sm-12">
 <h3>Resources used by Pharinix</h3>
 <table class="table table-bordered table-striped">
     <thead>
@@ -39,3 +41,5 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         </tr>
     </tbody>
 </table>
+</div>
+</div>

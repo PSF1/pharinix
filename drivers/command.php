@@ -30,6 +30,7 @@ class driverCommand {
     public static function run($cmd, $params = array(), $debug = true) {
         global $output;
         if (CMS_DEBUG && $debug) {
+            echo "<h6><span class=\"label label-warning\">$cmd ".print_r($params,1)."</span></h6>";
             driverCommand::run("trace", array("command" => $cmd, "parameters" => $params), false);
         }
         $cmd = str_replace("/", "", $cmd);

@@ -52,6 +52,12 @@ if (!function_exists("parseTrace")) {
         <?php
     }
 }
-
+?>
+<div class="row">
+<div class="col-sm-12">
+<?php
 echo "<h3>Trace information</h3>";
 parseTrace("trace", $output["trace"]);
+?>
+</div>
+</div>
