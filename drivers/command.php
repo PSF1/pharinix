@@ -38,18 +38,16 @@ class driverCommand {
         $cmd = str_replace(".", "", $cmd);
         $sql = "SELECT * FROM `bin-path`";
         $q = dbConn::get()->Execute($sql);
-        $executed = false;
+        $resp = array();
         while(!$q->EOF && !$executed) {
             $path = $q->fields["path"];
             if (is_file($path.$cmd.".php")) {
-                include($path.$cmd.".php");
-                $executed = true;
+                $resp = include($path.$cmd.".php");
+                return $resp;
             }
             $q->MoveNext();
         }
-        if (!$executed) {
-            throw new Exception("Command '{$cmd}' not found");
-        }
+        throw new Exception("Command '{$cmd}' not found");
     }
     
     /**
