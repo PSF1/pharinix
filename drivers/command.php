@@ -40,7 +40,8 @@ class driverCommand {
             if (is_file($path.$cmd.".php")) {
                 $resp = include($path.$cmd.".php");
                 if (CMS_DEBUG && $debug) {
-                    echo "<h6><span class=\"label label-warning\">$cmd ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp)."</span></h6>";
+//                    echo "<h6><span class=\"label label-warning\">$cmd ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp)."</span></h6>";
+                    var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
                     driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
                 }
                 return $resp;

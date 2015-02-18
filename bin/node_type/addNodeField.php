@@ -42,7 +42,7 @@ if (!defined("CMS_VERSION")) {
 ) ENGINE=MyISAM;
  */
 
-$resp = array("ok" => false, "msg" => "");
+$resp = array("ok" => true, "msg" => "");
 
 // Default values
 $params = array_merge(array(
@@ -63,38 +63,50 @@ if ($params["name"] == "") {
 if ($params["type"] == "") {
     $resp["msg"] .= "Field type is required. ";
 }
-if ($params["node_type"] == 0) {
+if ($params["node_type"] == "") {
     $resp["msg"] .= "Node type is required. ";
 }
 if ($resp["msg"] != "") return $resp;
 
 // Verify node type
-$sql = "select id from `node_type` where id = {$params["node_type"]}";
-$q = dbConn::get()->Execute($sql);
-if (!$q->EOF) {
+$ntype = driverCommand::run("getNodeTypeId", array("name" => $params["node_type"]));
+if ($ntype !== false) {
     // Verify that name is unique
     $sql = "select id from `node_type_field` where name = '{$params["name"]}'";
     $q = dbConn::get()->Execute($sql);
     if ($q->EOF) {
-        // Insert new field
-        $sql = "insert into `node_type_field` set ";
-        $sql .= "`name` = '{$params["name"]}', ";
-        $sql .= "`type` = '{$params["type"]}', ";
-        $sql .= "`len` = '{$params["len"]}', ";
-        $sql .= "`required` = '".($params["required"]?1:0)."', ";
-        $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
-        $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
-        $sql .= "`node_type` = '{$params["node_type"]}', ";
-        $sql .= "`default` = '{$params["default"]}',";
-        $sql .= "`label` = '{$params["label"]}',";
-        $sql .= "`help` = '{$params["help"]}'";
-        dbConn::get()->Execute($sql);
-        $resp["ok"] = true;
+        $isbasic = driverCommand::run("isBasicNodeFieldType", array("type" => $params["type"]));
+        if (!$isbasic["basic"]) {
+            $subtimeId = driverCommand::run("getNodeTypeId", array("name" => $params["type"]));
+            if ($subtimeId === false) {
+                $resp["ok"] = FALSE;
+                $resp["msg"] = "Node field sub type '{$params["type"]}' don't exist.";
+            } else {
+                $resp["ok"] = true;
+            }
+        }
+        if ($resp["ok"]) {
+            // Insert new field
+            $sql = "insert into `node_type_field` set ";
+            $sql .= "`name` = '{$params["name"]}', ";
+            $sql .= "`type` = '{$params["type"]}', ";
+            $sql .= "`len` = '{$params["len"]}', ";
+            $sql .= "`required` = '".($params["required"]?1:0)."', ";
+            $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
+            $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
+            $sql .= "`node_type` = '{$ntype["id"]}', ";
+            $sql .= "`default` = '{$params["default"]}',";
+            $sql .= "`label` = '{$params["label"]}',";
+            $sql .= "`help` = '{$params["help"]}'";
+            dbConn::get()->Execute($sql);
+            $resp["ok"] = true;
+        }
     } else {
         $resp["ok"] = false;
         $resp["msg"] = "Node field name '{$params["name"]}' already exist.";
     }
 } else {
     $resp["ok"] = false;
-    $resp["msg"] = "Node type '{$params["id"]}' don't exist.";
+    $resp["msg"] = "Node type '{$params["node_type"]}' don't exist.";
 }
+return $resp;

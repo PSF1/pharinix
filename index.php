@@ -81,5 +81,5 @@ if (!isset($_POST["command"])) {
 if (CMS_DEBUG) {
     driverCommand::run("usageEnd");
     driverCommand::run("usageToHTML");
-    driverCommand::run("traceToHTML");
+//    driverCommand::run("traceToHTML");
 }
