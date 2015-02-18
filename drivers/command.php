@@ -40,7 +40,7 @@ class driverCommand {
             if (is_file($path.$cmd.".php")) {
                 $resp = include($path.$cmd.".php");
                 if (CMS_DEBUG && $debug) {
-                    echo "<h6><span class=\"label label-warning\">$cmd ".print_r($params,1)." => ".print_r($resp,1)."</span></h6>";
+                    echo "<h6><span class=\"label label-warning\">$cmd ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp)."</span></h6>";
                     driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
                 }
                 return $resp;
@@ -50,6 +50,16 @@ class driverCommand {
         throw new Exception("Command '{$cmd}' not found");
     }
     
+    public static function formatParamsArray($arr) {
+        if (!is_array($arr)) return $arr;
+        $resp = array();
+        foreach($arr as $key => $value) {
+            if (is_bool($value)) $value = ($value?"True":"False");
+            $resp[$key] = $value;
+        }
+        return print_r($resp, 1);
+    }
+
     /**
      * Get parameters from POST
      * @return array

@@ -70,6 +70,8 @@ if ($q->EOF) {
         "locked" => true,
         "node_type" => $id,
         "default" => "",
+        "label" => "Creation date",
+        "help" => "",
         );
     driverCommand::run("addNodeField", $nField);
     $nField = array(
@@ -81,6 +83,8 @@ if ($q->EOF) {
         "locked" => true,
         "node_type" => $id,
         "default" => "",
+        "label" => "User creator",
+        "help" => "",
         );
     driverCommand::run("addNodeField", $nField);
     $nField = array(
@@ -92,6 +96,8 @@ if ($q->EOF) {
         "locked" => true,
         "node_type" => $id,
         "default" => "",
+        "label" => "Modified date",
+        "help" => "",
         );
     driverCommand::run("addNodeField", $nField);
     $nField = array(
@@ -103,6 +109,8 @@ if ($q->EOF) {
         "locked" => true,
         "node_type" => $id,
         "default" => "",
+        "label" => "Modifier user",
+        "help" => "",
         );
     driverCommand::run("addNodeField", $nField);
     

@@ -36,8 +36,10 @@ if (!defined("CMS_VERSION")) {
   `locked` varchar(1) NOT NULL DEFAULT '0' COMMENT 'The cant be erased of the type',
   `node_type` int(10) unsigned NOT NULL,
   `default` longtext NOT NULL COMMENT 'Default value',
+  `label` varchar(250) NOT NULL,
+  `help` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM;
  */
 
 $resp = array("ok" => false, "msg" => "");
@@ -52,6 +54,8 @@ $params = array_merge(array(
             "locked" => false,
             "node_type" => 0,
             "default" => "",
+            "label" => "Field",
+            "help" => "A field",
         ), $params);
 if ($params["name"] == "") {
     $resp["msg"] = "Field name is required. ";
@@ -81,7 +85,9 @@ if (!$q->EOF) {
         $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
         $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
         $sql .= "`node_type` = '{$params["node_type"]}', ";
-        $sql .= "`default` = '{$params["default"]}'";
+        $sql .= "`default` = '{$params["default"]}',";
+        $sql .= "`label` = '{$params["label"]}',";
+        $sql .= "`help` = '{$params["help"]}'";
         dbConn::get()->Execute($sql);
         $resp["ok"] = true;
     } else {
