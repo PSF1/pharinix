@@ -22,7 +22,7 @@
 // General
 define("CMS_VERSION", "1.0");
 define("CMS_TITLE", "Pharinix");
-define("CMS_DEBUG", true);
+define("CMS_DEBUG", false);
 define("CMS_DEBUG_MAIL", false);
 define("CMS_DEBUG_LOG_SQL", false);
 define("CMS_FILE_PATH", "files/");

@@ -18,13 +18,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-/*
- * Add a new trace message
- */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!isset($output["trace"])) {
-    $output["trace"] = array();
+if (!class_exists("commandTrace")) {
+    class commandTrace {
+
+        public static function runMe($params = array(), $debug = true) {
+            global $output;
+            if (!isset($output["trace"])) {
+                $output["trace"] = array();
+            }
+            $output["trace"][] = $params;
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Add a new trace message", 
+                "parameters" => array("command" => "Executed command", "parameters" => "Array of original parameters", "return" => "Array of responses"), 
+                "response" => array()
+            );
+        }
+    }
 }
-$output["trace"][] = $params;
+return new commandTrace();

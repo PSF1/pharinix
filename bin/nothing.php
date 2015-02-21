@@ -18,9 +18,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-/*
- * Nothing to do
- */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
-if(CMS_DEBUG) echo "<i>I do nothing...</i>";
+
+if (!class_exists("commandNothing")) {
+    class commandNothing {
+
+        public static function runMe($params = array(), $debug = true) {
+            if(CMS_DEBUG) echo "<i>I do nothing...</i>";
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Nothing to do", 
+                "parameters" => array(), 
+                "response" => array()
+            );
+        }
+    }
+}
+return new commandNothing();

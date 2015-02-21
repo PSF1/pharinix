@@ -20,6 +20,9 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
+/**
+ * Command execution class and base class to commands
+ */
 class driverCommand {
     
     /**
@@ -38,7 +41,8 @@ class driverCommand {
         while(!$q->EOF) {
             $path = $q->fields["path"];
             if (is_file($path.$cmd.".php")) {
-                $resp = include($path.$cmd.".php");
+                $object = include($path.$cmd.".php");
+                $resp = $object->runMe($params);
                 if (CMS_DEBUG && $debug) {
 //                    echo "<h6><span class=\"label label-warning\">$cmd ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp)."</span></h6>";
                     var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
@@ -51,6 +55,33 @@ class driverCommand {
         throw new Exception("Command '{$cmd}' not found");
     }
     
+    /**
+     * Each command must inherit it
+     * @param array $params Parameters
+     * @param boolean $debug Log in trace
+     * @return array Response
+     */
+    public static function runMe($params = array(), $debug = true) {
+        // 
+    }
+    
+    /**
+     * Return command help info.
+     * @return array array("parameters" => array("arg1" => "value"), "description" => "Help text", "response" => array("resp1" => "value"))
+     */
+    public static function getHelp() {
+        return array(
+            "description" => "Command base class", 
+            "parameters" => array(), 
+            "response" => array()
+        );
+    }
+    
+    /**
+     * 
+     * @param array $arr
+     * @return array
+     */
     public static function formatParamsArray($arr) {
         if (!is_array($arr)) return $arr;
         $resp = array();

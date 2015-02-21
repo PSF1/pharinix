@@ -35,4 +35,20 @@ if (!defined("CMS_VERSION")) {
 //<br/>
 //You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //</div>');
-eval("?>".$params['html']);
+if (!class_exists("commandEchoHTML")) {
+    class commandEchoHTML {
+
+        public static function runMe($params = array(), $debug = true) {
+            eval("?>".$params['html']);
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Eval, echo, a HTML+PHP code", 
+                "parameters" => array('html' => 'String to evaluate.'), 
+                "response" => array()
+            );
+        }
+    }
+}
+return new commandEchoHTML();
