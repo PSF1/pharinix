@@ -28,15 +28,34 @@ if (!defined("CMS_VERSION")) {
  * Parameters:
  * type = Node field type to test
  */
+if (!class_exists("commandIsBasicFieldType")) {
+    class commandIsBasicFieldType {
 
-switch ($params["type"]) {
-    case 'longtext': // Very long text
-    case 'bool': // Boolean value
-    case 'datetime': // Date and time
-    case 'double': // Number with decimals
-    case 'integer': // Integer number
-    case 'string': // Text string
-        return array("basic" => true);
-    default:
-        return array("basic" => false);
+        public static function runMe($params = array(), $debug = true) {
+            switch ($params["type"]) {
+                case 'longtext': // Very long text
+                case 'bool': // Boolean value
+                case 'datetime': // Date and time
+                case 'double': // Number with decimals
+                case 'integer': // Integer number
+                case 'string': // Text string
+                    return array("basic" => true);
+                default:
+                    return array("basic" => false);
+            }
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Identify a node field type how basic type or it's a reference to another node type", 
+                "parameters" => array(
+                    "type" => "The type name to test."
+                ), 
+                "response" => array(
+                    "basic" => "True/False Is a basic type"
+                )
+            );
+        }
+    }
 }
+return new commandIsBasicFieldType();

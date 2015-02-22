@@ -39,86 +39,107 @@ if (!defined("CMS_VERSION")) {
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
  */
+if (!class_exists("commandAddNodeType")) {
+    class commandAddNodeType {
 
-$resp = array("ok" => false, "nid" => 0, "msg" => "");
+        public static function runMe($params = array(), $debug = true) {
+            $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
-// Default values
-$params = array_merge(array(
-            "name" => "",
-          ), $params);
-if ($params["name"] == "") {
-    $resp["msg"] = "Node type name is required. ";
+            // Default values
+            $params = array_merge(array(
+                        "name" => "",
+                      ), $params);
+            if ($params["name"] == "") {
+                $resp["msg"] = "Node type name is required. ";
+            }
+            if ($resp["msg"] != "") return $resp;
+
+            // We dont like various types with some name
+            $sql = "select id from `node_type` where name = '{$params["name"]}'";
+            $q = dbConn::get()->Execute($sql);
+
+            if ($q->EOF) {
+                // Insert the new type
+                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW()";
+                dbConn::get()->Execute($sql);
+                $id = dbConn::lastID();
+                // Add default fields
+                $nField = array(
+                    "name" => "created",
+                    "type" => "datetime",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => "",
+                    "label" => "Creation date",
+                    "help" => "",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "creator",
+                    "type" => "node_user",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => "",
+                    "label" => "User creator",
+                    "help" => "",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "modified",
+                    "type" => "datetime",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => "",
+                    "label" => "Modified date",
+                    "help" => "",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "modifier",
+                    "type" => "node_user",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => "",
+                    "label" => "Modifier user",
+                    "help" => "",
+                    );
+                driverCommand::run("addNodeField", $nField);
+
+                $resp["ok"] = true;
+                $resp["nid"] = $id;
+            } else {
+                $resp["ok"] = false;
+                $resp["msg"] = "Node type '{$params["name"]}' already exist.";
+            }
+
+            return $resp;
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Add a new node type", 
+                "parameters" => array(
+                    "name" => "Node type name",
+                ), 
+                "response" => array(
+                    "ok" => "True/False field added",
+                    "msg" => "If error, it's a message about error",
+                    "nid" => "ID of new node type",
+                )
+            );
+        }
+    }
 }
-if ($resp["msg"] != "") return $resp;
-
-// We dont like various types with some name
-$sql = "select id from `node_type` where name = '{$params["name"]}'";
-$q = dbConn::get()->Execute($sql);
-
-if ($q->EOF) {
-    // Insert the new type
-    $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW()";
-    dbConn::get()->Execute($sql);
-    $id = dbConn::lastID();
-    // Add default fields
-    $nField = array(
-        "name" => "created",
-        "type" => "datetime",
-        "len" => 0,
-        "required" => false,
-        "readonly" => false,
-        "locked" => true,
-        "node_type" => $params["name"],
-        "default" => "",
-        "label" => "Creation date",
-        "help" => "",
-        );
-    driverCommand::run("addNodeField", $nField);
-    $nField = array(
-        "name" => "creator",
-        "type" => "node_user",
-        "len" => 0,
-        "required" => false,
-        "readonly" => false,
-        "locked" => true,
-        "node_type" => $params["name"],
-        "default" => "",
-        "label" => "User creator",
-        "help" => "",
-        );
-    driverCommand::run("addNodeField", $nField);
-    $nField = array(
-        "name" => "modified",
-        "type" => "datetime",
-        "len" => 0,
-        "required" => false,
-        "readonly" => false,
-        "locked" => true,
-        "node_type" => $params["name"],
-        "default" => "",
-        "label" => "Modified date",
-        "help" => "",
-        );
-    driverCommand::run("addNodeField", $nField);
-    $nField = array(
-        "name" => "modifier",
-        "type" => "node_user",
-        "len" => 0,
-        "required" => false,
-        "readonly" => false,
-        "locked" => true,
-        "node_type" => $params["name"],
-        "default" => "",
-        "label" => "Modifier user",
-        "help" => "",
-        );
-    driverCommand::run("addNodeField", $nField);
-    
-    $resp["ok"] = true;
-    $resp["nid"] = $id;
-} else {
-    $resp["ok"] = false;
-    $resp["msg"] = "Node type '{$params["name"]}' already exist.";
-}
-
-return $resp;
+return new commandAddNodeType();

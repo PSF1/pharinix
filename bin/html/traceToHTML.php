@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
@@ -22,42 +21,66 @@
 /*
  * Print trace information in HTML format
  */
-if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
-
-if (!function_exists("parseTrace")) {
-    function parseTrace($key, $value) {?>
-            <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-        <?php
-        echo "<tr><td>";
-        echo "<br>$key</b>";
-        echo "</td><td>";
-        if (is_array($value)) {
-            foreach ($value as $key1 => $value1) {
-                parseTrace($key1, $value1);
-            }
-        } else {
-            echo $value;
-        }
-        echo "</td></tr>";
-        ?>
-        </tbody>
-        </table>
-        <?php
-    }
+if (!defined("CMS_VERSION")) {
+    header("HTTP/1.0 404 Not Found");
+    die("");
 }
-?>
-<div class="row">
-<div class="col-sm-12">
-<?php
-echo "<h3>Trace information</h3>";
-parseTrace("trace", $output["trace"]);
-?>
-</div>
-</div>
+
+if (!class_exists("commandTraceToHTML")) {
+
+    class commandTraceToHTML {
+
+        public static function runMe($params = array(), $debug = true) {
+            global $output;
+            ?>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?php
+                    echo "<h3>Trace information</h3>";
+                    self::parseTrace("trace", $output["trace"]);
+                    ?>
+                </div>
+            </div>
+            <?php
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Print trace information in HTML format",
+                "parameters" => array(),
+                "response" => array()
+            );
+        }
+
+        public static function parseTrace($key, $value) {
+            ?>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    echo "<tr><td>";
+                    echo "<br>$key</b>";
+                    echo "</td><td>";
+                    if (is_array($value)) {
+                        foreach ($value as $key1 => $value1) {
+                            self::parseTrace($key1, $value1);
+                        }
+                    } else {
+                        echo $value;
+                    }
+                    echo "</td></tr>";
+                    ?>
+                </tbody>
+            </table>
+            <?php
+        }
+
+    }
+
+}
+return new commandTraceToHTML();

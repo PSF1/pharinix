@@ -28,5 +28,21 @@ if (!defined("CMS_VERSION")) {
     header("HTTP/1.0 404 Not Found");
     die("");
 }
-$blq = file_get_contents("libs/bootstrap-form-builder/login.html");
-eval("?>".$blq);
+if (!class_exists("commandBlockLogin")) {
+    class commandBlockLogin {
+
+        public static function runMe($params = array(), $debug = true) {
+            $blq = file_get_contents("libs/bootstrap-form-builder/login.html");
+            eval("?>".$blq);
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Show a example login form", 
+                "parameters" => array(), 
+                "response" => array()
+            );
+        }
+    }
+}
+return new commandBlockLogin();

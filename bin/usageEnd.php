@@ -24,14 +24,31 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (CMS_DEBUG) {
-    $output["used_ram"]["end"] = memory_get_usage();
-    $output["used_ram"]["used"] = $output["used_ram"]["end"] - $output["used_ram"]["start"];
+if (!class_exists("commandUsageEnd")) {
+    class commandUsageEnd {
 
-    // http://www.developerfusion.com/code/2058/determine-execution-time-in-php/
-    $mtime = microtime();
-    $mtime = explode(" ", $mtime);
-    $mtime = $mtime[1] + $mtime[0];
-    $output["used_time"]["end"] = $mtime;
-    $output["used_time"]["used"] = ($output["used_time"]["end"] - $output["used_time"]["start"]);
+        public static function runMe($params = array(), $debug = true) {
+            if (CMS_DEBUG) {
+                global $output;
+                $output["used_ram"]["end"] = memory_get_usage();
+                $output["used_ram"]["used"] = $output["used_ram"]["end"] - $output["used_ram"]["start"];
+
+                // http://www.developerfusion.com/code/2058/determine-execution-time-in-php/
+                $mtime = microtime();
+                $mtime = explode(" ", $mtime);
+                $mtime = $mtime[1] + $mtime[0];
+                $output["used_time"]["end"] = $mtime;
+                $output["used_time"]["used"] = ($output["used_time"]["end"] - $output["used_time"]["start"]);
+            }
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Capture final resources consumed", 
+                "parameters" => array(), 
+                "response" => array()
+            );
+        }
+    }
 }
+return new commandUsageEnd();

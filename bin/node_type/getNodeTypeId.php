@@ -24,14 +24,34 @@ if (!defined("CMS_VERSION")) {
 }
 
 /*
- * Search ID of node type by name
- * Parameters:
- * name = Node type name to search. False if not found.
- */
-$sql = "select id from `node_type` where `name` = '{$params["name"]}'";
-$q = dbConn::get()->Execute($sql);
-if ($q->EOF) {
-    return false;
-} else {
-    return array("id" => $q->fields["id"]);
+* Search ID of node type by name
+* Parameters:
+* name = Node type name to search. False if not found.
+*/
+if (!class_exists("commandGetNodeTypeID")) {
+    class commandGetNodeTypeID {
+
+        public static function runMe($params = array(), $debug = true) {
+           $sql = "select id from `node_type` where `name` = '{$params["name"]}'";
+           $q = dbConn::get()->Execute($sql);
+           if ($q->EOF) {
+               return array("id" => false);
+           } else {
+               return array("id" => $q->fields["id"]);
+           }
+        }
+
+        public static function getHelp() {
+            return array(
+                "description" => "Search ID of node type by name", 
+                "parameters" => array(
+                    "name" => "Node type name to search. False if not found.",
+                ), 
+                "response" => array(
+                    "id" => "ID of the node type"
+                )
+            );
+        }
+    }
 }
+return new commandGetNodeTypeID();
