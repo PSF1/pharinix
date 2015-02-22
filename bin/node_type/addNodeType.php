@@ -57,12 +57,17 @@ if (!class_exists("commandAddNodeType")) {
             // We dont like various types with some name
             $sql = "select id from `node_type` where name = '{$params["name"]}'";
             $q = dbConn::get()->Execute($sql);
-
             if ($q->EOF) {
                 // Insert the new type
                 $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW()";
                 dbConn::get()->Execute($sql);
                 $id = dbConn::lastID();
+                // Add table
+                $sql = "CREATE TABLE `node_{$params["name"]}` ( ";
+                $sql .= "`id` int(10) unsigned NOT NULL AUTO_INCREMENT, ";
+                $sql .= "PRIMARY KEY (`id`) ";
+                $sql .= ") ENGINE=MyISAM";
+                dbConn::get()->Execute($sql);
                 // Add default fields
                 $nField = array(
                     "name" => "created",

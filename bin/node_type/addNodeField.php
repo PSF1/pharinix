@@ -104,6 +104,9 @@ if (!class_exists("commandAddNodeField")) {
                         $sql .= "`help` = '{$params["help"]}'";
                         dbConn::get()->Execute($sql);
                         $resp["ok"] = true;
+                        // alter table
+                        $sql = self::getAddFieldString($params);
+                        dbConn::get()->Execute($sql);
                     }
                 } else {
                     $resp["ok"] = false;
@@ -136,6 +139,34 @@ if (!class_exists("commandAddNodeField")) {
                     "msg" => "If error, it's a message about error"
                 )
             );
+        }
+        
+        public static function getAddFieldString($params) {
+            $resp = "";
+            switch ($params["type"]) {
+                case "longtext":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` LONGTEXT DEFAULT '{$params["default"]}' AFTER `id`";
+                break;
+                case "bool":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR(1) DEFAULT '".($params["default"]?"1":"0")."' AFTER `id`";
+                break;
+                case "datetime":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DATETIME DEFAULT '{$params["default"]}' AFTER `id`";
+                break;
+                case "double":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DECIMAL(20, 6) DEFAULT {$params["default"]} AFTER `id`";
+                break;
+                case "integer":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` INTEGER DEFAULT {$params["default"]} AFTER `id`";
+                break;
+                case "string":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR({$params["len"]}) DEFAULT '{$params["default"]}' AFTER `id`";
+                break;
+                default:
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` INTEGER UNSIGNED DEFAULT 0 AFTER `id`";
+                break;
+            }
+            return $resp;
         }
     }
 }
