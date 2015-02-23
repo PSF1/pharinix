@@ -35,9 +35,84 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         
     }
     
+    public function cleanDatabase($id) {
+        // Clean database
+        $sql = "delete FROM `node_type_field` where `node_type` = $id";
+        dbConn::get()->Execute($sql);
+        $sql = "delete FROM `node_type` where `id` = $id";
+        dbConn::get()->Execute($sql);
+        $sql = "DROP TABLE IF EXISTS `node_testtype`";
+        dbConn::get()->Execute($sql);
+    } 
+    
     public function testCommandAddType() {
-        // It must add type info into table
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        // It must add type info in table
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(false, $q->EOF);
+        $id = $q->fields["id"];
         // It must create a table
+        $sql = "show tables like 'node_testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(false, $q->EOF);
         // It must add 4 system fields
+        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(4, $q->fields[0]);
+        // The table must have 4 fields plus ID field
+        $sql = "show columns from `node_testtype`";
+        $q = dbConn::get()->Execute($sql);
+        $fields = array(
+            "id" => false,
+            "modifier" => false,
+            "modified" => false,
+            "creator" => false,
+            "created" => false,
+        );
+        while (!$q->EOF) {
+            // Is a expected field?
+            $this->assertArrayHasKey($q->fields["Field"], $fields);
+            $fields[$q->fields["Field"]] = true;
+            $q->MoveNext();
+        }
+        // Contains the expected fields?
+        foreach ($fields as $value) {
+            $this->assertEquals(true, $value);
+        }
+        $this->cleanDatabase($id);
+    }
+    
+    public function testCommandAddFieldLongtext() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        $nField = array(
+            "name" => "longtext",
+            "type" => "longtext",
+            "len" => 0,
+            "required" => false,
+            "readonly" => false,
+            "node_type" => "testtype",
+            "default" => "default",
+            "label" => "label",
+            "help" => "help",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // New field?
+        $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'longtext' && `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(1, $q->fields[0]);
+        // The table must have a new field
+        $sql = "show columns from `node_testtype` like 'longtext'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(false, $q->EOF);
+        $this->assertEquals("longtext", $q->fields["Type"]);
+        $this->assertEquals("YES", $q->fields["Null"]);
+        $this->assertEquals("", $q->fields["Key"]);
+        $this->assertEquals("", $q->fields["Default"]);
+        $this->assertEquals("", $q->fields["Extra"]);
+        $this->cleanDatabase($id);
     }
 }
