@@ -59,8 +59,9 @@ if (!class_exists("commandAddNodeField")) {
                         "node_type" => 0,
                         "default" => "",
                         "label" => "Field",
-                        "help" => "A field",
+                        "help" => "",
                     ), $params);
+            $params["name"] = strtolower($params["name"]);
             if ($params["name"] == "") {
                 $resp["msg"] = "Field name is required. ";
             }
@@ -76,7 +77,7 @@ if (!class_exists("commandAddNodeField")) {
             $ntype = driverCommand::run("getNodeTypeId", array("name" => $params["node_type"]));
             if ($ntype !== false) {
                 // Verify that name is unique
-                $sql = "select id from `node_type_field` where name = '{$params["name"]}'";
+                $sql = "select id from `node_type_field` where `node_type` = {$ntype["id"]} && `name` = '{$params["name"]}'";
                 $q = dbConn::get()->Execute($sql);
                 if ($q->EOF) {
                     $isbasic = driverCommand::run("isBasicNodeFieldType", array("type" => $params["type"]));
@@ -90,6 +91,27 @@ if (!class_exists("commandAddNodeField")) {
                         }
                     }
                     if ($resp["ok"]) {
+                        switch (strtolower($params["type"])) {
+                            case "longtext":
+                                break;
+                            case "bool":
+                                $params["default"] = (boolval($params["default"]) ? "1" : "0");
+                                break;
+                            case "datetime":
+                                break;
+                            case "double":
+                                break;
+                            case "integer":
+                                break;
+                            case "string":
+                                if ($params["len"] <= 0 || $params["len"] >= 250) {
+                                    $params["len"] = 250;
+                                }
+                                break;
+                            default:
+                                $params["default"] = "0";
+                                break;
+                        }
                         // Insert new field
                         $sql = "insert into `node_type_field` set ";
                         $sql .= "`name` = '{$params["name"]}', ";
@@ -131,7 +153,7 @@ if (!class_exists("commandAddNodeField")) {
                     "locked" => "True/false System field",
                     "node_type" => "Node type name",
                     "default" => "Default value",
-                    "label" => "Label name to show",
+                    "label" => "Label to show",
                     "help" => "Help about field",
                 ), 
                 "response" => array(
@@ -143,12 +165,13 @@ if (!class_exists("commandAddNodeField")) {
         
         public static function getAddFieldString($params) {
             $resp = "";
-            switch ($params["type"]) {
+            switch (strtolower($params["type"])) {
                 case "longtext":
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` LONGTEXT AFTER `id`";
                 break;
                 case "bool":
-                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR(1) DEFAULT '".($params["default"]?"1":"0")."' AFTER `id`";
+                    $def = (boolval($params["default"])?"1":"0");
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR(1) DEFAULT '".$def."' AFTER `id`";
                 break;
                 case "datetime":
                     $def = "";
@@ -158,16 +181,24 @@ if (!class_exists("commandAddNodeField")) {
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DATETIME $def AFTER `id`";
                 break;
                 case "double":
-                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DECIMAL(20, 6) DEFAULT {$params["default"]} AFTER `id`";
+                    $def = "";
+                    if ($params["default"] != "") {
+                        $def = "DEFAULT {$params["default"]}";
+                    }
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DECIMAL(20, 6) $def AFTER `id`";
                 break;
                 case "integer":
-                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` INTEGER DEFAULT {$params["default"]} AFTER `id`";
+                    $def = "";
+                    if ($params["default"] != "") {
+                        $def = "DEFAULT {$params["default"]}";
+                    }
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` int(11) $def AFTER `id`";
                 break;
                 case "string":
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR({$params["len"]}) DEFAULT '{$params["default"]}' AFTER `id`";
                 break;
                 default:
-                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` INTEGER UNSIGNED DEFAULT 0 AFTER `id`";
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` int(10) UNSIGNED DEFAULT 0 AFTER `id`";
                 break;
             }
             return $resp;

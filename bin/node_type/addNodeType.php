@@ -49,6 +49,10 @@ if (!class_exists("commandAddNodeType")) {
             $params = array_merge(array(
                         "name" => "",
                       ), $params);
+            $params["name"] = strtolower($params["name"]);
+            if ($params["name"] == "type" || $params["name"] == "type_field") {
+                $resp["msg"] = "Node type name is a protected name. ";
+            }
             if ($params["name"] == "") {
                 $resp["msg"] = "Node type name is required. ";
             }
