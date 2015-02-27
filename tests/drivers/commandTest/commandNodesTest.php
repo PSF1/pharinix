@@ -565,7 +565,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->cleanDatabase($nid, "subtype");
     }
     
-    public function testCommandAddFieldStringNodeType() {
+    public function testCommandAddFieldNodeTypeDefaults() {
         $nid = driverCommand::run("addNodeType", array("name" => "subtype1"));
         $nid = $nid["nid"];
         driverCommand::run("addNodeType", array("name" => "testtype"));

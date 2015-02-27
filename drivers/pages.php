@@ -41,13 +41,13 @@ class driverPages {
     }
     
     /**
-     * Get associated commands whit the block order by priority, cero first. 
-     * @param int $pageId
-     * @param string $colId
+     * Get associated, and generic, commands with the block order by priority, zero first.
+     * @param int $pageId ID of page to get commands. Commands with 0 in pageId are executed too.
+     * @param string $colId ID of block.
      * @return boolean Recordset list with commands
      */
     public static function getCommands($pageId, $colId) {
-        $sql = "SELECT * FROM `page-blocks` where `idpage` = $pageId && `idcol` = '$colId'";
+        $sql = "SELECT * FROM `page-blocks` where (`idpage` = $pageId || `idpage` = 0) && `idcol` = '$colId'";
         $sql .= " order by `priority` asc";
         $q = dbConn::get()->Execute($sql);
         if ($q->EOF) {

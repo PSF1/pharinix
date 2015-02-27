@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
@@ -22,6 +22,29 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
  class driverTools {
 
+     /**
+     * http://www.programacionweb.net/articulos/articulo/listar-archivos-de-un-directorio/
+     * @param string $path Folder path to explore. Must include "/" at the end.
+     * @return array ("folders" => array(string, ...), "files" => array(string, ...))
+     */
+    public static function lsDir($path, $pattern = "*.*") {
+        $resp = array("files" => array(), "folders" => array());
+        $directorio = opendir($path);
+        while ($archivo = readdir($directorio)) {
+            if ($archivo != '.' && $archivo != '..') {
+                if (fnmatch($pattern, $archivo)) {
+                    if (is_dir("$path/$archivo")) {
+                        $resp["folders"][] = $path.$archivo;
+                    } else {
+                        $resp["files"][] = $path.$archivo;
+                    }
+                }
+            }
+        }
+        closedir($directorio);
+        return $resp;
+    }
+
     public static function formatDate($mysqlDate, $withTime = true) {
         if ($mysqlDate == "")
             return "";
@@ -40,7 +63,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         $resp = self::formatDate($mysqlDate, $withTime);
         return str_replace("<br/>", " ", $resp);
     }
-    
+
     public static function formatBytes($bytes, $precision = 2) {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
@@ -50,7 +73,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
         // Uncomment one of the following alternatives
         $bytes /= pow(1024, $pow);
-        //$bytes /= (1 << (10 * $pow)); 
+        //$bytes /= (1 << (10 * $pow));
 
         return round($bytes, $precision) . ' ' . $units[$pow];
     }

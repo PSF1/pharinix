@@ -55,10 +55,13 @@ if (CMS_GET_PASS != "" && isset($_GET[CMS_GET_PASS])) {
     }
 }
 // Default command
-if (!isset($_POST["command"])) {
-//    $_POST["command"] = "nothing";
+if ($_POST["interface"] != "0") {
+    $page = "home"; // Default page
+    if (isset($_POST["rewrite"])) {
+        $page = $_POST["rewrite"];
+    }
     driverCommand::run("pageToHTML", array(
-            "page" => "home",
+            "page" => $page,
             "params" => driverCommand::getPOSTParams($_POST)
             ));
 } else {

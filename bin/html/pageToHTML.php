@@ -53,7 +53,7 @@ if (!class_exists("commandPageToHTML")) {
                                     echo ">";
                                     if (CMS_DEBUG)
                                         echo "<h6><span class=\"label label-success\">Col ID: " . $col['@attributes']["id"] . "</span></h6>";
-                                    // TODO: Call command list
+                                    // Call command list
                                     $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
                                     while ($cmd !== false && !$cmd->EOF) {
                                         $params = array();
@@ -98,8 +98,9 @@ if (!class_exists("commandPageToHTML")) {
                     echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
                     if ($charset != "")
                         echo $charset;
-                    if (isset($struct["page"][0]["title"][0]))
+                    if (isset($struct["page"][0]["title"][0])) {
                         echo '<title>' . $struct["page"][0]["title"][0] . '</title>';
+                    }
                     foreach ($struct["page"][0]["head"][0] as $tag => $attr) {
                         foreach ($attr as $value) {
                             if ($tag != "#comment" && isset($value['@attributes']) && count($value['@attributes']) > 0) {
