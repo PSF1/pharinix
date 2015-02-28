@@ -48,6 +48,7 @@ class driverCommand {
                     var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
                     driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
                 }
+                unset($params);
                 return $resp;
             }
             $q->MoveNext();
@@ -61,7 +62,7 @@ class driverCommand {
      * @param boolean $debug Log in trace
      * @return array Response
      */
-    public static function runMe($params = array(), $debug = true) {
+    public static function runMe(&$params, $debug = true) {
         // 
     }
     

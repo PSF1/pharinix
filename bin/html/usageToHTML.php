@@ -28,9 +28,9 @@ if (!defined("CMS_VERSION")) {
 
 if (!class_exists("commandUsageToHTML")) {
 
-    class commandUsageToHTML {
+    class commandUsageToHTML extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             global $output;
             ?>
             <div class="row">

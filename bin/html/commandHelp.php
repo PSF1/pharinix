@@ -21,9 +21,9 @@
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 if (!class_exists("commandCommandHelp")) {
-    class commandCommandHelp {
+    class commandCommandHelp extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             $sql = "SELECT * FROM `bin-path`";
             $q = dbConn::get()->Execute($sql);
             echo "<h1>Command's list</h1>";

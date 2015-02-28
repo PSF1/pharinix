@@ -25,9 +25,9 @@ if (!defined("CMS_VERSION")) {
 }
 
 if (!class_exists("commandBlockFB")) {
-    class commandBlockFB {
+    class commandBlockFB extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             $blq = file_get_contents("libs/bootstrap-form-builder/block.html");
             eval("?>".$blq);
         }

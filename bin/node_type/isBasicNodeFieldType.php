@@ -29,9 +29,9 @@ if (!defined("CMS_VERSION")) {
  * type = Node field type to test
  */
 if (!class_exists("commandIsBasicFieldType")) {
-    class commandIsBasicFieldType {
+    class commandIsBasicFieldType extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             switch ($params["type"]) {
                 case 'longtext': // Very long text
                 case 'bool': // Boolean value

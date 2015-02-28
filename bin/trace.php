@@ -21,9 +21,9 @@
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 if (!class_exists("commandTrace")) {
-    class commandTrace {
+    class commandTrace extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             global $output;
             if (!isset($output["trace"])) {
                 $output["trace"] = array();

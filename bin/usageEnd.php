@@ -25,9 +25,9 @@
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 if (!class_exists("commandUsageEnd")) {
-    class commandUsageEnd {
+    class commandUsageEnd extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             if (CMS_DEBUG) {
                 global $output;
                 $output["used_ram"]["end"] = memory_get_usage();

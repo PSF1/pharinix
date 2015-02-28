@@ -29,9 +29,9 @@ if (!defined("CMS_VERSION")) {
 * name = Node type name to search. False if not found.
 */
 if (!class_exists("commandGetNodeTypeID")) {
-    class commandGetNodeTypeID {
+    class commandGetNodeTypeID extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
            $sql = "select id from `node_type` where `name` = '{$params["name"]}'";
            $q = dbConn::get()->Execute($sql);
            if ($q->EOF) {

@@ -40,9 +40,9 @@ if (!defined("CMS_VERSION")) {
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
  */
 if (!class_exists("commandAddNodeType")) {
-    class commandAddNodeType {
+    class commandAddNodeType extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
             // Default values

@@ -36,9 +36,9 @@ if (!defined("CMS_VERSION")) {
 //You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //</div>');
 if (!class_exists("commandEchoHTML")) {
-    class commandEchoHTML {
+    class commandEchoHTML extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             eval("?>".$params['html']);
         }
 

@@ -43,9 +43,9 @@ if (!defined("CMS_VERSION")) {
  */
 
 if (!class_exists("commandAddNodeField")) {
-    class commandAddNodeField {
+    class commandAddNodeField extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             $resp = array("ok" => true, "msg" => "");
 
             // Default values

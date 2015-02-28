@@ -29,9 +29,9 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 if (!class_exists("commandBlockLogin")) {
-    class commandBlockLogin {
+    class commandBlockLogin extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             $blq = file_get_contents("libs/bootstrap-form-builder/login.html");
             eval("?>".$blq);
         }

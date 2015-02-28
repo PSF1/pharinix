@@ -24,9 +24,9 @@ if (!defined("CMS_VERSION")) {
 }
 
 if (!class_exists("commandDelNodeType")) {
-    class commandDelNodeType {
+    class commandDelNodeType extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             if (isset($params["name"])) {
                 $nid = driverCommand::run("getNodeTypeId", $params);
                 $nid = $nid["id"];

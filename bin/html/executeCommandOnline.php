@@ -24,9 +24,9 @@ if (!defined("CMS_VERSION")) {
 // TODO: SECURITY !!
 if (!class_exists("commandExecuteCommandOnline")) {
 
-    class commandExecuteCommandOnline {
+    class commandExecuteCommandOnline extends driverCommand {
 
-        public static function runMe($params = array(), $debug = true) {
+        public static function runMe(&$params, $debug = true) {
             ?>
             <form class="form-horizontal" role="form" action="." method="post" enctype="application/x-www-form-urlencoded">
                 <fieldset>
