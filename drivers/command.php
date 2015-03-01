@@ -24,6 +24,11 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
  * Command execution class and base class to commands
  */
 class driverCommand {
+    /**
+     * Recordset of paths
+     * @var adoRecorset 
+     */
+    private static $paths = null;
     
     /**
      * Execute a command
@@ -35,29 +40,31 @@ class driverCommand {
         $cmd = str_replace("/", "", $cmd);
         $cmd = str_replace("\\", "", $cmd);
         $cmd = str_replace(".", "", $cmd);
-        $sql = "SELECT * FROM `bin-path`";
-        $q = dbConn::get()->Execute($sql);
+        if (driverCommand::$paths == null) {
+            $sql = "SELECT * FROM `bin-path`";
+            driverCommand::$paths = dbConn::get()->Execute($sql);
+        }
+        driverCommand::$paths->MoveFirst();
         $resp = array();
-        while(!$q->EOF) {
-            $path = $q->fields["path"];
+        while(!driverCommand::$paths->EOF) {
+            $path = driverCommand::$paths->fields["path"];
             if (is_file($path.$cmd.".php")) {
                 $object = include($path.$cmd.".php");
                 $resp = $object->runMe($params);
                 if (CMS_DEBUG && $debug) {
-//                    echo "<h6><span class=\"label label-warning\">$cmd ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp)."</span></h6>";
                     var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
                     driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
                 }
                 unset($params);
                 return $resp;
             }
-            $q->MoveNext();
+            driverCommand::$paths->MoveNext();
         }
         throw new Exception("Command '{$cmd}' not found");
     }
     
     /**
-     * Each command must inherit it
+     * Each command must override it
      * @param array $params Parameters
      * @param boolean $debug Log in trace
      * @return array Response
@@ -79,9 +86,9 @@ class driverCommand {
     }
     
     /**
-     * 
+     * print_r wrapper, translate bool values to "TRUE" or "FALSE" string.
      * @param array $arr
-     * @return array
+     * @return string
      */
     public static function formatParamsArray($arr) {
         if (!is_array($arr)) return $arr;

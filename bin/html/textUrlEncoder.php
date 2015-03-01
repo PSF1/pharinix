@@ -24,15 +24,17 @@ if (!class_exists("commandTextUrlEncoder")) {
     class commandTextUrlEncoder extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            $fid = &driverCommand::run("newID");
+            $fid = $fid["id"];
 ?>
 <script type="text/javascript">
-function encode() {
-	var obj = document.getElementById('dencoder');
+function encode(fid) {
+	var obj = document.getElementById('dencoder'+fid);
 	var unencoded = obj.value;
 	obj.value = encodeURIComponent(unencoded).replace(/'/g,"%27").replace(/"/g,"%22");	
 }
-function decode() {
-	var obj = document.getElementById('dencoder');
+function decode(fid) {
+	var obj = document.getElementById('dencoder'+fid);
 	var encoded = obj.value;
 	obj.value = decodeURIComponent(encoded.replace(/\+/g,  " "));
 }
@@ -40,11 +42,11 @@ function decode() {
                 <form onsubmit="return false;">
                     <legend>URL Decoder/Encoder</legend>
                     <div class="form-group">
-                        <textarea class="form-control" style="width: 100%;" id="dencoder"></textarea>
+                        <textarea class="form-control" style="width: 100%;" id="dencoder<?php echo $fid;?>"></textarea>
                     </div>
                     <div>
-                        <input type="button" class="btn btn-primary" onclick="decode()" value="Decode">
-                        <input type="button" class="btn btn-primary" onclick="encode()" value="Encode">
+                        <input type="button" class="btn btn-primary" onclick="decode('<?php echo $fid;?>')" value="Decode">
+                        <input type="button" class="btn btn-primary" onclick="encode('<?php echo $fid;?>')" value="Encode">
                     </div>
                     <div class="help-block">
                         <ul>

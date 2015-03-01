@@ -99,7 +99,12 @@ if (!class_exists("commandPageToHTML")) {
                     if ($charset != "")
                         echo $charset;
                     if (isset($struct["page"][0]["title"][0])) {
-                        echo '<title>' . $struct["page"][0]["title"][0] . '</title>';
+                        echo '<title>' . $def->fields["title"];
+                        if ($struct["page"][0]["title"][0] != "") {
+                            echo " :: ";
+                            echo $struct["page"][0]["title"][0];
+                        }
+                        echo '</title>';
                     }
                     foreach ($struct["page"][0]["head"][0] as $tag => $attr) {
                         foreach ($attr as $value) {
