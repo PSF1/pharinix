@@ -37,6 +37,14 @@ if (!class_exists("commandDelNodeType")) {
                     dbConn::get()->Execute($sql);
                     $sql = "DROP TABLE IF EXISTS `node_{$params["name"]}`";
                     dbConn::get()->Execute($sql);
+                    // Delete multi relation tables
+                    $sql = "show tables like 'node_relation_{$params["name"]}%'";
+                    $q = dbConn::get()->Execute($sql);
+                    while (!$q->EOF) {
+                        $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
+                        dbConn::get()->Execute($sql);
+                        $q->MoveNext();
+                    }
                 }
             }
         }

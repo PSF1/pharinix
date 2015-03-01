@@ -37,14 +37,15 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     }
     
     public function cleanDatabase($id, $node = "testtype") {
-        $node = "node_".$node;
-        // Clean database
-        $sql = "delete FROM `node_type_field` where `node_type` = $id";
-        dbConn::get()->Execute($sql);
-        $sql = "delete FROM `node_type` where `id` = $id";
-        dbConn::get()->Execute($sql);
-        $sql = "DROP TABLE IF EXISTS `$node`";
-        dbConn::get()->Execute($sql);
+        driverCommand::run("delNodeType", array("name" => $node));
+//        $node = "node_".$node;
+//        // Clean database
+//        $sql = "delete FROM `node_type_field` where `node_type` = $id";
+//        dbConn::get()->Execute($sql);
+//        $sql = "delete FROM `node_type` where `id` = $id";
+//        dbConn::get()->Execute($sql);
+//        $sql = "DROP TABLE IF EXISTS `$node`";
+//        dbConn::get()->Execute($sql);
     } 
     
     public function testCommandAddType() {
@@ -592,6 +593,35 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("0", $q->fields["default"]);
         $this->assertEquals("Field", $q->fields["label"]);
         $this->assertEquals("", $q->fields["help"]);
+        $this->cleanDatabase($id);
+        $this->cleanDatabase($nid, "subtype1");
+    }
+    
+    public function testCommandAddFieldNodeTypeMulti() {
+        $nid = driverCommand::run("addNodeType", array("name" => "subtype1"));
+        $nid = $nid["nid"];
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        $nField = array(
+            "name" => "subtype1",
+            "type" => "subtype1",
+            "multi" => true,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        
+        $sql = "SELECT * FROM `node_type_field` where `name` = 'subtype1' && `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals("subtype1", $q->fields["name"]);
+        $this->assertEquals("subtype1", $q->fields["type"]);
+        $this->assertEquals($id, $q->fields["node_type"]);
+        // Relation table created?
+        $sql = "show tables like 'node_relation_testtype%'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(false, $q->EOF);
+        // Clean data base
         $this->cleanDatabase($id);
         $this->cleanDatabase($nid, "subtype1");
     }

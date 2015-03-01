@@ -38,8 +38,9 @@ if (!defined("CMS_VERSION")) {
   `default` longtext NOT NULL COMMENT 'Default value',
   `label` varchar(250) NOT NULL,
   `help` longtext NOT NULL,
+  `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+) ENGINE=MyISAM AUTO_INCREMENT=4054 DEFAULT CHARSET=latin1;
  */
 
 if (!class_exists("commandAddNodeField")) {
@@ -56,6 +57,7 @@ if (!class_exists("commandAddNodeField")) {
                         "required" => false,
                         "readonly" => false,
                         "locked" => false,
+                        "multi" => false,
                         "node_type" => 0,
                         "default" => "",
                         "label" => "Field",
@@ -89,6 +91,8 @@ if (!class_exists("commandAddNodeField")) {
                         } else {
                             $resp["ok"] = true;
                         }
+                    } else {
+                        $params["multi"] = false;
                     }
                     if ($resp["ok"]) {
                         switch (strtolower($params["type"])) {
@@ -120,6 +124,7 @@ if (!class_exists("commandAddNodeField")) {
                         $sql .= "`required` = '".($params["required"]?1:0)."', ";
                         $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
                         $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
+                        $sql .= "`multi` = '".($params["multi"]?1:0)."', ";
                         $sql .= "`node_type` = '{$ntype["id"]}', ";
                         $sql .= "`default` = '{$params["default"]}',";
                         $sql .= "`label` = '{$params["label"]}',";
@@ -129,6 +134,18 @@ if (!class_exists("commandAddNodeField")) {
                         // alter table
                         $sql = self::getAddFieldString($params);
                         dbConn::get()->Execute($sql);
+                        // If multivalue field create relation table
+                        if ($params["multi"]) {
+                            $sql  = 'CREATE TABLE `node_relation_'.$params["node_type"].'_'.$params["name"].'_'.$params["type"].'` ( ';
+                            $sql .= '`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, ';
+                            $sql .= '`type1` INTEGER UNSIGNED NOT NULL, ';
+                            $sql .= '`type2` INTEGER UNSIGNED NOT NULL, ';
+                            $sql .= 'PRIMARY KEY (`id`), ';
+                            $sql .= 'INDEX `type1`(`type1`), ';
+                            $sql .= 'INDEX `type2`(`type2`) ';
+                            $sql .= ') ENGINE = MyISAM';
+                            dbConn::get()->Execute($sql);
+                        }
                     }
                 } else {
                     $resp["ok"] = false;
@@ -151,6 +168,7 @@ if (!class_exists("commandAddNodeField")) {
                     "required" => "True/false Required field",
                     "readonly" => "True/false Not writable field",
                     "locked" => "True/false System field",
+                    "multi" => "True/false multivalue field, only applicable on relations with other node types.",
                     "node_type" => "Node type name",
                     "default" => "Default value",
                     "label" => "Label to show",
