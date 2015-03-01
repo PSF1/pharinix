@@ -88,7 +88,7 @@ if (!class_exists("commandAddNodeType")) {
                 driverCommand::run("addNodeField", $nField);
                 $nField = array(
                     "name" => "creator",
-                    "type" => "node_user",
+                    "type" => "user",
                     "len" => 0,
                     "required" => false,
                     "readonly" => false,
@@ -114,7 +114,7 @@ if (!class_exists("commandAddNodeType")) {
                 driverCommand::run("addNodeField", $nField);
                 $nField = array(
                     "name" => "modifier",
-                    "type" => "node_user",
+                    "type" => "user",
                     "len" => 0,
                     "required" => false,
                     "readonly" => false,
@@ -128,6 +128,20 @@ if (!class_exists("commandAddNodeType")) {
 
                 $resp["ok"] = true;
                 $resp["nid"] = $id;
+                // Add page
+                driverCommand::run("addPage", array(
+                    'name' => "node_type_".$params["name"],
+                    'template' => "templates/pages/default.xml",
+                    'title' => "{$params["name"]} node type",
+                    'description' => "",
+                    'keys' => "",
+                    'url' => "node/type/{$params["name"]}",
+                ));
+                driverCommand::run("addBlockToPage", array(
+                    'page' => "node_type_".$params["name"],
+                    'command' => "getNodeTypeDefHtml",
+                    'parameters' => "nodetype=".$params["name"],
+                ));
             } else {
                 $resp["ok"] = false;
                 $resp["msg"] = "Node type '{$params["name"]}' already exist.";

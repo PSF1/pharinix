@@ -45,6 +45,10 @@ if (!class_exists("commandDelNodeType")) {
                         dbConn::get()->Execute($sql);
                         $q->MoveNext();
                     }
+                    // Del page of node type
+                    driverCommand::run("delPage", array(
+                        'name' => "node_type_".$params["name"],
+                    ));
                 }
             }
         }
