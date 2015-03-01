@@ -36,9 +36,10 @@ if (!class_exists("commandExecuteCommandOnline")) {
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="command">Command</label>
+                        <input type="hidden" name="interface" value="1">
+                        <label class="col-md-4 control-label" for="cmd">Command</label>
                         <div class="col-md-5">
-                            <input id="command" name="command" type="text" placeholder="nothing" class="form-control input-md" required="">
+                            <input id="cmd" name="cmd" type="text" placeholder="nothing" class="form-control input-md" required="">
                             <span class="help-block">Command to execute</span>
                         </div>
                     </div>
@@ -59,7 +60,7 @@ if (!class_exists("commandExecuteCommandOnline")) {
                             <button id="submit" name="submit" class="btn btn-primary">Execute</button>
                         </div>
                     </div>
-                    <a href="command-help" class="btn btn-xs btn-info" target="_blank">
+                    <a href="help/command" class="btn btn-xs btn-info" target="_blank">
                         <span class="glyphicon glyphicon-info-sign"></span> Command's help
                     </a>
                 </fieldset>
@@ -70,7 +71,7 @@ if (!class_exists("commandExecuteCommandOnline")) {
                 var_dump($_POST);
                 $aux = array();
                 parse_str($_POST["post"], $aux);
-                $resp = driverCommand::run($_POST["command"], $aux);
+                $resp = driverCommand::run($_POST["cmd"], $aux);
                 echo '<label class="col-md-4 control-label">Response:</label>';
                 var_dump($resp);
             }
