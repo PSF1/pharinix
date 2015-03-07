@@ -20,8 +20,8 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandPageEditor")) {
-    class commandPageEditor extends driverCommand {
+if (!class_exists("commandTemplateEditor")) {
+    class commandTemplateEditor extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
 ?>
@@ -42,13 +42,19 @@ if (!class_exists("commandPageEditor")) {
         $("#template").gridmanager({
                     debug: 0,
                     cssInclude: "<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/fonts/font-awesome.min.css",
+                    colSelectEnabled: false,
+                    editableRegionEnabled: false,
                     rowCustomClasses: [],
                     colCustomClasses: [],
-                    controlAppend: "<div class='btn-group pull-right'><button title='Preview' type='button' class='btn btn-xs btn-primary gm-preview'><span class='fa fa-eye'></span></button>     <div class='dropdown pull-left gm-layout-mode'><button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button> <ul class='dropdown-menu' role='menu'><li><a data-width='auto' title='Desktop'><span class='fa fa-desktop'></span> Desktop</a></li><li><a title='Tablet' data-width='768'><span class='fa fa-tablet'></span> Tablet</a></li><li><a title='Phone' data-width='640'><span class='fa fa-mobile-phone'></span> Phone</a></li></ul></div>    <button type='button' class='btn  btn-xs  btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span><span class='sr-only'>Toggle Dropdown</span></button><ul class='dropdown-menu' role='menu'><li><a title='Reset Grid' href='#' class='gm-resetgrid'><span class='fa fa-trash-o'></span> Reset</a></li></ul></div>",
+                    controlAppend: "<div class='btn-group pull-right'><button title='Edit Source Code' type='button' class='btn btn-xs btn-primary gm-edit-mode'><span class='fa fa-code'></span></button><button title='Preview' type='button' class='btn btn-xs btn-primary gm-preview'><span class='fa fa-eye'></span></button>     <div class='dropdown pull-right gm-layout-mode'><button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button> <ul class='dropdown-menu' role='menu'><li><a data-width='auto' title='Desktop'><span class='fa fa-desktop'></span> Desktop</a></li><li><a title='Tablet' data-width='768'><span class='fa fa-tablet'></span> Tablet</a></li><li><a title='Phone' data-width='640'><span class='fa fa-mobile-phone'></span> Phone</a></li></ul></div>    <button type='button' class='btn  btn-xs  btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span><span class='sr-only'>Toggle Dropdown</span></button><ul class='dropdown-menu' role='menu'><li><a title='Reset Grid' href='#' class='gm-resetgrid'><span class='fa fa-trash-o'></span> Reset</a></li></ul></div>",
                 });
         var gm = $("#template").data('gridmanager');
         gm.originalCreateRow = gm.createRow;
         gm.originalCreateCol = gm.createCol;
+//        gm.oldSwitchLayoutMode = gm.switchLayoutMode;
+//        gm.switchLayoutMode = function(mode) {
+//            console.log(mode);
+//        }
         gm.rowCount = 0;
         gm.createRow = function(colWidths) {
             var resp = gm.originalCreateRow(colWidths);
@@ -71,29 +77,70 @@ if (!class_exists("commandPageEditor")) {
             } else {
                 gm.deinitCanvas();
                 var canvas=gm.$el.find("#" + gm.options.canvasId);
-                alert(canvas.html());
+                var tpl = canvas.html().trim();
+                if (tpl == "") {
+                    alert("This template is empty.");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url:  "<?php echo CMS_DEFAULT_URL_BASE; ?>",
+                        data: {
+                            command: "templateEditorSave",
+                            interface: 0,
+                            tpl: window.btoa("<tpl>"+tpl+"</tpl>"),
+                            name: name,
+                            title: $("#tplTitle").val(),
+                            head: window.btoa($("#txtHead").val()),
+                        }
+                    });
+                }
                 gm.initCanvas();
             }
         });
     });
     </script>
-    <div class="form-inline">
+    <div class="form-horizontal">
                 <fieldset>
-
+                    <legend>Meta</legend>
                     <!-- Text input-->
                     <div class="form-group required-control">
-                        <label class="col-md-3 control-label" for="tplName">Name</label>
+                        <label class="col-md-3 control-label" for="tplName">Template name</label>
                         <div class="col-md-6">
                             <input id="tplName" name="tplName" type="text" placeholder="name" class="form-control " required="">
 
                         </div>
+                    </div>
+                    
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="tplTitle">Default title</label>
+                        <div class="col-md-6">
+                            <input id="tplTitle" name="tplTitle" type="text" placeholder="Title" class="form-control " value="Pharinix">
+
+                        </div>
+                    </div>
+                    
+                    <!-- Textarea -->
+                    <div class="form-group">
+                      <label class="col-md-3 control-label" for="txtHead">Head includes</label>
+                      <div class="col-md-6">
+                          <textarea id="txtHead" name="txtHead" class="form-control">
+<script src="libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- Bootstrap -->
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="templates/pharinix/general.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="templates/pharinix/favicon.ico" />
+                          </textarea>
+                          <div class="help-block">The default values are required, You don't must change this if you don't know how.</div>
+                      </div>
                     </div>
 
                     <!-- Button -->
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="singlebutton"></label>
                         <div class="col-lg-6">
-                            <button id="btnSave" name="singlebutton" class="btn btn-success">Save</button>
+                            <button type="button" id="btnSave" name="singlebutton" class="btn btn-success">Save</button>
                         </div>
                     </div>
 
@@ -113,4 +160,4 @@ if (!class_exists("commandPageEditor")) {
         }
     }
 }
-return new commandPageEditor();
+return new commandTemplateEditor();

@@ -42,7 +42,11 @@ if (!class_exists("commandPageToHTML")) {
                     foreach ($blk as $key => $rows) {
                         if ($key != '@attributes') {
                             foreach ($rows as $row) {
-                                echo "<div class=\"row\">";
+                                echo "<div class=\"row\" ";
+                                foreach ($row['@attributes'] as $name => $attr) {
+                                    echo " $name=\"$attr\"";
+                                }
+                                echo ">";
                                 if (CMS_DEBUG)
                                     echo "<h6><span class=\"label label-success\">row ID: " . $row['@attributes']["id"] . "</span></h6>";
                                 foreach ($row["col"] as $col) {
@@ -133,13 +137,13 @@ if (!class_exists("commandPageToHTML")) {
                         echo "<h6><span class=\"label label-success\">Body</span></h6>";
                     pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["body"][0]);
                     echo "</div>";
-                    echo '<div id="footer">';
-                    echo '<div class="container-fluid">';
-                    if (CMS_DEBUG)
-                        echo "<h6><span class=\"label label-success\">Foot</span></h6>";
-                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
-                    echo "</div>";
-                    echo "</div>";
+//                    echo '<div id="footer">';
+//                    echo '<div class="container-fluid">';
+//                    if (CMS_DEBUG)
+//                        echo "<h6><span class=\"label label-success\">Foot</span></h6>";
+//                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
+//                    echo "</div>";
+//                    echo "</div>";
                     echo '</body>';
                 } else {
                     throw new Exception("Page template '{$def->fields["template"]}' not found.");
