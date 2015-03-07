@@ -24,17 +24,29 @@ if (!class_exists("commandTemplateEditor")) {
     class commandTemplateEditor extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            // Secure access to _POST
+            $globalParams = driverCommand::getPOSTParams($_POST);
 ?>
     <link href="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/css/jquery.gridmanager.css" rel="stylesheet">
     
     <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/jquery/1.11.2/jquery-ui.js"></script>
     <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/js/jquery.gridmanager.js"></script>
+    <style>
+        #footer .gm-colSettingsID, #footer .gm-rowSettingsID {color:#000;}
+    </style>
     <!-- Form Name -->
     <legend>Template editor</legend>
 
+    <div class="help-block">With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it.</div>
+<div class="help-block">To start creating the template press any of the numeric buttons.</div>
+
     <div class="container">
         <div id="template">
-
+<?php
+    if (isset($globalParams["selectTemplate"])) {
+        driverCommand::run("templateToHTML", array("template" => $globalParams["selectTemplate"]));
+    }
+?>
         </div> <!-- /#template -->
     </div> <!-- /.container -->
     <script>
@@ -97,8 +109,29 @@ if (!class_exists("commandTemplateEditor")) {
                 gm.initCanvas();
             }
         });
+        // Load list of templates
+        var loadTemplateList = function() {
+            $("#selectTemplate").empty();
+            $.ajax({
+                type: "POST",
+                url:  "<?php echo CMS_DEFAULT_URL_BASE; ?>",
+                data: {
+                    command: "templateEditorList",
+                    interface: 0,
+
+                }
+            }).done(function ( data ) {
+                var opts = "";
+                $("#selectTemplate").append('<option></option>');
+                $.each(data, function(i, item){
+                    $("#selectTemplate").append('<option>'+item+'</option>');
+                });
+            });
+        }
+        loadTemplateList();
     });
     </script>
+    
     <div class="form-horizontal">
                 <fieldset>
                     <legend>Meta</legend>
@@ -146,8 +179,31 @@ if (!class_exists("commandTemplateEditor")) {
 
                 </fieldset>
     </div>
-    <div class="help-block">With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it.</div>
-<div class="help-block">To start creating the template press any of the numeric buttons.</div>
+    <form class="form-horizontal" role="form" action="" method="post" enctype="application/x-www-form-urlencoded">
+                    <fieldset>
+                        
+                        <!-- Form Name -->
+                        <legend>Load template</legend>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="selectTemplate">Load template</label>
+                            <div class="col-md-6">
+                                <select id="selectTemplate" name="selectTemplate" class="form-control "></select>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="cmdLoad"></label>
+                            <div class="col-lg-6">
+                                <button id="cmdLoad" name="cmdLoad" class="btn btn-warning">Load</button>
+                                <div class="help-block">Changes will be loosed.</div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
 <?php
         }
 

@@ -155,8 +155,8 @@ if (!class_exists("commandPageToHTML")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Transform a XML page to HTML",
-                "parameters" => array("page" => "XML page to convert"),
+                "description" => "Transform a page to HTML",
+                "parameters" => array("page" => "Page to convert, see 'url_rewrite' in table."),
                 "response" => array()
             );
         }

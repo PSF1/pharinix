@@ -23,6 +23,60 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
  class driverTools {
 
      /**
+     * Extraer informacion de una ruta, nombre y extension de un archivo dado.<br/>
+     * Posibilidades de uso (o mal uso) de una funcion de este tipo:
+     * <ul>
+     * <li>Extension sin nombre: .htaccess</li>
+     * <li>Nombre sin extension: name</li>
+     * <li>Nombre simplon: name.jpeg</li>
+     * <li>Nombre complejo: name.surname.gif</li>
+     * <li>Ruta absoluta: /path/to/name.surname.tar.gz</li>
+     * <li>Ruta relativa: ../../path/to/name.surname.tar.gz</li>
+     * <li>BONUS: Cadena vacia para romper la funcion Comillas vacias "</li>
+     * <li>BONUS 2: Cadena malformada para romper la funcion "/\/.path///file/.gif"</li>
+     * <li>BONUS 3: Ruta sin archivo "/path/to/folder/"</li>
+     * </ul>
+     * <a href="http://www.propiedadprivada.com/funcion-php-extraer-ruta-nombre-y-extension-de-un-archivo/746/">Fuente</a>
+     * @param string $path Ruta a analizar
+     * @return array Extension sin nombre: .htaccess
+     * <ul>
+     * <li>Array (7)</li>
+     * <li>(</li>
+     * <li>|    ["exists"] = Boolean(1) TRUE</li>
+     * <li>|    ["writable"] = Boolean(0) FALSE</li>
+     * <li>|    ["chmod"] = String(4) " 0644 "</li>
+     * <li>|    ["ext"] = String(8) " htaccess "</li>
+     * <li>|    ["path"] = Boolean(0) FALSE</li>
+     * <li>|    ["name"] = Boolean(0) FALSE</li>
+     * <li>|    ["filename"] = String(9) " .htaccess "</li>
+     * <li>)
+     */
+    public static function pathInfo($path) {
+        // Vaciamos la cachÃ© de lectura de disco
+        clearstatcache();
+        // Comprobamos si el fichero existe
+        $data["exists"] = is_file($path) || is_dir($path);
+        // Comprobamos si el fichero es escribible
+        $data["writable"] = is_writable($path);
+        // Leemos los permisos del fichero
+        $data["chmod"] = ($data["exists"] ? substr(sprintf("%o", fileperms($path)), -4) : FALSE);
+        // Extraemos la extension, un solo paso
+        $data["ext"] = substr(strrchr($path, "."), 1);
+        // Primer paso de lectura de ruta
+        $data["path"] = array_shift(explode("." . $data["ext"], $path));
+        // Primer paso de lectura de nombre
+        $data["name"] = array_pop(explode("/", $data["path"]));
+        // Ajustamos nombre a FALSE si esta vacio
+        $data["name"] = ($data["name"] ? $data["name"] : FALSE);
+        // Ajustamos la ruta a FALSE si esta vacia
+        $data["path"] = ($data["exists"] ? ($data["name"] ? realpath(array_shift(explode($data["name"], $data["path"]))) : realpath(array_shift(explode($data["ext"], $data["path"])))) : ($data["name"] ? array_shift(explode($data["name"], $data["path"])) : ($data["ext"] ? array_shift(explode($data["ext"], $data["path"])) : rtrim($data["path"], "/"))));
+        // Ajustamos el nombre a FALSE si esta vacio o a su valor en caso contrario
+        $data["filename"] = (($data["name"] OR $data["ext"]) ? $data["name"] . ($data["ext"] ? "." : "") . $data["ext"] : FALSE);
+        // Devolvemos los resultados
+        return $data;
+    }
+    
+     /**
      * http://www.programacionweb.net/articulos/articulo/listar-archivos-de-un-directorio/
      * @param string $path Folder path to explore. Must include "/" at the end.
      * @return array ("folders" => array(string, ...), "files" => array(string, ...))
