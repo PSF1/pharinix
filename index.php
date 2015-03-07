@@ -74,6 +74,9 @@ if ($_POST["interface"] != "0") {
     }
     driverCommand::run($cmd, $params);
 } else {
+    if (!isset($_POST["command"])) {
+        $_POST["command"] = "nothing";
+    }
     driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
 }
 
