@@ -38,7 +38,7 @@ if (!class_exists("commandTemplateEditorSave")) {
                             if (isset($divs["@attributes"]["tpltype"])) {
                                 $xml .= '<'.$divs["@attributes"]["tpltype"].' ';
                             } else {
-                                $divs["@attributes"]["tpltype"] = "div";
+                                $divs["@attributes"]["tpltype"] = "row";
                                 $xml .= '<row ';
                             }
                             $tplType = $divs["@attributes"]["tpltype"];
