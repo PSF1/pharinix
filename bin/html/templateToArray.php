@@ -29,9 +29,9 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-if (!class_exists("commandTemplateToHTML")) {
+if (!class_exists("commandTemplateToArray")) {
 
-    class commandTemplateToHTML extends driverCommand {
+    class commandTemplateToArray extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             include_once("libs/xml2array/xml2array.php");
@@ -40,29 +40,31 @@ if (!class_exists("commandTemplateToHTML")) {
             if (!function_exists("templateToHTMLParseBlock")) {
 
                 function templateToHTMLParseBlock($pageId, $blk) {
+                    $resp = "";
                     foreach ($blk as $key => $rows) {
                         if ($key != '@attributes') {
                             foreach ($rows as $row) {
-                                echo "<div class=\"row\" tpltype=\"row\" ";
+                                $resp .= "<div class=\"row\" tpltype=\"row\" ";
                                 foreach ($row['@attributes'] as $name => $attr) {
-                                    echo " $name=\"$attr\"";
+                                    $resp .= " $name=\"$attr\"";
                                 }
-                                echo ">";
+                                $resp .= ">";
                                 foreach ($row["col"] as $col) {
-                                    echo "<div";
+                                    $resp .= "<div";
                                     foreach ($col['@attributes'] as $name => $attr) {
-                                        echo " $name=\"$attr\"";
+                                        $resp .= " $name=\"$attr\"";
                                     }
-                                    echo " tpltype=\"col\">";
+                                    $resp .= " tpltype=\"col\">";
                                     if (isset($col['row'])) {
-                                        templateToHTMLParseBlock($pageId, $col);
+                                        $resp .= templateToHTMLParseBlock($pageId, $col);
                                     }
-                                    echo "</div>";
+                                    $resp .= "</div>";
                                 }
-                                echo "</div>";
+                                $resp .= "</div>";
                             }
                         }
                     }
+                    return $resp;
                 }
 
             }
@@ -70,7 +72,34 @@ if (!class_exists("commandTemplateToHTML")) {
             if (is_file($params["template"])) {
                 $page = file_get_contents($params["template"]);
                 $struct = xml_string_to_array($page);
-                templateToHTMLParseBlock(0, $struct["page"][0]["body"][0]);
+                $resp = array(
+                    "name" => "",
+                    "title" => "",
+                    "head" => "",
+                    "body" => "",
+                );
+                if ($struct["page"][0]["title"][0] != "") {
+                    $resp["title"] = $struct["page"][0]["title"][0];
+                }
+                if ($struct["page"][0]["name"][0] != "") {
+                    $resp["name"] = $struct["page"][0]["name"][0];
+                }
+                foreach ($struct["page"][0]["head"][0] as $tag => $attr) {
+                    foreach ($attr as $value) {
+                        if ($tag != "#comment" && isset($value['@attributes']) && count($value['@attributes']) > 0) {
+                            $resp["head"] .= "<$tag";
+                            foreach ($value['@attributes'] as $name => $val) {
+                                if ($name == "src" || $name == "href") {
+                                    $val = CMS_DEFAULT_URL_BASE . $val;
+                                }
+                                $resp["head"] .= " $name=\"$val\"";
+                            }
+                            $resp["head"] .= "></$tag>";
+                        }
+                    }
+                }
+                $resp["body"] = templateToHTMLParseBlock(0, $struct["page"][0]["body"][0]);
+                return $resp;
             } else {
                 throw new Exception("Template '{$params["template"]}' not found.");
             }
@@ -78,15 +107,20 @@ if (!class_exists("commandTemplateToHTML")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Transform a XML template to HTML, and echo, it not build blocks.",
+                "description" => "Transform a XML template to HTML, it not build blocks.",
                 "parameters" => array(
                     "template" => "XML to convert",
                 ),
-                "response" => array()
+                "response" => array(
+                    "name" => "Template name.",
+                    "title" => "Default page title.",
+                    "head" => "Head content",
+                    "body" => "Body structure in HTML, it's parsed to template editor.",
+                )
             );
         }
 
     }
 
 }
-return new commandTemplateToHTML();
+return new commandTemplateToArray();

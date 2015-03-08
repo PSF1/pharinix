@@ -37,18 +37,34 @@ if (!class_exists("commandTemplateEditor")) {
     <!-- Form Name -->
     <legend>Template editor</legend>
 
+    
+
+<div class="col-md-8">
     <div class="help-block">With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it.</div>
 <div class="help-block">To start creating the template press any of the numeric buttons.</div>
-
-    <div class="container">
+    <!--<div class="container">-->
         <div id="template">
 <?php
+    $tpl = array(
+        "name" => "",
+        "title" => "Pharinix",
+        "head" => '<script src="libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- Bootstrap -->
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="templates/pharinix/general.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="templates/pharinix/favicon.ico" />',
+        "body" => "",
+            );
     if (isset($globalParams["selectTemplate"])) {
-        driverCommand::run("templateToHTML", array("template" => $globalParams["selectTemplate"]));
+        // Load meta form.
+        $tpl = driverCommand::run("templateToArray", array("template" => $globalParams["selectTemplate"]));
+        echo $tpl["body"];
     }
 ?>
         </div> <!-- /#template -->
-    </div> <!-- /.container -->
+    <!--</div>  /.container -->
+</div>
     <script>
     $(document).ready(function() {
         $("#template").gridmanager({
@@ -131,40 +147,31 @@ if (!class_exists("commandTemplateEditor")) {
         loadTemplateList();
     });
     </script>
-    
+<div class="col-md-4">
     <div class="form-horizontal">
                 <fieldset>
                     <legend>Meta</legend>
                     <!-- Text input-->
                     <div class="form-group required-control">
                         <label class="col-md-3 control-label" for="tplName">Template name</label>
-                        <div class="col-md-6">
-                            <input id="tplName" name="tplName" type="text" placeholder="name" class="form-control " required="">
-
+                        <div class="col-md-9">
+                            <input id="tplName" name="tplName" type="text" placeholder="name" class="form-control " required="" value="<?php echo $tpl["name"]; ?>">
                         </div>
                     </div>
                     
                     <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="tplTitle">Default title</label>
-                        <div class="col-md-6">
-                            <input id="tplTitle" name="tplTitle" type="text" placeholder="Title" class="form-control " value="Pharinix">
-
+                        <div class="col-md-9">
+                            <input id="tplTitle" name="tplTitle" type="text" placeholder="Title" class="form-control "  value="<?php echo $tpl["title"]; ?>">
                         </div>
                     </div>
                     
                     <!-- Textarea -->
                     <div class="form-group">
                       <label class="col-md-3 control-label" for="txtHead">Head includes</label>
-                      <div class="col-md-6">
-                          <textarea id="txtHead" name="txtHead" class="form-control">
-<script src="libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-<script src="libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- Bootstrap -->
-<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="templates/pharinix/general.css" rel="stylesheet"/>
-<link rel="shortcut icon" href="templates/pharinix/favicon.ico" />
-                          </textarea>
+                      <div class="col-md-9">
+                          <textarea id="txtHead" name="txtHead" class="form-control"><?php echo $tpl["head"]; ?></textarea>
                           <div class="help-block">The default values are required, You don't must change this if you don't know how.</div>
                       </div>
                     </div>
@@ -172,8 +179,8 @@ if (!class_exists("commandTemplateEditor")) {
                     <!-- Button -->
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="singlebutton"></label>
-                        <div class="col-lg-6">
-                            <button type="button" id="btnSave" name="singlebutton" class="btn btn-success">Save</button>
+                        <div class="col-lg-9">
+                            <button type="button" id="btnSave" name="singlebutton" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Save</button>
                         </div>
                     </div>
 
@@ -188,7 +195,7 @@ if (!class_exists("commandTemplateEditor")) {
                         <!-- Select Basic -->
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="selectTemplate">Load template</label>
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <select id="selectTemplate" name="selectTemplate" class="form-control "></select>
                             </div>
                         </div>
@@ -196,14 +203,15 @@ if (!class_exists("commandTemplateEditor")) {
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="cmdLoad"></label>
-                            <div class="col-lg-6">
-                                <button id="cmdLoad" name="cmdLoad" class="btn btn-warning">Load</button>
+                            <div class="col-lg-9">
+                                <button id="cmdLoad" name="cmdLoad" class="btn btn-warning"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span> Load</button>
                                 <div class="help-block">Changes will be loosed.</div>
                             </div>
                         </div>
 
                     </fieldset>
                 </form>
+</div>
 <?php
         }
 
