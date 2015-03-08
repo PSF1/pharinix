@@ -40,7 +40,7 @@ if (!defined("CMS_VERSION")) {
   `help` longtext NOT NULL,
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4054 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
  */
 
 if (!class_exists("commandAddNodeField")) {
