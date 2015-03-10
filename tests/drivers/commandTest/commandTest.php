@@ -27,10 +27,10 @@ class commandTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
 //        include_once 'commandTools.php';
-        while (!is_file("config/config.php")) {
+        while (!is_file("etc/pharinix.config.php")) {
             chdir("../");
         }
-        include_once 'config/config.php';
+        include_once 'etc/pharinix.config.php';
         include_once("libs/adodb/cmsapi.php");
         include_once("etc/drivers/tools.php");
         include_once("etc/drivers/command.php");

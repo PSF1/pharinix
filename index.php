@@ -21,7 +21,7 @@
 
 header("author: Pedro Pelaez <aaaaa976@gmail.com>");
 // Requires
-include_once("config/config.php");
+include_once("etc/pharinix.config.php");
 header("generator: Pharinix ".CMS_VERSION);
 include_once("libs/adodb/cmsapi.php");
 include_once("etc/drivers/tools.php");

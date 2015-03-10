@@ -5,12 +5,12 @@
  * @since 2014.11.24
  */
 echo "\n".getcwd();
-while (!is_file("config/config.php")) {
+while (!is_file("etc/pharinix.config.php")) {
     chdir("../");
     echo "\n".getcwd();
 }
 echo "\n=> ".getcwd()."\n";
-include_once 'config/config.php';
+include_once 'etc/pharinix.config.php';
 
 class commandTools {
     
