@@ -6,7 +6,7 @@ You must copy the files to your local server for access by http://localhost/phar
 Load the file "files/pharinix alfa YYYYMMDD HHII.sql" to your database.
 Configure MySQL connection in etc/pharinix.config.php.
 
-Then you can view the CMS running.
+Then you can view the CMS running. In the Direct command box try tu put: rewriteBasicList
 
 Information:
 
