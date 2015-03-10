@@ -24,10 +24,10 @@ header("author: Pedro Pelaez <aaaaa976@gmail.com>");
 include_once("config/config.php");
 header("generator: Pharinix ".CMS_VERSION);
 include_once("libs/adodb/cmsapi.php");
-include_once("drivers/tools.php");
-include_once("drivers/command.php");
-//include_once("drivers/user.php");
-include_once("drivers/urlRewrite.php");
+include_once("etc/drivers/tools.php");
+include_once("etc/drivers/command.php");
+//include_once("etc/drivers/user.php");
+include_once("etc/drivers/urlRewrite.php");
 
 // Main user interface
 $output = array(); // Global output tree

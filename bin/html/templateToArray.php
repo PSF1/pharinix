@@ -35,7 +35,7 @@ if (!class_exists("commandTemplateToArray")) {
 
         public static function runMe(&$params, $debug = true) {
             include_once("libs/xml2array/xml2array.php");
-            include_once("drivers/pages.php");
+            include_once("etc/drivers/pages.php");
             
             if (!function_exists("templateToHTMLParseBlock")) {
 

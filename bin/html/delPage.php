@@ -28,6 +28,7 @@ if (!class_exists("commandDelPage")) {
     class commandDelPage extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            include_once("etc/drivers/pages.php");
             $params = array_merge(array(
                         'name' => '',
                     ), $params);

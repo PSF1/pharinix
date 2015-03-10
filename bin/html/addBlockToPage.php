@@ -28,6 +28,7 @@ if (!class_exists("commandAddBlockToPage")) {
     class commandAddBlockToPage extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            include_once("etc/drivers/pages.php");
             $params = array_merge(array(
                         'page' => '',
                         'idcol' => 'content',

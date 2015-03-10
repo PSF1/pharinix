@@ -36,7 +36,7 @@ if (!class_exists("commandGetBlocksFromTemplate")) {
         public static function runMe(&$params, $debug = true) {
             $resp = array();
             include_once("libs/xml2array/xml2array.php");
-            include_once("drivers/pages.php");
+            include_once("etc/drivers/pages.php");
             if (!function_exists("GBFTpageToHTMLParseBlock")) {
 
             function GBFTpageToHTMLParseBlock($pageId, $blk, &$resp) {

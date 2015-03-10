@@ -28,8 +28,8 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         }
         include_once 'config/config.php';
         include_once("libs/adodb/cmsapi.php");
-        include_once("drivers/tools.php");
-        include_once("drivers/command.php");
+        include_once("etc/drivers/tools.php");
+        include_once("etc/drivers/command.php");
     }
     
     protected function tearDown() {
