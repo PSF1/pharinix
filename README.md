@@ -16,8 +16,11 @@ The background concept it's the use of minimalist commands, bits of code, that w
 
 Database information:
 * Table `bin-path`
+
 List of paths to groups to commands. The core search command in this paths.
+
 * Table `node_type`
+
 Node types definitions. Only contains name of type and some log information. Fields named created, creator_node_user, modifier and modifier_node_user contains creation and modification dates and ID of the future user node_type.
 * Table `node_type_field`
 `name`: Field name
@@ -39,12 +42,19 @@ Node types definitions. Only contains name of type and some log information. Fie
 `keys`: Meta key words, it's for search indexers
 * Table `page-blocks`
 `idpage`: Numeric ID of the page owner of the block. A zero ID is for show in all pages, that have the idcol selected
+
 `idcol`: ID of the column. In the template editor you can see/modify this IDs
+
 `command`: The command to execute (case sensitive on linux)
+
 `parameters`: Post parametes to apply to the command, it must be URL encoded
+
 `priority`: If a block have more than one command, this value change the execution order
+
 * Table `url_rewrite`
+
 `url`: Relative URL to rewrite.
+
 `rewriteto`: Post parameters to apply when rewrite the URL, it must be URL encoded and include the parameter 'command'
 
 All the tables must have a indexed key field named 'id'.
