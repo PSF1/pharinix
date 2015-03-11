@@ -81,7 +81,7 @@ All the tables must have a indexed key field named 'id'.
 
 Notes:
 I encourage you to read first the tests files, and then read the source code.
-For now, Pharnix don't have user control because I like make user definition how a node type.
+For now, Pharinix don't have user control because I like make user definition how a node type.
 
 Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
