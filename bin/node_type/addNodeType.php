@@ -131,7 +131,7 @@ if (!class_exists("commandAddNodeType")) {
                 // Add page
                 driverCommand::run("addPage", array(
                     'name' => "node_type_".$params["name"],
-                    'template' => "templates/pages/default.xml",
+                    'template' => "etc/templates/pages/default.xml",
                     'title' => "{$params["name"]} node type",
                     'description' => "",
                     'keys' => "",

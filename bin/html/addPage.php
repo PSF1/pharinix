@@ -31,7 +31,7 @@ if (!class_exists("commandAddPage")) {
             // Default values
             $params = array_merge(array(
                         'name' => '',
-                        'template' => 'templates/pages/default.xml',
+                        'template' => 'etc/templates/pages/default.xml',
                         'title' => '',
                         'description' => '',
                         'keys' => '',

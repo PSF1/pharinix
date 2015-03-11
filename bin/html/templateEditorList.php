@@ -24,7 +24,7 @@ if (!class_exists("commandTemplateEditorList")) {
     class commandTemplateEditorList extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $data = driverTools::lsDir("templates/pages/", "*.xml");
+            $data = driverTools::lsDir("etc/templates/pages/", "*.xml");
 //            $resp = array();
 //            foreach ($data["files"] as $file) {
 //                $fInfo = driverTools::pathInfo($file);

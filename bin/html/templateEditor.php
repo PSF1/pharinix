@@ -52,8 +52,8 @@ if (!class_exists("commandTemplateEditor")) {
 <script src="usr/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- Bootstrap -->
 <link href="usr/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="templates/pharinix/general.css" rel="stylesheet"/>
-<link rel="shortcut icon" href="templates/pharinix/favicon.ico" />',
+<link href="etc/templates/pharinix/general.css" rel="stylesheet"/>
+<link rel="shortcut icon" href="etc/templates/pharinix/favicon.ico" />',
         "body" => "",
             );
     if (isset($globalParams["selectTemplate"])) {

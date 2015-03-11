@@ -89,7 +89,7 @@ if (!class_exists("commandTemplateEditorSave")) {
                     "msg" => "",
                 );
                 
-                $r = file_put_contents("templates/pages/".$params["name"].".xml", $xml);
+                $r = file_put_contents("etc/templates/pages/".$params["name"].".xml", $xml);
                 $resp["ok"] = ($r !== FALSE);
                 echo driverCommand::run("toJson", $resp);
             }

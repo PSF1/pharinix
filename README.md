@@ -51,7 +51,7 @@ Node types definitions. Only contains name of type and some log information. Fie
 
 `name`: Page name, it's used how ID to some commands
 
-`template`: Relative path to the template, ex. templates/pages/default.xml
+`template`: Relative path to the template, ex. etc/templates/pages/default.xml
 
 `title`: Title of the page
 
