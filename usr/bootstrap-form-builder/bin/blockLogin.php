@@ -19,26 +19,30 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+/*
+ * Echo html
+ * Parameters:
+ * html = HTML code to echo.
+ */
 if (!defined("CMS_VERSION")) {
     header("HTTP/1.0 404 Not Found");
     die("");
 }
-
-if (!class_exists("commandBlockFB")) {
-    class commandBlockFB extends driverCommand {
+if (!class_exists("commandBlockLogin")) {
+    class commandBlockLogin extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $blq = file_get_contents("libs/bootstrap-form-builder/block.html");
+            $blq = file_get_contents("usr/bootstrap-form-builder/login.html");
             eval("?>".$blq);
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Echo a form builder block.", 
+                "description" => "Show a example login form", 
                 "parameters" => array(), 
                 "response" => array()
             );
         }
     }
 }
-return new commandBlockFB();
+return new commandBlockLogin();

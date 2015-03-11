@@ -24,8 +24,8 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-include_once("libs/adodb/adodb-exceptions.inc.php");
-include_once("libs/adodb/adodb.inc.php");
+include_once("usr/adodb/adodb-exceptions.inc.php");
+include_once("usr/adodb/adodb.inc.php");
 
 class dbConn {
 

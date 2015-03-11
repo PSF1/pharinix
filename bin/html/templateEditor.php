@@ -27,10 +27,10 @@ if (!class_exists("commandTemplateEditor")) {
             // Secure access to _POST
             $globalParams = driverCommand::getPOSTParams($_POST);
 ?>
-    <link href="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/css/jquery.gridmanager.css" rel="stylesheet">
+    <link href="<?php echo CMS_DEFAULT_URL_BASE; ?>usr/bootstrap-grid-edit/css/jquery.gridmanager.css" rel="stylesheet">
     
-    <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/jquery/1.11.2/jquery-ui.js"></script>
-    <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/js/jquery.gridmanager.js"></script>
+    <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>usr/jquery/1.11.2/jquery-ui.js"></script>
+    <script src="<?php echo CMS_DEFAULT_URL_BASE; ?>usr/bootstrap-grid-edit/js/jquery.gridmanager.js"></script>
     <style>
         #footer .gm-colSettingsID, #footer .gm-rowSettingsID {color:#000;}
     </style>
@@ -48,10 +48,10 @@ if (!class_exists("commandTemplateEditor")) {
     $tpl = array(
         "name" => "",
         "title" => "Pharinix",
-        "head" => '<script src="libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-<script src="libs/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        "head" => '<script src="usr/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+<script src="usr/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- Bootstrap -->
-<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="usr/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="templates/pharinix/general.css" rel="stylesheet"/>
 <link rel="shortcut icon" href="templates/pharinix/favicon.ico" />',
         "body" => "",
@@ -69,7 +69,7 @@ if (!class_exists("commandTemplateEditor")) {
     $(document).ready(function() {
         $("#template").gridmanager({
                     debug: 0,
-                    cssInclude: "<?php echo CMS_DEFAULT_URL_BASE; ?>libs/bootstrap-grid-edit/fonts/font-awesome.min.css",
+                    cssInclude: "<?php echo CMS_DEFAULT_URL_BASE; ?>usr/bootstrap-grid-edit/fonts/font-awesome.min.css",
                     colSelectEnabled: false,
                     editableRegionEnabled: false,
                     rowCustomClasses: [],

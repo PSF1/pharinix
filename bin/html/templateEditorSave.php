@@ -29,7 +29,7 @@ if (!class_exists("commandTemplateEditorSave")) {
             if ($params["name"] == "" || $params["tpl"] == "") {
                 throw new Exception("templateEditorSave: Name or tpl is empty.");
             } else {
-                include_once("libs/xml2array/xml2array.php");
+                include_once("usr/xml2array/xml2array.php");
                 if (!function_exists("commandTemplateEditorSaveParseDiv")) {
                     function commandTemplateEditorSaveParseDiv($divs, $tabs) {
                         $xml = $tabs;

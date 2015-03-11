@@ -24,7 +24,7 @@ if (!class_exists("commandIconsList")) {
     class commandIconsList extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            echo '<link href="'.CMS_DEFAULT_URL_BASE.'libs/bootstrap/css/docs.min.css" rel="stylesheet">';
+            echo '<link href="'.CMS_DEFAULT_URL_BASE.'usr/bootstrap/css/docs.min.css" rel="stylesheet">';
             echo '<legend>Bootstrap icons</legend>';
             $glClass = "glyphicon";
             $glIcons = array(

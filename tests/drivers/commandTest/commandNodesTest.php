@@ -27,7 +27,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             chdir("../");
         }
         include_once 'etc/pharinix.config.php';
-        include_once("libs/adodb/cmsapi.php");
+        include_once("usr/adodb/cmsapi.php");
         include_once("etc/drivers/tools.php");
         include_once("etc/drivers/command.php");
     }

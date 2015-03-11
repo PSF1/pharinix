@@ -34,7 +34,7 @@ if (!class_exists("commandPageToHTML")) {
     class commandPageToHTML extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            include_once("libs/xml2array/xml2array.php");
+            include_once("usr/xml2array/xml2array.php");
             include_once("etc/drivers/pages.php");
             if (!function_exists("pageToHTMLParseBlock")) {
 
