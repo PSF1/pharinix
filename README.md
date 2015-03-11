@@ -22,25 +22,45 @@ List of paths to groups to commands. The core search command in this paths.
 * Table `node_type`
 
 Node types definitions. Only contains name of type and some log information. Fields named created, creator_node_user, modifier and modifier_node_user contains creation and modification dates and ID of the future user node_type.
+
 * Table `node_type_field`
+
 `name`: Field name
+
 `type`: Type of the field, it can be a basic type, 'longtext', 'bool', 'datetime', 'double', 'integer, 'string', or a node type name
+
 `len`: Length of field, if it's applicable
+
 `required`: is a required field?
+
 `readonly`: is a not writeble field?
+
 `locked`: is a system field?
+
 `node_type`: ID of owner node type
+
 `default`: Default value
+
 `label`: Label in form, or table headers
+
 `help`: Help about the field
+
 `multi`: If type is not a basic type, it can link some other records. (One to any relation)
+
 * Table `pages`
+
 `name`: Page name, it's used how ID to some commands
+
 `template`: Relative path to the template, ex. templates/pages/default.xml
+
 `title`: Title of the page
+
 `description`: Meta description, it's for search indexers
+
 `keys`: Meta key words, it's for search indexers
+
 * Table `page-blocks`
+
 `idpage`: Numeric ID of the page owner of the block. A zero ID is for show in all pages, that have the idcol selected
 
 `idcol`: ID of the column. In the template editor you can see/modify this IDs
