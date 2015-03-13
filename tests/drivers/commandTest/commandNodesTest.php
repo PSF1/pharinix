@@ -686,4 +686,57 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->cleanDatabase($id);
         $this->cleanDatabase($nid, "subtype1");
     }
+    
+    public function testCommandAddFieldNodeTypeModified() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        $modified = $q->fields["modified"];
+        // A little nap...
+        sleep(2);
+        // Add a new field
+        $nField = array(
+            "name" => "string",
+            "type" => "string",
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // The modified date is changed?
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertNotEquals($modified, $q->fields["modified"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    
+    public function testCommandDelFieldNodeTypeModified() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "string",
+            "type" => "string",
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $modified = $q->fields["modified"];
+        // A little nap...
+        sleep(2);
+        // Delete field
+        driverCommand::run("delNodeField", array(
+            "nodetype" => "testtype",
+            "name" => "string",
+        )); 
+        // The modified date is changed?
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertNotEquals($modified, $q->fields["modified"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
 }
