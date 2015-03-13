@@ -39,6 +39,7 @@ if (!class_exists("commandIsBasicFieldType")) {
                 case 'double': // Number with decimals
                 case 'integer': // Integer number
                 case 'string': // Text string
+                case 'password': // Text string
                     return array("basic" => true);
                 default:
                     return array("basic" => false);
@@ -52,7 +53,7 @@ if (!class_exists("commandIsBasicFieldType")) {
                     "type" => "The type name to test."
                 ), 
                 "response" => array(
-                    "basic" => "True/False Is a basic type"
+                    "basic" => "True/False is a basic type"
                 )
             );
         }

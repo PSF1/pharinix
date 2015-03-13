@@ -27,7 +27,7 @@ Node types definitions. Only contains name of type and some log information. Fie
 
 `name`: Field name
 
-`type`: Type of the field, it can be a basic type, 'longtext', 'bool', 'datetime', 'double', 'integer, 'string', or a node type name
+`type`: Type of the field, it can be a basic type, 'longtext', 'bool', 'datetime', 'double', 'integer, 'string', 'password' or a node type name. A 'password' type save a MD5 representation of her value.
 
 `len`: Length of field, if it's applicable
 

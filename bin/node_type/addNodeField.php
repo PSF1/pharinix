@@ -108,6 +108,7 @@ if (!class_exists("commandAddNodeField")) {
                             case "integer":
                                 break;
                             case "string":
+                            case "password":
                                 if ($params["len"] <= 0 || $params["len"] >= 250) {
                                     $params["len"] = 250;
                                 }
@@ -163,7 +164,7 @@ if (!class_exists("commandAddNodeField")) {
                 "description" => "Add a new field to a node type", 
                 "parameters" => array(
                     "name" => "Field name",
-                    "type" => "Field type: longtext, bool, datetime, double, integer, string or other node type",
+                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password or other node type",
                     "len" => "Field lenght if need it",
                     "required" => "True/false Required field",
                     "readonly" => "True/false Not writable field",
@@ -214,6 +215,9 @@ if (!class_exists("commandAddNodeField")) {
                 break;
                 case "string":
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR({$params["len"]}) DEFAULT '{$params["default"]}' AFTER `id`";
+                break;
+                case "password":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR({$params["len"]}) AFTER `id`";
                 break;
                 default:
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` int(10) UNSIGNED DEFAULT 0 AFTER `id`";
