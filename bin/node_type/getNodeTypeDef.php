@@ -29,8 +29,26 @@ if (!class_exists("commandGetNodeTypeDef")) {
         public static function runMe(&$params, $debug = true) {
             $nid = driverCommand::run("getNodeTypeId", array("name" => $params["nodetype"]));
             $nid = $nid["id"];
-            $resp = array("name" => $params["nodetype"], "fields" => array());
+            $resp = array(
+                "id" => $nid,
+                "name" => $params["nodetype"],
+                "locked" => "0",
+                "label_field" => "",
+                "created" => "",
+                "creator_node_user" => "",
+                "modified" => "",
+                "modifier_node_user" => "",
+                "fields" => array()
+                );
             if ($nid !== false) {
+                $sql = "SELECT * FROM `node_type` where `id` = $nid";
+                $q = dbConn::get()->Execute($sql);
+                $resp["locked"] = $q->fields["locked"]=="1";
+                $resp["label_field"] = $q->fields["label_field"];
+                $resp["created"] = $q->fields["created"];
+                $resp["creator_node_user"] = $q->fields["creator_node_user"];
+                $resp["modified"] = $q->fields["modified"];
+                $resp["modifier_node_user"] = $q->fields["modifier_node_user"];
                 $sql = "SELECT * FROM `node_type_field` where `node_type` = $nid";
                 $q = dbConn::get()->Execute($sql);
                 while (!$q->EOF) {
@@ -59,7 +77,17 @@ if (!class_exists("commandGetNodeTypeDef")) {
                 "parameters" => array(
                     "nodetype" => "Node type name",
                 ), 
-                "response" => array("nodetype" => "Array with node type definition.")
+                "response" => array(
+                        "id" => "Node type ID",
+                        "name" => "Node type name",
+                        "locked" => "True/false, is a system node type?",
+                        "label_field" => "Name of field used how label to lists.",
+                        "fields" => "Array with field's definitions.",
+                        "created" => "Creation date.",
+                        "creator_node_user" => "Creator ID.",
+                        "modified" => "Modification date.",
+                        "modifier_node_user" => "Modifier ID.",
+                    )
             );
         }
     }
