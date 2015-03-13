@@ -29,10 +29,12 @@ if (!class_exists("commandDelNodeField")) {
         public static function runMe(&$params, $debug = true) {
             $nid = driverCommand::run("getNodeTypeId", array("name" => $params["nodetype"]));
             $nid = $nid["id"];
+            // Exist node type?
             if ($nid !== false) {
                 $sql = "select `locked` from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
                 $q = dbConn::get()->Execute($sql);
-                if (!$q->EOF && $q->fields["locked"] == "1") {
+                // TODO: Is a system type? If true, I can't change it...
+                if (!$q->EOF /*&& $q->fields["locked"] == "1"*/) {
                     $sql = "delete from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
                     dbConn::get()->Execute($sql);
                     $sql = "ALTER TABLE `node_{$params["nodetype"]}` DROP COLUMN `{$params["name"]}`";
@@ -45,6 +47,10 @@ if (!class_exists("commandDelNodeField")) {
                         dbConn::get()->Execute($sql);
                         $q->MoveNext();
                     }
+                    // Modificated
+                    $sql = "update `node_type` set `modified` = NOW() where `id` = ".$nid;
+                    dbConn::get()->Execute($sql);
+                    // TODO: Add modificator user
                 }
             }
         }
