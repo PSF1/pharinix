@@ -48,6 +48,8 @@ if (!class_exists("commandAddNodeType")) {
             // Default values
             $params = array_merge(array(
                         "name" => "",
+                        "locked" => "0",
+                        "label_field" => "",
                       ), $params);
             $params["name"] = strtolower($params["name"]);
             if ($params["name"] == "type" || $params["name"] == "type_field") {
@@ -155,6 +157,8 @@ if (!class_exists("commandAddNodeType")) {
                 "description" => "Add a new node type", 
                 "parameters" => array(
                     "name" => "Node type name",
+                    "locked" => "True/false System field. Optional, default false.",
+                    "label_field" => "Name of the field used how label to list nodes. Optional, default empty.",
                 ), 
                 "response" => array(
                     "ok" => "True/False field added",
