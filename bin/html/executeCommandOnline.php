@@ -67,7 +67,7 @@ if (!class_exists("commandExecuteCommandOnline")) {
             </form>
             <?php
             if (isset($_POST["post"])) {
-                echo '<label class="col-md-4 control-label">Order detected:</label>';
+                echo '<label class="col-md-4 control-label">Executed:</label>';
                 var_dump($_POST);
                 $aux = array();
                 parse_str($_POST["post"], $aux);
