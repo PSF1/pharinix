@@ -25,7 +25,8 @@ if (!class_exists("commandEchoJSON")) {
 
         public static function runMe(&$params, $debug = true) {
             @header("Content-type: application/json");
-            echo driverCommand::run("toJson", $params);
+            $json = driverCommand::run("toJson", $params);
+            echo $json["json"];
         }
 
         public static function getHelp() {

@@ -25,7 +25,7 @@ if (!class_exists("commandToJSON")) {
 
         public static function runMe(&$params, $debug = true) {
             self::cleanItem($params);
-            return json_encode($params, JSON_FORCE_OBJECT);
+            return array("json" => json_encode($params, JSON_FORCE_OBJECT));
         }
         
         private static function cleanItem(&$params) {
@@ -46,7 +46,7 @@ if (!class_exists("commandToJSON")) {
             return array(
                 "description" => "Translate parameters to JSON string.", 
                 "parameters" => array("some" => "It can receive any ammount of parameters."), 
-                "response" => array()
+                "response" => array("json" => "The json string.")
             );
         }
     }

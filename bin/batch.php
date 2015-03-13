@@ -63,7 +63,7 @@ if (!class_exists("commandBatch")) {
                 "parameters" => array(
                     "starter" => "Array of params to merge at the start.",
                     "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and pased how combined parameters. Ex, without '[', ']': ['nothing' => 'ignoredparam1=A&ignoredparam2=B', 'nothing' => 'ignoredparam1=A&ignoredparam2=B', ...]",
-                    "echoed" => "If is empty or not define the output will out in responde, else will be pased how parameters to the command in this parameter. Ex: 'echoed' => 'toJson' will echo to the browser a json representation of the response.",
+                    "echoed" => "If is empty or not define the output will out in responde, else will be pased how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response.",
                 ), 
                 "response" => array(
                     "any" => "The final response of the batch.",

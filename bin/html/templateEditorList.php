@@ -30,8 +30,7 @@ if (!class_exists("commandTemplateEditorList")) {
 //                $fInfo = driverTools::pathInfo($file);
 //                $resp[] = $fInfo["name"];
 //            }
-            header("Content-type: application/json");
-            echo driverCommand::run("toJson", $data["files"]);
+            driverCommand::run("echoJson", $data["files"]);
         }
 
         public static function getHelp() {
