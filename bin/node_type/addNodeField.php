@@ -147,6 +147,10 @@ if (!class_exists("commandAddNodeField")) {
                             $sql .= ') ENGINE = MyISAM';
                             dbConn::get()->Execute($sql);
                         }
+                        // Modificated
+                        $sql = "update `node_type` set `modified` = NOW() where `id` = ".$ntype["id"];
+                        dbConn::get()->Execute($sql);
+                        // TODO: Add modificator user
                     }
                 } else {
                     $resp["ok"] = false;
