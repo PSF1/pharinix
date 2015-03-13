@@ -48,14 +48,21 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<tbody>";
             foreach ($def["fields"] as $field) {
                 echo "<tr>";
-                echo "<td>{$field["name"]}</td>";
+                echo "<td>";
+                echo $field["name"];
+                if ($def["label_field"] == $field["name"]) {
+                    echo "&nbsp;<span class=\"glyphicon glyphicon-tags\"></span>";
+                }
+                echo "</td>";
                 
                 $type = driverCommand::run("isBasicNodeFieldType", array("type" => $field["type"]));
+                echo "<td>";
                 if ($type["basic"]) {
-                    echo "<td>{$field["type"]}</td>";
+                    echo "{$field["type"]}";
                 } else {
-                    echo "<td><a href=\"".CMS_DEFAULT_URL_BASE."node/type/{$field["type"]}\">{$field["type"]}</a></td>";
+                    echo "<a href=\"".CMS_DEFAULT_URL_BASE."node/type/{$field["type"]}\">{$field["type"]}</a>";
                 }
+                echo "</td>";
                 echo "<td>{$field["len"]}</td>";
                 echo "<td>{$field["required"]}</td>";
                 echo "<td>{$field["readonly"]}</td>";
@@ -68,9 +75,13 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             }
             echo "</tbody>";
             echo "</table>";
+            if ($def["locked"]) {
+                echo "<p><span class=\"glyphicon glyphicon-exclamation-sign\"></span>&nbsp;This is a system node type.</p>";
+            }
+            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Created by '{$def["creator_node_user"]}' in {$def["created"]}, modified by '{$def["modifier_node_user"]}' in {$def["modified"]}.</p>";
             $sql = "select count(*) from `node_{$params["nodetype"]}`";
             $q = dbConn::get()->Execute($sql);
-            echo "<p>Contains {$q->fields[0]} records.</p>";
+            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
         }
 
         public static function getHelp() {
