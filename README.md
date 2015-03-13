@@ -83,6 +83,12 @@ Notes:
 I encourage you to read first the tests files, and then read the source code.
 For now, Pharinix don't have user control because I like make user definition how a node type.
 
+TODOs:
+* Change presentation of command 'commandHelp' to show a tree with paths and commands, when the user select a command, in the tree, display the help in a right panel. It could be used to display a Alertify windows to select a command.
+* Add more bacth-eable commands, like grep, boolExec, paramsRekey, switcher, etc...
+* Add commands to CRUD nodes
+* A model of data type formaters to show node's forms or display content.
+
 Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
 
