@@ -20,37 +20,23 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandToJSON")) {
-    class commandToJSON extends driverCommand {
+if (!class_exists("commandRegisterDebug")) {
+    class commandRegisterDebug extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            self::cleanItem($params);
-            return array("json" => json_encode($params, JSON_FORCE_OBJECT));
-        }
-        
-        private static function cleanItem(&$params) {
-            echo "\ncleanItem\n";
-            print_r($params);echo "\n";
-            foreach ($params as $key => $value) {
-                if (is_string($value)) $value = utf8_encode($value);
-                if (is_string($key)) {
-                    $key1 = utf8_encode($key);
-                    unset($params[$key]);
-                    $params[$key1] = $value;
-                }
-                if (is_array($value)) {
-                    self::cleanItem($value);
-                }
-            }
+            $resp = self::$register;
+            return array("val" => $resp);
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Translate parameters to JSON string.", 
-                "parameters" => array("some" => "It can receive any ammount of parameters."), 
-                "response" => array("json" => "The json string.")
+                "description" => "Return the content of the commandDriver register.", 
+                "parameters" => array(), 
+                "response" => array(
+                    "val" => "The commandDriver register array."
+                )
             );
         }
     }
 }
-return new commandToJSON();
+return new commandRegisterDebug();

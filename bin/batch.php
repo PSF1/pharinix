@@ -34,19 +34,45 @@ if (!class_exists("commandBatch")) {
             $echoed = $params["echoed"];
             try {
                 $output = is_array($params["starter"])?$params["starter"]:array();
-                foreach($params["commands"] as $cmd => $params) {
+                $cnt = 0; // Executed commands counter
+                foreach($params["commands"] as $line) {
+                    $cmd = null;
+                    $params = null;
+                    // We need a method to list commands with duplicates
+                    foreach($line as $acmd => $apar) {
+                        $cmd = $acmd;
+                        $params = $apar;
+                        break;
+                    }
                     $lastCommand = "'$cmd' => '$params'";
-                    $aux = array();
-                    parse_str($params, $aux);
-                    $params = array_merge($output, $aux);
-                    unset($aux);
-                    $output = array_merge($output, driverCommand::run($cmd, $params));
+                    if (self::isMeta($cmd)) {
+                        if (self::isValidMeta($cmd)) {
+                            switch ($cmd) {
+                                case "#clean":
+                                    $output = array();
+                                break;
+                            }
+                        } else {
+                            throw new Exception("Meta '$cmd' is unknowed.");
+                        }
+                    } else {
+                        $aux = array();
+                        parse_str($params, $aux);
+                        $params = array_merge($output, $aux);
+                        unset($aux);
+                        $out = driverCommand::run($cmd, $params);
+                        if (is_array($out)) {
+                            $output = array_merge($output, $out);
+                        }
+                    }
+                    ++$cnt;
                 }
             } catch (Exception $exc) {
                 $output["ok"] = false;
                 $output["msg"] = $exc->getMessage();
-                $output["error"] = $lastCommand;
+                $output["error"] = "cmd $cnt - ".$lastCommand;
             }
+            driverCommand::run("captureEndAll");
             if (!is_string($echoed)) {
                 $echoed = "";
             }
@@ -57,12 +83,26 @@ if (!class_exists("commandBatch")) {
             }
          }
 
+        private static function isMeta($cmd) {
+            $test = strpos($cmd, "#");
+            if ($test === false) return $test;
+            return ($test == 0);
+        }
+        
+        private static function isValidMeta($cmd) {
+            switch ($cmd) {
+                case "#clean":
+                    return true;
+            }
+            return false;
+        }
+        
         public static function getHelp() {
             return array(
-                "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command.", 
+                "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command. Allways call to captureEndAll at the end.", 
                 "parameters" => array(
                     "starter" => "Array of params to merge at the start.",
-                    "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and pased how combined parameters. Ex, without '[', ']': ['nothing' => 'ignoredparam1=A&ignoredparam2=B', 'nothing' => 'ignoredparam1=A&ignoredparam2=B', ...]",
+                    "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and pased how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output.",
                     "echoed" => "If is empty or not define the output will out in responde, else will be pased how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response.",
                 ), 
                 "response" => array(

@@ -64,23 +64,46 @@ class commandBatchTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testCommandBatch_StarterParams() {
-        ob_start();
         $resp = driverCommand::run("batch", array(
             "starter" => array(
                 "html" => "AAA",
             ),
-            "commands" => array("echoHTML" => ""),
+            "commands" => array(
+                array("captureStart" => ""),
+                array("echoHTML" => ""),
+                array("captureEnd" => ""),
+                ),
             "echoed" => "",
         ));
-        $echoed = ob_get_clean();
-        $this->assertEquals("AAA", $echoed);
+        $this->assertTrue(isset($resp["html"]));
+        $this->assertEquals("AAA", $resp["html"]);
+        $this->assertTrue(isset($resp["buffer"]));
+        $this->assertEquals("AAA", $resp["buffer"]);
+    }
+    
+    public function testCommandBatch_StarterParams_WithClean() {
+        $resp = driverCommand::run("batch", array(
+            "starter" => array(
+                "html" => "AAA",
+            ),
+            "commands" => array(
+                array("captureStart" => ""),
+                array("echoHTML" => ""),
+                array("#clean" => ""),
+                array("captureEnd" => ""),
+                ),
+            "echoed" => "",
+        ));
+        $this->assertNotTrue(isset($resp["html"]));
+        $this->assertTrue(isset($resp["buffer"]));
+        $this->assertEquals("AAA", $resp["buffer"]);
     }
     
     public function testCommandBatch_DefaultParams() {
         ob_start();
         $resp = driverCommand::run("batch", array(
             "starter" => array(),
-            "commands" => array("echoHTML" => "html=AAA"),
+            "commands" => array(array("echoHTML" => "html=AAA")),
             "echoed" => "",
         ));
         $echoed = ob_get_clean();
@@ -93,7 +116,7 @@ class commandBatchTest extends PHPUnit_Framework_TestCase {
             "starter" => array(
                 "html" => "BBB",
             ),
-            "commands" => array("echoHTML" => "html=AAA"),
+            "commands" => array(array("echoHTML" => "html=AAA")),
             "echoed" => "",
         ));
         $echoed = ob_get_clean();
@@ -104,7 +127,7 @@ class commandBatchTest extends PHPUnit_Framework_TestCase {
         ob_start();
         $resp = driverCommand::run("batch", array(
             "starter" => array(),
-            "commands" => array("newID" => ""),
+            "commands" => array(array("newID" => "")),
             "echoed" => "",
         ));
         $echoed = ob_get_clean();
@@ -116,7 +139,7 @@ class commandBatchTest extends PHPUnit_Framework_TestCase {
         ob_start();
         $resp = driverCommand::run("batch", array(
             "starter" => array(),
-            "commands" => array("newID" => ""),
+            "commands" => array(array("newID" => "")),
             "echoed" => "echoJson",
         ));
         $echoed = ob_get_clean();

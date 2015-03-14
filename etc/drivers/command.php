@@ -25,6 +25,12 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
  */
 class driverCommand {
     /**
+     * Array to pass delayed information between commands.
+     * @var array 
+     */
+    protected static $register = array();
+    
+    /**
      * Recordset of paths
      * @var adoRecorset 
      */
