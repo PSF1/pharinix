@@ -53,6 +53,7 @@ if (!class_exists("commandAddNodeField")) {
             $params = array_merge(array(
                         "name" => "",
                         "type" => "",
+                        "iskey" => false,
                         "len" => 0,
                         "required" => false,
                         "readonly" => false,
@@ -123,6 +124,7 @@ if (!class_exists("commandAddNodeField")) {
                         $sql = "insert into `node_type_field` set ";
                         $sql .= "`name` = '{$params["name"]}', ";
                         $sql .= "`type` = '{$params["type"]}', ";
+                        $sql .= "`iskey` = '".($params["iskey"]?1:0)."', ";
                         $sql .= "`len` = '{$params["len"]}', ";
                         $sql .= "`required` = '".($params["required"]?1:0)."', ";
                         $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
@@ -171,6 +173,7 @@ if (!class_exists("commandAddNodeField")) {
                 "parameters" => array(
                     "name" => "Field name",
                     "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext or other node type",
+                    "iskey" => "Any other record can have some value. This funcionality is not using database implementation.",
                     "len" => "Field lenght if need it",
                     "required" => "True/false Required field",
                     "readonly" => "True/false Not writable field",

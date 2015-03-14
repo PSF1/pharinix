@@ -800,4 +800,41 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         // Clean data base
         $this->cleanDatabase($id);
     }
+    
+    public function testCommandAddNodeField_iskey() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "key",
+            "type" => "string",
+            "iskey" => true,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        $nField = array(
+            "name" => "nokey",
+            "type" => "string",
+            "iskey" => false,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        $sql = "SELECT * FROM `node_type_field` where `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        while(!$q->EOF) {
+            switch ($q->fields["name"]) {
+                case "key":
+                    $this->assertEquals("1", $q->fields["iskey"]);
+                    break;
+                case "nokey":
+                    $this->assertEquals("0", $q->fields["iskey"]);
+                    break;
+            }
+            $q->MoveNext();
+        }
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
 }
