@@ -55,6 +55,7 @@ if (!class_exists("commandGetNodeTypeDef")) {
                     $item = array();
                     $item['name'] = $q->fields['name'];
                     $item['type'] = $q->fields['type'];
+                    $item['iskey'] = $q->fields['iskey']?true:false;
                     $item['len'] = $q->fields['len'];
                     $item['required'] = $q->fields['required']=="1"?true:false;
                     $item['readonly'] = $q->fields['readonly']=="1"?true:false;

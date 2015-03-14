@@ -35,6 +35,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<tr>";
             echo "<th>Name</th>";
             echo "<th>Type</th>";
+            echo "<th>Is key</th>";
             echo "<th>Lenght</th>";
             echo "<th>Required</th>";
             echo "<th>Read only</th>";
@@ -63,6 +64,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
                     echo "<a href=\"".CMS_DEFAULT_URL_BASE."node/type/{$field["type"]}\">{$field["type"]}</a>";
                 }
                 echo "</td>";
+                echo "<td>{$field["iskey"]}</td>";
                 echo "<td>{$field["len"]}</td>";
                 echo "<td>{$field["required"]}</td>";
                 echo "<td>{$field["readonly"]}</td>";
