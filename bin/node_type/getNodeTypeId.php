@@ -45,10 +45,10 @@ if (!class_exists("commandGetNodeTypeID")) {
             return array(
                 "description" => "Search ID of node type by name", 
                 "parameters" => array(
-                    "name" => "Node type name to search. False if not found.",
+                    "name" => "Node type name to search.",
                 ), 
                 "response" => array(
-                    "id" => "ID of the node type"
+                    "id" => "ID of the node type. False if not found."
                 )
             );
         }
