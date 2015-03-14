@@ -29,8 +29,6 @@ if (!class_exists("commandToJSON")) {
         }
         
         private static function cleanItem(&$params) {
-            echo "\ncleanItem\n";
-            print_r($params);echo "\n";
             foreach ($params as $key => $value) {
                 if (is_string($value)) $value = utf8_encode($value);
                 if (is_string($key)) {
