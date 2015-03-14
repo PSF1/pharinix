@@ -837,4 +837,146 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         // Clean data base
         $this->cleanDatabase($id);
     }
+    
+    // Node type defined?
+    public function testCommandAddNode_Node_type_defined_FAIL() {
+        $resp = driverCommand::run("addNode", array("nodetype" => "a1"));
+        $this->assertEquals(0, $resp["nid"]);
+    }
+    
+    // Required fields presents? (required or iskey)
+    public function testCommandAddNode_Required_Fields_FAIL() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "required" => true,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        $nField = array(
+            "name" => "field1",
+            "type" => "string",
+            "required" => false,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field1" => "a1",
+            ));
+        $this->assertEquals(0, $resp["nid"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    public function testCommandAddNode_Iskey_Fields_FAIL() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "iskey" => true,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        $nField = array(
+            "name" => "field1",
+            "type" => "string",
+            "required" => false,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field1" => "a1",
+            ));
+        $this->assertEquals(0, $resp["nid"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    
+    // All selected items are fields of the node?
+    public function testCommandAddNode_Unknowed_Fields_FAIL() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "required" => false,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field1" => "a1",
+            ));
+        $this->assertEquals(0, $resp["nid"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    
+    // Add node OK
+    public function testCommandAddNode_OK() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field" => "a1",
+            ));
+        $this->assertTrue($resp["nid"] > 0);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    
+    // Duplicated keys?
+    public function testCommandAddNode_Duplicate_Keys_FAIL() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "iskey" => true,
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field" => "a1",
+            ));
+        // Add duplicated node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field" => "a1",
+            ));
+        $this->assertEquals(0, $resp["nid"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
 }

@@ -49,6 +49,7 @@ if (!class_exists("commandDelNodeType")) {
                     driverCommand::run("delPage", array(
                         'name' => "node_type_".$params["name"],
                     ));
+                    // TODO: Del pages of nodes...
                 }
             }
         }
