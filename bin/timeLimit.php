@@ -25,7 +25,7 @@ if (!class_exists("commandTimeLimit")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge( array( "s" => ini_get('max_execution_time') ), $params);
-            if ($params["s"] > 120) $params["s"] = 120;
+            if ($params["s"] > 7200 || $params["s"] == 0) $params["s"] = 7200;
             set_time_limit($params["s"]);
         }
 
@@ -33,7 +33,7 @@ if (!class_exists("commandTimeLimit")) {
             return array(
                 "description" => "Change the PHP execution time limit. WARNING: Handle with care, a bad use of time limit can halt the server.", 
                 "parameters" => array(
-                    "s" => "Seconds of new execution time limit. If is upper of 120s the limit is set to 120s.",
+                    "s" => "Seconds of new execution time limit. If is upper of 7200s, or is 0, the limit is set to 7200s.",
                 ), 
                 "response" => array()
             );
