@@ -96,6 +96,8 @@ if (!class_exists("commandAddNodeField")) {
                     }
                     if ($resp["ok"]) {
                         switch (strtolower($params["type"])) {
+                            case "htmltext":
+                                break;
                             case "longtext":
                                 break;
                             case "bool":
@@ -168,7 +170,7 @@ if (!class_exists("commandAddNodeField")) {
                 "description" => "Add a new field to a node type", 
                 "parameters" => array(
                     "name" => "Field name",
-                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password or other node type",
+                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext or other node type",
                     "len" => "Field lenght if need it",
                     "required" => "True/false Required field",
                     "readonly" => "True/false Not writable field",
@@ -189,6 +191,9 @@ if (!class_exists("commandAddNodeField")) {
         public static function getAddFieldString($params) {
             $resp = "";
             switch (strtolower($params["type"])) {
+                case "htmltext":
+                    $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` LONGTEXT AFTER `id`";
+                break;
                 case "longtext":
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` LONGTEXT AFTER `id`";
                 break;

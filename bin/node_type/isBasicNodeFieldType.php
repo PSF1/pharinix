@@ -33,6 +33,7 @@ if (!class_exists("commandIsBasicFieldType")) {
 
         public static function runMe(&$params, $debug = true) {
             switch ($params["type"]) {
+                case 'htmltext': // HTML long text
                 case 'longtext': // Very long text
                 case 'bool': // Boolean value
                 case 'datetime': // Date and time

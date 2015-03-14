@@ -346,6 +346,67 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->cleanDatabase($id);
     }
     
+    public function testCommandAddFieldHTMLText() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        $nField = array(
+            "name" => "htmltext",
+            "type" => "htmltext",
+            "len" => 45,
+            "required" => false,
+            "readonly" => false,
+            "node_type" => "testtype",
+            "default" => "0",
+            "label" => "label",
+            "help" => "help",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // New field?
+        $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'htmltext' && `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(1, $q->fields[0]);
+        // The table must have a new field
+        $sql = "show columns from `node_testtype` like 'htmltext'";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals(false, $q->EOF);
+        $this->assertEquals("longtext", $q->fields["Type"]);
+        $this->assertEquals("YES", $q->fields["Null"]);
+        $this->assertEquals("", $q->fields["Key"]);
+        $this->assertEquals("", $q->fields["Default"]);
+        $this->assertEquals("", $q->fields["Extra"]);
+        $this->cleanDatabase($id);
+    }
+    
+    public function testCommandAddFieldHTMLTextDefaults() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::get()->Execute($sql);
+        $id = $q->fields["id"];
+        $nField = array(
+            "name" => "htmltext",
+            "type" => "htmltext",
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        
+        $sql = "SELECT * FROM `node_type_field` where `name` = 'htmltext' && `node_type` = $id";
+        $q = dbConn::get()->Execute($sql);
+        $this->assertEquals("htmltext", $q->fields["name"]);
+        $this->assertEquals("htmltext", $q->fields["type"]);
+        $this->assertEquals($id, $q->fields["node_type"]);
+        // Defaults?
+        $this->assertEquals(0, $q->fields["len"]);
+        $this->assertEquals("0", $q->fields["required"]);
+        $this->assertEquals("0", $q->fields["readonly"]);
+        $this->assertEquals("0", $q->fields["locked"]);
+        $this->assertEquals("", $q->fields["default"]);
+        $this->assertEquals("Field", $q->fields["label"]);
+        $this->assertEquals("", $q->fields["help"]);
+        $this->cleanDatabase($id);
+    }
+    
     public function testCommandAddFieldDatetime() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
