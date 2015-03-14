@@ -38,7 +38,7 @@ if (!class_exists("commandSleep")) {
             return array(
                 "description" => "Sleep some seconds, no more that 30s.", 
                 "parameters" => array(
-                    "s" => "Seconds to sleep, no mora that 30.",
+                    "s" => "Seconds to sleep, no more that 30.",
                 ), 
                 "response" => array()
             );
