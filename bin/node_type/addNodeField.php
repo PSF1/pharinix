@@ -146,7 +146,7 @@ if (!class_exists("commandAddNodeField")) {
                             $sql .= '`type1` INTEGER UNSIGNED NOT NULL, ';
                             $sql .= '`type2` INTEGER UNSIGNED NOT NULL, ';
                             $sql .= 'PRIMARY KEY (`id`), ';
-                            $sql .= 'INDEX `type1`(`type1`), ';
+                            $sql .= 'INDEX `type1`(`type1`), '; // type1 to type2 relation
                             $sql .= 'INDEX `type2`(`type2`) ';
                             $sql .= ') ENGINE = MyISAM';
                             dbConn::get()->Execute($sql);

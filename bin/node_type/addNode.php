@@ -24,7 +24,7 @@ if (!defined("CMS_VERSION")) {
 }
 
 //TODO: Securizate access
-//TODO: Save multivalued fields
+//TODO: Test save multivalued fields
 
 if (!class_exists("commandAddNode")) {
 
@@ -101,10 +101,31 @@ if (!class_exists("commandAddNode")) {
                             } else {
                                 // NOW, we can save node !! :D :D
                                 $sql = "";
+                                $sqlMultis = array();
                                 foreach ($params as $name => $value) {
+                                    // Ignore nodetype parameter because isn't a field
                                     if ($name != "nodetype") {
-                                        if ($sql != "") $sql .= ", ";
-                                        $sql .= "`$name` = '".dbConn::qstr($value)."'";
+                                        $fieldDef = self::getFieldDef($name, $ndefFields);
+                                        if ($fieldDef["multi"]) {
+                                            // Prepare all multivalue inserts.
+                                            $vals = explode(",", $value);
+                                            $table = '`node_relation_'.$params["nodetype"].'_'.$name.'_'.$fieldDef["type"].'`';
+                                            $multi = "";
+                                            foreach($vals as $val) {
+                                                if ($multi != "") $multi .= ", ";
+                                                $multi .= " (null, {NID}, $val)";
+                                            }
+                                            $sqlMultis[] = "insert into $table values ".$multi;
+                                        } else {
+                                            // Single value fields
+                                            if ($sql != "") $sql .= ", ";
+                                            if ($fieldDef["type"] == "password") { // Type password
+                                                $fVal = md5($value);
+                                            } else { // Type other
+                                                $fVal = dbConn::qstr($value);
+                                            }
+                                            $sql .= "`$name` = '".$fVal."'";
+                                        }
                                     }
                                 }
                                 $sql = "insert into `node_{$params["nodetype"]}` set ".$sql;
@@ -112,6 +133,11 @@ if (!class_exists("commandAddNode")) {
                                 $last = dbConn::lastID();
                                 $resp["nid"] = $last;
                                 $resp["ok"] = true;
+                                // Add Multi values
+                                foreach($sqlMultis as $sqlMulti) {
+                                    $sqlMulti = str_replace("{NID}", $last, $sqlMulti);
+                                    dbConn::get()->Execute($sqlMulti);
+                                }
                                 // Add personalized page
                                 driverCommand::run("addPage", array(
                                     'name' => "node_type_".$params["nodetype"]."_".$last,
@@ -134,6 +160,14 @@ if (!class_exists("commandAddNode")) {
             return $resp;
         }
 
+        private static function getFieldDef($name, $nodeDef) {
+            foreach($nodeDef as $fieldDef) {
+                if ($name == $fieldDef["name"]) {
+                    return $fieldDef;
+                }
+            }
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Add a new node.",
