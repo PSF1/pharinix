@@ -45,9 +45,9 @@ new driverUrlRewrite();
 // Boot process
 $boot = driverCommand::run("listBooting");
 foreach($boot as $cmd) {
-    $aux = array();
-    parse_str($cmd["parameters"], $params);
-    driverCommand::run($cmd["command"], $params);
+    $prms = array();
+    parse_str($cmd["parameters"], $prms);
+    driverCommand::run($cmd["command"], $prms);
 }
 unset($boot);
 
