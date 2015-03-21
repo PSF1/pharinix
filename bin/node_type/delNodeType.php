@@ -31,6 +31,23 @@ if (!class_exists("commandDelNodeType")) {
                 $nid = driverCommand::run("getNodeTypeId", $params);
                 $nid = $nid["id"];
                 if ($nid !== false) {
+                    // Del pages of nodes...
+                    //RW: rewriteto = command=pageToHTML&page=node_type_testtype_1
+                    // NOTE: Erased by delPage command
+//                    $sql = "delete from `url_rewrite` where `rewriteto` like 'command=pageToHTML&page=node_type_{$params["name"]}_%'";
+//                    dbConn::get()->Execute($sql);
+                    //PG: name = node_type_testtype_1
+                    $sql = "select `name` from `pages` where `name` like 'node_type_{$params["name"]}_%'";
+                    $q = dbConn::get()->Execute($sql);
+                    set_time_limit(0);
+                    while(!$q->EOF) {
+                        driverCommand::run("delPage", array(
+                            'name' => $q->fields["name"],
+                        ));
+                        $q->MoveNext();
+                    }
+                    set_time_limit(ini_get('max_execution_time'));
+                    // Delete tables
                     $sql = "delete from `node_type_field` where `node_type` = $nid";
                     dbConn::get()->Execute($sql);
                     $sql = "delete from `node_type` where `id` = $nid";
@@ -40,23 +57,24 @@ if (!class_exists("commandDelNodeType")) {
                     // Delete multi relation tables
                     $sql = "show tables like 'node_relation_{$params["name"]}%'";
                     $q = dbConn::get()->Execute($sql);
+                    set_time_limit(0);
                     while (!$q->EOF) {
                         $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
                         dbConn::get()->Execute($sql);
                         $q->MoveNext();
                     }
+                    set_time_limit(ini_get('max_execution_time'));
                     // Del page of node type
                     driverCommand::run("delPage", array(
                         'name' => "node_type_".$params["name"],
                     ));
-                    // TODO: Del pages of nodes...
                 }
             }
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Erase a node type", 
+                "description" => "Erase a node type. Note: This command alter the execution time limit and reset it to the php.ini default value.", 
                 "parameters" => array(
                     "name" => "Node type to erase."
                 ), 

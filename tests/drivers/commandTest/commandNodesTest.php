@@ -60,10 +60,10 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $q = dbConn::get()->Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // It must add 4 system fields
-        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = $id";
+        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = $id and `locked` = '1'";
         $q = dbConn::get()->Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
-        // The table must have 4 fields plus ID field
+        // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
         $q = dbConn::get()->Execute($sql);
         $fields = array(
@@ -72,6 +72,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             "modified" => false,
             "creator" => false,
             "created" => false,
+            "title" => false,
         );
         while (!$q->EOF) {
             // Is a expected field?
@@ -106,13 +107,13 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $q = dbConn::get()->Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // It must add 4 system fields
-        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid;
+        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid." && `locked` = '1'";
         $q = dbConn::get()->Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
-        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid1;
+        $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid1." && `locked` = '1'";
         $q = dbConn::get()->Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
-        // The table must have 4 fields plus ID field
+        // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
         $q = dbConn::get()->Execute($sql);
         $fields = array(
@@ -121,6 +122,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             "modified" => false,
             "creator" => false,
             "created" => false,
+            "title" => false,
         );
         while (!$q->EOF) {
             // Is a expected field?
@@ -132,7 +134,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         foreach ($fields as $value) {
             $this->assertEquals(true, $value);
         }
-        // The table must have 4 fields plus ID field
+        // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype2`";
         $q = dbConn::get()->Execute($sql);
         $fields = array(
@@ -141,6 +143,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             "modified" => false,
             "creator" => false,
             "created" => false,
+            "title" => false,
         );
         while (!$q->EOF) {
             // Is a expected field?
@@ -945,6 +948,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run("addNode", array(
             "nodetype" => "testtype",
             "field" => "a1",
+            "title" => "Test", // Required
             ));
         $this->assertTrue($resp["nid"] > 0);
         // Clean data base

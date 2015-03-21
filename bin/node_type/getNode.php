@@ -35,17 +35,11 @@ if (!class_exists("commandGetNode")) {
                         "nodetype" => "",
                         "node" => 0,
                     ),$params);
-            $sql = "select * from `node_{$params["nodetype"]}` where id = ".$params["node"];
-            try {
-                $q = dbConn::get()->Execute($sql);
-            } catch (Exception $ex) {
-                $q = null;
-            }
             
-            if ($q != null) {
-                // TODO: Format the output a bit, please... :D
-                return $q->fields;
-            }
+            return driverCommand::run("getNodes", array(
+                "nodetype" => $params["nodetype"],
+                "where" => "`id` = ".$params["node"],
+            ));
         }
 
         public static function getHelp() {

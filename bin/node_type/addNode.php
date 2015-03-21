@@ -36,6 +36,10 @@ if (!class_exists("commandAddNode")) {
             // Default values
             $params = array_merge(array(
                 "nodetype" => "",
+                "created" => date("Y-m-d H:i:s"),
+                "creator" => 0, // TODO: Asign the user ID
+                "modified" => date("Y-m-d H:i:s"), 
+                "modifier" => 0, // TODO: Asign the user ID
                     ), $params);
             if ($params["nodetype"] == "") { // Node type defined?
                 $resp["msg"] = "Node type required";
@@ -63,21 +67,21 @@ if (!class_exists("commandAddNode")) {
                         $allOk = true;
                         foreach ($params as $name => $value) {
                             if ($name != "nodetype") {
-                                $nameOk = false;
+                                $nameOk = $name;
                                 foreach ($ndefFields as $ndefField) {
                                     if ($ndefField["name"] == $name) {
                                         $nameOk = true;
                                         break;
                                     }
                                 }
-                                if (!$nameOk) {
-                                    $allOk = false;
+                                if ($nameOk !== true) {
+                                    $allOk = $nameOk;
                                     break;
                                 }
                             }
                         }
-                        if (!$allOk) {
-                            $resp["msg"] = "Some fields are not fields of this node type.";
+                        if ($allOk !== true) {
+                            $resp["msg"] = "Field '{$allOk}' are not fields of '{$params["nodetype"]}' node type.";
                         } else {
                             // Duplicated keys?
                             $where = "";

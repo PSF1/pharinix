@@ -139,7 +139,7 @@ if (!class_exists("commandAddNodeField")) {
                         // alter table
                         $sql = self::getAddFieldString($params);
                         dbConn::get()->Execute($sql);
-                        // If multivalue field create relation table
+                        // Create relation table if multivalue field 
                         if ($params["multi"]) {
                             $sql  = 'CREATE TABLE `node_relation_'.$params["node_type"].'_'.$params["name"].'_'.$params["type"].'` ( ';
                             $sql .= '`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, ';

@@ -49,7 +49,7 @@ if (!class_exists("commandAddNodeType")) {
             $params = array_merge(array(
                         "name" => "",
                         "locked" => "0",
-                        "label_field" => "",
+                        "label_field" => "title",
                       ), $params);
             $params["name"] = strtolower($params["name"]);
             if ($params["name"] == "type" || $params["name"] == "type_field") {
@@ -65,7 +65,7 @@ if (!class_exists("commandAddNodeType")) {
             $q = dbConn::get()->Execute($sql);
             if ($q->EOF) {
                 // Insert the new type
-                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW()";
+                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW(), `label_field` = '{$params["label_field"]}'";
                 dbConn::get()->Execute($sql);
                 $id = dbConn::lastID();
                 // Add table
@@ -75,6 +75,19 @@ if (!class_exists("commandAddNodeType")) {
                 $sql .= ") ENGINE=MyISAM";
                 dbConn::get()->Execute($sql);
                 // Add default fields
+                $nField = array(
+                    "name" => "title",
+                    "type" => "string",
+                    "len" => 250,
+                    "required" => true,
+                    "readonly" => false,
+                    "locked" => false,
+                    "node_type" => $params["name"],
+                    "default" => "",
+                    "label" => "Title",
+                    "help" => "A title string for this node.",
+                    );
+                driverCommand::run("addNodeField", $nField);
                 $nField = array(
                     "name" => "created",
                     "type" => "datetime",
@@ -154,11 +167,11 @@ if (!class_exists("commandAddNodeType")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Add a new node type", 
+                "description" => "Add a new node type, with a default string field with name 'title'.", 
                 "parameters" => array(
                     "name" => "Node type name",
                     "locked" => "True/false System field. Optional, default false.",
-                    "label_field" => "Name of the field used how label to list nodes. Optional, default empty.",
+                    "label_field" => "Name of the field used how label to list nodes. Optional, default 'title'.",
                 ), 
                 "response" => array(
                     "ok" => "True/False field added",

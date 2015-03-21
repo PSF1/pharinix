@@ -83,7 +83,7 @@ if (!class_exists("commandGetNodeTypeDef")) {
                         "name" => "Node type name",
                         "locked" => "True/false, is a system node type?",
                         "label_field" => "Name of field used how label to lists.",
-                        "fields" => "Array with field's definitions.",
+                        "fields" => "Array with field's definitions. Each field is a array with this elements: 'name', 'type', 'iskey', 'len', 'required', 'readonly', 'locked', 'default', 'label', 'help', 'multi'.",
                         "created" => "Creation date.",
                         "creator_node_user" => "Creator ID.",
                         "modified" => "Modification date.",
