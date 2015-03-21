@@ -42,6 +42,14 @@ if (CMS_DEBUG) {
 }
 //$cmsUsr = new driverUser();
 new driverUrlRewrite();
+// Boot process
+$boot = driverCommand::run("listBooting");
+foreach($boot as $cmd) {
+    $aux = array();
+    parse_str($cmd["parameters"], $params);
+    driverCommand::run($cmd["command"], $params);
+}
+unset($boot);
 
 if (!isset($_POST["interface"])) {
     $_POST["interface"] = "1";
@@ -80,19 +88,6 @@ if ($_POST["interface"] != "0") {
     driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
 }
 
-// Init system
-//if ($_POST["interface"] != "0") {
-//    if ($cmsUsr->isLoged()) {
-//        driverCommand::run("pageToHTML", array(
-//            "page" => "default.xml",
-//            "params" => driverCommand::getPOSTParams($_POST)
-//            ));
-//    } else {
-//        driverCommand::run("pageToHTML", array("page" => "default.xml"));
-//    }
-//} else {
-//    driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
-//}
 if (CMS_DEBUG) {
     driverCommand::run("usageEnd");
     driverCommand::run("usageToHTML");
