@@ -32,6 +32,7 @@ if (!class_exists("commandGetNodes")) {
             // Default parameters
             $params = array_merge(array(
                 "nodetype" => "",
+                "count" => false,
                 "fields" => "*",
                 "where" => "",
                 "order" => "",
@@ -80,6 +81,9 @@ if (!class_exists("commandGetNodes")) {
                 }
                 if ($limit != "") $limit = " limit ".$limit;
                 // Build query
+                if ($params["count"] === true) {
+                    $fieldList = "count(*) as ammount";
+                }
                 $sql = "select {$fieldList} from `node_{$params["nodetype"]}` ";
                 $sql .= "{$params["where"]} {$params["order"]} {$params["group"]} {$limit}";
                 // Return data
@@ -94,20 +98,26 @@ if (!class_exists("commandGetNodes")) {
                                 $item[$field] = $value;
                             }
                         }
-                        $resp[$q->fields["id"]] = $item;
+                        if ($params["count"] === true) {
+                            $resp[] = $item;
+                        } else {
+                            $resp[$q->fields["id"]] = $item;
+                        }
                         $q->MoveNext();
                     }
                     // Add the multivalue data
-                    foreach($multis as $multi) {
-                        $fDef = self::getFieldDef($multi, $nodeFields);
-                        $relTable = '`node_relation_'.$params["nodetype"].'_'.$multi.'_'.$fDef.'`';
-                        foreach($resp as $id => $item) {
-                            $sql = "select `type2` from $relTable where `type1` = $id";
-                            $q = dbConn::get()->Execute($sql);
-                            $item[$multi] = array();
-                            while (!$q->EOF) {
-                                $item[$multi][] = $q->fields["type2"];
-                                $q->MoveNext();
+                    if ($params["count"] !== true) {
+                        foreach($multis as $multi) {
+                            $fDef = self::getFieldDef($multi, $nodeFields);
+                            $relTable = '`node_relation_'.$params["nodetype"].'_'.$multi.'_'.$fDef.'`';
+                            foreach($resp as $id => $item) {
+                                $sql = "select `type2` from $relTable where `type1` = $id";
+                                $q = dbConn::get()->Execute($sql);
+                                $item[$multi] = array();
+                                while (!$q->EOF) {
+                                    $item[$multi][] = $q->fields["type2"];
+                                    $q->MoveNext();
+                                }
                             }
                         }
                     }
@@ -146,6 +156,7 @@ if (!class_exists("commandGetNodes")) {
                 "description" => "Return list of nodes from a node type. All field's names must be enclosed with '`'", 
                 "parameters" => array(
                     "nodetype" => "Node type.",
+                    "count" => "Bool, If true then return number, in a 'ammount' field, of nodes but without node data.",
                     "fields" => "Comma separated string list. Optional, default '*'.",
                     "where" => "Where condition.",
                     "order" => "Order by fields.",

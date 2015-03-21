@@ -115,4 +115,78 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("NODE 1", $resp[1]["title"]);
         $this->assertEquals(4, $resp[1]["order"]);
     }
+    
+    public function testGetNodes_Where_2() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "where" => "`order` = 4 || `title` like '%2'",
+            ));
+        $this->assertTrue(count($resp) == 2);
+    }
+    
+    public function testGetNodes_Order() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "order" => "`order` DESC",
+            ));
+        $antID = 0;
+        $antorder = 10;
+        foreach($resp as $id => $node) {
+            $this->assertTrue($antID < $id);
+            $this->assertTrue($antorder > $node["order"]);
+            $antID = $id;
+            $antorder = $node["order"];
+        }
+    }
+    
+    public function testGetNodes_Group() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "group" => "`modified`",
+            ));
+        $this->assertTrue(count($resp) == 1);
+    }
+    
+    public function testGetNodes_Count_Group() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "count" => true,
+            "group" => "`modified`",
+            ));
+        $this->assertTrue($resp[0]["ammount"] == 4);
+    }
+    
+    public function testGetNodes_Count_Group2() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "count" => true,
+            "where" => "mod(`order`,2) = 0",
+            ));
+        $this->assertTrue($resp[0]["ammount"] == 2);
+    }
+    
+    public function testGetNodes_Offset() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "offset" => 3,
+            ));
+        $this->assertTrue(count($resp) == 1);
+    }
+    
+    public function testGetNodes_Lenght() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "lenght" => 1,
+            ));
+        $this->assertTrue(count($resp) == 1);
+    }
+    
+    public function testGetNodes_Offset_Lenght() {
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+            "offset" => 1,
+            "lenght" => 3,
+            ));
+        $this->assertTrue(count($resp) == 3);
+    }
 }
