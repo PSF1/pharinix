@@ -20,8 +20,8 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandCommandHelp")) {
-    class commandCommandHelp extends driverCommand {
+if (!class_exists("commandManHTML")) {
+    class commandManHTML extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(
@@ -64,4 +64,4 @@ if (!class_exists("commandCommandHelp")) {
         }
     }
 }
-return new commandCommandHelp();
+return new commandManHTML();
