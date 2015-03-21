@@ -48,7 +48,7 @@ if (!class_exists("commandAddNodeType")) {
             // Default values
             $params = array_merge(array(
                         "name" => "",
-                        "locked" => "0",
+                        "locked" => false,
                         "label_field" => "title",
                       ), $params);
             $params["name"] = strtolower($params["name"]);
@@ -65,7 +65,7 @@ if (!class_exists("commandAddNodeType")) {
             $q = dbConn::get()->Execute($sql);
             if ($q->EOF) {
                 // Insert the new type
-                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW(), `label_field` = '{$params["label_field"]}'";
+                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW(), `label_field` = '{$params["label_field"]}', `locked` = '".($params["locked"]?"1":"0")."'";
                 dbConn::get()->Execute($sql);
                 $id = dbConn::lastID();
                 // Add table
