@@ -117,19 +117,20 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     public static function logIn($user, $pass) {
         if (!isset($_SESSION["started"])) {
             self::sessionStart();
-        }
-        if ($user == strtolower("root")) {
-            $user = ""; // Root can't start session
-        }
-        $node = driverCommand::run("getNodes", array(
-            "nodetype" => "user",
-            "where" => "`mail` = '$user' && `pass` = '$pass'",
-        ));
-        
-        if (count($node) > 0) {
-            $_SESSION["is_loged"] = 1;
-            $_SESSION["user_id"] = array_keys($node)[0];
-            $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
+            $user = strtolower($user);
+            if ($user == "root@localhost") {
+                $user = ""; // Root can't start session
+            }
+            $node = driverCommand::run("getNodes", array(
+                "nodetype" => "user",
+                "where" => "`mail` = '$user' && `pass` = '$pass'",
+            ));
+
+            if (count($node) > 0) {
+                $_SESSION["is_loged"] = 1;
+                $_SESSION["user_id"] = array_keys($node)[0];
+                $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
+            }
         }
     }
     
@@ -144,97 +145,15 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * Is user loged?
      * @return boolean
      */
-    public function isLoged() {
-        return $this->isLoged;
+    public static function isLoged() {
+        return ($_SESSION["is_loged"] == 1);
     }
     
     /**
      * User ID
      * @return int
      */
-    public function getID() {
-        if (!isset($_SESSION["userID"])) return 0;
-        return $_SESSION["userID"];
-    }
-    
-    /**
-     * User name
-     * @return string
-     */
-    public function getMyName() {
-        return self::getName($this->getID());
-    }
-    
-    public function getMyUser() {
-        return $_SESSION["user"];
-    }
-    
-    /**
-     * Add a new user
-     * @param string $login eMail
-     * @param string $pass Real, no MD5, user password
-     * @param string $name User name
-     * @return int User ID of new user
-     */
-    public static function add($login, $pass, $name) {
-        $db = dbConn::get();
-        $sql = "insert into `user` set mail='$login', password='".md5($pass).
-                "', `name`='$name', `created` = NOW()";
-        $db->Execute($sql);
-        return dbConn::lastID();
-    }
-    
-    /**
-     * Change user activation mark
-     * @param int $usrID
-     * @param boolean $value
-     */
-    public static function setActive($usrID, $value) {
-        $db = dbConn::get();
-        $sql = "update `user` set `active`='".($value?"1":"0")."' where id = $usrID";
-        $db->Execute($sql);
-    }
-    
-    /**
-     * Is user activated?
-     * @param int $usrID
-     * @return boolean
-     */
-    public static function isActive($usrID) {
-        $db = dbConn::get();
-        $sql = "select `active` from `user` where id = $usrID";
-        $rs = $db->Execute($sql);
-        if (!$rs->EOF) {
-            return ($rs->fields["active"] == "1");
-        } else {
-            return false;
-        }
-    }
-    
-    /**
-     * Change the user name
-     * @param int $usrID
-     * @param string $value
-     */
-    public static function setName($usrID, $value) {
-        $db = dbConn::get();
-        $sql = "update `user` set `name`='".$value."' where id = $usrID";
-        $db->Execute($sql);
-    }
-    
-    /**
-     * User name
-     * @param int $usrID
-     * @return boolean
-     */
-    public static function getName($usrID) {
-        $db = dbConn::get();
-        $sql = "select `name` from `user` where id = $usrID";
-        $rs = $db->Execute($sql);
-        if (!$rs->EOF) {
-            return $rs->fields["name"];
-        } else {
-            return false;
-        }
+    public static function getID() {
+        return $_SESSION["user_id"];
     }
 }

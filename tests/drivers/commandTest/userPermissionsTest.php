@@ -21,12 +21,8 @@
 
 class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp() {
-//        include_once 'commandTools.php';
+    public static function setUpBeforeClass() {
+        error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
         while (!is_file("etc/pharinix.config.php")) {
             chdir("../");
         }
@@ -35,6 +31,14 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         include_once("etc/drivers/tools.php");
         include_once("etc/drivers/command.php");
         include_once("etc/drivers/user.php");
+        driverUser::sessionStart();
+    }
+    
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp() {
     }
 
     /**
@@ -44,7 +48,25 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
+    
+    public static function tearDownAfterClass() {
+        driverUser::logOut();
+    }
 
+    // Sessions
+    public function testSessionAutoStart_Guest() {
+        driverUser::logOut();
+        driverUser::sessionStart();
+        $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
+    }
+    
+    public function testSessionLogin_Guest() {
+        driverUser::logOut();
+        driverUser::logIn("guest@localhost", "");
+        $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
+    }
+    // END Session
+     
     // READ
     /**
      * Can owner read in each case?
