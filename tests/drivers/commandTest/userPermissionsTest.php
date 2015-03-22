@@ -315,7 +315,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     public function testCanPerformance() {
         $stime = microtime(TRUE);
         for($i = 0; $i < 1000000; ++$i) {
-            $can = driverUser::secTestExecute(511, false, false);
+            driverUser::secTestExecute(511, false, false);
         }
         $etime = microtime(TRUE);
         $c = ($etime - $stime);

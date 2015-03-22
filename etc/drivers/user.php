@@ -55,7 +55,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                 (self::PERMISSION_ALL_READ);
         return (bool)($user & $key);
     }
-    
+
     /**
      * Verify if the user can write
      * @param int $key Security integer to verify
