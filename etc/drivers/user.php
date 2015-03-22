@@ -21,8 +21,68 @@
 
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-class driverUser {
+ class driverUser {
     private $isLoged = false;
+    
+    /*
+     * O = Owner, G = Group, A = All
+     * R = Read, W = Write, X = Execute
+     * Unused:OR.OW.OX:GR.GW.GX:AR.AW.AX:
+     * 00000000000000000000000:0.0.0:0.0.0:0.0.0
+     */
+    const PERMISSION_OWNER_READ = 256;
+    const PERMISSION_OWNER_WRITE = 128;
+    const PERMISSION_OWNER_EXECUTE = 64;
+
+    const PERMISSION_GROUP_READ = 32;
+    const PERMISSION_GROUP_WRITE = 16;
+    const PERMISSION_GROUP_EXECUTE = 8;
+
+    const PERMISSION_ALL_READ = 4;
+    const PERMISSION_ALL_WRITE = 2;
+    const PERMISSION_ALL_EXECUTE = 1;
+    
+    /**
+     * Verify if the user can read
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can read?
+     */
+    public static function secTestRead($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_OWNER_READ:0) | 
+                ($group?self::PERMISSION_GROUP_READ:0) | 
+                (self::PERMISSION_ALL_READ);
+        return (bool)($user & $key);
+    }
+    
+    /**
+     * Verify if the user can write
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can read?
+     */
+    public static function secTestWrite($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_OWNER_WRITE:0) | 
+                ($group?self::PERMISSION_GROUP_WRITE:0) | 
+                (self::PERMISSION_ALL_WRITE);
+        return (bool)($user & $key);
+    }
+    
+    /**
+     * Verify if the user can execute
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can read?
+     */
+    public static function secTestExecute($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_OWNER_EXECUTE:0) | 
+                ($group?self::PERMISSION_GROUP_EXECUTE:0) | 
+                (self::PERMISSION_ALL_EXECUTE);
+        return (bool)($user & $key);
+    }
     
     /**
      * Start user session

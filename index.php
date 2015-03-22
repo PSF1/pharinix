@@ -26,7 +26,7 @@ header("generator: Pharinix ".CMS_VERSION);
 include_once("usr/adodb/cmsapi.php");
 include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");
-//include_once("etc/drivers/user.php");
+include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
 
 // Main user interface
