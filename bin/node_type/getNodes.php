@@ -48,7 +48,6 @@ if (!class_exists("commandGetNodes")) {
                 $params["fields"] = str_replace("*", "`node_{$params["nodetype"]}`.*", $params["fields"]);
                 $params["fields"] = explode(",", $params["fields"]);
                 $fieldList = "";
-                $multis = array(); // To use later
                 $haveId = false;
                 foreach ($params["fields"] as $field) {
                     if ($fieldList != "") $fieldList .= ",";
@@ -59,8 +58,6 @@ if (!class_exists("commandGetNodes")) {
                         $fieldList .= "'error' as `$field`";
                     } else if (strpos($field, "*") !== false) {
                         $fieldList .= "$field";
-                    } else if ($fDef["multi"]) {
-                        $multis[] = $field;
                     } else {
                         $fieldList .= "`$field`";
                     }
@@ -107,15 +104,16 @@ if (!class_exists("commandGetNodes")) {
                     }
                     // Add the multivalue data
                     if ($params["count"] !== true) {
+                        $multis = self::getFieldsMulti($nodeFields);
                         foreach($multis as $multi) {
                             $fDef = self::getFieldDef($multi, $nodeFields);
-                            $relTable = '`node_relation_'.$params["nodetype"].'_'.$multi.'_'.$fDef.'`';
+                            $relTable = '`node_relation_'.$params["nodetype"].'_'.$multi.'_'.$fDef["type"].'`';
                             foreach($resp as $id => $item) {
                                 $sql = "select `type2` from $relTable where `type1` = $id";
                                 $q = dbConn::get()->Execute($sql);
-                                $item[$multi] = array();
+                                $resp[$id][$multi] = array();
                                 while (!$q->EOF) {
-                                    $item[$multi][] = $q->fields["type2"];
+                                    $resp[$id][$multi][] = $q->fields["type2"];
                                     $q->MoveNext();
                                 }
                             }
@@ -149,6 +147,21 @@ if (!class_exists("commandGetNodes")) {
                 }
             }
             return false;
+        }
+        
+        /**
+         * Return a list of multivalue fields.
+         * @param array $fields Fields definitions
+         * @return array
+         */
+        protected static function getFieldsMulti(&$fields) {
+            $resp = array();
+            foreach($fields as $field) {
+                if ($field["multi"]) {
+                    $resp[] = $field["name"];
+                }
+            }
+            return $resp;
         }
 
         public static function getHelp() {
