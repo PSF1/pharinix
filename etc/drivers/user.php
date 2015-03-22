@@ -84,53 +84,60 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         return (bool)($user & $key);
     }
     
-    /**
-     * Start user session
-     * @param string $user
-     * @param string $pass
-     */
-    public function __construct($user = "", $pass = "") {
+    public static function sessionStart() {
         session_start();
-        if (!isset($_SESSION["user"])) {
-            $_SESSION["user"] = "";
-            $_SESSION["pass"] = "";
-            $_SESSION["remember"] = false;
-        } elseif ($user == "" && $pass == "") {
-            $user = $_SESSION["user"];
-            $pass = $_SESSION["pass"];
+        if (!isset($_SESSION["started"])) {
+            // We cache root and guest information
+            $_SESSION["started"] = 1;
+            $sql = "SELECT `node_user`.`id` as `iduser`, `node_group`.`id` as ".
+                   "`idgroup` FROM `node_user` left join `node_group` on ".
+                   "(`node_user`.`name` = `node_group`.`title`) where ".
+                   "`node_user`.`name` = 'root'";
+            $q = dbConn::get()->Execute($sql);
+            if (!$q->EOF) {
+                $_SESSION["user_root_id"] = $q->fields["iduser"];
+                $_SESSION["group_root_id"] = $q->fields["idgroup"];
+            }
+            $sql = "SELECT `node_user`.`id` from `node_user` where `node_user`.`name` = 'guest'";
+            $q = dbConn::get()->Execute($sql);
+            $_SESSION["user_id"] = 0;
+            if (!$q->EOF) {
+                $_SESSION["user_guest_id"] = $q->fields["id"];
+                $_SESSION["user_id"] = $q->fields["id"];
+            }
+            $_SESSION["is_loged"] = 0;
         }
-        $this->logIn($user, $pass);
-    }
-    
-    /**
-     * Close user session
-     */
-    public function logOut() {
-        session_destroy();
     }
     
     /**
      * Identify user
      * @param string $user
      * @param string $pass
-     * @param boolean $remember
      */
-    public function logIn($user, $pass, $remember = false) {
-        $db = dbConn::get();
-        $rs = $db->Execute("select * from `user` where mail = '$user'");
-        if (!$rs->EOF) {
-            if ($rs->fields["active"] != "1") {
-                $this->logOut();
-            } else {
-                if ($rs->fields["mail"] == $user && $pass == $rs->fields["password"]) {
-                    $this->isLoged = true;
-                    $_SESSION["userID"] = $rs->fields["id"];
-                    $_SESSION["user"] = $user;
-                    $_SESSION["pass"] = $pass;
-                    $_SESSION["remember"] = $remember;
-                }
-            }
+    public static function logIn($user, $pass) {
+        if (!isset($_SESSION["started"])) {
+            self::sessionStart();
         }
+        if ($user == strtolower("root")) {
+            $user = ""; // Root can't start session
+        }
+        $node = driverCommand::run("getNodes", array(
+            "nodetype" => "user",
+            "where" => "`mail` = '$user' && `pass` = '$pass'",
+        ));
+        
+        if (count($node) > 0) {
+            $_SESSION["is_loged"] = 1;
+            $_SESSION["user_id"] = array_keys($node)[0];
+            $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
+        }
+    }
+    
+    /**
+     * Close user session
+     */
+    public static function logOut() {
+        session_destroy();
     }
     
     /**
