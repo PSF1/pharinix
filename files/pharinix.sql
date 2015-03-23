@@ -24,11 +24,12 @@ CREATE TABLE `bin-path` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `path` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 INSERT INTO `bin-path` VALUES  (1,'bin/'),
  (2,'bin/html/'),
  (3,'usr/bootstrap-form-builder/bin/'),
- (4,'bin/node_type/');
+ (4,'bin/node_type/'),
+ (5,'bin/user/');
 CREATE TABLE `booting` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `command` varchar(250) NOT NULL,
@@ -55,7 +56,8 @@ CREATE TABLE `node_group` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+INSERT INTO `node_group` VALUES  (1,1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','root');
 CREATE TABLE `node_relation_user_groups_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type1` int(10) unsigned NOT NULL,
@@ -63,7 +65,8 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+INSERT INTO `node_relation_user_groups_group` VALUES  (1,1,1);
 CREATE TABLE `node_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -125,7 +128,9 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+INSERT INTO `node_user` VALUES  (1,0,'root@localhost','','root',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Superuser'),
+ (2,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest');
 CREATE TABLE `page-blocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpage` int(10) unsigned NOT NULL,
@@ -163,6 +168,17 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home
  (972,'node_type_algo','etc/templates/pages/default.xml','algo node type','',''),
  (3191,'node_type_user','etc/templates/pages/default.xml','user node type','',''),
  (3192,'node_type_group','etc/templates/pages/default.xml','group node type','','');
+CREATE TABLE `sec` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `path` varchar(250) NOT NULL,
+  `permissions` int(10) unsigned NOT NULL DEFAULT '0',
+  `user` int(10) unsigned NOT NULL COMMENT 'User owner',
+  `group` int(10) unsigned NOT NULL COMMENT 'Group owner',
+  PRIMARY KEY (`id`),
+  KEY `path` (`path`),
+  KEY `group` (`group`),
+  KEY `user` (`user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 CREATE TABLE `url_rewrite` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `url` longtext,
