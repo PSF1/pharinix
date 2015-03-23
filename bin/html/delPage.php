@@ -35,11 +35,11 @@ if (!class_exists("commandDelPage")) {
             $page = driverPages::getPage($params["name"]);
             if ($page !== false) {
                 $sql = "delete FROM `page-blocks` where `idpage` = '{$page->fields["id"]}'";
-                dbConn::get()->Execute($sql);
+                dbConn::Execute($sql);
                 $sql = "delete FROM `url_rewrite` where `rewriteto` like 'command=pageToHTML&page={$params["name"]}'";
-                dbConn::get()->Execute($sql);
+                dbConn::Execute($sql);
                 $sql = "delete FROM `pages` where `name` = '{$params["name"]}'";
-                dbConn::get()->Execute($sql);
+                dbConn::Execute($sql);
             }
         }
 

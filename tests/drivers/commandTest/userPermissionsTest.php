@@ -39,6 +39,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
+        
     }
 
     /**
@@ -64,6 +65,17 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         driverUser::logOut();
         driverUser::logIn("guest@localhost", "");
         $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
+    }
+    
+    public function testSessionLogin_NoDataBase() {
+        dbConn::$lockConnection = true; // Simulate no database connection
+        $this->assertNotTrue(dbConn::haveConnection());
+        $_SESSION = array(); // Reset session information
+        driverUser::logOut();
+        driverUser::logIn("guest@localhost", "");
+        $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
+        $this->assertTrue($_SESSION["user_guest_id"] == 0);
+        dbConn::$lockConnection = false;
     }
     // END Session
      

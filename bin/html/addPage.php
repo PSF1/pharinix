@@ -48,7 +48,7 @@ if (!class_exists("commandAddPage")) {
                     $resp["msg"] = "Page need a unique name.";
                 } else {
                     $sql = "SELECT * FROM `pages` where `name` = '{$params["name"]}'";
-                    $q = dbConn::get()->Execute($sql);
+                    $q = dbConn::Execute($sql);
                     if (!$q->EOF) {
                         $resp["ok"] = false;
                         $resp["msg"] = "Page name just exist.";
@@ -59,7 +59,7 @@ if (!class_exists("commandAddPage")) {
                         $sql .= "`title`= '{$params["title"]}', ";
                         $sql .= "`description`= '{$params["description"]}', ";
                         $sql .= "`keys`= '{$params["keys"]}' ";
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         if ($params["url"] != "") {
                             driverCommand::run("addUrl", array(
                                 "url" => $params["url"],

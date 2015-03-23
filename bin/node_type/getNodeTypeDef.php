@@ -42,7 +42,7 @@ if (!class_exists("commandGetNodeTypeDef")) {
                 );
             if ($nid !== false) {
                 $sql = "SELECT * FROM `node_type` where `id` = $nid";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 $resp["locked"] = $q->fields["locked"]=="1";
                 $resp["label_field"] = $q->fields["label_field"];
                 $resp["created"] = $q->fields["created"];
@@ -50,7 +50,7 @@ if (!class_exists("commandGetNodeTypeDef")) {
                 $resp["modified"] = $q->fields["modified"];
                 $resp["modifier_node_user"] = $q->fields["modifier_node_user"];
                 $sql = "SELECT * FROM `node_type_field` where `node_type` = $nid";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 while (!$q->EOF) {
                     $item = array();
                     $item['name'] = $q->fields['name'];

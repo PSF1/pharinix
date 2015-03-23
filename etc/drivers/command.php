@@ -47,13 +47,25 @@ class driverCommand {
         $cmd = str_replace("\\", "", $cmd);
         $cmd = str_replace(".", "", $cmd);
         if (driverCommand::$paths == null) {
-            $sql = "SELECT * FROM `bin-path`";
-            driverCommand::$paths = dbConn::get()->Execute($sql);
+            driverCommand::$paths = array();
+            if (dbConn::haveConnection()) {
+                $sql = "SELECT * FROM `bin-path`";
+                $q = dbConn::Execute($sql);
+                while (!$q->EOF) {
+                    driverCommand::$paths[] = $q->fields["path"];
+                    $q->MoveNext();
+                }
+            } else {
+                // TODO: Prepare other methods to get defaults paths
+                // Without database select default paths
+                driverCommand::$paths[] = "bin/";
+                driverCommand::$paths[] = "bin/node_type/";
+                driverCommand::$paths[] = "bin/user/";
+                driverCommand::$paths[] = "bin/html/";
+            }
         }
-        driverCommand::$paths->MoveFirst();
         $resp = array();
-        while(!driverCommand::$paths->EOF) {
-            $path = driverCommand::$paths->fields["path"];
+        foreach(driverCommand::$paths as $path) {
             if (is_file($path.$cmd.".php")) {
                 $object = include($path.$cmd.".php");
                 $resp = $object->runMe($params);
@@ -64,7 +76,6 @@ class driverCommand {
                 unset($params);
                 return $resp;
             }
-            driverCommand::$paths->MoveNext();
         }
         throw new Exception("Command '{$cmd}' not found");
     }

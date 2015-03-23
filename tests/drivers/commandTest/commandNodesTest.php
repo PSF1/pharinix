@@ -41,31 +41,31 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
 //        $node = "node_".$node;
 //        // Clean database
 //        $sql = "delete FROM `node_type_field` where `node_type` = $id";
-//        dbConn::get()->Execute($sql);
+//        dbConn::Execute($sql);
 //        $sql = "delete FROM `node_type` where `id` = $id";
-//        dbConn::get()->Execute($sql);
+//        dbConn::Execute($sql);
 //        $sql = "DROP TABLE IF EXISTS `$node`";
-//        dbConn::get()->Execute($sql);
+//        dbConn::Execute($sql);
     } 
     
     public function testCommandAddType() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         // It must add type info in table
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $id = $q->fields["id"];
         // It must create a table
         $sql = "show tables like 'node_testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // It must add 4 system fields
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = $id and `locked` = '1'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
         // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
             "modifier" => false,
@@ -94,28 +94,28 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $nid1 = $nid1["nid"];
         // It must add type info in table
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype2'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // It must create a table
         $sql = "show tables like 'node_testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $sql = "show tables like 'node_testtype2'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // It must add 4 system fields
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid." && `locked` = '1'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid1." && `locked` = '1'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(4, $q->fields[0]);
         // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
             "modifier" => false,
@@ -136,7 +136,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         }
         // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype2`";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
             "modifier" => false,
@@ -169,7 +169,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldLongtext() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "longtext",
@@ -185,11 +185,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'longtext' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'longtext'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("longtext", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -202,7 +202,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldLongtextDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "longtext",
@@ -212,7 +212,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'longtext' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("longtext", $q->fields["name"]);
         $this->assertEquals("longtext", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -230,7 +230,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldBool() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "bool",
@@ -246,11 +246,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'bool' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'bool'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("varchar(1)", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -263,7 +263,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldBoolDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "bool",
@@ -273,7 +273,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'bool' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("bool", $q->fields["name"]);
         $this->assertEquals("bool", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -291,7 +291,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldPassword() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "password",
@@ -307,11 +307,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'password' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'password'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("varchar(45)", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -324,7 +324,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldPasswordDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "password",
@@ -334,7 +334,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'password' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("password", $q->fields["name"]);
         $this->assertEquals("password", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -352,7 +352,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldHTMLText() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "htmltext",
@@ -368,11 +368,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'htmltext' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'htmltext'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("longtext", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -385,7 +385,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldHTMLTextDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "htmltext",
@@ -395,7 +395,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'htmltext' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("htmltext", $q->fields["name"]);
         $this->assertEquals("htmltext", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -413,7 +413,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldDatetime() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "datetime",
@@ -429,11 +429,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'datetime' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'datetime'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("datetime", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -446,7 +446,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldDatetimeDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "datetime",
@@ -456,7 +456,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'datetime' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("datetime", $q->fields["name"]);
         $this->assertEquals("datetime", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -474,7 +474,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldDouble() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "double",
@@ -490,11 +490,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'double' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'double'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("decimal(20,6)", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -507,7 +507,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldDoubleDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "double",
@@ -517,7 +517,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'double' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("double", $q->fields["name"]);
         $this->assertEquals("double", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -535,7 +535,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldInteger() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "integer",
@@ -551,11 +551,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'integer' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'integer'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("int(11)", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -568,7 +568,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldIntegerDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "integer",
@@ -578,7 +578,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'integer' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("integer", $q->fields["name"]);
         $this->assertEquals("integer", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -596,7 +596,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldString() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "string",
@@ -612,11 +612,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'string' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'string'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("varchar(10)", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -629,7 +629,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldStringDefaults() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "string",
@@ -639,7 +639,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'string' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("string", $q->fields["name"]);
         $this->assertEquals("string", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -660,7 +660,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeType", array("name" => "subtype"));
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "subtype",
@@ -676,11 +676,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // New field?
         $sql = "SELECT count(*) FROM `node_type_field` where `name` = 'subtype' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(1, $q->fields[0]);
         // The table must have a new field
         $sql = "show columns from `node_testtype` like 'subtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         $this->assertEquals("int(10) unsigned", $q->fields["Type"]);
         $this->assertEquals("YES", $q->fields["Null"]);
@@ -696,7 +696,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $nid = $nid["nid"];
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "subtype1",
@@ -706,7 +706,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'subtype1' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("subtype1", $q->fields["name"]);
         $this->assertEquals("subtype1", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
@@ -727,7 +727,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $nid = $nid["nid"];
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $nField = array(
             "name" => "subtype1",
@@ -738,13 +738,13 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         
         $sql = "SELECT * FROM `node_type_field` where `name` = 'subtype1' && `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals("subtype1", $q->fields["name"]);
         $this->assertEquals("subtype1", $q->fields["type"]);
         $this->assertEquals($id, $q->fields["node_type"]);
         // Relation table created?
         $sql = "show tables like 'node_relation_testtype%'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
         // Clean data base
         $this->cleanDatabase($id);
@@ -754,7 +754,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddFieldNodeTypeModified() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         $modified = $q->fields["modified"];
         // A little nap...
@@ -768,7 +768,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("addNodeField", $nField);
         // The modified date is changed?
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertNotEquals($modified, $q->fields["modified"]);
         // Clean data base
         $this->cleanDatabase($id);
@@ -777,7 +777,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandDelFieldNodeTypeModified() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -787,7 +787,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         );
         driverCommand::run("addNodeField", $nField);
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $modified = $q->fields["modified"];
         // A little nap...
         sleep(2);
@@ -798,7 +798,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         )); 
         // The modified date is changed?
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertNotEquals($modified, $q->fields["modified"]);
         // Clean data base
         $this->cleanDatabase($id);
@@ -807,7 +807,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNodeField_iskey() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -825,7 +825,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         );
         driverCommand::run("addNodeField", $nField);
         $sql = "SELECT * FROM `node_type_field` where `node_type` = $id";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         while(!$q->EOF) {
             switch ($q->fields["name"]) {
                 case "key":
@@ -851,7 +851,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNode_Required_Fields_FAIL() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -880,7 +880,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNode_Iskey_Fields_FAIL() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -911,7 +911,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNode_Unknowed_Fields_FAIL() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -935,7 +935,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNode_OK() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(
@@ -959,7 +959,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     public function testCommandAddNode_Duplicate_Keys_FAIL() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $id = $q->fields["id"];
         // Add a new field
         $nField = array(

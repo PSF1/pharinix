@@ -81,7 +81,7 @@ if (!class_exists("commandAddNodeField")) {
             if ($ntype !== false) {
                 // Verify that name is unique
                 $sql = "select id from `node_type_field` where `node_type` = {$ntype["id"]} && `name` = '{$params["name"]}'";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 if ($q->EOF) {
                     $isbasic = driverCommand::run("isBasicNodeFieldType", array("type" => $params["type"]));
                     if (!$isbasic["basic"]) {
@@ -134,11 +134,11 @@ if (!class_exists("commandAddNodeField")) {
                         $sql .= "`default` = '{$params["default"]}',";
                         $sql .= "`label` = '{$params["label"]}',";
                         $sql .= "`help` = '{$params["help"]}'";
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         $resp["ok"] = true;
                         // alter table
                         $sql = self::getAddFieldString($params);
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         // Create relation table if multivalue field 
                         if ($params["multi"]) {
                             $sql  = 'CREATE TABLE `node_relation_'.$params["node_type"].'_'.$params["name"].'_'.$params["type"].'` ( ';
@@ -149,11 +149,11 @@ if (!class_exists("commandAddNodeField")) {
                             $sql .= 'INDEX `type1`(`type1`), '; // type1 to type2 relation
                             $sql .= 'INDEX `type2`(`type2`) ';
                             $sql .= ') ENGINE = MyISAM';
-                            dbConn::get()->Execute($sql);
+                            dbConn::Execute($sql);
                         }
                         // Modificated
                         $sql = "update `node_type` set `modified` = NOW() where `id` = ".$ntype["id"];
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         // TODO: Add modificator user
                     }
                 } else {

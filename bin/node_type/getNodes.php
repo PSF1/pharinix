@@ -85,7 +85,7 @@ if (!class_exists("commandGetNodes")) {
                 $sql .= "{$params["where"]} {$params["order"]} {$params["group"]} {$limit}";
                 // Return data
                 try {
-                    $q = dbConn::get()->Execute($sql);
+                    $q = dbConn::Execute($sql);
                     $resp = array();
                     // Load direct data from recordset
                     while (!$q->EOF) {
@@ -110,7 +110,7 @@ if (!class_exists("commandGetNodes")) {
                             $relTable = '`node_relation_'.$params["nodetype"].'_'.$multi.'_'.$fDef["type"].'`';
                             foreach($resp as $id => $item) {
                                 $sql = "select `type2` from $relTable where `type1` = $id";
-                                $q = dbConn::get()->Execute($sql);
+                                $q = dbConn::Execute($sql);
                                 $resp[$id][$multi] = array();
                                 while (!$q->EOF) {
                                     $resp[$id][$multi][] = $q->fields["type2"];

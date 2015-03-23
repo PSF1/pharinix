@@ -33,7 +33,7 @@ if (!class_exists("commandAddBooting")) {
             $sql .= "`parameters` = '{$params["parameters"]}', ";
             $sql .= "`priority` = '{$params["priority"]}', ";
             $sql .= "`ref` = '".uniqid("", true)."'";
-            dbConn::get()->Execute($sql);
+            dbConn::Execute($sql);
         }
 
         public static function getHelp() {

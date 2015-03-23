@@ -25,7 +25,7 @@ if (!class_exists("commandListBooting")) {
 
         public static function runMe(&$params, $debug = true) {
             $sql = "select * from `booting` order by `priority`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             $resp = array();
             while(!$q->EOF) {
                 $item = array();

@@ -28,10 +28,10 @@ if (!class_exists("commandDelUrl")) {
                 return;
             } else {
                 $sql = "SELECT `id` FROM `url_rewrite` where `url` = '{$params["url"]}'";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 if (!$q->EOF) {
                     $sql = "delete FROM `url_rewrite` where `id` = '{$q->fields["id"]}'";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                 }
             }
         }

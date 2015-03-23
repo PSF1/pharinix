@@ -34,7 +34,7 @@ if (!class_exists("commandMan")) {
                     );
             
             $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             while(!$q->EOF) {
                 $cmds = driverTools::lsDir($q->fields["path"]);
                 foreach($cmds["files"] as $cmd) {

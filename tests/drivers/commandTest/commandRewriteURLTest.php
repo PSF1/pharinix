@@ -54,7 +54,7 @@ class commandRewriteURLTest extends PHPUnit_Framework_TestCase {
         // Del URL
         driverCommand::run("delUrl", array("url" => "phpunit/test"));
         $sql = "SELECT `id` FROM `url_rewrite` where `url` = 'phpunit/test'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         $this->assertEquals(true, $q->EOF);
     }
 }

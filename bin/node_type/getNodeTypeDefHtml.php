@@ -82,7 +82,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             }
             echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Created by '{$def["creator_node_user"]}' in {$def["created"]}, modified by '{$def["modifier_node_user"]}' in {$def["modified"]}.</p>";
             $sql = "select count(*) from `node_{$params["nodetype"]}`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
         }
 

@@ -32,24 +32,24 @@ if (!class_exists("commandDelNodeField")) {
             // Exist node type?
             if ($nid !== false) {
                 $sql = "select `locked` from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 // TODO: Is a system type? If true, I can't change it...
                 if (!$q->EOF /*&& $q->fields["locked"] == "1"*/) {
                     $sql = "delete from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     $sql = "ALTER TABLE `node_{$params["nodetype"]}` DROP COLUMN `{$params["name"]}`";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     // Delete multi relation table
                     $sql = "show tables like 'node_relation_{$params["nodetype"]}_{$params["name"]}%'";
-                    $q = dbConn::get()->Execute($sql);
+                    $q = dbConn::Execute($sql);
                     while (!$q->EOF) {
                         $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         $q->MoveNext();
                     }
                     // Modificated
                     $sql = "update `node_type` set `modified` = NOW() where `id` = ".$nid;
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     // TODO: Add modificator user
                 }
             }

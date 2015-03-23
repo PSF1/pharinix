@@ -25,7 +25,7 @@ if (!class_exists("commandGetRWUrls")) {
 
         public static function runMe(&$params, $debug = true) {
             $sql = "SELECT * FROM `url_rewrite`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             $resp = array("list" => array());
             while(!$q->EOF) {
                 $resp["list"][] = $q->fields["url"];

@@ -35,10 +35,10 @@ if (!class_exists("commandDelNodeType")) {
                     //RW: rewriteto = command=pageToHTML&page=node_type_testtype_1
                     // NOTE: Erased by delPage command
 //                    $sql = "delete from `url_rewrite` where `rewriteto` like 'command=pageToHTML&page=node_type_{$params["name"]}_%'";
-//                    dbConn::get()->Execute($sql);
+//                    dbConn::Execute($sql);
                     //PG: name = node_type_testtype_1
                     $sql = "select `name` from `pages` where `name` like 'node_type_{$params["name"]}_%'";
-                    $q = dbConn::get()->Execute($sql);
+                    $q = dbConn::Execute($sql);
                     set_time_limit(0);
                     while(!$q->EOF) {
                         driverCommand::run("delPage", array(
@@ -49,18 +49,18 @@ if (!class_exists("commandDelNodeType")) {
                     set_time_limit(ini_get('max_execution_time'));
                     // Delete tables
                     $sql = "delete from `node_type_field` where `node_type` = $nid";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     $sql = "delete from `node_type` where `id` = $nid";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     $sql = "DROP TABLE IF EXISTS `node_{$params["name"]}`";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     // Delete multi relation tables
                     $sql = "show tables like 'node_relation_{$params["name"]}%'";
-                    $q = dbConn::get()->Execute($sql);
+                    $q = dbConn::Execute($sql);
                     set_time_limit(0);
                     while (!$q->EOF) {
                         $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
-                        dbConn::get()->Execute($sql);
+                        dbConn::Execute($sql);
                         $q->MoveNext();
                     }
                     set_time_limit(ini_get('max_execution_time'));

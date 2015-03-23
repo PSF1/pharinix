@@ -33,7 +33,7 @@ if (!class_exists("commandGetNodeTypeID")) {
 
         public static function runMe(&$params, $debug = true) {
            $sql = "select id from `node_type` where `name` = '{$params["name"]}'";
-           $q = dbConn::get()->Execute($sql);
+           $q = dbConn::Execute($sql);
            if ($q->EOF) {
                return array("id" => false);
            } else {

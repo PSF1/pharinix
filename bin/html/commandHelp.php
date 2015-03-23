@@ -25,7 +25,7 @@ if (!class_exists("commandCommandHelp")) {
 
         public static function runMe(&$params, $debug = true) {
             $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             echo "<legend>Command's list</legend>";
             while(!$q->EOF) {
                 echo "<h2>Package path '{$q->fields["path"]}'</h2>";

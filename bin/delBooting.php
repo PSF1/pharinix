@@ -28,7 +28,7 @@ if (!class_exists("commandDelBooting")) {
                     "uid" => "",
                 ), $params);
             $sql = "delete from `booting` where `ref` = '".$params["uid"]."'";
-            dbConn::get()->Execute($sql);
+            dbConn::Execute($sql);
         }
 
         public static function getHelp() {

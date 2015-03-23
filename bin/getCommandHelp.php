@@ -26,7 +26,7 @@ if (!class_exists("commandGetCommandHelp")) {
         public static function runMe(&$params, $debug = true) {
             $resp = array("help" => array());
             $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             while(!$q->EOF) {
                 $resp["help"][$q->fields["path"]] = array();
                 $cmds = driverTools::lsDir($q->fields["path"]);

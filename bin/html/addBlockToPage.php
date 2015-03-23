@@ -47,7 +47,7 @@ if (!class_exists("commandAddBlockToPage")) {
                 $sql .= "`command` = '{$params["command"]}', ";
                 $sql .= "`parameters` = '{$params["parameters"]}', ";
                 $sql .= "`priority` = {$params["priority"]}";
-                dbConn::get()->Execute($sql);
+                dbConn::Execute($sql);
                 $resp["ok"] = true;
             }
         }

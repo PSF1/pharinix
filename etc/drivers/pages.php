@@ -32,7 +32,7 @@ class driverPages {
      */
     public static function getPage($name) {
         $sql = "SELECT * FROM pages where `name` = '$name'";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         if ($q->EOF) {
             return false;
         } else {
@@ -49,7 +49,7 @@ class driverPages {
     public static function getCommands($pageId, $colId) {
         $sql = "SELECT * FROM `page-blocks` where (`idpage` = $pageId || `idpage` = 0) && `idcol` = '$colId'";
         $sql .= " order by `priority` asc";
-        $q = dbConn::get()->Execute($sql);
+        $q = dbConn::Execute($sql);
         if ($q->EOF) {
             return false;
         } else {

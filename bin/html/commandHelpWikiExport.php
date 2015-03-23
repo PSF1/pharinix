@@ -28,7 +28,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                 "path" => "C:\Users\psf\Documents\github\pharinix.wiki\Command's-help.md", 
             ), $params);
             $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::get()->Execute($sql);
+            $q = dbConn::Execute($sql);
             ob_start();
             echo "# Command's list\n\n";
             while(!$q->EOF) {

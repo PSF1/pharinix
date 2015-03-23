@@ -28,14 +28,63 @@ include_once("usr/adodb/adodb-exceptions.inc.php");
 include_once("usr/adodb/adodb.inc.php");
 
 class dbConn {
-
+    /**
+     * Database connection
+     * @var ADOConnection 
+     */
     public static $conn = null;
+    /**
+     * We connection?
+     * @var bool 
+     */
+    public static $connected = false;
+    /**
+     * ADOdb monitor
+     * @var type 
+     */
     public static $perf = null;
+    /**
+     * Stop connection with database with test purpose
+     * @var bool
+     */
+    public static $lockConnection = false;
 
+    /**
+     * We connection?
+     * @return boolean We connection?
+     */
+    public static function haveConnection() {
+        if (self::$lockConnection) return false;
+        $resp = false;
+        self::get();
+        if (self::$conn != null) {
+            $resp = self::$connected;
+        }
+        return $resp;
+    }
+    
+    public static function Execute($sql) {
+        // TODO: Introduce cache
+        // TODO: Compatibility with other database engines.
+        $resp = null;
+        if (self::haveConnection()) {
+            $resp = self::get()->Execute($sql);
+        } else {
+            $resp = new fakeRecordset();
+        }
+        return $resp;
+    }
+    
     public static function get() {
         if (self::$conn == null) {
             self::$conn = NewADOConnection('mysql');
-            self::$conn->Connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DBNAME);
+            try {
+                self::$conn->Connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DBNAME);
+                self::$connected = true;
+            } catch (Exception $exc) {
+                self::$connected = false;
+//                echo $exc->getTraceAsString();
+            }
             if (CMS_DEBUG) {
                 self::$perf =& NewPerfMonitor(self::$conn);
             }
@@ -92,4 +141,12 @@ class dbConn {
         return $rs->fields[0];
     }
 
+}
+
+class fakeRecordset {
+    public $EOF = true;
+    
+    public function MoveFirst() {
+        
+    }
 }

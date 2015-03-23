@@ -96,7 +96,7 @@ if (!class_exists("commandAddNode")) {
                             $ctrl = 0;
                             if ($where != "") {
                                 $sql = "select count(*) from `node_{$params["nodetype"]}` where $where";
-                                $q = dbConn::get()->Execute($sql);
+                                $q = dbConn::Execute($sql);
                                 $ctrl = $q->fields[0];
                             }
                             if ($ctrl > 0) {
@@ -133,14 +133,14 @@ if (!class_exists("commandAddNode")) {
                                     }
                                 }
                                 $sql = "insert into `node_{$params["nodetype"]}` set ".$sql;
-                                dbConn::get()->Execute($sql);
+                                dbConn::Execute($sql);
                                 $last = dbConn::lastID();
                                 $resp["nid"] = $last;
                                 $resp["ok"] = true;
                                 // Add Multi values
                                 foreach($sqlMultis as $sqlMulti) {
                                     $sqlMulti = str_replace("{NID}", $last, $sqlMulti);
-                                    dbConn::get()->Execute($sqlMulti);
+                                    dbConn::Execute($sqlMulti);
                                 }
                                 // Add personalized page
                                 driverCommand::run("addPage", array(

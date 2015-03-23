@@ -29,12 +29,12 @@ if (!class_exists("commandAddUrl")) {
                 $resp["msg"] = "URL or CMD is empty.";
             } else {
                 $sql = "SELECT `id` FROM `url_rewrite` where `url` = '{$params["url"]}'";
-                $q = dbConn::get()->Execute($sql);
+                $q = dbConn::Execute($sql);
                 if (!$q->EOF) {
                     $resp["msg"] = "URL just existe.";
                 } else {
                     $sql = "insert into `url_rewrite` set `url` = '{$params["url"]}', `rewriteto` = '{$params["cmd"]}'";
-                    dbConn::get()->Execute($sql);
+                    dbConn::Execute($sql);
                     $resp["ok"] = true;
                 }
             }
