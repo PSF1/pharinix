@@ -201,7 +201,7 @@ if (!class_exists("commandAddNodeField")) {
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` LONGTEXT AFTER `id`";
                 break;
                 case "bool":
-                    $def = (boolval($params["default"])?"1":"0");
+                    $def = ((bool)($params["default"])?"1":"0");
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` VARCHAR(1) DEFAULT '".$def."' AFTER `id`";
                 break;
                 case "datetime":
