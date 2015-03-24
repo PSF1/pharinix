@@ -102,7 +102,7 @@ if (!class_exists("commandAddNodeField")) {
                             case "longtext":
                                 break;
                             case "bool":
-                                $params["default"] = (boolval($params["default"]) ? "1" : "0");
+                                $params["default"] = ((bool)($params["default"]) ? "1" : "0");
                                 break;
                             case "datetime":
                                 break;
