@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="Pharinix Test Suite">
-            <directory>./tests/drivers/commandTest/</directory>
+            <directory>../../tests/drivers/commandTest/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
