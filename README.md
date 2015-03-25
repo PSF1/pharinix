@@ -2,6 +2,8 @@
 
 More info in the Wiki: <https://github.com/PSF1/pharinix/wiki>
 
+Travis CI state: [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
+
 Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
 
