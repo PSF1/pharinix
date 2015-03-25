@@ -33,12 +33,16 @@ sudo: required
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-    - sudo apt-get install apache2
-    - sudo a2enmod actions
-    - sudo a2enmod rewrite
-    - echo "export PATH=/home/vagrant/.phpenv/bin:$PATH" | sudo tee -a /etc/apache2/envvars > /dev/null
-    - echo "$(curl -fsSL https://gist.github.com/roderik/16d751c979fdeb5a14e3/raw/gistfile1.txt)" | sudo tee /etc/apache2/conf.d/phpconfig > /dev/null
-    - echo "$(curl -fsSL https://gist.github.com/roderik/2eb301570ed4a1f4c33d/raw/gistfile1.txt)" | sed -e "s,PATH,`pwd`/web,g" | sudo tee /etc/apache2/sites-available/default > /dev/null
+    - sudo apt-get update
+    - sudo apt-get install apache2 libapache2-mod-fastcgi
+    # enable php-fpm
+    - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+    - sudo a2enmod rewrite actions fastcgi alias
+    - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+    # configure apache virtual hosts
+    - sudo cp -f etc/travis-ci/travis-ci-apache /etc/apache2/sites-available/default
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
 #  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
 #  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
@@ -48,7 +52,7 @@ before_script:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script: 
-    - phpunit --configuration phpunit.xml.dist
+    - phpunit --configuration etc/travis-ci/phpunit.xml.dist
 
 # configure notifications (email, IRC, campfire etc)
 notifications:
