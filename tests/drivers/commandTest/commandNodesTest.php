@@ -951,6 +951,8 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             "title" => "Test", // Required
             ));
         $this->assertTrue($resp["nid"] > 0);
+        $resp = driverCommand::run("isUrl", array("url" => "node/testtype/".$resp["nid"]));
+        $this->assertTrue($resp["ok"]);
         // Clean data base
         $this->cleanDatabase($id);
     }

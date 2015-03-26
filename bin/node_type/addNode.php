@@ -149,7 +149,7 @@ if (!class_exists("commandAddNode")) {
                                     'title' => "Node {$last}",
                                     'description' => "",
                                     'keys' => "",
-                                    'url' => "node/type/{$params["nodetype"]}/{$last}",
+                                    'url' => "node/{$params["nodetype"]}/{$last}",
                                 ));
                                 driverCommand::run("addBlockToPage", array(
                                     'page' => "node_type_".$params["nodetype"]."_".$last,
