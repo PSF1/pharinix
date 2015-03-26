@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
@@ -19,17 +19,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-// General
-define("CMS_VERSION", "1.0");
-define("CMS_TITLE", "Pharinix");
-define("CMS_DEBUG", false);
-define("CMS_DEBUG_LOG_SQL", false);
-define("CMS_MIN_PHP_VER", "5.3");
-define("CMS_GET_PASS", "JhdE4cDrG2ED1Da"); // Password to allow GET parameterse);
-define("CMS_DEFAULT_URL_BASE", "http://127.0.0.1/pharinix/");
-// MySQL
-define("MYSQL_USER", "root");
-define("MYSQL_PASS", "");
-define("MYSQL_HOST", "127.0.0.1");
-define("MYSQL_DBNAME", "miana");
-define('ADODB_PERF_NO_RUN_SQL',1);
+class driverConfig {
+    
+    /**
+     * Search the best config file to load.
+     * 
+     * @return string Config file path to load
+     */
+    public static function getConfigFilePath() {
+        if (isset($_SERVER["HTTP_HOST"])) {
+            if (is_file("etc/".$_SERVER["HTTP_HOST"].".pharinix.config.php")) {
+                return "etc/".$_SERVER["HTTP_HOST"].".pharinix.config.php";
+            }
+        }
+        return "etc/pharinix.config.php";
+    }
+}

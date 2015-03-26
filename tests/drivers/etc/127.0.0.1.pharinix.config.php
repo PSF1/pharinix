@@ -21,7 +21,7 @@
 
 // General
 define("CMS_VERSION", "1.0");
-define("CMS_TITLE", "Pharinix");
+define("CMS_TITLE", "Pharinix Test");
 define("CMS_DEBUG", false);
 define("CMS_DEBUG_LOG_SQL", false);
 define("CMS_MIN_PHP_VER", "5.3");
