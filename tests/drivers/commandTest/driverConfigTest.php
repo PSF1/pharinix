@@ -22,6 +22,7 @@
 class driverConfigTest extends PHPUnit_Framework_TestCase {
     
     public static function setUpBeforeClass() {
+        error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
         define("CMS_VERSION", "test");
         while (!is_file("etc/pharinix.config.php")) {
             chdir("../");
