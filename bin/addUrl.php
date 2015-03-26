@@ -49,7 +49,7 @@ if (!class_exists("commandAddUrl")) {
                     "url" => "The new URL, relative at root. Ex. home to http://127.0.0.1/home", 
                     "cmd" => "POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home"), 
                 "response" => array(
-                    "ok" => "TRUE si new URL added.", 
+                    "ok" => "TRUE if new URL added.", 
                     "msg" => "If FALSE contain the error message."),
             );
         }
