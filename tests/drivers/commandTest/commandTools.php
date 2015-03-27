@@ -4,13 +4,12 @@
  * @author Pedro Peláez <aaaaa976@gmail.com>
  * @since 2014.11.24
  */
-echo "\n".getcwd();
 while (!is_file("etc/pharinix.config.php")) {
     chdir("../");
-    echo "\n".getcwd();
 }
-echo "\n=> ".getcwd()."\n";
-include_once 'etc/pharinix.config.php';
+include_once 'etc/drivers/config.php';
+include_once(driverConfig::getConfigFilePath());
+        
 
 class commandTools {
     

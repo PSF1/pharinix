@@ -20,8 +20,8 @@
  */
 
 define("CMS_VERSION", "1.0");
-header("author: Pedro Pelaez <aaaaa976@gmail.com>");
-header("generator: Pharinix/".CMS_VERSION);
+@header("author: Pedro Pelaez <aaaaa976@gmail.com>");
+@header("generator: Pharinix/".CMS_VERSION);
 
 class driverConfig {
     
