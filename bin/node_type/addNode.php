@@ -24,7 +24,6 @@ if (!defined("CMS_VERSION")) {
 }
 
 //TODO: Securizate access
-//TODO: Test save multivalued fields
 
 if (!class_exists("commandAddNode")) {
 
