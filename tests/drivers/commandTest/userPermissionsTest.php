@@ -346,13 +346,13 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         }
     }
     // END EXECUTE
-    public function testCanPerformance() {
-        $stime = microtime(TRUE);
-        for($i = 0; $i < 1000000; ++$i) {
-            driverUser::secTestExecute(511, false, false);
-        }
-        $etime = microtime(TRUE);
-        $c = ($etime - $stime);
-        $this->assertLessThan(7, $c);
-    }
+//    public function testCanPerformance() {
+//        $stime = microtime(TRUE);
+//        for($i = 0; $i < 1000000; ++$i) {
+//            driverUser::secTestExecute(511, false, false);
+//        }
+//        $etime = microtime(TRUE);
+//        $c = ($etime - $stime);
+//        $this->assertLessThan(7, $c);
+//    }
 }
