@@ -21,26 +21,109 @@
 
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
+// TODO: For multidomain session information must be necessary asociate session with domain.
+// TODO: Add command to add a new user with default group. The command must be trust that the node type don't have non standard required fields.
+
  class driverUser {
     private $isLoged = false;
+
+// Nodes -----------------------------------------------------------------------
+/*
+     * O = Owner, G = Group, A = All
+     * C: Create, R: Read, U: Update, D: Delete
+     * Unused:OC.OR.OU.OD:GC.GR.GU.GD:AC.AR.AU.AD:
+     * 00000000000000000000:0.0.0.0:0.0.0.0:0.0.0.0
+     */
+    const PERMISSION_NODE_OWNER_CREATE = 2048;
+    const PERMISSION_NODE_OWNER_READ = 1024;
+    const PERMISSION_NODE_OWNER_UPDATE = 512;
+    const PERMISSION_NODE_OWNER_DEL = 256;
+
+    const PERMISSION_NODE_GROUP_CREATE = 128;
+    const PERMISSION_NODE_GROUP_READ = 64;
+    const PERMISSION_NODE_GROUP_UPDATE = 32;
+    const PERMISSION_NODE_GROUP_DEL = 16;
+
+    const PERMISSION_NODE_ALL_CREATE = 8;
+    const PERMISSION_NODE_ALL_READ = 4;
+    const PERMISSION_NODE_ALL_UPDATE = 2;
+    const PERMISSION_NODE_ALL_DEL = 1;
     
+    /**
+     * Verify if the user can create nodes
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can create?
+     */
+    public static function secNodeCanCreate($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_NODE_OWNER_CREATE:0) | 
+                ($group?self::PERMISSION_NODE_GROUP_CREATE:0) | 
+                (self::PERMISSION_NODE_ALL_CREATE);
+        return (bool)($user & $key);
+    }
+    
+    /**
+     * Verify if the user can read nodes
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can read?
+     */
+    public static function secNodeCanRead($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_NODE_OWNER_READ:0) | 
+                ($group?self::PERMISSION_NODE_GROUP_READ:0) | 
+                (self::PERMISSION_NODE_ALL_READ);
+        return (bool)($user & $key);
+    }
+    
+    /**
+     * Verify if the user can update nodes
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can update?
+     */
+    public static function secNodeCanUpdate($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_NODE_OWNER_UPDATE:0) | 
+                ($group?self::PERMISSION_NODE_GROUP_UPDATE:0) | 
+                (self::PERMISSION_NODE_ALL_UPDATE);
+        return (bool)($user & $key);
+    }
+    
+    /**
+     * Verify if the user can delete nodes
+     * @param int $key Security integer to verify
+     * @param bool $owner is owner?
+     * @param type $group is group?
+     * @return boolean I can delete?
+     */
+    public static function secNodeCanDelete($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_NODE_OWNER_DEL:0) | 
+                ($group?self::PERMISSION_NODE_GROUP_DEL:0) | 
+                (self::PERMISSION_NODE_ALL_DEL);
+        return (bool)($user & $key);
+    }
+// End Nodes -------------------------------------------------------------------
+
+// Files -----------------------------------------------------------------------
     /*
      * O = Owner, G = Group, A = All
      * R = Read, W = Write, X = Execute
      * Unused:OR.OW.OX:GR.GW.GX:AR.AW.AX:
      * 00000000000000000000000:0.0.0:0.0.0:0.0.0
      */
-    const PERMISSION_OWNER_READ = 256;
-    const PERMISSION_OWNER_WRITE = 128;
-    const PERMISSION_OWNER_EXECUTE = 64;
+    const PERMISSION_FILE_OWNER_READ = 256;
+    const PERMISSION_FILE_OWNER_WRITE = 128;
+    const PERMISSION_FILE_OWNER_EXECUTE = 64;
 
-    const PERMISSION_GROUP_READ = 32;
-    const PERMISSION_GROUP_WRITE = 16;
-    const PERMISSION_GROUP_EXECUTE = 8;
+    const PERMISSION_FILE_GROUP_READ = 32;
+    const PERMISSION_FILE_GROUP_WRITE = 16;
+    const PERMISSION_FILE_GROUP_EXECUTE = 8;
 
-    const PERMISSION_ALL_READ = 4;
-    const PERMISSION_ALL_WRITE = 2;
-    const PERMISSION_ALL_EXECUTE = 1;
+    const PERMISSION_FILE_ALL_READ = 4;
+    const PERMISSION_FILE_ALL_WRITE = 2;
+    const PERMISSION_FILE_ALL_EXECUTE = 1;
     
     /**
      * Verify if the user can read
@@ -49,10 +132,10 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @param type $group is group?
      * @return boolean I can read?
      */
-    public static function secTestRead($key = 0, $owner = false, $group = false) {
-        $user = ($owner?self::PERMISSION_OWNER_READ:0) | 
-                ($group?self::PERMISSION_GROUP_READ:0) | 
-                (self::PERMISSION_ALL_READ);
+    public static function secFileCanRead($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_FILE_OWNER_READ:0) | 
+                ($group?self::PERMISSION_FILE_GROUP_READ:0) | 
+                (self::PERMISSION_FILE_ALL_READ);
         return (bool)($user & $key);
     }
 
@@ -63,10 +146,10 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @param type $group is group?
      * @return boolean I can read?
      */
-    public static function secTestWrite($key = 0, $owner = false, $group = false) {
-        $user = ($owner?self::PERMISSION_OWNER_WRITE:0) | 
-                ($group?self::PERMISSION_GROUP_WRITE:0) | 
-                (self::PERMISSION_ALL_WRITE);
+    public static function secFileCanWrite($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_FILE_OWNER_WRITE:0) | 
+                ($group?self::PERMISSION_FILE_GROUP_WRITE:0) | 
+                (self::PERMISSION_FILE_ALL_WRITE);
         return (bool)($user & $key);
     }
     
@@ -77,15 +160,16 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @param type $group is group?
      * @return boolean I can read?
      */
-    public static function secTestExecute($key = 0, $owner = false, $group = false) {
-        $user = ($owner?self::PERMISSION_OWNER_EXECUTE:0) | 
-                ($group?self::PERMISSION_GROUP_EXECUTE:0) | 
-                (self::PERMISSION_ALL_EXECUTE);
+    public static function secFileCanExecute($key = 0, $owner = false, $group = false) {
+        $user = ($owner?self::PERMISSION_FILE_OWNER_EXECUTE:0) | 
+                ($group?self::PERMISSION_FILE_GROUP_EXECUTE:0) | 
+                (self::PERMISSION_FILE_ALL_EXECUTE);
         return (bool)($user & $key);
     }
+// End Files -------------------------------------------------------------------
     
     public static function sessionStart() {
-        session_start();
+        @session_start();
         if (!isset($_SESSION["started"])) {
             // We cache root and guest information
             $_SESSION["started"] = 1;
@@ -120,33 +204,31 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     /**
      * Identify user
      * @param string $user
-     * @param string $pass
+     * @param string $pass md5 password
      */
     public static function logIn($user, $pass) {
-        if (!isset($_SESSION["started"])) {
-            self::sessionStart();
-            $user = strtolower($user);
-            if ($user == "root@localhost") {
-                $user = ""; // Root can't start session
-            }
-            $node = driverCommand::run("getNodes", array(
-                "nodetype" => "user",
-                "where" => "`mail` = '$user' && `pass` = '$pass'",
-            ));
+        $user = strtolower($user);
+        if ($user == "root@localhost") {
+            $user = ""; // Root can't start session
+        }
+        $node = driverCommand::run("getNodes", array(
+                    "nodetype" => "user",
+                    "where" => "`mail` = '$user' && `pass` = '$pass'",
+        ));
 
-            if (count($node) > 0) {
-                $_SESSION["is_loged"] = 1;
-                $_SESSION["user_id"] = array_keys($node)[0];
-                $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
-            }
+        if (count($node) > 0) {
+            $_SESSION["is_loged"] = 1;
+            $_SESSION["user_id"] = array_keys($node)[0];
+            $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
         }
     }
-    
+
     /**
      * Close user session
      */
     public static function logOut() {
         session_destroy();
+        driverUser::sessionStart();
     }
     
     /**
@@ -165,3 +247,5 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         return $_SESSION["user_id"];
     }
 }
+
+driverUser::sessionStart();

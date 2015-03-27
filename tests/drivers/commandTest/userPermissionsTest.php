@@ -80,7 +80,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         dbConn::$lockConnection = false;
     }
     // END Session
-     
+    
+    // Files Security ----------------------------------------------------------
     // READ
     /**
      * Can owner read in each case?
@@ -90,7 +91,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestRead(bindec($b1), true, false);
+            $can = driverUser::secFileCanRead(bindec($b1), true, false);
             if ($i == 0 || $i == 6) {
                 $this->assertTrue($can);
             } else {
@@ -101,9 +102,20 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanOwnerRead_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestRead($i, true, false);
-            if ((bool)($i & driverUser::PERMISSION_ALL_READ) || 
-                (bool)($i & driverUser::PERMISSION_OWNER_READ)) {
+            $can = driverUser::secFileCanRead($i, true, false);
+            if ((bool)($i & driverUser::PERMISSION_FILE_ALL_READ) || 
+                (bool)($i & driverUser::PERMISSION_FILE_OWNER_READ)) {
+                $this->assertTrue($can, decbin($i));
+            } else {
+                $this->assertNotTrue($can, decbin($i));
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupREAD_Combined() {
+        for($i = 0; $i < 512; ++$i) {
+            $can = driverUser::secFileCanRead($i, true, true);
+            if ($i & (driverUser::PERMISSION_FILE_ALL_READ | driverUser::PERMISSION_FILE_GROUP_READ | driverUser::PERMISSION_FILE_OWNER_READ)) {
                 $this->assertTrue($can, decbin($i));
             } else {
                 $this->assertNotTrue($can, decbin($i));
@@ -119,7 +131,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestRead(bindec($b1), false, true);
+            $can = driverUser::secFileCanRead(bindec($b1), false, true);
             if ($i == 3 || $i == 6) {
                 $this->assertTrue($can);
             } else {
@@ -130,8 +142,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanGroupRead_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestRead($i, false, true);
-            if ($i & driverUser::PERMISSION_ALL_READ || $i & driverUser::PERMISSION_GROUP_READ) {
+            $can = driverUser::secFileCanRead($i, false, true);
+            if ($i & driverUser::PERMISSION_FILE_ALL_READ || $i & driverUser::PERMISSION_FILE_GROUP_READ) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -147,7 +159,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestRead(bindec($b1), false, false);
+            $can = driverUser::secFileCanRead(bindec($b1), false, false);
             if ($i == 6) {
                 $this->assertTrue($can);
             } else {
@@ -161,8 +173,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      */
     public function testCanAllRead_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestRead($i, false, false);
-            if ($i & driverUser::PERMISSION_ALL_READ) {
+            $can = driverUser::secFileCanRead($i, false, false);
+            if ($i & driverUser::PERMISSION_FILE_ALL_READ) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -179,7 +191,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestWrite(bindec($b1), true, false);
+            $can = driverUser::secFileCanWrite(bindec($b1), true, false);
             if ($i == 1 || $i == 7) {
                 $this->assertTrue($can);
             } else {
@@ -190,9 +202,20 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanOwnerWRITE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestWrite($i, true, false);
-            if ((bool)($i & driverUser::PERMISSION_ALL_WRITE) || 
-                (bool)($i & driverUser::PERMISSION_OWNER_WRITE)) {
+            $can = driverUser::secFileCanWrite($i, true, false);
+            if ((bool)($i & driverUser::PERMISSION_FILE_ALL_WRITE) || 
+                (bool)($i & driverUser::PERMISSION_FILE_OWNER_WRITE)) {
+                $this->assertTrue($can, decbin($i));
+            } else {
+                $this->assertNotTrue($can, decbin($i));
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupWRITE_Combined() {
+        for($i = 0; $i < 512; ++$i) {
+            $can = driverUser::secFileCanWrite($i, true, true);
+            if ($i & (driverUser::PERMISSION_FILE_ALL_WRITE | driverUser::PERMISSION_FILE_GROUP_WRITE | driverUser::PERMISSION_FILE_OWNER_WRITE)) {
                 $this->assertTrue($can, decbin($i));
             } else {
                 $this->assertNotTrue($can, decbin($i));
@@ -208,7 +231,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestWrite(bindec($b1), false, true);
+            $can = driverUser::secFileCanWrite(bindec($b1), false, true);
             if ($i == 4 || $i == 7) {
                 $this->assertTrue($can);
             } else {
@@ -219,8 +242,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanGroupWRITE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestWrite($i, false, true);
-            if ($i & driverUser::PERMISSION_ALL_WRITE || $i & driverUser::PERMISSION_GROUP_WRITE) {
+            $can = driverUser::secFileCanWrite($i, false, true);
+            if ($i & driverUser::PERMISSION_FILE_ALL_WRITE || $i & driverUser::PERMISSION_FILE_GROUP_WRITE) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -236,7 +259,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestWrite(bindec($b1), false, false);
+            $can = driverUser::secFileCanWrite(bindec($b1), false, false);
             if ($i == 7) {
                 $this->assertTrue($can);
             } else {
@@ -250,8 +273,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      */
     public function testCanAllWRITE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestWrite($i, false, false);
-            if ($i & driverUser::PERMISSION_ALL_WRITE) {
+            $can = driverUser::secFileCanWrite($i, false, false);
+            if ($i & driverUser::PERMISSION_FILE_ALL_WRITE) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -268,7 +291,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestExecute(bindec($b1), true, false);
+            $can = driverUser::secFileCanExecute(bindec($b1), true, false);
             if ($i == 2 || $i == 8) {
                 $this->assertTrue($can);
             } else {
@@ -279,9 +302,20 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanOwnerEXECUTE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestExecute($i, true, false);
-            if ((bool)($i & driverUser::PERMISSION_ALL_EXECUTE) || 
-                (bool)($i & driverUser::PERMISSION_OWNER_EXECUTE)) {
+            $can = driverUser::secFileCanExecute($i, true, false);
+            if ((bool)($i & driverUser::PERMISSION_FILE_ALL_EXECUTE) || 
+                (bool)($i & driverUser::PERMISSION_FILE_OWNER_EXECUTE)) {
+                $this->assertTrue($can, decbin($i));
+            } else {
+                $this->assertNotTrue($can, decbin($i));
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupEXECUTE_Combined() {
+        for($i = 0; $i < 512; ++$i) {
+            $can = driverUser::secFileCanExecute($i, true, true);
+            if ($i & (driverUser::PERMISSION_FILE_ALL_EXECUTE | driverUser::PERMISSION_FILE_GROUP_EXECUTE | driverUser::PERMISSION_FILE_OWNER_EXECUTE)) {
                 $this->assertTrue($can, decbin($i));
             } else {
                 $this->assertNotTrue($can, decbin($i));
@@ -297,7 +331,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestExecute(bindec($b1), false, true);
+            $can = driverUser::secFileCanExecute(bindec($b1), false, true);
             if ($i == 5 || $i == 8) {
                 $this->assertTrue($can);
             } else {
@@ -308,8 +342,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     
     public function testCanGroupEXECUTE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestExecute($i, false, true);
-            if ($i & driverUser::PERMISSION_ALL_EXECUTE || $i & driverUser::PERMISSION_GROUP_EXECUTE) {
+            $can = driverUser::secFileCanExecute($i, false, true);
+            if ($i & driverUser::PERMISSION_FILE_ALL_EXECUTE || $i & driverUser::PERMISSION_FILE_GROUP_EXECUTE) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -325,7 +359,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         for($i = 8; $i >= 0; --$i) {
             $b1 = $b;
             $b1[$i] = 1;
-            $can = driverUser::secTestExecute(bindec($b1), false, false);
+            $can = driverUser::secFileCanExecute(bindec($b1), false, false);
             if ($i == 8) {
                 $this->assertTrue($can);
             } else {
@@ -339,8 +373,8 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      */
     public function testCanAllEXECUTE_Combined() {
         for($i = 0; $i < 512; ++$i) {
-            $can = driverUser::secTestExecute($i, false, false);
-            if ($i & driverUser::PERMISSION_ALL_EXECUTE) {
+            $can = driverUser::secFileCanExecute($i, false, false);
+            if ($i & driverUser::PERMISSION_FILE_ALL_EXECUTE) {
                 $this->assertTrue($can);
             } else {
                 $this->assertNotTrue($can);
@@ -348,6 +382,184 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         }
     }
     // END EXECUTE
+
+    // NODES Security ----------------------------------------------------------
+    // Node create
+    public function testCanAllCreateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanCreate($i, false, false);
+            if ($i & driverUser::PERMISSION_NODE_ALL_CREATE) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanGroupCreateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanCreate($i, false, true);
+            if ($i & (driverUser::PERMISSION_NODE_GROUP_CREATE | driverUser::PERMISSION_NODE_ALL_CREATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerCreateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanCreate($i, true, false);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_CREATE | driverUser::PERMISSION_NODE_ALL_CREATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupCreateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanCreate($i, true, true);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_CREATE | driverUser::PERMISSION_NODE_GROUP_CREATE | driverUser::PERMISSION_NODE_ALL_CREATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    // Node read
+    public function testCanAllReadNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanRead($i, false, false);
+            if ($i & driverUser::PERMISSION_NODE_ALL_READ) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanGroupReadNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanRead($i, false, true);
+            if ($i & (driverUser::PERMISSION_NODE_GROUP_READ |  driverUser::PERMISSION_NODE_ALL_READ)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerReadNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanRead($i, true, false);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_READ | driverUser::PERMISSION_NODE_ALL_READ)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupReadNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanRead($i, true, true);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_READ | driverUser::PERMISSION_NODE_GROUP_READ | driverUser::PERMISSION_NODE_ALL_READ)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    // Node update
+    public function testCanAllUpdateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanUpdate($i, false, false);
+            if ($i & driverUser::PERMISSION_NODE_ALL_UPDATE) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanGroupUpdateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanUpdate($i, false, true);
+            if ($i & (driverUser::PERMISSION_NODE_GROUP_UPDATE | driverUser::PERMISSION_NODE_ALL_UPDATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerUpdateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanUpdate($i, true, false);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_UPDATE | driverUser::PERMISSION_NODE_ALL_UPDATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupUpdateNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanUpdate($i, true, true);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_UPDATE | driverUser::PERMISSION_NODE_GROUP_UPDATE | driverUser::PERMISSION_NODE_ALL_UPDATE)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    // Node delete
+    public function testCanAllDelNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanDelete($i, false, false);
+            if ($i & driverUser::PERMISSION_NODE_ALL_DEL) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanGroupDelNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanDelete($i, false, true);
+            if ($i & (driverUser::PERMISSION_NODE_GROUP_DEL | driverUser::PERMISSION_NODE_ALL_DEL)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerDelNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanDelete($i, true, false);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_DEL | driverUser::PERMISSION_NODE_ALL_DEL)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
+    
+    public function testCanOwnerGroupDelNode_Combined() {
+        for($i = 0; $i < 2048; ++$i) {
+            $can = driverUser::secNodeCanDelete($i, true, true);
+            if ($i & (driverUser::PERMISSION_NODE_OWNER_DEL | driverUser::PERMISSION_NODE_GROUP_DEL | driverUser::PERMISSION_NODE_ALL_DEL)) {
+                $this->assertTrue($can);
+            } else {
+                $this->assertNotTrue($can);
+            }
+        }
+    }
 //    public function testCanPerformance() {
 //        $stime = microtime(TRUE);
 //        for($i = 0; $i < 1000000; ++$i) {
