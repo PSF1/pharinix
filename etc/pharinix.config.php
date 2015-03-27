@@ -20,12 +20,10 @@
  */
 
 // General
-define("CMS_VERSION", "1.0");
 define("CMS_TITLE", "Pharinix");
 define("CMS_DEBUG", false);
 define("CMS_DEBUG_LOG_SQL", false);
 define("CMS_MIN_PHP_VER", "5.3");
-define("CMS_GET_PASS", "JhdE4cDrG2ED1Da"); // Password to allow GET parameterse);
 define("CMS_DEFAULT_URL_BASE", "http://127.0.0.1/pharinix/");
 // MySQL
 define("MYSQL_USER", "root");

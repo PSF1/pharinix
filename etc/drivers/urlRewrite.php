@@ -59,7 +59,6 @@ class driverUrlRewrite {
         foreach ($aux as $key => $value) {
             $_GET[$key] = $value;
         }
-        $_GET[CMS_GET_PASS] = "";
     }
     
     /**

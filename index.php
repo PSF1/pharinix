@@ -19,11 +19,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-header("author: Pedro Pelaez <aaaaa976@gmail.com>");
 // Requires
 include_once 'etc/drivers/config.php';
 include_once(driverConfig::getConfigFilePath());
-header("generator: Pharinix/".CMS_VERSION);
+
 include_once("usr/adodb/cmsapi.php");
 include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");
@@ -55,13 +54,10 @@ unset($boot);
 if (!isset($_POST["interface"])) {
     $_POST["interface"] = "1";
 }
-if (isset($_GET[CMS_GET_PASS]) && isset($_GET["interface"])) {
-    $_POST["interface"] = $_GET["interface"];
-}
-if (CMS_GET_PASS != "" && isset($_GET[CMS_GET_PASS])) {
-    foreach ($_GET as $key => $value) {
-        $_POST[$key] = $value;
-    }
+
+// "GET" fusion with "POST"
+foreach ($_GET as $key => $value) {
+    $_POST[$key] = $value;
 }
 // Default command
 if ($_POST["interface"] != "0") {

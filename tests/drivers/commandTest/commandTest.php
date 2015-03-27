@@ -44,16 +44,6 @@ class commandTest extends PHPUnit_Framework_TestCase {
         
     }
 
-//    public function testNothingOk() {
-//        $test = commandTools::getURL(CMS_DEFAULT_URL_BASE."?".CMS_GET_PASS."&command=nothing");
-//        $this->assertEquals(200, commandTools::getRequestState($test));
-//    }
-//    
-//    public function testNothing1Param() {
-//        $test = commandTools::getURL(CMS_DEFAULT_URL_BASE."?".CMS_GET_PASS."&command=nothing&p=1");
-//        $this->assertEquals(200, commandTools::getRequestState($test));
-//    }
-    
     public function testCommandNothingResponse() {
         $resp = driverCommand::run("nothing");
         $this->assertNull($resp);
