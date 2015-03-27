@@ -49,15 +49,89 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
                 array("addNode" => "nodetype=test&title=NODE%204&order=1"),
             ),
         ));
+        
+        driverCommand::run("batch", array(
+            "starter" => array(),
+            "commands" => array(
+                array("addNodeType" => "name=test2"),
+                array("#clean" => ""),
+                array("addNodeField" => "node_type=test2&name=order&type=integer"),
+                array("#clean" => ""),
+                array("addNodeField" => "node_type=test2&name=relation&type=test&multi=true"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=test2&title=NODE%201&order=4&relation=1"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=test2&title=NODE%202&order=3&relation=1,2"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=test2&title=NODE%203&order=2&relation=1,2,3"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=test2&title=NODE%204&order=1&relation=1,2,3,4"),
+            ),
+        ));
     }
     
     protected function tearDown() {
+        driverCommand::run("delNodeType", array("name" => "test2"));
         driverCommand::run("delNodeType", array("name" => "test"));
     }
     
     public function cleanDatabase($id, $node = "testtype") {
         driverCommand::run("delNodeType", array("name" => $node));
     } 
+    
+    public function testGetNodeMulti_test2_1() {
+        $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 1));
+        $this->assertArrayHasKey(1, $resp);
+        $this->assertEquals("4", $resp[1]["order"]);
+        $this->assertNotEquals("", $resp[1]["modified"]);
+        $this->assertNotEquals("", $resp[1]["created"]);
+        $this->assertEquals("NODE 1", $resp[1]["title"]);
+        $this->assertArrayHasKey("relation", $resp[1]);
+        $this->assertTrue(count($resp[1]["relation"]) == 1);
+        $this->assertEquals("1", $resp[1]["relation"][0]);
+    }
+    
+    public function testGetNodeMulti_test2_2() {
+        $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 2));
+        $this->assertArrayHasKey(2, $resp);
+        $this->assertEquals("3", $resp[2]["order"]);
+        $this->assertNotEquals("", $resp[2]["modified"]);
+        $this->assertNotEquals("", $resp[2]["created"]);
+        $this->assertEquals("NODE 2", $resp[2]["title"]);
+        $this->assertArrayHasKey("relation", $resp[2]);
+        $this->assertTrue(count($resp[2]["relation"]) == 2);
+        $this->assertEquals("1", $resp[2]["relation"][0]);
+        $this->assertEquals("2", $resp[2]["relation"][1]);
+    }
+    
+    public function testGetNodeMulti_test2_3() {
+        $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 3));
+        $this->assertArrayHasKey(3, $resp);
+        $this->assertEquals("2", $resp[3]["order"]);
+        $this->assertNotEquals("", $resp[3]["modified"]);
+        $this->assertNotEquals("", $resp[3]["created"]);
+        $this->assertEquals("NODE 3", $resp[3]["title"]);
+        $this->assertArrayHasKey("relation", $resp[3]);
+        $this->assertTrue(count($resp[3]["relation"]) == 3);
+        $this->assertEquals("1", $resp[3]["relation"][0]);
+        $this->assertEquals("2", $resp[3]["relation"][1]);
+        $this->assertEquals("3", $resp[3]["relation"][2]);
+    }
+    
+    public function testGetNodeMulti_test2_4() {
+        $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 4));
+        $this->assertArrayHasKey(4, $resp);
+        $this->assertEquals("1", $resp[4]["order"]);
+        $this->assertNotEquals("", $resp[4]["modified"]);
+        $this->assertNotEquals("", $resp[4]["created"]);
+        $this->assertEquals("NODE 4", $resp[4]["title"]);
+        $this->assertArrayHasKey("relation", $resp[4]);
+        $this->assertTrue(count($resp[4]["relation"]) == 4);
+        $this->assertEquals("1", $resp[4]["relation"][0]);
+        $this->assertEquals("2", $resp[4]["relation"][1]);
+        $this->assertEquals("3", $resp[4]["relation"][2]);
+        $this->assertEquals("4", $resp[4]["relation"][3]);
+    }
     
     public function testGetNode_test_1() {
         $resp = driverCommand::run("getNode", array("nodetype" => "test", "node" => 1));
