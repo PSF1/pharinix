@@ -261,4 +261,9 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     }
 }
 
+define('PERMISSION_NODE_DEFAULT', (driverUser::PERMISSION_NODE_OWNER_CREATE | 
+                          driverUser::PERMISSION_NODE_OWNER_DEL | 
+                          driverUser::PERMISSION_NODE_OWNER_READ |
+                          driverUser::PERMISSION_NODE_OWNER_UPDATE |
+                          driverUser::PERMISSION_NODE_GROUP_READ));
 driverUser::sessionStart();

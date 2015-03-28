@@ -65,11 +65,6 @@ if (!class_exists("commandAddNodeType")) {
             $q = dbConn::Execute($sql);
             if ($q->EOF) {
                 // Insert the new type
-                $access = (driverUser::PERMISSION_NODE_OWNER_CREATE | 
-                          driverUser::PERMISSION_NODE_OWNER_DEL | 
-                          driverUser::PERMISSION_NODE_OWNER_READ |
-                          driverUser::PERMISSION_NODE_OWNER_UPDATE |
-                          driverUser::PERMISSION_NODE_GROUP_READ);
                 $sql = "insert into `node_type` set ".
                        "name = '{$params["name"]}', ".
                        "creator_node_user = ".driverUser::getID().", ".
@@ -78,7 +73,7 @@ if (!class_exists("commandAddNodeType")) {
                        "modified = NOW(), ".
                        "user_owner = ".driverUser::getID().", ".
                        "group_owner = ".driverUser::getDefaultGroupID().", ".
-                       "`access` = ".($access).", ".
+                       "`access` = ".(PERMISSION_NODE_DEFAULT).", ".
                        "`label_field` = '{$params["label_field"]}', ".
                        "`locked` = '".($params["locked"]?"1":"0")."' ";
                 dbConn::Execute($sql);
@@ -101,6 +96,45 @@ if (!class_exists("commandAddNodeType")) {
                     "default" => "",
                     "label" => "Title",
                     "help" => "A title string for this node.",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "user_owner",
+                    "type" => "user",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => 0,
+                    "label" => "Owner",
+                    "help" => "Owner user",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "group_owner",
+                    "type" => "group",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => 0,
+                    "label" => "Group",
+                    "help" => "Owner group",
+                    );
+                driverCommand::run("addNodeField", $nField);
+                $nField = array(
+                    "name" => "access",
+                    "type" => "nodesec",
+                    "len" => 0,
+                    "required" => false,
+                    "readonly" => false,
+                    "locked" => true,
+                    "node_type" => $params["name"],
+                    "default" => PERMISSION_NODE_DEFAULT,
+                    "label" => "Access",
+                    "help" => "Access control flags.",
                     );
                 driverCommand::run("addNodeField", $nField);
                 $nField = array(

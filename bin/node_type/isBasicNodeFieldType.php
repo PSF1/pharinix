@@ -41,6 +41,7 @@ if (!class_exists("commandIsBasicFieldType")) {
                 case 'integer': // Integer number
                 case 'string': // Text string
                 case 'password': // Text string
+                case 'nodesec': // Integer
                     return array("basic" => true);
                 default:
                     return array("basic" => false);

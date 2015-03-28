@@ -48,15 +48,18 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $sql = "show tables like 'node_testtype'";
         $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
-        // It must add 4 system fields
+        // It must add 7 system fields
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = $id and `locked` = '1'";
         $q = dbConn::Execute($sql);
-        $this->assertEquals(4, $q->fields[0]);
+        $this->assertEquals(7, $q->fields[0]);
         // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
         $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
+            "user_owner" => false,
+            "group_owner" => false,
+            "access" => false,
             "modifier" => false,
             "modified" => false,
             "creator" => false,
@@ -95,18 +98,21 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $sql = "show tables like 'node_testtype2'";
         $q = dbConn::Execute($sql);
         $this->assertEquals(false, $q->EOF);
-        // It must add 4 system fields
+        // It must add 7 system fields
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid." && `locked` = '1'";
         $q = dbConn::Execute($sql);
-        $this->assertEquals(4, $q->fields[0]);
+        $this->assertEquals(7, $q->fields[0]);
         $sql = "SELECT count(*) FROM `node_type_field` where `node_type` = ".$nid1." && `locked` = '1'";
         $q = dbConn::Execute($sql);
-        $this->assertEquals(4, $q->fields[0]);
+        $this->assertEquals(7, $q->fields[0]);
         // The table must have 5 fields plus ID field
         $sql = "show columns from `node_testtype`";
         $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
+            "user_owner" => false,
+            "group_owner" => false,
+            "access" => false,
             "modifier" => false,
             "modified" => false,
             "creator" => false,
@@ -128,6 +134,9 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $q = dbConn::Execute($sql);
         $fields = array(
             "id" => false,
+            "user_owner" => false,
+            "group_owner" => false,
+            "access" => false,
             "modifier" => false,
             "modified" => false,
             "creator" => false,
