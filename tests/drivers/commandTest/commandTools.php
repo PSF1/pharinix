@@ -7,8 +7,7 @@
 while (!is_file("etc/pharinix.config.php")) {
     chdir("../");
 }
-include_once 'etc/drivers/config.php';
-include_once(driverConfig::getConfigFilePath());
+include_once 'tests/drivers/etc/bootstrap.php';
         
 
 class commandTools {

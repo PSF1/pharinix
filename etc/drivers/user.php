@@ -25,8 +25,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 // TODO: Add command to add a new user with default group. The command must be trust that the node type don't have non standard required fields.
 
  class driverUser {
-    private $isLoged = false;
-
+    
 // Nodes -----------------------------------------------------------------------
 /*
      * O = Owner, G = Group, A = All
@@ -240,10 +239,14 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     }
     
     /**
-     * User ID
+     * User ID.<br>
+     * ID of -1 is root user.
      * @return int
      */
     public static function getID() {
+        if (!isset($_SESSION) || !isset($_SESSION["user_id"])) {
+            return -1;
+        }
         return $_SESSION["user_id"];
     }
 }

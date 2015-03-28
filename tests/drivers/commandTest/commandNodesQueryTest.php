@@ -26,12 +26,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         while (!is_file("etc/pharinix.config.php")) {
             chdir("../");
         }
-        include_once 'etc/drivers/config.php';
-        include_once(driverConfig::getConfigFilePath());
-        
-        include_once("usr/adodb/cmsapi.php");
-        include_once("etc/drivers/tools.php");
-        include_once("etc/drivers/command.php");
+        include_once 'tests/drivers/etc/bootstrap.php';
         
         driverCommand::run("batch", array(
             "starter" => array(),
