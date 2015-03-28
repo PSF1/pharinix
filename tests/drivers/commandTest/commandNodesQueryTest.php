@@ -74,6 +74,18 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("delNodeType", array("name" => $node));
     } 
     
+    public function testDelNodeWithMulti_test2_1() {
+        // Delete node with multi
+        $resp = driverCommand::run("delNode", array("nodetype" => "test2", "nid" => 1));
+        // Deleted?
+        $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 1));
+        $this->assertArrayNotHasKey(1, $resp);
+        // Erased on relation table?
+        $sql = "select * from `node_relation_test2_relation_test` where `type1` = 1";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+    }
+    
     public function testGetNodeMulti_test2_1() {
         $resp = driverCommand::run("getNode", array("nodetype" => "test2", "node" => 1));
         $this->assertArrayHasKey(1, $resp);

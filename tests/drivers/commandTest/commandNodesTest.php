@@ -35,14 +35,6 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     
     public function cleanDatabase($id, $node = "testtype") {
         driverCommand::run("delNodeType", array("name" => $node));
-//        $node = "node_".$node;
-//        // Clean database
-//        $sql = "delete FROM `node_type_field` where `node_type` = $id";
-//        dbConn::Execute($sql);
-//        $sql = "delete FROM `node_type` where `id` = $id";
-//        dbConn::Execute($sql);
-//        $sql = "DROP TABLE IF EXISTS `$node`";
-//        dbConn::Execute($sql);
     } 
     
     public function testCommandAddType() {
@@ -748,6 +740,8 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->cleanDatabase($nid, "subtype1");
     }
     
+    
+    
     public function testCommandAddFieldNodeTypeModified() {
         driverCommand::run("addNodeType", array("name" => "testtype"));
         $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
@@ -950,6 +944,42 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($resp["nid"] > 0);
         $resp = driverCommand::run("isUrl", array("url" => "node/testtype/".$resp["nid"]));
         $this->assertTrue($resp["ok"]);
+        // Clean data base
+        $this->cleanDatabase($id);
+    }
+    
+    // Add node OK
+    public function testCommandDelNode_OK() {
+        driverCommand::run("addNodeType", array("name" => "testtype"));
+        $sql = "SELECT * FROM `node_type` where `name` = 'testtype'";
+        $q = dbConn::Execute($sql);
+        $id = $q->fields["id"];
+        // Add a new field
+        $nField = array(
+            "name" => "field",
+            "type" => "string",
+            "node_type" => "testtype",
+        );
+        driverCommand::run("addNodeField", $nField);
+        // Add node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "testtype",
+            "field" => "a1",
+            "title" => "Test", // Required
+            ));
+        $nid = $resp["nid"];
+        // Del node
+        $resp = driverCommand::run("delNode", array(
+            "nid" => $nid,
+            "nodetype" => "testtype",
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Deleted?
+        $resp = driverCommand::run("getNode", array(
+            "node" => $nid,
+            "nodetype" => "testtype",
+        ));
+        $this->assertEmpty($resp);
         // Clean data base
         $this->cleanDatabase($id);
     }
