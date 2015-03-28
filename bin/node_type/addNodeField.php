@@ -109,6 +109,7 @@ if (!class_exists("commandAddNodeField")) {
                             case "double":
                                 break;
                             case "integer":
+                            case "nodesec":
                                 break;
                             case "string":
                             case "password":
@@ -172,7 +173,7 @@ if (!class_exists("commandAddNodeField")) {
                 "description" => "Add a new field to a node type", 
                 "parameters" => array(
                     "name" => "Field name",
-                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext or other node type",
+                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type",
                     "iskey" => "Any other record can have some value. This funcionality is not using database implementation.",
                     "len" => "Field lenght if need it",
                     "required" => "True/false Required field",
@@ -219,6 +220,7 @@ if (!class_exists("commandAddNodeField")) {
                     $resp = "ALTER TABLE `node_{$params["node_type"]}` ADD COLUMN `{$params["name"]}` DECIMAL(20, 6) $def AFTER `id`";
                 break;
                 case "integer":
+                case "nodesec":
                     $def = "";
                     if ($params["default"] != "") {
                         $def = "DEFAULT {$params["default"]}";
