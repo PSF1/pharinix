@@ -989,6 +989,11 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "testtype",
         ));
         $this->assertEmpty($resp);
+        // Page deleted?
+        $pageName = "node_type_testtype_" . $nid;
+        $sql = "SELECT * FROM `pages` where `name` = '$pageName'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
         // Clean data base
         $this->cleanDatabase($id);
     }
