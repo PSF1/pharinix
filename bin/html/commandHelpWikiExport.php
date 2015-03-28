@@ -31,6 +31,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
             $q = dbConn::Execute($sql);
             ob_start();
             echo "# Command's list\n\n";
+            $ncmds = 0;
             while(!$q->EOF) {
                 echo "## Package path '{$q->fields["path"]}'\n\n";
                 $cmds = driverTools::lsDir($q->fields["path"]);
@@ -38,6 +39,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                     $cmd = str_replace($q->fields["path"], "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
                     echo "### Command `$cmd`\n\n";
+                    ++$ncmds;
                     $object = include($q->fields["path"].$cmd.".php");
                     $hlp = $object->getHelp();
                     echo "Description\n\n";
@@ -60,7 +62,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                 $q->MoveNext();
             }
             echo "\n\n";
-            echo "Exported by `commandHelpWikiExport` at ".date("Y-m-d H:i:s");
+            echo "Exported $ncmds commands by `commandHelpWikiExport` at ".date("Y-m-d H:i:s");
             $output = ob_get_clean();
             file_put_contents($params["path"], $output);
         }
