@@ -65,7 +65,22 @@ if (!class_exists("commandAddNodeType")) {
             $q = dbConn::Execute($sql);
             if ($q->EOF) {
                 // Insert the new type
-                $sql = "insert into `node_type` set name = '{$params["name"]}', created = NOW(), modified = NOW(), `label_field` = '{$params["label_field"]}', `locked` = '".($params["locked"]?"1":"0")."'";
+                $access = (driverUser::PERMISSION_NODE_OWNER_CREATE | 
+                          driverUser::PERMISSION_NODE_OWNER_DEL | 
+                          driverUser::PERMISSION_NODE_OWNER_READ |
+                          driverUser::PERMISSION_NODE_OWNER_UPDATE |
+                          driverUser::PERMISSION_NODE_GROUP_READ);
+                $sql = "insert into `node_type` set ".
+                       "name = '{$params["name"]}', ".
+                       "creator_node_user = ".driverUser::getID().", ".
+                       "created = NOW(), ".
+                       "modifier_node_user = ".driverUser::getID().", ".
+                       "modified = NOW(), ".
+                       "user_owner = ".driverUser::getID().", ".
+                       "group_owner = ".driverUser::getDefaultGroupID().", ".
+                       "`access` = ".($access).", ".
+                       "`label_field` = '{$params["label_field"]}', ".
+                       "`locked` = '".($params["locked"]?"1":"0")."' ";
                 dbConn::Execute($sql);
                 $id = dbConn::lastID();
                 // Add table

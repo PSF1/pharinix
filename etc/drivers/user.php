@@ -182,19 +182,19 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                 $_SESSION["group_root_id"] = $q->fields["idgroup"];
             } else {
                 // Without database connection
-                $_SESSION["user_root_id"] = -1;
-                $_SESSION["group_root_id"] = -1;
+                $_SESSION["user_root_id"] = 0;
+                $_SESSION["group_root_id"] = 0;
             }
             $sql = "SELECT `node_user`.`id` from `node_user` where `node_user`.`name` = 'guest'";
             $q = dbConn::Execute($sql);
-            $_SESSION["user_id"] = 0;
+            $_SESSION["user_id"] = -1;
             if (!$q->EOF) {
                 $_SESSION["user_guest_id"] = $q->fields["id"];
                 $_SESSION["user_id"] = $q->fields["id"];
             } else {
                 // Without database connection
-                $_SESSION["user_guest_id"] = 0;
-                $_SESSION["user_id"] = 0;
+                $_SESSION["user_guest_id"] = -1;
+                $_SESSION["user_id"] = -1;
             }
             $_SESSION["is_loged"] = 0;
         }
@@ -215,7 +215,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                     "where" => "`mail` = '$user' && `pass` = '$pass'",
         ));
 
-        if (count($node) > 0) {
+        if (!isset($node["ok"]) && count($node) > 0) {
             $_SESSION["is_loged"] = 1;
             $_SESSION["user_id"] = array_keys($node)[0];
             $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
@@ -245,9 +245,19 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      */
     public static function getID() {
         if (!isset($_SESSION) || !isset($_SESSION["user_id"])) {
-            return -1;
+            return 0;
         }
         return $_SESSION["user_id"];
+    }
+    
+    public static function getDefaultGroupID() {
+        if (!isset($_SESSION) || !isset($_SESSION["user_groups"])) {
+            return 0;
+        }
+        if (count($_SESSION["user_groups"]) == 0) {
+            return 0;
+        }
+        return $_SESSION["user_groups"][0];
     }
 }
 

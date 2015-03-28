@@ -69,7 +69,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         driverUser::logOut();
         driverUser::logIn("guest@localhost", "");
         $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
-        $this->assertTrue($_SESSION["user_guest_id"] == 0);
+        $this->assertTrue($_SESSION["user_guest_id"] == -1);
         dbConn::$lockConnection = false;
     }
     // END Session

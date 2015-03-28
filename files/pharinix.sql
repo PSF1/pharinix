@@ -47,7 +47,8 @@ CREATE TABLE `node_algo` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+INSERT INTO `node_algo` VALUES  (1,0,'2015-03-26 20:33:13',0,'2015-03-26 20:33:13','Hola');
 CREATE TABLE `node_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modifier` int(10) unsigned DEFAULT '0',
@@ -76,11 +77,14 @@ CREATE TABLE `node_type` (
   `modifier_node_user` int(10) unsigned NOT NULL COMMENT '''User ID''',
   `locked` varchar(1) DEFAULT '0' COMMENT 'System node type',
   `label_field` varchar(250) NOT NULL COMMENT 'Field that I can use to list',
+  `user_owner` int(10) unsigned NOT NULL,
+  `group_owner` int(10) unsigned NOT NULL,
+  `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=558 DEFAULT CHARSET=latin1;
-INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-03-21 13:21:14',0,'0','title'),
- (555,'user','2015-03-21 18:56:43',0,'2015-03-21 19:05:03',0,'1','name'),
- (556,'group','2015-03-21 19:10:19',0,'2015-03-21 19:10:19',0,'1','title');
+) ENGINE=MyISAM AUTO_INCREMENT=2735 DEFAULT CHARSET=latin1;
+INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-03-21 13:21:14',0,'0','title',0,0,0),
+ (555,'user','2015-03-21 18:56:43',0,'2015-03-21 19:05:03',0,'1','name',0,0,0),
+ (556,'group','2015-03-21 19:10:19',0,'2015-03-21 19:10:19',0,'1','title',0,0,0);
 CREATE TABLE `node_type_field` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -96,7 +100,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12409 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25889 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','0','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','0','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','0','1',556,'0','User creator','','0','0'),
@@ -128,7 +132,7 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (1,0,'root@localhost','','root',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Superuser'),
  (2,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest');
 CREATE TABLE `page-blocks` (
@@ -139,7 +143,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3217 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8969 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (10,0,'footCopy','echoHTML','html=%3Ch3%3EPharinix+Copyright+%C2%A9+%3C%3Fphp+echo+date%28%22Y%22%29%3B+%3F%3E+Pedro+Pelaez%3C%2Fh3%3E%0D%0A%3Cdiv%3EThis+program+is+free+software%3B+you+can+redistribute+it+and%2For+modify+it+under+the+terms+of+the+GNU+General+Public+License+as+published+by+the+Free+Software+Foundation%3B+either+version+2+of+the+License%2C+or+%28at+your+option%29+any+later+version.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AThis+program+is+distributed+in+the+hope+that+it+will+be+useful%2C+but+WITHOUT+ANY+WARRANTY%3B+without+even+the+implied+warranty+of+MERCHANTABILITY+or+FITNESS+FOR+A+PARTICULAR+PURPOSE.++See+the+GNU+General+Public+License+for+more+details.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AYou+should+have+received+a+copy+of+the+GNU+General+Public+License+along+with+this+program%3B+if+not%2C+write+to+the+Free+Software+Foundation%2C+Inc.%2C+59+Temple+Place+-+Suite+330%2C+Boston%2C+MA++02111-1307%2C+USA.%0D%0A%3C%2Fdiv%3E',0),
  (12,3,'content','echoHTML','html=<h1>Page not found: <?php echo \"\'{$_GET[\"rewrite\"]}\'\";?></h1>',0),
@@ -150,7 +154,9 @@ INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (428,1,'colLeft','manHelpOnline','',1),
  (3214,3191,'content','getNodeTypeDefHtml','nodetype=user',0),
  (3215,3192,'content','getNodeTypeDefHtml','nodetype=group',0),
- (994,972,'content','getNodeTypeDefHtml','nodetype=algo',0);
+ (994,972,'content','getNodeTypeDefHtml','nodetype=algo',0),
+ (4473,4450,'content','getNodeHtml','nodetype=user&node=3',0),
+ (3492,3469,'content','getNodeHtml','nodetype=algo&node=1',0);
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -159,7 +165,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3194 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8946 DEFAULT CHARSET=latin1;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -167,7 +173,9 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home
  (11,'help/icons','etc/templates/pages/default.xml','Icons list','',''),
  (972,'node_type_algo','etc/templates/pages/default.xml','algo node type','',''),
  (3191,'node_type_user','etc/templates/pages/default.xml','user node type','',''),
- (3192,'node_type_group','etc/templates/pages/default.xml','group node type','','');
+ (3192,'node_type_group','etc/templates/pages/default.xml','group node type','',''),
+ (3469,'node_type_algo_1','etc/templates/pages/default.xml','Node 1','',''),
+ (4450,'node_type_user_3','etc/templates/pages/default.xml','Node 3','','');
 CREATE TABLE `sec` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(250) NOT NULL,
@@ -185,14 +193,16 @@ CREATE TABLE `url_rewrite` (
   `rewriteto` longtext,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=3212 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8992 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home'),
  (3,'help/command','command=pageToHTML&page=help/command'),
  (13,'template/editor','command=pageToHTML&page=template/editor'),
  (14,'help/icons','command=pageToHTML&page=help/icons'),
  (986,'node/type/algo','command=pageToHTML&page=node_type_algo'),
  (3209,'node/type/user','command=pageToHTML&page=node_type_user'),
- (3210,'node/type/group','command=pageToHTML&page=node_type_group');
+ (3210,'node/type/group','command=pageToHTML&page=node_type_group'),
+ (3489,'node/algo/1','command=pageToHTML&page=node_type_algo_1'),
+ (4479,'node/user/3','command=pageToHTML&page=node_type_user_3');
 
 
 
