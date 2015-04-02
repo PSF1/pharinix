@@ -20,9 +20,6 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-// TODO: Create tests.
-// TODO: Delete users.
-
 if (!class_exists("commandAddUser")) {
     class commandAddUser extends driverCommand {
 
@@ -41,6 +38,9 @@ if (!class_exists("commandAddUser")) {
             if ($params["name"] == "") {
                 $resp["msg"] .= "User name required. ";
             }
+            if ($params["mail"] == "") {
+                $resp["msg"] .= "User mail required. ";
+            }
             if ($params["title"] == "") {
                 $resp["msg"] .= "User title required. ";
             }
@@ -55,7 +55,12 @@ if (!class_exists("commandAddUser")) {
                         "count" => true,
                         "where" => "`title` = '{$params["name"]}'",
                     ));
-                    if ($grp["ammount"] == 0) {
+                    $mail = driverCommand::run("getNodes", array(
+                        "nodetype" => "user",
+                        "count" => true,
+                        "where" => "`mail` = '{$params["mail"]}'",
+                    ));
+                    if ($grp[0]["ammount"] == 0 && $mail[0]["ammount"] == 0) {
                         // Create group
                         $gid = driverCommand::run("addNode", array(
                             "nodetype" => "group",
@@ -74,12 +79,15 @@ if (!class_exists("commandAddUser")) {
                             // 
                             if ($uid["ok"]) {
                                 $resp["nid"] = $uid["nid"];
+                                $resp["ok"] = true;
                             } else {
                                 $resp = $uid;
                             }
                         } else {
                             $resp = $gid;
                         }
+                    } else {
+                        $resp["msg"] = "Mail or group in use.";
                     }
                 } catch (Exception $exc) {
                     $resp["msg"] = $exc->getMessage();
@@ -90,12 +98,12 @@ if (!class_exists("commandAddUser")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Add a new user.", 
+                "description" => "Add a new user. All parameters are requires.", 
                 "parameters" => array(
-                    "mail" => "Required. The user mail.",
-                    "pass" => "Required. The password in plain text.",
+                    "mail" => "The user mail.",
+                    "pass" => "The password in plain text.",
                     "name" => "User name or nick, used how default group name too.",
-                    "title" => "Required. User complete name.",
+                    "title" => "User complete name.",
                 ), 
                 "response" => array(
                     "ok" => "TRUE if the user is added.",
