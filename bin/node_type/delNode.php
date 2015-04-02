@@ -70,7 +70,7 @@ if (!class_exists("commandDelNode")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new node.",
+                "description" => "Delete a node.",
                 "parameters" => array(
                     "nid" => "Node ID to erase.",
                     "nodetype" => "Node type is from.",
