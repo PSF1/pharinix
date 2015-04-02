@@ -22,7 +22,6 @@
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 // TODO: For multidomain session information must be necessary asociate session with domain.
-// TODO: Add command to add a new user with default group. The command must be trust that the node type don't have non standard required fields.
 
  class driverUser {
     
