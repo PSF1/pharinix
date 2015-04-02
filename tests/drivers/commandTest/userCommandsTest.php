@@ -130,8 +130,8 @@ class userCommandsTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run("addUser", array(
             "mail" => "example@localhost",
             "pass" => "1",
-            "name" => "PSF",
-            "title" => "Pedro Pelaez",
+            "name" => "test",
+            "title" => "Test user",
         ));
         $this->assertTrue($resp["ok"]);
         $resp = driverCommand::run("addUser", array(
