@@ -27,7 +27,7 @@ if (!class_exists("commandGetNodeHtml")) {
     class commandGetNodeHtml extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            // TODO: Format de output...
+            // TODO: Format the output...
             var_dump(driverCommand::run("getNode", $params));
         }
 

@@ -24,7 +24,6 @@ if (!defined("CMS_VERSION")) {
 }
 
 // TODO: SECURITY !!
-// TODO: Load multi value fields.
 
 if (!class_exists("commandGetNode")) {
     class commandGetNode extends driverCommand {
