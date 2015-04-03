@@ -63,9 +63,27 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
                 array("addNode" => "nodetype=test2&title=NODE%204&order=1&relation=1,2,3,4"),
             ),
         ));
+        
+        driverCommand::run("batch", array(
+            "starter" => array(),
+            "commands" => array(
+                array("addNodeType" => "name=testkey"),
+                array("#clean" => ""),
+                array("addNodeField" => "node_type=testkey&iskey=true&name=order&type=integer"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=testkey&title=NODE%201&order=4"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=testkey&title=NODE%202&order=3"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=testkey&title=NODE%203&order=2"),
+                array("#clean" => ""),
+                array("addNode" => "nodetype=testkey&title=NODE%204&order=1"),
+            ),
+        ));
     }
     
     protected function tearDown() {
+        driverCommand::run("delNodeType", array("name" => "testkey"));
         driverCommand::run("delNodeType", array("name" => "test2"));
         driverCommand::run("delNodeType", array("name" => "test"));
     }
@@ -271,5 +289,103 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "lenght" => 3,
             ));
         $this->assertTrue(count($resp) == 3);
+    }
+    
+    // Updates
+    public function testUpdateNodes_BadType() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "notype",
+            "nid" => 1
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_Defaultype() {
+        $resp = driverCommand::run("updateNode", array(
+            "nid" => 1
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_BadID() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "nid" => 10000
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_DefaultID() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_Required_fail() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "nid" => 1,
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_ok() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "nid" => 1,
+            "title" => "test",
+            ));
+        $this->assertTrue($resp["ok"]);
+        $resp = driverCommand::run("getNode", array(
+            "nodetype" => "test",
+            "node" => 1,
+        ));
+        $this->assertEquals("test", $resp[1]["title"]);
+    }
+    
+    public function testUpdateNodes_key_fail() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "testkey",
+            "nid" => 1,
+            "title" => "test",
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_duplicate_key_fail() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "testkey",
+            "nid" => 1,
+            "title" => "test",
+            "order" => 1,
+            ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testUpdateNodes_key_ok() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "testkey",
+            "nid" => 1,
+            "title" => "test",
+            "order" => 5,
+            ));
+        $this->assertTrue($resp["ok"]);
+        $resp = driverCommand::run("getNode", array(
+            "nodetype" => "testkey",
+            "node" => 1,
+        ));
+        $this->assertEquals("test", $resp[1]["title"]);
+        $this->assertEquals(5, $resp[1]["order"]);
+    }
+    
+    public function testUpdateNodes_DuplicateKey_fail() {
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "testkey",
+            "nid" => 1,
+            "title" => "test",
+            "order" => 2,
+            ));
+        $this->assertFalse($resp["ok"]);
     }
 }
