@@ -35,6 +35,8 @@ if (!class_exists("commandUpdateNodes")) {
             $params = array_merge(array(
                 "nodetype" => "",
                 "nid" => "",
+                "modified" => date("Y-m-d H:i:s"), 
+                "modifier" => driverUser::getID(),
                     ), $params);
             
             if ($params["nid"] == "") {
