@@ -31,6 +31,7 @@ class commandAccessTest extends PHPUnit_Framework_TestCase {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';
+        driverUser::sessionStart();
     }
 
     /**
@@ -38,12 +39,19 @@ class commandAccessTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        driverUser::logOut();
     }
     
     public function testCommand_Default_Access_Guest_fail() {
         $resp = driverCommand::getAccess();
         $this->assertFalse($resp);
     }
+    
+    public function testCommand_Default_Access_Root_ok() {
+        driverUser::sudo();
+        $resp = driverCommand::getAccess();
+        $this->assertTrue($resp);
+    }
+    
     
 }

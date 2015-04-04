@@ -184,6 +184,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                 $_SESSION["user_guest_id"] = -1;
                 $_SESSION["user_id"] = -1;
             }
+            $_SESSION["user_groups"] = array("");
             $_SESSION["is_loged"] = 0;
         }
     }
@@ -207,6 +208,20 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             $_SESSION["is_loged"] = 1;
             $_SESSION["user_id"] = array_keys($node)[0];
             $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
+        }
+    }
+    
+    public static function sudo($get = true) {
+        if ($get) {
+            $_SESSION["sudo_user_id"] = $_SESSION["user_id"];
+            $_SESSION["sudo_user_groups"] = $_SESSION["user_groups"];
+            $_SESSION["user_id"] = 0;
+            $_SESSION["user_groups"] = array(0);
+        } else {
+            $_SESSION["user_id"] = $_SESSION["sudo_user_id"];
+            $_SESSION["user_groups"] = $_SESSION["sudo_user_groups"];
+            unset($_SESSION["sudo_user_id"]);
+            unset($_SESSION["sudo_user_groups"]);
         }
     }
 

@@ -68,11 +68,20 @@ class driverCommand {
         foreach(driverCommand::$paths as $path) {
             if (is_file($path.$cmd.".php")) {
                 $object = include($path.$cmd.".php");
-                $resp = $object->runMe($params);
-                if (CMS_DEBUG && $debug) {
-                    var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
-                    driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
+                $canExe = $object->getAccess($path.$cmd.".php");
+                if ($canExe) {
+                    $resp = $object->runMe($params);
+                    if (CMS_DEBUG && $debug) {
+                        var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
+                        driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
+                    }
+                } else {
+                    $resp = array(
+                        "ok" => false,
+                        "msg" => "You can't execute '{$cmd}'.",
+                    );
                 }
+                
                 unset($params);
                 return $resp;
             }

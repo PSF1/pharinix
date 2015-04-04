@@ -35,6 +35,7 @@ class userCommandsTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         driverUser::logOut();
         driverUser::sessionStart();
+        driverUser::sudo();
     }
 
     /**

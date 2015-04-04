@@ -27,6 +27,8 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';
+        driverUser::sessionStart();
+        driverUser::sudo();
     }
     
     protected function tearDown() {
