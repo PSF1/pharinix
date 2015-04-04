@@ -63,7 +63,8 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         // Extraemos la extension, un solo paso
         $data["ext"] = substr(strrchr($path, "."), 1);
         // Primer paso de lectura de ruta
-        $data["path"] = array_shift(explode("." . $data["ext"], $path));
+        $pt = explode("." . $data["ext"], $path);
+        $data["path"] = array_shift($pt);
         // Primer paso de lectura de nombre
         $data["name"] = array_pop(explode("/", $data["path"]));
         // Ajustamos nombre a FALSE si esta vacio
