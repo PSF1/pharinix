@@ -58,6 +58,10 @@ function decode(fid) {
 <?php
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Encode/Decode a string as a URL.<p>The URL Decoder/Encoder is licensed under a Creative Commons <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" rel=\"license\">Attribution-ShareAlike 2.0</a> License by <a href=\"http://meyerweb.com/eric/tools/dencoder/\" target=\"_blank\">Eric Meyer</a>.

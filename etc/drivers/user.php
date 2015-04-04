@@ -123,6 +123,27 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     const PERMISSION_FILE_ALL_WRITE = 2;
     const PERMISSION_FILE_ALL_EXECUTE = 1;
     
+    public static function secFileToString($key) {
+        $resp = "";
+        
+        $resp .= "Owner:";
+        $resp .= $key & self::PERMISSION_FILE_OWNER_READ?"Read,":"";
+        $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?"Write,":"";
+        $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?"Execute":"";
+        
+        $resp .= " Group:";
+        $resp .= $key & self::PERMISSION_FILE_GROUP_READ?"Read,":"";
+        $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?"Write,":"";
+        $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?"Execute":"";
+        
+        $resp .= " All:";
+        $resp .= $key & self::PERMISSION_FILE_ALL_READ?"Read,":"";
+        $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?"Write,":"";
+        $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?"Execute":"";
+        
+        return $resp;
+    }
+    
     /**
      * Verify if the user can read
      * @param int $key Security integer to verify
@@ -268,6 +289,24 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             return array(0);
         }
         return $_SESSION["user_groups"];
+    }
+    
+    public static function getUserName($id) {
+        if ($id == 0) return "root";
+        $name = driverCommand::run("getNode", array("nodetype" => "user", "node" => $id));
+        if (!isset($name["ok"])) {
+            return $name[$id]["name"];
+        }
+        return "unknow";
+    }
+    
+    public static function getGroupName($id) {
+        if ($id == 0) return "root";
+        $name = driverCommand::run("getNode", array("nodetype" => "group", "node" => $id));
+        if (!isset($name["ok"])) {
+            return $name[$id]["name"];
+        }
+        return "unknow";
     }
 }
 

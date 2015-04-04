@@ -35,6 +35,10 @@ if (!class_exists("commandAddBooting")) {
             $sql .= "`ref` = '".uniqid("", true)."'";
             dbConn::Execute($sql);
         }
+        
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
 
         public static function getHelp() {
             return array(

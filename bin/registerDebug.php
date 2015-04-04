@@ -28,6 +28,10 @@ if (!class_exists("commandRegisterDebug")) {
             return array("val" => $resp);
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Return the content of the commandDriver register.", 

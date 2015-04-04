@@ -42,6 +42,10 @@ if (!class_exists("commandAddUrl")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Add a new URL to the rewrite list.", 

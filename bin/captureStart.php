@@ -31,6 +31,14 @@ if (!class_exists("commandCaptureStart")) {
             ob_start();
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Start a echo buffered capture. The capture methods have control about stack of calls, please execute 'captureEndAll' to ensure that all this buffers are closed.", 

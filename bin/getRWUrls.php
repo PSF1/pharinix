@@ -34,6 +34,14 @@ if (!class_exists("commandGetRWUrls")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Return a complete list of URL rewrites.", 

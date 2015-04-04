@@ -86,6 +86,14 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Display definition of node type.", 

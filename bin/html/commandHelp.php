@@ -54,11 +54,27 @@ if (!class_exists("commandCommandHelp")) {
                         }
                         echo "</ul>";
                     }
+                    // Access data
+                    echo "<h4>Permissions</h4>";
+                    $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                    echo "<ul>";
+                    echo "<li><b>Owner</b>: ".driverUser::getUserName($acc["owner"])."</li>";
+                    echo "<li><b>Group</b>: ".driverUser::getGroupName($acc["owner"])."</li>";
+                    echo "<li><b>Flags</b>: ".driverUser::secFileToString($acc["flags"])."</li>";
+                    echo "</ul>";
                 }
                 $q->MoveNext();
             }
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Display commands help.", 

@@ -55,6 +55,10 @@ if (!class_exists("commandUsageToHTML")) {
             <?php
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Print resource consume in HTML format",

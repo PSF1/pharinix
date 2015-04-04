@@ -31,6 +31,10 @@ if (!class_exists("commandPhpInfo")) {
             phpinfo();
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Display phpInfo() response.", 

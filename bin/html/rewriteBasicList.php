@@ -35,6 +35,14 @@ if (!class_exists("commandRewriteBasicList")) {
             echo "</ul>";
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Echo a list of URLs in the system.", 

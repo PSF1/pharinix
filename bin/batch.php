@@ -97,6 +97,10 @@ if (!class_exists("commandBatch")) {
             return false;
         }
         
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command. Allways call to captureEndAll at the end.", 

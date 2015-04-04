@@ -96,6 +96,10 @@ if (!class_exists("commandAddUser")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Add a new user. All parameters are requires.", 

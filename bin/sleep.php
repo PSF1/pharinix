@@ -34,6 +34,10 @@ if (!class_exists("commandSleep")) {
             sleep($params["s"]);
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Sleep some seconds, no more that 30s.", 

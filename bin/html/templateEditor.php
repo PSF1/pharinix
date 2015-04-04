@@ -215,6 +215,10 @@ if (!class_exists("commandTemplateEditor")) {
 <?php
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Show template grid editor.", 

@@ -29,6 +29,14 @@ if (!class_exists("commandEchoJSON")) {
             echo $json["json"];
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Echo to browser the JSON representation of parameters, try to change the HTTP header to Content-type: application/json.", 

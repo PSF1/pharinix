@@ -214,6 +214,10 @@ if (!class_exists("commandAddNodeType")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Add a new node type, with a default string field with name 'title'.", 

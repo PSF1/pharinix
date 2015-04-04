@@ -168,6 +168,10 @@ if (!class_exists("commandAddNodeField")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Add a new field to a node type", 

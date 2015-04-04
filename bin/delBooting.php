@@ -31,6 +31,10 @@ if (!class_exists("commandDelBooting")) {
             dbConn::Execute($sql);
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Delete a command from boot process.", 

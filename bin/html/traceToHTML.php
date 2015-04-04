@@ -44,6 +44,10 @@ if (!class_exists("commandTraceToHTML")) {
             <?php
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Print trace information in HTML format",

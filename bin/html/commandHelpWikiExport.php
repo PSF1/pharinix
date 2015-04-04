@@ -58,6 +58,13 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                         }
                         echo "\n\n";
                     }
+                    // Access data
+                    echo "Permissions\n\n";
+                    $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                    echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
+                    echo "* `Group`: ".driverUser::getGroupName($acc["owner"])."\n";
+                    echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
+                    echo "\n\n";
                 }
                 $q->MoveNext();
             }
@@ -67,6 +74,14 @@ if (!class_exists("commandCommandHelpWikiExport")) {
             file_put_contents($params["path"], $output);
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Export commands help to a GitHub Wiki file.", 

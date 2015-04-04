@@ -104,6 +104,14 @@ if (!class_exists("commandTemplateToArray")) {
                 throw new Exception("Template '{$params["template"]}' not found.");
             }
         }
+        
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
 
         public static function getHelp() {
             return array(

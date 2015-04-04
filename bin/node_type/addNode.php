@@ -163,6 +163,14 @@ if (!class_exists("commandAddNode")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         private static function getFieldDef($name, $nodeDef) {
             foreach($nodeDef as $fieldDef) {
                 if ($name == $fieldDef["name"]) {

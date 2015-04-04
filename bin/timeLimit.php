@@ -29,6 +29,10 @@ if (!class_exists("commandTimeLimit")) {
             set_time_limit($params["s"]);
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Change the PHP execution time limit. WARNING: Handle with care, a bad use of time limit can halt the server.", 

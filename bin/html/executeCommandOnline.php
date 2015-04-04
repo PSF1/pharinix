@@ -77,6 +77,14 @@ if (!class_exists("commandExecuteCommandOnline")) {
             }
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Show a form to define the command to execute.",

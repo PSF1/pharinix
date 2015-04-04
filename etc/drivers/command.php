@@ -117,10 +117,21 @@ class driverCommand {
      * @param integer $defAccess Default access flags
      * @return booean 
      */
-    public static function getAccess($path = "", $defAccess = PERMISSION_FILE_DEFAULT) {
-        $needFlags = $defAccess;
-        $owner = 0;
-        $group = 0;
+    public static function getAccess($path = "") {
+        $accData = static::getAccessData($path);
+        
+        $usrGrps = driverUser::getGroupsID();
+        return driverUser::secFileCanExecute($accData["flags"], 
+                $accData["owner"] == driverUser::getID(), 
+                array_search($accData["group"], $usrGrps) !== FALSE );
+    }
+    
+    public static function getAccessData($path = "") {
+        $resp = array(
+            "flags" => static::getAccessFlags(),
+            "owner" => 0,
+            "group" => 0,
+        );
         if ($path != "") {
             $fInfo = driverTools::pathInfo($path);
             $secFile = $fInfo["path"].$fInfo["name"].".sec";
@@ -129,18 +140,17 @@ class driverCommand {
                 $sec = file_get_contents($secFile);
                 $sec = explode(":", $sec);
                 if (count($sec) == 3) {
-                    $needFlags = intval($sec[0]);
-                    $owner = intval($sec[1]);
-                    $group = intval($sec[2]);
+                    $resp["flags"] = intval($sec[0]);
+                    $resp["owner"] = intval($sec[1]);
+                    $resp["group"] = intval($sec[2]);
                 }
-            } else {
-                $needFlags = $defAccess;
             }
         }
-        $usrGrps = driverUser::getGroupsID();
-        return driverUser::secFileCanExecute($needFlags, 
-                $owner == driverUser::getID(), 
-                array_search($group, $usrGrps) !== FALSE );
+        return $resp;
+    }
+    
+    public static function getAccessFlags() {
+        return PERMISSION_FILE_DEFAULT;
     }
     
     /**

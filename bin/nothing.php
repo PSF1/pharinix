@@ -38,6 +38,10 @@ if (!class_exists("commandNothing")) {
         public static function getAccess() {
             return parent::getAccess(__FILE__);
         }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
     }
 }
 return new commandNothing();

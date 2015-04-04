@@ -43,6 +43,10 @@ if (!class_exists("commandDelPage")) {
             }
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Del a page.", 

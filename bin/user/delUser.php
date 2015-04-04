@@ -67,6 +67,10 @@ if (!class_exists("commandDelUser")) {
             ));
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Delete a user by ID or mail.", 

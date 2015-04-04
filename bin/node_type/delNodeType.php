@@ -72,6 +72,10 @@ if (!class_exists("commandDelNodeType")) {
             }
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Erase a node type. Note: This command alter the execution time limit and reset it to the php.ini default value.", 

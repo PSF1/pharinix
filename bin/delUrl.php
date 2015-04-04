@@ -35,6 +35,10 @@ if (!class_exists("commandDelUrl")) {
                 }
             }
         }
+        
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
 
         public static function getHelp() {
             return array(

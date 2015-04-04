@@ -42,6 +42,10 @@ if (!class_exists("commandUsageEnd")) {
             }
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Capture final resources consumed", 

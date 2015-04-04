@@ -164,6 +164,14 @@ if (!class_exists("commandGetNodes")) {
             return $resp;
         }
 
+        public static function getAccess() {
+            return parent::getAccess(__FILE__);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Return list of nodes from a node type. All field's names must be enclosed with '`'", 
