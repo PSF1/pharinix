@@ -18,26 +18,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandNothing")) {
-    class commandNothing extends driverCommand {
+class commandAccessTest extends PHPUnit_Framework_TestCase {
 
-        public static function runMe(&$params, $debug = true) {
-            if(CMS_DEBUG) echo "<i>I do nothing...</i>";
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp() {
+//        include_once 'commandTools.php';
+        while (!is_file("etc/pharinix.config.php")) {
+            chdir("../");
         }
-
-        public static function getHelp() {
-            return array(
-                "description" => "Nothing to do", 
-                "parameters" => array(), 
-                "response" => array()
-            );
-        }
-        
-        public static function getAccess() {
-            return parent::getAccess(__FILE__);
-        }
+        include_once 'tests/drivers/etc/bootstrap.php';
     }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown() {
+        
+    }
+    
+    public function testCommand_Default_Access_Guest_fail() {
+        $resp = driverCommand::getAccess();
+        $this->assertFalse($resp);
+    }
+    
 }
-return new commandNothing();

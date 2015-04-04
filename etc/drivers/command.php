@@ -103,6 +103,38 @@ class driverCommand {
     }
     
     /**
+     * Return TRUE if the access required to use the command is matched
+     * @param string $path Path to the command
+     * @param integer $defAccess Default access flags
+     * @return booean 
+     */
+    public static function getAccess($path = "", $defAccess = PERMISSION_FILE_DEFAULT) {
+        $needFlags = $defAccess;
+        $owner = 0;
+        $group = 0;
+        if ($path != "") {
+            $fInfo = driverTools::pathInfo($path);
+            $secFile = $fInfo["path"].$fInfo["name"].".sec";
+            $fInfo = driverTools::pathInfo($secFile);
+            if ($fInfo["exists"]) {
+                $sec = file_get_contents($secFile);
+                $sec = explode(":", $sec);
+                if (count($sec) == 3) {
+                    $needFlags = intval($sec[0]);
+                    $owner = intval($sec[1]);
+                    $group = intval($sec[2]);
+                }
+            } else {
+                $needFlags = $defAccess;
+            }
+        }
+        $usrGrps = driverUser::getGroupsID();
+        return driverUser::secFileCanExecute($needFlags, 
+                $owner == driverUser::getID(), 
+                array_search($group, $usrGrps) !== FALSE );
+    }
+    
+    /**
      * print_r wrapper, translate bool values to "TRUE" or "FALSE" string.
      * @param array $arr
      * @return string

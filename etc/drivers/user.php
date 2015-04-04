@@ -258,6 +258,13 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         }
         return $_SESSION["user_groups"][0];
     }
+    
+    public static function getGroupsID() {
+        if (!isset($_SESSION) || !isset($_SESSION["user_groups"])) {
+            return array(0);
+        }
+        return $_SESSION["user_groups"];
+    }
 }
 
 define('PERMISSION_NODE_DEFAULT', (driverUser::PERMISSION_NODE_OWNER_CREATE | 
@@ -265,4 +272,8 @@ define('PERMISSION_NODE_DEFAULT', (driverUser::PERMISSION_NODE_OWNER_CREATE |
                           driverUser::PERMISSION_NODE_OWNER_READ |
                           driverUser::PERMISSION_NODE_OWNER_UPDATE |
                           driverUser::PERMISSION_NODE_GROUP_READ));
+define('PERMISSION_FILE_DEFAULT', (driverUser::PERMISSION_FILE_OWNER_READ | 
+                          driverUser::PERMISSION_FILE_OWNER_WRITE | 
+                          driverUser::PERMISSION_FILE_OWNER_EXECUTE |
+                          driverUser::PERMISSION_FILE_GROUP_READ));
 driverUser::sessionStart();
