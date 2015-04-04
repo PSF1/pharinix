@@ -153,9 +153,9 @@ if (!class_exists("commandAddNodeField")) {
                             dbConn::Execute($sql);
                         }
                         // Modificated
-                        $sql = "update `node_type` set `modified` = NOW() where `id` = ".$ntype["id"];
+                        $sql = "update `node_type` set `modified` = NOW(), ".
+                            "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$ntype["id"];
                         dbConn::Execute($sql);
-                        // TODO: Add modificator user
                     }
                 } else {
                     $resp["ok"] = false;

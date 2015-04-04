@@ -48,9 +48,9 @@ if (!class_exists("commandDelNodeField")) {
                         $q->MoveNext();
                     }
                     // Modificated
-                    $sql = "update `node_type` set `modified` = NOW() where `id` = ".$nid;
+                    $sql = "update `node_type` set `modified` = NOW(), ".
+                           "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$nid;
                     dbConn::Execute($sql);
-                    // TODO: Add modificator user
                 }
             }
         }
