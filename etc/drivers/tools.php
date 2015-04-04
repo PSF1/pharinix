@@ -71,7 +71,19 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         // Ajustamos nombre a FALSE si esta vacio
         $data["name"] = ($data["name"] ? $data["name"] : FALSE);
         // Ajustamos la ruta a FALSE si esta vacia
-        $data["path"] = ($data["exists"] ? ($data["name"] ? realpath($pt = array_shift(explode($data["name"], $data["path"]))) : realpath($pt = array_shift(explode($data["ext"], $data["path"])))) : ($data["name"] ? $pt = array_shift(explode($data["name"], $data["path"])) : ($data["ext"] ? $pt = array_shift(explode($data["ext"], $data["path"])) : rtrim($data["path"], "/"))));
+        $p1 = explode($data["name"], $data["path"]);
+        $p2 = explode($data["ext"], $data["path"]);
+        $p3 = explode($data["name"], $data["path"]);
+        $p4 = explode($data["ext"], $data["path"]);
+        $data["path"] = ($data["exists"] ? 
+                ($data["name"] ? 
+                    realpath(array_shift($p1)) : 
+                    realpath(array_shift($p2))) : 
+                ($data["name"] ? 
+                    array_shift($p3) : 
+                    ($data["ext"] ? 
+                            array_shift($p4) : 
+                            rtrim($data["path"], "/"))));
         // Ajustamos el nombre a FALSE si esta vacio o a su valor en caso contrario
         $data["filename"] = (($data["name"] OR $data["ext"]) ? $data["name"] . ($data["ext"] ? "." : "") . $data["ext"] : FALSE);
         // Devolvemos los resultados
