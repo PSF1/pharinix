@@ -32,6 +32,15 @@ if (!class_exists("commandBlockFB")) {
             eval("?>".$blq);
         }
 
+        public static function getAccess($ignore = "") {
+            $me = __FILE__;
+            return parent::getAccess($me);
+        }
+        
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
+        
         public static function getHelp() {
             return array(
                 "description" => "Echo a form builder block.", 
