@@ -170,20 +170,9 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         @session_start();
         if (!isset($_SESSION["started"])) {
             // We cache root and guest information
-            $_SESSION["started"] = 1;
-            $sql = "SELECT `node_user`.`id` as `iduser`, `node_group`.`id` as ".
-                   "`idgroup` FROM `node_user` left join `node_group` on ".
-                   "(`node_user`.`name` = `node_group`.`title`) where ".
-                   "`node_user`.`name` = 'root'";
-            $q = dbConn::Execute($sql);
-            if (!$q->EOF) {
-                $_SESSION["user_root_id"] = $q->fields["iduser"];
-                $_SESSION["group_root_id"] = $q->fields["idgroup"];
-            } else {
-                // Without database connection
-                $_SESSION["user_root_id"] = 0;
-                $_SESSION["group_root_id"] = 0;
-            }
+            $_SESSION["user_root_id"] = 0;
+            $_SESSION["group_root_id"] = 0;
+            
             $sql = "SELECT `node_user`.`id` from `node_user` where `node_user`.`name` = 'guest'";
             $q = dbConn::Execute($sql);
             $_SESSION["user_id"] = -1;
