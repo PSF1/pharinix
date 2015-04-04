@@ -27,8 +27,9 @@ if (!class_exists("commandGetVersion")) {
             return array("version" => CMS_VERSION);
         }
 
-        public static function getAccess() {
-            return parent::getAccess(__FILE__);
+        public static function getAccess($ignore = "") {
+            $me = __FILE__;
+            return parent::getAccess($me);
         }
         
         public static function getAccessFlags() {

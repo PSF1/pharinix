@@ -74,8 +74,9 @@ if (!class_exists("commandAddPage")) {
             return $resp;
         }
 
-        public static function getAccess() {
-            return parent::getAccess(__FILE__);
+        public static function getAccess($ignore = "") {
+            $me = __FILE__;
+            return parent::getAccess($me);
         }
         
         public static function getHelp() {

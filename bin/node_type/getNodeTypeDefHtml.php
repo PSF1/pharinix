@@ -86,8 +86,9 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
         }
 
-        public static function getAccess() {
-            return parent::getAccess(__FILE__);
+        public static function getAccess($ignore = "") {
+            $me = __FILE__;
+            return parent::getAccess($me);
         }
         
         public static function getAccessFlags() {
