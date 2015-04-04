@@ -66,11 +66,12 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         $pt = explode("." . $data["ext"], $path);
         $data["path"] = array_shift($pt);
         // Primer paso de lectura de nombre
-        $data["name"] = array_pop(explode("/", $data["path"]));
+        $pt = explode("/", $data["path"]);
+        $data["name"] = array_pop($pt);
         // Ajustamos nombre a FALSE si esta vacio
         $data["name"] = ($data["name"] ? $data["name"] : FALSE);
         // Ajustamos la ruta a FALSE si esta vacia
-        $data["path"] = ($data["exists"] ? ($data["name"] ? realpath(array_shift(explode($data["name"], $data["path"]))) : realpath(array_shift(explode($data["ext"], $data["path"])))) : ($data["name"] ? array_shift(explode($data["name"], $data["path"])) : ($data["ext"] ? array_shift(explode($data["ext"], $data["path"])) : rtrim($data["path"], "/"))));
+        $data["path"] = ($data["exists"] ? ($data["name"] ? realpath($pt = array_shift(explode($data["name"], $data["path"]))) : realpath($pt = array_shift(explode($data["ext"], $data["path"])))) : ($data["name"] ? $pt = array_shift(explode($data["name"], $data["path"])) : ($data["ext"] ? $pt = array_shift(explode($data["ext"], $data["path"])) : rtrim($data["path"], "/"))));
         // Ajustamos el nombre a FALSE si esta vacio o a su valor en caso contrario
         $data["filename"] = (($data["name"] OR $data["ext"]) ? $data["name"] . ($data["ext"] ? "." : "") . $data["ext"] : FALSE);
         // Devolvemos los resultados
