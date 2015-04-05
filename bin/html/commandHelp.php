@@ -59,7 +59,7 @@ if (!class_exists("commandCommandHelp")) {
                     $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
                     echo "<ul>";
                     echo "<li><b>Owner</b>: ".driverUser::getUserName($acc["owner"])."</li>";
-                    echo "<li><b>Group</b>: ".driverUser::getGroupName($acc["owner"])."</li>";
+                    echo "<li><b>Group</b>: ".driverUser::getGroupName($acc["group"])."</li>";
                     echo "<li><b>Flags</b>: ".driverUser::secFileToString($acc["flags"])."</li>";
                     echo "</ul>";
                 }

@@ -62,7 +62,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                     echo "Permissions\n\n";
                     $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
                     echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
-                    echo "* `Group`: ".driverUser::getGroupName($acc["owner"])."\n";
+                    echo "* `Group`: ".driverUser::getGroupName($acc["group"])."\n";
                     echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
                     echo "\n\n";
                 }

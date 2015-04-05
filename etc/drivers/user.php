@@ -269,18 +269,40 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         }
     }
     
-    public static function sudo($get = true) {
+    /**
+     * Change active user, it suplant the identity of the new user.
+     * @param boolean $get TRUE to get user, FALSE to exit.
+     * @param integer $userID User ID to get.
+     */
+    public static function sudo($get = true, $userID = 0) {
         if ($get) {
-            $_SESSION["sudo_user_id"] = $_SESSION["user_id"];
-            $_SESSION["sudo_user_groups"] = $_SESSION["user_groups"];
-            $_SESSION["user_id"] = 0;
-            $_SESSION["user_groups"] = array(0);
+            $usr = $userID;
+            $grp = array(0);
+            if ($userID != 0) {
+                $resp = driverCommand::run("getNode", array(
+                    "nodetype" => "user",
+                    "node" => $userID,
+                ));
+                if (!isset($resp[$userID])) return;
+                $usr = $userID;
+                $grp = $resp[$userID]["groups"];
+            }
+            if (!self::isSudoed()) {
+                $_SESSION["sudo_user_id"] = $_SESSION["user_id"];
+                $_SESSION["sudo_user_groups"] = $_SESSION["user_groups"];
+            }
+            $_SESSION["user_id"] = $usr;
+            $_SESSION["user_groups"] = $grp;
         } else {
             $_SESSION["user_id"] = $_SESSION["sudo_user_id"];
             $_SESSION["user_groups"] = $_SESSION["sudo_user_groups"];
             unset($_SESSION["sudo_user_id"]);
             unset($_SESSION["sudo_user_groups"]);
         }
+    }
+    
+    public static function isSudoed() {
+        return isset($_SESSION["sudo_user_id"]);
     }
 
     /**
@@ -341,7 +363,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         if ($id == 0) return "root";
         $name = driverCommand::run("getNode", array("nodetype" => "group", "node" => $id));
         if (!isset($name["ok"])) {
-            return $name[$id]["name"];
+            return $name[$id]["title"];
         }
         return "unknow";
     }
