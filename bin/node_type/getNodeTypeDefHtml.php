@@ -80,10 +80,20 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             if ($def["locked"]) {
                 echo "<p><span class=\"glyphicon glyphicon-exclamation-sign\"></span>&nbsp;This is a system node type.</p>";
             }
-            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Created by '{$def["creator_node_user"]}' in {$def["created"]}, modified by '{$def["modifier_node_user"]}' in {$def["modified"]}.</p>";
+            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Created by '".
+                    driverUser::getUserName($def["creator_node_user"])."' in {$def["created"]}, modified by '".
+                    driverUser::getUserName($def["modifier_node_user"])."' in {$def["modified"]}.</p>";
             $sql = "select count(*) from `node_{$params["nodetype"]}`";
             $q = dbConn::Execute($sql);
             echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
+            echo "<p><span class=\"glyphicon glyphicon-lock\"></span>";
+            echo "&nbsp;Permisions: ";
+            echo "<ul>";
+            echo "<li><b>Owner</b>: ".driverUser::getUserName($def["user_owner"])."</li>";
+            echo "<li><b>Group</b>: ".driverUser::getUserName($def["group_owner"])."</li>";
+            echo "<li><b>Flags</b>: ".driverUser::secNodeToString($def["access"])."</li>";
+            echo "</ul>";
+            echo "</p>";
         }
 
         public static function getAccess($ignore = "") {

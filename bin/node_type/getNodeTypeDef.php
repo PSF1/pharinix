@@ -38,6 +38,9 @@ if (!class_exists("commandGetNodeTypeDef")) {
                 "creator_node_user" => "",
                 "modified" => "",
                 "modifier_node_user" => "",
+                "user_owner" => 0,
+                "group_owner" => 0,
+                "access" => 0,
                 "fields" => array()
                 );
             if ($nid !== false) {
@@ -49,6 +52,9 @@ if (!class_exists("commandGetNodeTypeDef")) {
                 $resp["creator_node_user"] = $q->fields["creator_node_user"];
                 $resp["modified"] = $q->fields["modified"];
                 $resp["modifier_node_user"] = $q->fields["modifier_node_user"];
+                $resp["user_owner"] = $q->fields["user_owner"];
+                $resp["group_owner"] = $q->fields["group_owner"];
+                $resp["access"] = $q->fields["access"];
                 $sql = "SELECT * FROM `node_type_field` where `node_type` = $nid";
                 $q = dbConn::Execute($sql);
                 while (!$q->EOF) {

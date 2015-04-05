@@ -47,6 +47,41 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     const PERMISSION_NODE_ALL_UPDATE = 2;
     const PERMISSION_NODE_ALL_DEL = 1;
     
+    public static function secNodeToString($key) {
+        $resp = "";
+        
+        $resp .= "Owner:[";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_CREATE, "Create").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_READ, "Read").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_UPDATE, "Update").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_DEL, "Delete");
+        $resp .= "] ";
+        $resp .= " Group:[";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_CREATE, "Create").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_READ, "Read").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_UPDATE, "Update").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_DEL, "Delete");
+        $resp .= "] ";
+        $resp .= " All:[";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_CREATE, "Create").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_READ, "Read").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_UPDATE, "Update").", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_DEL, "Delete");
+        $resp .= "] ";
+        return $resp;
+    }
+    
+    /**
+     * Format the label in green if value is true, otherway format in red.
+     * @param boolean $value 
+     * @param string $label
+     * @return boolean
+     */
+    private static function secFormatString($value, $label) {
+        $lab = ($value?"success":"danger");
+        return "<span class=\"label label-$lab\">$label</span>";
+    }
+    
     /**
      * Verify if the user can create nodes
      * @param int $key Security integer to verify
