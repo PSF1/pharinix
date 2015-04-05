@@ -53,5 +53,17 @@ class commandAccessTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($resp);
     }
     
-    
+    public function testCommand_Access_Root_Unsudo_ok() {
+        // Not
+        $resp = driverCommand::getAccess();
+        $this->assertFalse($resp);
+        // Yes
+        driverUser::sudo();
+        $resp = driverCommand::getAccess();
+        $this->assertTrue($resp);
+        // Not
+        driverUser::sudo(false);
+        $resp = driverCommand::getAccess();
+        $this->assertFalse($resp);
+    }
 }
