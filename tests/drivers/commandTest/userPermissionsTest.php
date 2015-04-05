@@ -108,7 +108,6 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testSessionSudo() {
-        //TODO: El comando getNodes falla sin sudo impidiendo el inicio de sesion !!
         driverUser::logOut();
         driverUser::sessionStart();
         driverUser::sudo();
