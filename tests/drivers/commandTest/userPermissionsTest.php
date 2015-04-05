@@ -62,6 +62,45 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($_SESSION["user_guest_id"] == $_SESSION["user_id"]);
     }
     
+    public function testSessionStarted() {
+        driverUser::logOut();
+        driverUser::sessionStart();
+        $this->assertTrue(isset($_SESSION["started"]));
+        $this->assertEquals(0, $_SESSION["user_root_id"]);
+        $this->assertTrue(is_array($_SESSION["user_groups"]));
+        $this->assertEquals(0, $_SESSION["is_loged"]);
+    }
+    
+    public function testSessionLoged() {
+        driverUser::logOut();
+        driverUser::sessionStart();
+        driverUser::sudo();
+        // Add user
+        $user = driverCommand::run("addUser", array(
+            "mail" => "testlogin@localhost",
+            "pass" => "testlogin",
+            "name" => "testlogin",
+            "title" => "testlogin",
+        ));
+        // Login with it
+        driverUser::logOut();
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        
+        $this->assertTrue(isset($_SESSION["started"]));
+        $this->assertEquals(0, $_SESSION["user_root_id"]);
+        $this->assertEquals($user["nid"], $_SESSION["user_id"]);
+        $this->assertTrue(is_array($_SESSION["user_groups"]));
+        $this->assertTrue(driverUser::isLoged());
+        // Logout
+        driverUser::logOut();
+        // Delete user
+        driverUser::sessionStart();
+        driverUser::sudo();
+        driverCommand::run("delUser", array(
+            "mail" => "testlogin@localhost",
+        ));
+    }
+    
     public function testSessionLogin_NoDataBase() {
         dbConn::$lockConnection = true; // Simulate no database connection
         $this->assertNotTrue(dbConn::haveConnection());

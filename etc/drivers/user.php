@@ -242,6 +242,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             }
             $_SESSION["user_groups"] = array("");
             $_SESSION["is_loged"] = 0;
+            $_SESSION["started"] = true;
         }
     }
     
@@ -264,7 +265,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             $_SESSION["is_loged"] = 1;
             $keys = array_keys($node);
             $_SESSION["user_id"] = $keys[0];
-            $_SESSION["user_groups"] = implode(",", $node[$_SESSION["user_id"]]["groups"]);
+            $_SESSION["user_groups"] = $node[$_SESSION["user_id"]]["groups"];
         }
     }
     
