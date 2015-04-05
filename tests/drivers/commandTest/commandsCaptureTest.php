@@ -43,7 +43,7 @@ class commandsCaptureTest extends PHPUnit_Framework_TestCase {
         
     }
     
-    public function testCommandBatch_Capture_Autoclean() {
+    public function testCommandBatch_Capture_cleanAuto() {
         $resp = driverCommand::run("batch", array(
             "starter" => array(),
             "commands" => array(
@@ -52,6 +52,7 @@ class commandsCaptureTest extends PHPUnit_Framework_TestCase {
             ),
             "echoed" => "",
         ));
+        ob_end_clean();
         $this->assertTrue(is_array($resp));
         $this->assertTrue(count($resp) == 0);
     }
