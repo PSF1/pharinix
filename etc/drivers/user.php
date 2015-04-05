@@ -256,16 +256,18 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         if ($user == "root@localhost") {
             $user = ""; // Root can't start session
         }
-        $node = driverCommand::run("getNodes", array(
-                    "nodetype" => "user",
-                    "where" => "`mail` = '$user' && `pass` = '$pass'",
-        ));
-
-        if (!isset($node["ok"]) && count($node) > 0) {
+        $sql = "select * from `node_user` where `mail` = '$user' && `pass` = '$pass'";
+        $q = dbConn::Execute($sql);
+        if (!$q->EOF) {
             $_SESSION["is_loged"] = 1;
-            $keys = array_keys($node);
-            $_SESSION["user_id"] = $keys[0];
-            $_SESSION["user_groups"] = $node[$_SESSION["user_id"]]["groups"];
+            $_SESSION["user_id"] = $q->fields["id"];
+            $sql = "SELECT * FROM `node_relation_user_groups_group` where `type1` = ".$q->fields["id"];
+            $q = dbConn::Execute($sql);
+            $_SESSION["user_groups"] = array();
+            while(!$q->EOF) {
+                $_SESSION["user_groups"][] = $q->fields["type2"];
+                $q->MoveNext();
+            }
         }
     }
     

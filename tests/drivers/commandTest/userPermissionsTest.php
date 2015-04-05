@@ -34,7 +34,16 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        
+        // Add user
+        driverUser::sessionStart();
+        driverUser::sudo();
+        $user = driverCommand::run("addUser", array(
+            "mail" => "testlogin@localhost",
+            "pass" => "testlogin",
+            "name" => "testlogin",
+            "title" => "testlogin",
+        ));
+        driverUser::sudo(false);
     }
 
     /**
@@ -42,7 +51,12 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        // Delete user
+        driverUser::sessionStart();
+        driverUser::sudo();
+        driverCommand::run("delUser", array(
+            "mail" => "testlogin@localhost",
+        ));
     }
     
     public static function tearDownAfterClass() {
@@ -75,30 +89,61 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         driverUser::logOut();
         driverUser::sessionStart();
         driverUser::sudo();
-        // Add user
-        $user = driverCommand::run("addUser", array(
-            "mail" => "testlogin@localhost",
-            "pass" => "testlogin",
-            "name" => "testlogin",
-            "title" => "testlogin",
+        $user = driverCommand::run("getNodes", array(
+            "nodetype" => "user",
+            "where" => "`mail` = 'testlogin@localhost'",
         ));
+        $user = array_keys($user);
         // Login with it
         driverUser::logOut();
         driverUser::logIn("testlogin@localhost", md5("testlogin"));
         
         $this->assertTrue(isset($_SESSION["started"]));
         $this->assertEquals(0, $_SESSION["user_root_id"]);
-        $this->assertEquals($user["nid"], $_SESSION["user_id"]);
+        $this->assertEquals($user[0], $_SESSION["user_id"]);
         $this->assertTrue(is_array($_SESSION["user_groups"]));
         $this->assertTrue(driverUser::isLoged());
         // Logout
         driverUser::logOut();
-        // Delete user
+    }
+    
+    public function testSessionSudo() {
+        //TODO: El comando getNodes falla sin sudo impidiendo el inicio de sesion !!
+        driverUser::logOut();
         driverUser::sessionStart();
         driverUser::sudo();
-        driverCommand::run("delUser", array(
-            "mail" => "testlogin@localhost",
+        // Add sudoers to testlogin@localhost
+        $user = driverCommand::run("getNodes", array(
+            "nodetype" => "user",
+            "where" => "`mail` = 'testlogin@localhost'",
         ));
+        $usrKeys = array_keys($user);
+        $group = driverCommand::run("getNodes", array(
+            "nodetype" => "group",
+            "where" => "`title` = 'sudoers'",
+        ));
+        $grpKeys = array_keys($group);
+        $ngrps = implode(",",$user[$usrKeys[0]]["groups"]).",".$grpKeys[0];
+        $user[$usrKeys[0]]["groups"] = $ngrps;
+        $nnode = array_merge($user[$usrKeys[0]],
+            array(
+                "nodetype" => "user",
+                "nid" => $usrKeys[0],
+            ));
+        unset($nnode["pass"]);
+        driverCommand::run("updateNode", $nnode);
+        driverUser::logOut();
+        // Command sudo
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        $this->assertEquals($usrKeys[0], $_SESSION["user_id"]);
+        driverCommand::run("sudo", array(
+            "user" => "root@localhost",
+        ));
+        $this->assertEquals($usrKeys[0], $_SESSION["sudo_user_id"]);
+        $this->assertEquals(0, $_SESSION["user_id"]);
+        
+        $this->assertTrue(count($_SESSION["user_groups"]) > 0);
+        $this->assertEquals(0, $_SESSION["user_groups"][0]);
     }
     
     public function testSessionLogin_NoDataBase() {

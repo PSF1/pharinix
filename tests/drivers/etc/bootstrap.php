@@ -28,3 +28,10 @@ include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");
 include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
+
+$sql = "SELECT * FROM `node_group` where `title` = 'sudoers'";
+$q = dbConn::Execute($sql);
+if ($q->EOF) {
+    $sql = "insert into `node_group` set `title` = 'sudoers'";
+    dbConn::Execute($sql);
+}
