@@ -380,4 +380,7 @@ define('PERMISSION_FILE_DEFAULT', (driverUser::PERMISSION_FILE_OWNER_READ |
                           driverUser::PERMISSION_FILE_OWNER_WRITE | 
                           driverUser::PERMISSION_FILE_OWNER_EXECUTE |
                           driverUser::PERMISSION_FILE_GROUP_READ));
+if (isset($_POST["auth_token"])) {
+    session_id($_POST["auth_token"]);
+}
 driverUser::sessionStart();
