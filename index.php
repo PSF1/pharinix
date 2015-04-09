@@ -40,7 +40,6 @@ if (CMS_DEBUG) {
     $output["used_time"] = array();
     $output["used_time"]["start"] = $mtime;
 }
-//$cmsUsr = new driverUser();
 new driverUrlRewrite();
 // Boot process
 $boot = driverCommand::run("listBooting");
@@ -52,7 +51,7 @@ foreach($boot as $cmd) {
 unset($boot);
 
 if (!isset($_POST["interface"])) {
-    $_POST["interface"] = "1";
+    $_POST["interface"] = "toHtml";
 }
 
 // "GET" fusion with "POST"
@@ -60,7 +59,7 @@ foreach ($_GET as $key => $value) {
     $_POST[$key] = $value;
 }
 // Default command
-if ($_POST["interface"] != "0") {
+if ($_POST["interface"] == "1" || $_POST["interface"] == "toHtml") {
     $page = "home"; // Default page
     $params = driverCommand::getPOSTParams($_POST);
     $cmd = "pageToHTML";
@@ -82,7 +81,8 @@ if ($_POST["interface"] != "0") {
     if (!isset($_POST["command"])) {
         $_POST["command"] = "nothing";
     }
-    driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
+    $resp = driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
+    driverCommand::run($_POST["interface"], $resp);
 }
 
 if (CMS_DEBUG) {
