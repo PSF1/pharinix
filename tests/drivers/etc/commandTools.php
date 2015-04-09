@@ -75,8 +75,3 @@ class commandTools {
         return $parts[1];
     }
 }
-
-print_r("\$_SERVER:");
-print_r($_SERVER);
-
-phpInfo();

@@ -22,6 +22,7 @@
 if (!isset($_SERVER["HTTP_HOST"])) {
     $_SERVER["HTTP_HOST"] = "localhost";
 }
+phpInfo();
 // Requires
 include_once 'etc/drivers/config.php';
 include_once(driverConfig::getConfigFilePath());
