@@ -24,11 +24,11 @@ if (!class_exists("commandToJSON")) {
     class commandToJSON extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            self::cleanItem($params);
+            $params = self::cleanItem($params);
             return array("json" => json_encode($params, JSON_FORCE_OBJECT));
         }
         
-        private static function cleanItem(&$params) {
+        private static function cleanItem($params) {
             foreach ($params as $key => $value) {
                 if (is_string($value)) $value = utf8_encode($value);
                 if (is_string($key)) {
@@ -37,9 +37,10 @@ if (!class_exists("commandToJSON")) {
                     $params[$key1] = $value;
                 }
                 if (is_array($value)) {
-                    self::cleanItem($value);
+                    self::cleanItem($params[$key]);
                 }
             }
+            return $params;
         }
 
         public static function getAccess($ignore = "") {
