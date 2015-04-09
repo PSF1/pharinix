@@ -75,10 +75,3 @@ class commandTools {
         return $parts[1];
     }
 }
-
-$resp = commandTools::getURL("http://127.0.0.1/?command=getVersion&interface=echoJson");
-print_r($resp);
-$resp = commandTools::getURL("http://127.0.0.1/pharinix/?command=getVersion&interface=echoJson");
-print_r($resp);
-$resp = commandTools::getURL("http://localhost/?command=getVersion&interface=echoJson");
-print_r($resp);
