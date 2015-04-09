@@ -29,7 +29,10 @@ if (!class_exists("commandStartSession")) {
                 "pass" => ""
             ), $params);
             driverUser::logIn($params["user"], md5($params["pass"]));
-            return array("ok" => driverUser::isLoged());
+            return array(
+                "ok" => driverUser::isLoged(),
+                "id" => session_id(),
+            );
         }
 
         public static function getAccess($ignore = "") {
@@ -49,7 +52,8 @@ if (!class_exists("commandStartSession")) {
                     "pass" => "User password to login.",
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if session started."
+                    "ok" => "TRUE if session started.",
+                    "id" => "Session ID to use how auth_token."
                 )
             );
         }
