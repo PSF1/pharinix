@@ -118,6 +118,9 @@ class driverCommand {
      * @return booean 
      */
     public static function getAccess($path = "") {
+        // Root have all the power !!
+        if (driverUser::getID() == 0) return true;
+        // Mortals don't have it... :S
         $accData = static::getAccessData($path);
         
         $usrGrps = driverUser::getGroupsID();
