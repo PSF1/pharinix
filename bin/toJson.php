@@ -29,6 +29,7 @@ if (!class_exists("commandToJSON")) {
         }
         
         private static function cleanItem($params) {
+            if (!is_array($params)) return $params;
             foreach ($params as $key => $value) {
                 if (is_string($value)) $value = utf8_encode($value);
                 if (is_string($key)) {
