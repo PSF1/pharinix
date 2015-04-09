@@ -27,6 +27,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';
+        include_once 'tests/drivers/etc/commandTools.php';
     }
     
     /**
@@ -143,6 +144,72 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         
         $this->assertTrue(count($_SESSION["user_groups"]) > 0);
         $this->assertEquals(0, $_SESSION["user_groups"][0]);
+    }
+    
+    // Use of sudo remote command
+    public function testSudoAndUnsudo() {
+        driverUser::logOut();
+        driverUser::sessionStart();
+        driverUser::sudo();
+        // Add sudoers to testlogin@localhost
+        $user = driverCommand::run("getNodes", array(
+            "nodetype" => "user",
+            "where" => "`mail` = 'testlogin@localhost'",
+        ));
+        $usrKeys = array_keys($user);
+        $group = driverCommand::run("getNodes", array(
+            "nodetype" => "group",
+            "where" => "`title` = 'sudoers'",
+        ));
+        $grpKeys = array_keys($group);
+        $ngrps = implode(",",$user[$usrKeys[0]]["groups"]).",".$grpKeys[0];
+        $user[$usrKeys[0]]["groups"] = $ngrps;
+        $nnode = array_merge($user[$usrKeys[0]],
+            array(
+                "nodetype" => "user",
+                "nid" => $usrKeys[0],
+            ));
+        unset($nnode["pass"]);
+        driverCommand::run("updateNode", $nnode);
+        driverUser::logOut();
+        // Login
+        $resp = commandTools::getURL(CMS_DEFAULT_URL_BASE, array(
+            "command" => "startSession",
+            "user" => "testlogin@localhost",
+            "pass" => "testlogin",
+            "interface" => "echoJson",
+        ));
+        $json = json_decode($resp["body"]);
+        $auth = $json->id;
+        $this->assertTrue($json->ok);
+        // Get user ID
+        $usr = commandTools::getSessionObject($auth);
+        // Command sudo
+        $resp = commandTools::getURL(CMS_DEFAULT_URL_BASE, array(
+            "command" => "sudo",
+            "auth_token" => $auth,
+            "user" => "root@localhost",
+        ));
+        $sudo = commandTools::getSessionObject($auth);
+        
+        $this->assertEquals($usrKeys[0], $sudo->sudo_user_id);
+        $this->assertEquals(0, $sudo->user_id);
+        
+        $this->assertTrue(count($sudo->user_groups) > 0);
+        $grps = (array)$sudo->user_groups;
+        $this->assertEquals(0, $grps[0]);
+        // Command un-sudo
+        $resp = commandTools::getURL(CMS_DEFAULT_URL_BASE, array(
+            "command" => "sudo",
+            "auth_token" => $auth,
+            "interface" => "echoJson",
+        ));
+        $unsudo = json_decode($resp["body"]);
+        $this->assertTrue($unsudo->ok);
+        
+        $sudo = commandTools::getSessionObject($auth);
+        $this->assertEquals($usrKeys[0], $sudo->user_id);
+        $this->assertFalse(isset($sudo->sudo_user_id));
     }
     
     public function testSessionLogin_NoDataBase() {

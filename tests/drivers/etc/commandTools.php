@@ -11,6 +11,15 @@
         
 class commandTools {
     
+    public static function getSessionObject($auth = "") {
+        $resp = self::getURL(CMS_DEFAULT_URL_BASE, array(
+            "command" => "getSession",
+            "auth_token" => $auth,
+            "interface" => "echoJson",
+        ));
+        return json_decode($resp["body"]);
+    }
+    
     /**
      * Do a HTTP query
      * @param string $url
