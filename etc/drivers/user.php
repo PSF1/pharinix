@@ -158,6 +158,53 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     const PERMISSION_FILE_ALL_WRITE = 2;
     const PERMISSION_FILE_ALL_EXECUTE = 1;
     
+    /**
+     * Load access data about a file
+     * @param string $path File path
+     * @return array FALSE if the file don't exist
+     */
+    public static function secFileGetAccess($path) {
+        $resp = false;
+        $fInfo = driverTools::pathInfo($path);
+        $secFile = $fInfo["path"] ."/". $fInfo["name"] . ".sec";
+        $fInfo = driverTools::pathInfo($secFile);
+        if ($fInfo["exists"]) {
+            $sec = file_get_contents($secFile);
+            $sec = explode(":", $sec);
+            if (count($sec) == 3) {
+                $resp = array();
+                $resp["flags"] = intval($sec[0]);
+                $resp["owner"] = intval($sec[1]);
+                $resp["group"] = intval($sec[2]);
+            }
+        }
+        return $resp;
+    }
+    
+    /**
+     * Save access data about a file
+     * @param string $path File path
+     * @param integer $flags Access flags
+     * @param integer $ownerID Owner user ID
+     * @param integer $groupID Owner group ID
+     * @return boolean ¿Changed?
+     */
+    public static function secFileSetAccess($path, $flags, $ownerID, $groupID) {
+        $resp = false;
+        $flags = intval($flags);
+        $ownerID = intval($ownerID);
+        $groupID = intval($groupID);
+        if (is_int($flags) && is_int($ownerID) && is_int($groupID)) {
+            $fInfo = driverTools::pathInfo($path);
+            $secFile = $fInfo["path"] ."/". $fInfo["name"] . ".sec";
+var_dump($secFile);
+            $data = "$flags:$ownerID:$groupID";
+            $sec = file_put_contents($secFile, $data);
+            $resp = true;
+        }
+        return $resp;
+    }
+    
     public static function secFileToString($key) {
         $resp = "";
         

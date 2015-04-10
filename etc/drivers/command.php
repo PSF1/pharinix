@@ -34,7 +34,7 @@ class driverCommand {
      * Recordset of paths
      * @var adoRecorset 
      */
-    private static $paths = null;
+    protected static $paths = null;
     
     /**
      * Execute a command
@@ -136,17 +136,9 @@ class driverCommand {
             "group" => 0,
         );
         if ($path != "") {
-            $fInfo = driverTools::pathInfo($path);
-            $secFile = $fInfo["path"].$fInfo["name"].".sec";
-            $fInfo = driverTools::pathInfo($secFile);
-            if ($fInfo["exists"]) {
-                $sec = file_get_contents($secFile);
-                $sec = explode(":", $sec);
-                if (count($sec) == 3) {
-                    $resp["flags"] = intval($sec[0]);
-                    $resp["owner"] = intval($sec[1]);
-                    $resp["group"] = intval($sec[2]);
-                }
+            $aux = driverUser::secFileGetAccess($path);
+            if ($aux !== false) {
+                $resp = $aux;
             }
         }
         return $resp;
