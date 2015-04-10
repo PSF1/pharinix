@@ -21,7 +21,6 @@ if (!defined("CMS_VERSION")) {
     header("HTTP/1.0 404 Not Found");
     die("");
 }
-// TODO: SECURITY !!
 if (!class_exists("commandExecuteCommandOnline")) {
 
     class commandExecuteCommandOnline extends driverCommand {

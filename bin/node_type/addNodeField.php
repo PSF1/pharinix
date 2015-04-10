@@ -23,7 +23,6 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-//TODO: SECURITY !!
 /*
  * Add a new field to a node type
  * CREATE TABLE `node_type_field` (
@@ -77,89 +76,102 @@ if (!class_exists("commandAddNodeField")) {
             if ($resp["msg"] != "") return $resp;
 
             // Verify node type
-            $ntype = driverCommand::run("getNodeTypeId", array("name" => $params["node_type"]));
-            if ($ntype !== false) {
-                // Verify that name is unique
-                $sql = "select id from `node_type_field` where `node_type` = {$ntype["id"]} && `name` = '{$params["name"]}'";
-                $q = dbConn::Execute($sql);
-                if ($q->EOF) {
-                    $isbasic = driverCommand::run("isBasicNodeFieldType", array("type" => $params["type"]));
-                    if (!$isbasic["basic"]) {
-                        $subtimeId = driverCommand::run("getNodeTypeId", array("name" => $params["type"]));
-                        if ($subtimeId === false) {
-                            $resp["ok"] = FALSE;
-                            $resp["msg"] = "Node field sub type '{$params["type"]}' don't exist.";
+            $typeDef = driverCommand::run("getNodeTypeDef", array(
+                "nodetype" => $params["node_type"],
+            ));
+            $ntype = $typeDef;
+            if ($ntype["id"] !== false) {
+                // Access control
+                $usrGrps = driverUser::getGroupsID();
+                $allowed = driverUser::secNodeCanUpdate($typeDef["access"], 
+                        $typeDef["user_owner"] == driverUser::getID(), 
+                        array_search($typeDef["group_owner"], $usrGrps) !== FALSE);
+                if ($allowed) {
+                    // Verify that name is unique
+                    $sql = "select id from `node_type_field` where `node_type` = {$ntype["id"]} && `name` = '{$params["name"]}'";
+                    $q = dbConn::Execute($sql);
+                    if ($q->EOF) {
+                        $isbasic = driverCommand::run("isBasicNodeFieldType", array("type" => $params["type"]));
+                        if (!$isbasic["basic"]) {
+                            $subtimeId = driverCommand::run("getNodeTypeId", array("name" => $params["type"]));
+                            if ($subtimeId === false) {
+                                $resp["ok"] = FALSE;
+                                $resp["msg"] = "Node field sub type '{$params["type"]}' don't exist.";
+                            } else {
+                                $resp["ok"] = true;
+                            }
                         } else {
+                            $params["multi"] = false;
+                        }
+                        if ($resp["ok"]) {
+                            switch (strtolower($params["type"])) {
+                                case "htmltext":
+                                    break;
+                                case "longtext":
+                                    break;
+                                case "bool":
+                                    $params["default"] = ((bool)($params["default"]) ? "1" : "0");
+                                    break;
+                                case "datetime":
+                                    break;
+                                case "double":
+                                    break;
+                                case "integer":
+                                case "nodesec":
+                                    break;
+                                case "string":
+                                case "password":
+                                    if ($params["len"] <= 0 || $params["len"] >= 250) {
+                                        $params["len"] = 250;
+                                    }
+                                    break;
+                                default:
+                                    $params["default"] = "0";
+                                    break;
+                            }
+                            // Insert new field
+                            $sql = "insert into `node_type_field` set ";
+                            $sql .= "`name` = '{$params["name"]}', ";
+                            $sql .= "`type` = '{$params["type"]}', ";
+                            $sql .= "`iskey` = '".($params["iskey"]?1:0)."', ";
+                            $sql .= "`len` = '{$params["len"]}', ";
+                            $sql .= "`required` = '".($params["required"]?1:0)."', ";
+                            $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
+                            $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
+                            $sql .= "`multi` = '".($params["multi"]?1:0)."', ";
+                            $sql .= "`node_type` = '{$ntype["id"]}', ";
+                            $sql .= "`default` = '{$params["default"]}',";
+                            $sql .= "`label` = '{$params["label"]}',";
+                            $sql .= "`help` = '{$params["help"]}'";
+                            dbConn::Execute($sql);
                             $resp["ok"] = true;
-                        }
-                    } else {
-                        $params["multi"] = false;
-                    }
-                    if ($resp["ok"]) {
-                        switch (strtolower($params["type"])) {
-                            case "htmltext":
-                                break;
-                            case "longtext":
-                                break;
-                            case "bool":
-                                $params["default"] = ((bool)($params["default"]) ? "1" : "0");
-                                break;
-                            case "datetime":
-                                break;
-                            case "double":
-                                break;
-                            case "integer":
-                            case "nodesec":
-                                break;
-                            case "string":
-                            case "password":
-                                if ($params["len"] <= 0 || $params["len"] >= 250) {
-                                    $params["len"] = 250;
-                                }
-                                break;
-                            default:
-                                $params["default"] = "0";
-                                break;
-                        }
-                        // Insert new field
-                        $sql = "insert into `node_type_field` set ";
-                        $sql .= "`name` = '{$params["name"]}', ";
-                        $sql .= "`type` = '{$params["type"]}', ";
-                        $sql .= "`iskey` = '".($params["iskey"]?1:0)."', ";
-                        $sql .= "`len` = '{$params["len"]}', ";
-                        $sql .= "`required` = '".($params["required"]?1:0)."', ";
-                        $sql .= "`readonly` = '".($params["readonly"]?1:0)."', ";
-                        $sql .= "`locked` = '".($params["locked"]?1:0)."', ";
-                        $sql .= "`multi` = '".($params["multi"]?1:0)."', ";
-                        $sql .= "`node_type` = '{$ntype["id"]}', ";
-                        $sql .= "`default` = '{$params["default"]}',";
-                        $sql .= "`label` = '{$params["label"]}',";
-                        $sql .= "`help` = '{$params["help"]}'";
-                        dbConn::Execute($sql);
-                        $resp["ok"] = true;
-                        // alter table
-                        $sql = self::getAddFieldString($params);
-                        dbConn::Execute($sql);
-                        // Create relation table if multivalue field 
-                        if ($params["multi"]) {
-                            $sql  = 'CREATE TABLE `node_relation_'.$params["node_type"].'_'.$params["name"].'_'.$params["type"].'` ( ';
-                            $sql .= '`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, ';
-                            $sql .= '`type1` INTEGER UNSIGNED NOT NULL, ';
-                            $sql .= '`type2` INTEGER UNSIGNED NOT NULL, ';
-                            $sql .= 'PRIMARY KEY (`id`), ';
-                            $sql .= 'INDEX `type1`(`type1`), '; // type1 to type2 relation
-                            $sql .= 'INDEX `type2`(`type2`) ';
-                            $sql .= ') ENGINE = MyISAM';
+                            // alter table
+                            $sql = self::getAddFieldString($params);
+                            dbConn::Execute($sql);
+                            // Create relation table if multivalue field 
+                            if ($params["multi"]) {
+                                $sql  = 'CREATE TABLE `node_relation_'.$params["node_type"].'_'.$params["name"].'_'.$params["type"].'` ( ';
+                                $sql .= '`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, ';
+                                $sql .= '`type1` INTEGER UNSIGNED NOT NULL, ';
+                                $sql .= '`type2` INTEGER UNSIGNED NOT NULL, ';
+                                $sql .= 'PRIMARY KEY (`id`), ';
+                                $sql .= 'INDEX `type1`(`type1`), '; // type1 to type2 relation
+                                $sql .= 'INDEX `type2`(`type2`) ';
+                                $sql .= ') ENGINE = MyISAM';
+                                dbConn::Execute($sql);
+                            }
+                            // Modificated
+                            $sql = "update `node_type` set `modified` = NOW(), ".
+                                "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$ntype["id"];
                             dbConn::Execute($sql);
                         }
-                        // Modificated
-                        $sql = "update `node_type` set `modified` = NOW(), ".
-                            "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$ntype["id"];
-                        dbConn::Execute($sql);
+                    } else {
+                        $resp["ok"] = false;
+                        $resp["msg"] = "Node field name '{$params["name"]}' already exist.";
                     }
                 } else {
                     $resp["ok"] = false;
-                    $resp["msg"] = "Node field name '{$params["name"]}' already exist.";
+                    $resp["msg"] = "You can't add fields to '{$params["node_type"]}'.";
                 }
             } else {
                 $resp["ok"] = false;
@@ -175,7 +187,7 @@ if (!class_exists("commandAddNodeField")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new field to a node type", 
+                "description" => "Add a new field to a node type. It need update permission over the node type.", 
                 "parameters" => array(
                     "name" => "Field name",
                     "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type",

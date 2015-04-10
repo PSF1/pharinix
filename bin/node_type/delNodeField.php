@@ -27,30 +27,46 @@ if (!class_exists("commandDelNodeField")) {
     class commandDelNodeField extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $nid = driverCommand::run("getNodeTypeId", array("name" => $params["nodetype"]));
-            $nid = $nid["id"];
+            $params = array_merge(array(
+                "nodetype" => "",
+                "name" => "",
+            ), $params);
+            $params["name"] = strtolower($params["name"]);
+            
+            $typeDef = driverCommand::run("getNodeTypeDef", array(
+                "nodetype" => $params["nodetype"],
+            ));
+            $nid = $typeDef;
             // Exist node type?
-            if ($nid !== false) {
-                $sql = "select `locked` from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
-                $q = dbConn::Execute($sql);
-                // TODO: Is a system type? If true, I can't change it...
-                if (!$q->EOF /*&& $q->fields["locked"] == "1"*/) {
-                    $sql = "delete from `node_type_field` where `node_type` = $nid && `name` = '{$params["name"]}'";
-                    dbConn::Execute($sql);
-                    $sql = "ALTER TABLE `node_{$params["nodetype"]}` DROP COLUMN `{$params["name"]}`";
-                    dbConn::Execute($sql);
-                    // Delete multi relation table
-                    $sql = "show tables like 'node_relation_{$params["nodetype"]}_{$params["name"]}%'";
+            if ($nid["id"] !== false) {
+                // Access control
+                $usrGrps = driverUser::getGroupsID();
+                $allowed = driverUser::secNodeCanDelete($typeDef["access"], 
+                        $typeDef["user_owner"] == driverUser::getID(), 
+                        array_search($typeDef["group_owner"], $usrGrps) !== FALSE);
+                if ($allowed) {
+                    // Delete it
+                    $sql = "select `locked` from `node_type_field` where `node_type` = {$nid["id"]} && `name` = '{$params["name"]}'";
                     $q = dbConn::Execute($sql);
-                    while (!$q->EOF) {
-                        $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
+                    // TODO: Is a system type? If true, I can't change it...
+                    if (!$q->EOF /*&& $q->fields["locked"] == "1"*/) {
+                        $sql = "delete from `node_type_field` where `node_type` = {$nid["id"]} && `name` = '{$params["name"]}'";
                         dbConn::Execute($sql);
-                        $q->MoveNext();
+                        $sql = "ALTER TABLE `node_{$params["nodetype"]}` DROP COLUMN `{$params["name"]}`";
+                        dbConn::Execute($sql);
+                        // Delete multi relation table
+                        $sql = "show tables like 'node_relation_{$params["nodetype"]}_{$params["name"]}%'";
+                        $q = dbConn::Execute($sql);
+                        while (!$q->EOF) {
+                            $sql = "DROP TABLE IF EXISTS `{$q->fields[0]}`";
+                            dbConn::Execute($sql);
+                            $q->MoveNext();
+                        }
+                        // Modificated
+                        $sql = "update `node_type` set `modified` = NOW(), ".
+                               "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$nid["id"];
+                        dbConn::Execute($sql);
                     }
-                    // Modificated
-                    $sql = "update `node_type` set `modified` = NOW(), ".
-                           "`modifier_node_user` = ".driverUser::getID()." where `id` = ".$nid;
-                    dbConn::Execute($sql);
                 }
             }
         }
@@ -62,7 +78,7 @@ if (!class_exists("commandDelNodeField")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Erase a node field", 
+                "description" => "Erase a node field. It need delete permission over the node type.", 
                 "parameters" => array(
                     "nodetype" => "Node type name",
                     "name" => "Node field name to erase"
