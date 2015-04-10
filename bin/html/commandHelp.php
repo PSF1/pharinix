@@ -29,7 +29,7 @@ if (!class_exists("commandCommandHelp")) {
             echo "<legend>Command's list</legend>";
             while(!$q->EOF) {
                 echo "<h2>Package path '{$q->fields["path"]}'</h2>";
-                $cmds = driverTools::lsDir($q->fields["path"]);
+                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
                 foreach($cmds["files"] as $cmd) {
                     $cmd = str_replace($q->fields["path"], "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
