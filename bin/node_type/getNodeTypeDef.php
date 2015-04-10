@@ -103,6 +103,9 @@ if (!class_exists("commandGetNodeTypeDef")) {
                         "creator_node_user" => "Creator ID.",
                         "modified" => "Modification date.",
                         "modifier_node_user" => "Modifier ID.",
+                        "user_owner" => "ID of owner user.",
+                        "group_owner" => "ID of owner group.",
+                        "access" => "Access flags. (nodesec)",
                     )
             );
         }
