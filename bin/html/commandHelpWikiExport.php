@@ -34,7 +34,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
             $ncmds = 0;
             while(!$q->EOF) {
                 echo "## Package path '{$q->fields["path"]}'\n\n";
-                $cmds = driverTools::lsDir($q->fields["path"]);
+                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
                 foreach($cmds["files"] as $cmd) {
                     $cmd = str_replace($q->fields["path"], "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
