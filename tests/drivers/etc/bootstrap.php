@@ -19,10 +19,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-if (!isset($_SERVER["HTTP_HOST"])) {
+if (isset($_SERVER["TRAVIS"]) && $_SERVER["TRAVIS"]) {
     $_SERVER["HTTP_HOST"] = "localhost";
+    phpInfo();
 }
-phpInfo();
 // Requires
 include_once 'etc/drivers/config.php';
 include_once(driverConfig::getConfigFilePath());
