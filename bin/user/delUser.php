@@ -41,7 +41,8 @@ if (!class_exists("commandDelUser")) {
                     "where" => "`mail` = '{$params["mail"]}'",
                 ));
                 if (count($node) == 0) return;
-                $params["uid"] = array_keys($node)[0];
+                $params["uid"] = array_keys($node);
+                $params["uid"] = $params["uid"][0];
             }
             $node = driverCommand::run("getNode", array(
                 "nodetype" => "user",
