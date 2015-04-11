@@ -51,7 +51,7 @@ foreach($boot as $cmd) {
 unset($boot);
 
 if (!isset($_POST["interface"])) {
-    $_POST["interface"] = "toHtml";
+    $_POST["interface"] = "echoHtml";
 }
 
 // "GET" fusion with "POST"
@@ -59,7 +59,7 @@ foreach ($_GET as $key => $value) {
     $_POST[$key] = $value;
 }
 // Default command
-if ($_POST["interface"] == "1" || $_POST["interface"] == "toHtml") {
+if ($_POST["interface"] == "1" || $_POST["interface"] == "echoHtml") {
     $page = "home"; // Default page
     $params = driverCommand::getPOSTParams($_POST);
     $cmd = "pageToHTML";
