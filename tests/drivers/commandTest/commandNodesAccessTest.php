@@ -110,6 +110,17 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         // Verify
         $this->assertTrue($resp["ok"]);
+        $contain = false;
+        $typeDef = driverCommand::run("getNodeTypeDef", array(
+                "nodetype" => "test",
+            ));
+        foreach($typeDef["fields"] as $fId => $fieldDef) {
+            if ($fieldDef["name"] == "newnode") {
+                $contain = true;
+                break;
+            }
+        }
+        $this->assertTrue($contain);
         // Del field
         driverCommand::run("delNodeField",array(
             "nodetype" => "test",
@@ -124,9 +135,15 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         }
     }
     
-    public function testUserAddField() {
-        //TODO: Change owner group of addNodeField command to allow the user to use it.
-        
+    public function testUserAddField_without_permission() {
+        // Change permissions of addNodeField command to allow the user to use it.
+        driverUser::sudo();
+        $resp = driverCommand::run("chmod", array(
+            "cmd" => "addNodeField",
+            "flags" => 0777,
+        ));
+        driverUser::sudo(false);
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
         // Add field
         $resp = driverCommand::run("addNodeField",array(
             "node_type" => "test",
@@ -135,6 +152,24 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         // Verify
         $this->assertFalse($resp["ok"]);
+        $contain = false;
+        $typeDef = driverCommand::run("getNodeTypeDef", array(
+                "nodetype" => "test",
+            ));
+        foreach($typeDef["fields"] as $fId => $fieldDef) {
+            if ($fieldDef["name"] == "newnode") {
+                $contain = true;
+                break;
+            }
+        }
+        $this->assertFalse($contain);
+        // Defaults
+        driverUser::sudo();
+        driverCommand::run("chmod", array(
+            "cmd" => "addNodeField",
+            "flags" => driverCommand::getAccessFlags(),
+        ));
+        driverUser::sudo(false);
     }
     
     /*

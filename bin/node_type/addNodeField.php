@@ -23,6 +23,8 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
+// TODO: Add commands to manager ownership and permissions of nodes and node types.
+
 /*
  * Add a new field to a node type
  * CREATE TABLE `node_type_field` (

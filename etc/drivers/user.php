@@ -169,7 +169,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         $secFile = $fInfo["path"] ."/". $fInfo["name"] . ".sec";
         $fInfo = driverTools::pathInfo($secFile);
         if ($fInfo["exists"]) {
-            $sec = file_get_contents($secFile);
+            $sec = file_get_contents($fInfo["path"].DIRECTORY_SEPARATOR.$fInfo["filename"]);
             $sec = explode(":", $sec);
             if (count($sec) == 3) {
                 $resp = array();

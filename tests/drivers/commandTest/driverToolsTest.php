@@ -134,7 +134,7 @@ class driverToolsTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($fInfo["writable"]);
         $this->assertFalse($fInfo["chmod"]);
         $this->assertEquals("gif", $fInfo["ext"]);
-        $this->assertEquals("/\/.path///file/", $fInfo["path"]);
+        $this->assertEquals("///.path///file/", $fInfo["path"]);
         $this->assertEquals("", $fInfo["name"]);
         $this->assertEquals(".gif", $fInfo["filename"]);
     }

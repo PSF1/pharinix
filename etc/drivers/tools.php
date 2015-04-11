@@ -52,6 +52,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * <li>)
      */
     public static function pathInfo($path) {
+        $path = str_replace("\\", "/", $path);
         // Vaciamos la cachÃ© de lectura de disco
         clearstatcache();
         // Comprobamos si el fichero existe
