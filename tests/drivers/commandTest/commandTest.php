@@ -44,6 +44,50 @@ class commandTest extends PHPUnit_Framework_TestCase {
         
     }
 
+    public function testCommandChMod_create_sec_file() {
+        driverCommand::run("chmod",array(
+            "cmd" => "nothing",
+            "flags" => 0,
+        ));
+        $fSec = getcwd()."/bin/nothing.sec";
+        $this->assertTrue(is_file($fSec));
+        // Return to defaults
+        unlink($fSec);
+    }
+    
+    public function testCommandChMod_access_changed_777() {
+        driverCommand::run("chmod",array(
+            "cmd" => "nothing",
+            "flags" => driverUser::PERMISSION_FILE_OWNER_READ | 
+                       driverUser::PERMISSION_FILE_OWNER_WRITE | 
+                       driverUser::PERMISSION_FILE_OWNER_EXECUTE | 
+                       driverUser::PERMISSION_FILE_GROUP_READ | 
+                       driverUser::PERMISSION_FILE_GROUP_WRITE | 
+                       driverUser::PERMISSION_FILE_GROUP_EXECUTE | 
+                       driverUser::PERMISSION_FILE_ALL_READ | 
+                       driverUser::PERMISSION_FILE_ALL_WRITE | 
+                       driverUser::PERMISSION_FILE_ALL_EXECUTE,
+        ));
+        $fSec = getcwd()."/bin/nothing.sec";
+        
+        $acc = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue(decoct($acc["flags"]) == "777");
+        // Return to defaults
+        unlink($fSec);
+    }
+    
+    public function testCommandChMod_access_changed_666() {
+        driverCommand::run("chmod",array(
+            "cmd" => "nothing",
+            "flags" => 0664,
+        ));
+        $fSec = getcwd()."/bin/nothing.sec";
+        $acc = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue(decoct($acc["flags"]) == "664");
+        // Return to defaults
+        unlink($fSec);
+    }
+    
     public function testCommandNothingResponse() {
         $resp = driverCommand::run("nothing");
         $this->assertNull($resp);
