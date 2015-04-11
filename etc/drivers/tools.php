@@ -56,25 +56,42 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         clearstatcache();
         // Comprobamos si el fichero existe
         $data["exists"] = is_file($path) || is_dir($path);
+        $data["isfile"] = $data["exists"] && is_file($path);
+        $data["isdir"] = $data["exists"] && is_dir($path);
         // Comprobamos si el fichero es escribible
         $data["writable"] = is_writable($path);
         // Leemos los permisos del fichero
         $data["chmod"] = ($data["exists"] ? substr(sprintf("%o", fileperms($path)), -4) : FALSE);
         // Extraemos la extension, un solo paso
-        $data["ext"] = substr(strrchr($path, "."), 1);
+        if (!$data["isdir"]) {
+            $data["ext"] = substr(strrchr($path, "."), 1);
+        } else {
+            $data["ext"] = false;
+        }
         // Primer paso de lectura de ruta
         $pt = explode("." . $data["ext"], $path);
         $data["path"] = array_shift($pt);
         // Primer paso de lectura de nombre
-        $pt = explode("/", $data["path"]);
-        $data["name"] = array_pop($pt);
-        // Ajustamos nombre a FALSE si esta vacio
-        $data["name"] = ($data["name"] ? $data["name"] : FALSE);
+        if (!$data["isdir"]) {
+            $pt = explode("/", $data["path"]);
+            $data["name"] = array_pop($pt);
+            // Ajustamos nombre a FALSE si esta vacio
+            $data["name"] = ($data["name"] ? $data["name"] : "");
+            // Ajustamos el nombre a FALSE si esta vacio o a su valor en caso contrario
+            $data["filename"] = (($data["name"] OR $data["ext"]) ? $data["name"] . ($data["ext"] ? "." : "") . $data["ext"] : FALSE);
+        } else {
+            $data["name"] = "";
+            $data["filename"] = basename($path);
+        }
         // Ajustamos la ruta a FALSE si esta vacia
-        $p1 = explode($data["name"], $data["path"]);
-        $p2 = explode($data["ext"], $data["path"]);
-        $p3 = explode($data["name"], $data["path"]);
-        $p4 = explode($data["ext"], $data["path"]);
+        $p1 = @explode($data["name"], $data["path"]);
+        if ($p1 === false) $p1 = array();
+        $p2 = @explode($data["ext"], $data["path"]);
+        if ($p2 === false) $p2 = array();
+        $p3 = @explode($data["name"], $data["path"]);
+        if ($p3 === false) $p3 = array();
+        $p4 = @explode($data["ext"], $data["path"]);
+        if ($p4 === false) $p4 = array();
         $data["path"] = ($data["exists"] ? 
                 ($data["name"] ? 
                     realpath(array_shift($p1)) : 
@@ -84,8 +101,6 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                     ($data["ext"] ? 
                             array_shift($p4) : 
                             rtrim($data["path"], "/"))));
-        // Ajustamos el nombre a FALSE si esta vacio o a su valor en caso contrario
-        $data["filename"] = (($data["name"] OR $data["ext"]) ? $data["name"] . ($data["ext"] ? "." : "") . $data["ext"] : FALSE);
         // Devolvemos los resultados
         return $data;
     }
