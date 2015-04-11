@@ -20,13 +20,12 @@
  */
 
 class commandTest extends PHPUnit_Framework_TestCase {
-
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp() {
-//        include_once 'commandTools.php';
+    protected static $userID = null;
+    protected static $grpID = null;
+    
+    public static function setUpBeforeClass() {
+//        error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
+        //        include_once 'commandTools.php';
         while (!is_file("etc/pharinix.config.php")) {
             chdir("../");
         }
@@ -34,6 +33,28 @@ class commandTest extends PHPUnit_Framework_TestCase {
         include_once 'tests/drivers/etc/commandTools.php';
         driverUser::sessionStart();
         driverUser::sudo();
+        $resp = driverCommand::run("addUser", array(
+            "mail" => "testlogin@localhost",
+            "pass" => "testlogin",
+            "name" => "testlogin",
+            "title" => "testlogin",
+        ));
+        self::$userID = $resp["nid"];
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "group",
+            "fields" => "id",
+            "where" => "`title` = 'testlogin'",
+        ));
+        $k = array_keys($resp);
+        self::$grpID = $k[0];
+    }
+    
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp() {
+
     }
 
     /**
@@ -41,7 +62,18 @@ class commandTest extends PHPUnit_Framework_TestCase {
      * This method is called after a test is executed.
      */
     protected function tearDown() {
-        
+        // Return to defaults
+        $fSec = getcwd()."/bin/nothing.sec";
+        if (is_file($fSec)) unlink($fSec);
+    }
+    
+    public static function tearDownAfterClass() {
+        driverUser::sessionStart();
+        driverUser::sudo();
+        driverCommand::run("delUser", array(
+            "mail" => "testlogin@localhost",
+        ));
+        driverUser::logOut();
     }
 
     public function testCommandChMod_create_sec_file() {
@@ -86,6 +118,112 @@ class commandTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(decoct($acc["flags"]) == "664");
         // Return to defaults
         unlink($fSec);
+    }
+    
+    public function testCommandChOwn_bad_user_mail() {
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => "bad@test.mail",
+        ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testCommandChOwn_bad_user_id() {
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => 9999999,
+        ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testCommandChOwn_bad_group_title() {
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "group" => "bad@test.mail",
+        ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testCommandChOwn_bad_group_id() {
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "group" => 9999999,
+        ));
+        $this->assertFalse($resp["ok"]);
+    }
+    
+    public function testCommandChOwn_bad_ownership() {
+        driverUser::sudo(false);
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => self::$userID,
+        ));
+        $this->assertFalse($resp["ok"]);
+        driverUser::sudo();
+    }
+    
+    public function testCommandChOwn_change_owner_by_id() {
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => (int)self::$userID,
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Verify change
+        $sec = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue($sec["owner"] == self::$userID);
+    }
+    
+    public function testCommandChOwn_change_owner_by_mail() {
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => "testlogin@localhost",
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Verify change
+        $sec = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue($sec["owner"] == self::$userID);
+    }
+    
+    public function testCommandChOwn_change_group_by_id() {
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "group" => (int)self::$grpID,
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Verify change
+        $sec = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue($sec["group"] == self::$grpID);
+    }
+    
+    public function testCommandChOwn_change_group_by_title() {
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "group" => "testlogin",
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Verify change
+        $sec = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue($sec["group"] == self::$grpID);
+    }
+    
+    public function testCommandChOwn_change_group_and_owner() {
+        // Change ownership
+        $resp = driverCommand::run("chown",array(
+            "cmd" => "nothing",
+            "owner" => (int)self::$userID,
+            "group" => (int)self::$grpID,
+        ));
+        $this->assertTrue($resp["ok"]);
+        // Verify change
+        $sec = driverUser::secFileGetAccess(getcwd()."/bin/nothing.php");
+        $this->assertTrue($sec["owner"] == self::$userID);
+        $this->assertTrue($sec["group"] == self::$grpID);
     }
     
     public function testCommandNothingResponse() {
