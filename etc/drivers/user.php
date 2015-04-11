@@ -197,7 +197,6 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         if (is_int($flags) && is_int($ownerID) && is_int($groupID)) {
             $fInfo = driverTools::pathInfo($path);
             $secFile = $fInfo["path"] ."/". $fInfo["name"] . ".sec";
-var_dump($secFile);
             $data = "$flags:$ownerID:$groupID";
             $sec = file_put_contents($secFile, $data);
             $resp = true;
