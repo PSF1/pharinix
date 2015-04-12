@@ -41,6 +41,10 @@ if (!class_exists("commandAddUser")) {
             if ($params["mail"] == "") {
                 $resp["msg"] .= "User mail required. ";
             }
+            $params["mail"] = strtolower($params["mail"]);
+            if ($params["mail"] == "root@localhost") {
+                $resp["msg"] .= "'root@localhost' is in use. ";
+            }
             if ($params["title"] == "") {
                 $resp["msg"] .= "User title required. ";
             }
