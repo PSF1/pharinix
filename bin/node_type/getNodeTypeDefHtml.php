@@ -90,7 +90,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "&nbsp;Permisions: ";
             echo "<ul>";
             echo "<li><b>Owner</b>: ".driverUser::getUserName($def["user_owner"])."</li>";
-            echo "<li><b>Group</b>: ".driverUser::getUserName($def["group_owner"])."</li>";
+            echo "<li><b>Group</b>: ".driverUser::getGroupName($def["group_owner"])."</li>";
             echo "<li><b>Flags</b>: ".driverUser::secNodeToString($def["access"])."</li>";
             echo "</ul>";
             echo "</p>";
