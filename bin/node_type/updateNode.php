@@ -70,12 +70,12 @@ if (!class_exists("commandUpdateNodes")) {
                     $ndefFields = driverCommand::run("getNodeTypeDef", $params);
                     $ndefFields = $ndefFields["fields"];
                     $okRequired = true;
-                    foreach ($ndefFields as $ndefField) {
-                        if (($ndefField["required"] || $ndefField["iskey"]) && !isset($params[$ndefField["name"]])) {
-                            $okRequired = false;
-                            break;
-                        }
-                    }
+//                    foreach ($ndefFields as $ndefField) {
+//                        if (($ndefField["required"] || $ndefField["iskey"]) && !isset($params[$ndefField["name"]])) {
+//                            $okRequired = false;
+//                            break;
+//                        }
+//                    }
                     if (!$okRequired) {
                         // You miss a required node field
                         $resp["msg"] = "Missing node field required.";
