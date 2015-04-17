@@ -63,7 +63,7 @@ if (!class_exists("commandChownNode")) {
             } else {
                 return array("ok" => false, "msg" => "Node type is required.");
             }
-            if ($params["owner"] != null && $params["owner"] != 0) {
+            if ($params["owner"] != null && $params["owner"] != "0") {
                 if (!is_int($params["owner"])) {
                     // Owner is a mail
                     $resp = driverCommand::run("getNodes", array(
@@ -89,7 +89,7 @@ if (!class_exists("commandChownNode")) {
                     $owner = $params["owner"];
                 }
             }
-            if ($params["group"] != null && $params["group"] != 0) {
+            if ($params["group"] != null && $params["group"] != "0") {
                 if (!is_int($params["group"])) {
                     // group is a title
                     $resp = driverCommand::run("getNodes", array(
@@ -115,38 +115,64 @@ if (!class_exists("commandChownNode")) {
                     $group = $params["group"];
                 }
             }
-
             //Change
-            $can = driverCommand::run("getNodeTypeDef", array(
-                "nodetype" => $nodetype,
-            ));
-            /*
-             * 'user_owner' => string '0' (length=1)
-             * 'group_owner' => string '0' (length=1)
-             * 'access' => string '3904' (length=4)
-             * 
-             */
-            if (driverUser::getID() == 0 || driverUser::getID() == $accessData["user_owner"]) {
-                // Calculate the new ownership
-                if ($params["owner"] != null) {
-                    $can["user_owner"] = $owner;
+            if ($params["nid"] == null) {
+                // Change node type
+                $can = driverCommand::run("getNodeTypeDef", array(
+                    "nodetype" => $nodetype,
+                ));
+                if (driverUser::getID() == 0 || driverUser::getID() == $accessData["user_owner"]) {
+                    // Calculate the new ownership
+                    if ($params["owner"] != null) {
+                        $can["user_owner"] = $owner;
+                    }
+                    if ($params["group"] != null) {
+                        $can["group_owner"] = $group;
+                    }
+                    // Change ownership
+                    $sql = "update `node_type` set ";
+                    $sql .= "`user_owner` = {$can["user_owner"]}, ";
+                    $sql .= "`group_owner` = {$can["group_owner"]}, ";
+                    $sql .= "`access` = {$can["access"]} ";
+                    $sql .= "where `name` = '".$params["nodetype"]."'";
+                    dbConn::Execute($sql);
+
+                    $resp = array("ok" => true);
+                } else {
+                    $resp = array("ok" => false, "msg" => "You need ownership.");
                 }
-                if ($params["group"] != null) {
-                    $can["group_owner"] = $group;
-                }
-                // Change ownership
-                $sql = "update `node_type` set ";
-                $sql .= "`user_owner` = {$can["user_owner"]}, ";
-                $sql .= "`group_owner` = {$can["group_owner"]}, ";
-                $sql .= "`access` = {$can["access"]} ";
-                $sql .= "where `name` = '".$params["nodetype"]."'";
-                dbConn::Execute($sql);
-                
-                $resp = array("ok" => true);
             } else {
-                $resp = array("ok" => false, "msg" => "You need ownership.");
+                // Change node
+                $can = driverCommand::run("getNodes", array(
+                    "nodetype" => $nodetype,
+                    "fields" => "group_owner,user_owner,access",
+                    "where" => "`id` = ".$params["nid"],
+                ));
+                if (count($can) > 0) {
+                    $can = $can[$params["nid"]];
+                    $ids = array_keys($can);
+                    // Calculate the new ownership
+                    if ($params["owner"] != null) {
+                        $can["user_owner"] = $owner;
+                    }
+                    if ($params["group"] != null) {
+                        $can["group_owner"] = $group;
+                    }
+                    // Change ownership
+                    $resp = driverCommand::run("updateNode", array(
+                        "nodetype" => $nodetype,
+                        "user_owner" => $can["user_owner"],
+                        "group_owner" => $can["group_owner"],
+                        "nid" => $params["nid"],
+                    ));
+                    if (isset($resp["ok"]) && $resp["ok"] === false) {
+                        return $resp;
+                    }
+                    $resp = array("ok" => true);
+                } else {
+                    $resp = array("ok" => false, "msg" => "Unknow node or you can't read.");
+                }
             }
-            
             return $resp;
         }
 
