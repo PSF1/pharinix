@@ -197,6 +197,7 @@ if (!class_exists("commandUpdateNodes")) {
                 "parameters" => array(
                     "nodetype" => "Node type of node to update.",
                     "nid" => "ID of node.",
+                    "any" => "A parameter for each field of the type.",
                 ), 
                 "response" => array(
                     "ok" => "True/False node updated",
