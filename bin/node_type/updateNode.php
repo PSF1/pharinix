@@ -43,16 +43,9 @@ if (!class_exists("commandUpdateNodes")) {
                 $resp["msg"] = "Node ID required";
                 return $resp;
             } else {
-                $node = driverCommand::run("getNodes", array(
-                    "nodetype" => $params["nodetype"],
-                    "count" => true,
-                    "where" => "`id` = ".$params["nid"],
-                ));
-                if (isset($node["ok"]) && !$node["ok"]) {
-                    $resp["msg"] = $node["msg"];
-                    return $resp;
-                }
-                if ($node[0]["ammount"] == 0) {
+                $sql = "select `id` from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
+                $q = dbConn::Execute($sql);
+                if ($q->EOF) {
                     $resp["msg"] = "Unknowed node ID";
                     return $resp;
                 }
@@ -62,112 +55,122 @@ if (!class_exists("commandUpdateNodes")) {
                 $resp["msg"] = "Node type required";
             } else {
                 $ntid = driverCommand::run("getNodeTypeId", array("name" => $params["nodetype"]));
-                $ntid = $ntid["id"];
+                $ndefFields = driverCommand::run("getNodeTypeDef", $params);
+                $ntid = $ndefFields["id"];
                 if ($ntid === false) { // I dont know the node type
                     $resp["msg"] = "Unknowed node type '{$params["nodetype"]}'";
                 } else {
-                    // Required fields presents? (required or iskey)
-                    $ndefFields = driverCommand::run("getNodeTypeDef", $params);
-                    $ndefFields = $ndefFields["fields"];
-                    $okRequired = true;
-//                    foreach ($ndefFields as $ndefField) {
-//                        if (($ndefField["required"] || $ndefField["iskey"]) && !isset($params[$ndefField["name"]])) {
-//                            $okRequired = false;
-//                            break;
-//                        }
-//                    }
-                    if (!$okRequired) {
-                        // You miss a required node field
-                        $resp["msg"] = "Missing node field required.";
-                    } else {
-                        // All selected items are fields of the node?
-                        $allOk = true;
-                        foreach ($params as $name => $value) {
-                            if ($name != "nodetype" && $name != "nid") {
-                                $nameOk = $name;
-                                foreach ($ndefFields as $ndefField) {
-                                    if ($ndefField["name"] == $name) {
-                                        $nameOk = true;
+                    // -------------------------------
+                    // Access control
+                    $usrGrps = driverUser::getGroupsID();
+                    $allowed = driverUser::secNodeCanUpdate($ndefFields["access"], 
+                            $ndefFields["user_owner"] == driverUser::getID(), 
+                            array_search($ndefFields["group_owner"], $usrGrps) !== FALSE);
+                    if ($allowed) {
+                        $ndefFields = $ndefFields["fields"];
+                        // Required fields presents? (required or iskey)
+                        $okRequired = true;
+    //                    foreach ($ndefFields as $ndefField) {
+    //                        if (($ndefField["required"] || $ndefField["iskey"]) && !isset($params[$ndefField["name"]])) {
+    //                            $okRequired = false;
+    //                            break;
+    //                        }
+    //                    }
+                        if (!$okRequired) {
+                            // You miss a required node field
+                            $resp["msg"] = "Missing node field required.";
+                        } else {
+                            // All selected items are fields of the node?
+                            $allOk = true;
+                            foreach ($params as $name => $value) {
+                                if ($name != "nodetype" && $name != "nid") {
+                                    $nameOk = $name;
+                                    foreach ($ndefFields as $ndefField) {
+                                        if ($ndefField["name"] == $name) {
+                                            $nameOk = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($nameOk !== true) {
+                                        $allOk = $nameOk;
                                         break;
                                     }
                                 }
-                                if ($nameOk !== true) {
-                                    $allOk = $nameOk;
-                                    break;
-                                }
                             }
-                        }
-                        if ($allOk !== true) {
-                            $resp["msg"] = "Field '{$allOk}' are not fields of '{$params["nodetype"]}' node type.";
-                        } else {
-                            // Duplicated keys?
-                            $where = "";
-                            foreach ($ndefFields as $ndefField) {
-                                if ($ndefField["iskey"] && isset($params[$ndefField["name"]])) {
-                                    if ($where != "")
-                                        $where .= " || ";
-                                    $where .= "`{$ndefField["name"]}` = '" . dbConn::qstr($params[$ndefField["name"]])."'";
-                                }
-                            }
-                            // Some?
-                            $ctrl = 0;
-                            if ($where != "") {
-                                $sql = "select count(*) from `node_{$params["nodetype"]}` where ($where) && `id` <> {$params["nid"]}";
-                                $q = dbConn::Execute($sql);
-                                $ctrl = $q->fields[0];
-                            }
-                            if ($ctrl > 0) {
-                                // Duplicate keys
-                                $resp["msg"] = "Duplicate keys.";
+                            if ($allOk !== true) {
+                                $resp["msg"] = "Field '{$allOk}' are not fields of '{$params["nodetype"]}' node type.";
                             } else {
-                                // NOW, we can save node !! :D :D
-                                $sql = "";
-                                $sqlMultis = array();
-                                $tableMultis = array();
-                                foreach ($params as $name => $value) {
-                                    // Ignore nodetype parameter because isn't a field
-                                    if ($name != "nodetype" && $name != "nid") {
-                                        $fieldDef = self::getFieldDef($name, $ndefFields);
-                                        if ($fieldDef["multi"]) {
-                                            // Prepare all multivalue inserts.
-                                            $vals = explode(",", $value);
-                                            $table = '`node_relation_'.$params["nodetype"].'_'.$name.'_'.$fieldDef["type"].'`';
-                                            $tableMultis[] = $table;
-                                            $multi = "";
-                                            foreach($vals as $val) {
-                                                if ($multi != "") $multi .= ", ";
-                                                $multi .= " (null, {NID}, $val)";
-                                            }
-                                            $sqlMultis[] = "insert into $table values ".$multi;
-                                        } else {
-                                            // Single value fields
-                                            if ($sql != "") $sql .= ", ";
-                                            if ($fieldDef["type"] == "password") { // Type password
-                                                $fVal = md5($value);
-                                            } else { // Type other
-                                                $fVal = dbConn::qstr($value);
-                                            }
-                                            $sql .= "`$name` = '".$fVal."'";
-                                        }
+                                // Duplicated keys?
+                                $where = "";
+                                foreach ($ndefFields as $ndefField) {
+                                    if ($ndefField["iskey"] && isset($params[$ndefField["name"]])) {
+                                        if ($where != "")
+                                            $where .= " || ";
+                                        $where .= "`{$ndefField["name"]}` = '" . dbConn::qstr($params[$ndefField["name"]])."'";
                                     }
                                 }
-                                $sql = "update `node_{$params["nodetype"]}` set ".$sql;
-                                $sql .= " where `id` = {$params["nid"]}";
-                                dbConn::Execute($sql);
-                                $last = $params["nid"];
-                                $resp["ok"] = true;
-                                // Clear multi values tables
-                                foreach($tableMultis as $table) {
-                                    $sql = "delete from $table where `type1` = $last";
-                                    dbConn::Execute($sql);
+                                // Some?
+                                $ctrl = 0;
+                                if ($where != "") {
+                                    $sql = "select count(*) from `node_{$params["nodetype"]}` where ($where) && `id` <> {$params["nid"]}";
+                                    $q = dbConn::Execute($sql);
+                                    $ctrl = $q->fields[0];
                                 }
-                                // Add Multi values
-                                foreach($sqlMultis as $sqlMulti) {
-                                    $sqlMulti = str_replace("{NID}", $last, $sqlMulti);
-                                    dbConn::Execute($sqlMulti);
+                                if ($ctrl > 0) {
+                                    // Duplicate keys
+                                    $resp["msg"] = "Duplicate keys.";
+                                } else {
+                                    // NOW, we can save node !! :D :D
+                                    $sql = "";
+                                    $sqlMultis = array();
+                                    $tableMultis = array();
+                                    foreach ($params as $name => $value) {
+                                        // Ignore nodetype parameter because isn't a field
+                                        if ($name != "nodetype" && $name != "nid") {
+                                            $fieldDef = self::getFieldDef($name, $ndefFields);
+                                            if ($fieldDef["multi"]) {
+                                                // Prepare all multivalue inserts.
+                                                $vals = explode(",", $value);
+                                                $table = '`node_relation_'.$params["nodetype"].'_'.$name.'_'.$fieldDef["type"].'`';
+                                                $tableMultis[] = $table;
+                                                $multi = "";
+                                                foreach($vals as $val) {
+                                                    if ($multi != "") $multi .= ", ";
+                                                    $multi .= " (null, {NID}, $val)";
+                                                }
+                                                $sqlMultis[] = "insert into $table values ".$multi;
+                                            } else {
+                                                // Single value fields
+                                                if ($sql != "") $sql .= ", ";
+                                                if ($fieldDef["type"] == "password") { // Type password
+                                                    $fVal = md5($value);
+                                                } else { // Type other
+                                                    $fVal = dbConn::qstr($value);
+                                                }
+                                                $sql .= "`$name` = '".$fVal."'";
+                                            }
+                                        }
+                                    }
+                                    $sql = "update `node_{$params["nodetype"]}` set ".$sql;
+                                    $sql .= " where `id` = {$params["nid"]}";
+                                    dbConn::Execute($sql);
+                                    $last = $params["nid"];
+                                    $resp["ok"] = true;
+                                    // Clear multi values tables
+                                    foreach($tableMultis as $table) {
+                                        $sql = "delete from $table where `type1` = $last";
+                                        dbConn::Execute($sql);
+                                    }
+                                    // Add Multi values
+                                    foreach($sqlMultis as $sqlMulti) {
+                                        $sqlMulti = str_replace("{NID}", $last, $sqlMulti);
+                                        dbConn::Execute($sqlMulti);
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        $resp["msg"] = "You can't update nodes.";
                     }
                 }
             }
