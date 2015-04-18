@@ -103,7 +103,7 @@ if (!class_exists("commandUpdateNodes")) {
                             // Duplicated keys?
                             $where = "";
                             foreach ($ndefFields as $ndefField) {
-                                if ($ndefField["iskey"]) {
+                                if ($ndefField["iskey"] && isset($params[$ndefField["name"]])) {
                                     if ($where != "")
                                         $where .= " || ";
                                     $where .= "`{$ndefField["name"]}` = '" . dbConn::qstr($params[$ndefField["name"]])."'";
