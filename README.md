@@ -6,9 +6,7 @@ Travis CI state: [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch
 
 Live Pharinix 
 
-If at to load fail, wait a few minutes and try again. This cloud idle the machines.
-
-<http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com>
+<http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
 
 <http://inicial.cloudapp.net/> in Microsoft Azure <http://azure.microsoft.com/en-us/>
 
