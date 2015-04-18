@@ -29,7 +29,7 @@ if (!class_exists("commandGetCommandHelp")) {
             $q = dbConn::Execute($sql);
             while(!$q->EOF) {
                 $resp["help"][$q->fields["path"]] = array();
-                $cmds = driverTools::lsDir($q->fields["path"]);
+                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
                 foreach($cmds["files"] as $cmd) {
                     $cmd = str_replace($q->fields["path"], "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
