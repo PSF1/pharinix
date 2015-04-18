@@ -4,11 +4,11 @@ More info in the Wiki: <https://github.com/PSF1/pharinix/wiki>
 
 Travis CI state: [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
 
-Live Pharinix 
+Live Pharinix:
 
-<http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
+PHP 5.4: <http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
 
-<http://inicial.cloudapp.net/> in Microsoft Azure <http://azure.microsoft.com/en-us/>
+PHP 5.3: <http://inicial.cloudapp.net/> in Microsoft Azure <http://azure.microsoft.com/en-us/>
 
 Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
