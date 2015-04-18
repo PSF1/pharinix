@@ -36,7 +36,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<th>Name</th>";
             echo "<th>Type</th>";
             echo "<th>Is key</th>";
-            echo "<th>Lenght</th>";
+            echo "<th>length</th>";
             echo "<th>Required</th>";
             echo "<th>Read only</th>";
             echo "<th>System</th>";

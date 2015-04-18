@@ -322,7 +322,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     }
     
     /**
-     * Change active user, it suplant the identity of the new user.
+     * Change active user, it supplant the identity of the new user.
      * @param boolean $get TRUE to get user, FALSE to exit.
      * @param integer $userID User ID to get.
      */
@@ -419,7 +419,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         if (!isset($name["ok"])) {
             return $name[$id]["name"];
         }
-        return "unknow";
+        return "unknown";
     }
     
     public static function getGroupName($id) {
@@ -428,7 +428,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         if (!isset($name["ok"])) {
             return $name[$id]["title"];
         }
-        return "unknow";
+        return "unknown";
     }
 }
 

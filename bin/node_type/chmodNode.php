@@ -96,7 +96,7 @@ if (!class_exists("commandChmodNode")) {
                         $resp = array("ok" => false, "msg" => "You need ownership.");
                     }
                 } else {
-                    $resp = array("ok" => false, "msg" => "Unknow node or you can't read.");
+                    $resp = array("ok" => false, "msg" => "unknown node or you can't read.");
                 }
             }
             

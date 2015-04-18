@@ -36,7 +36,7 @@ if (!class_exists("commandGetNodes")) {
                 "order" => "",
                 "group" => "",
                 "offset" => "0",
-                "lenght" => "100",
+                "length" => "100",
                     ), $params);
             // Get node definition
             $nodeFields = driverCommand::run("getNodeTypeDef", array("nodetype" => $params["nodetype"]));
@@ -88,14 +88,14 @@ if (!class_exists("commandGetNodes")) {
                 if ($params["order"] != "") $params["order"] = " order by ".$params["order"];
                 if ($params["group"] != "") $params["group"] = " group by ".$params["group"];
                 $limit = $params["offset"];
-                if ($params["lenght"] != "") {
+                if ($params["length"] != "") {
                     if ($limit == "") $limit = "0";
-                    $limit = $limit.", ".$params["lenght"];
+                    $limit = $limit.", ".$params["length"];
                 }
                 if ($limit != "") $limit = " limit ".$limit;
                 // Build query
                 if ($params["count"] === true) {
-                    $fieldList = "count(*) as ammount";
+                    $fieldList = "count(*) as amount";
                 }
                 $sql = "select {$fieldList} from `node_{$params["nodetype"]}` ";
                 $sql .= "{$params["where"]} {$params["order"]} {$params["group"]} {$limit}";
@@ -194,13 +194,13 @@ if (!class_exists("commandGetNodes")) {
                 "description" => "Return list of nodes from a node type. All field's names must be enclosed with '`'", 
                 "parameters" => array(
                     "nodetype" => "Node type.",
-                    "count" => "Bool, If true then return number, in a 'ammount' field, of nodes but without node data.",
+                    "count" => "Bool, If true then return number, in a 'amount' field, of nodes but without node data.",
                     "fields" => "Comma separated string list. Optional, default '*'.",
                     "where" => "Where condition.",
                     "order" => "Order by fields.",
                     "group" => "Group by fields.",
                     "offset" => "Index of first node to return. Optional, default 0.",
-                    "lenght" => "Number of nodes to return from the offset. Optional, default 100.",
+                    "length" => "Number of nodes to return from the offset. Optional, default 100.",
                 ), 
                 "response" => array(
                     "rs" => "Node array with the ID how index. Multivalued fields will be returned how related ID's array.",

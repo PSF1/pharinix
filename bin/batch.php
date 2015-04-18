@@ -104,11 +104,11 @@ if (!class_exists("commandBatch")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command. Allways call to captureEndAll at the end.", 
+                "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end.", 
                 "parameters" => array(
-                    "starter" => "Array of params to merge at the start.",
-                    "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and pased how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output.",
-                    "echoed" => "If is empty or not define the output will out in responde, else will be pased how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response.",
+                    "starter" => "Array of parameters to merge at the start.",
+                    "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and passed how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output.",
+                    "echoed" => "If is empty or not define the output will out in response, else will be passed how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response.",
                 ), 
                 "response" => array(
                     "any" => "The final response of the batch.",

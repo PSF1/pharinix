@@ -193,8 +193,8 @@ if (!class_exists("commandAddNodeField")) {
                 "parameters" => array(
                     "name" => "Field name",
                     "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type",
-                    "iskey" => "Any other record can have some value. This funcionality is not using database implementation.",
-                    "len" => "Field lenght if need it",
+                    "iskey" => "Any other record can have some value. This functionality is not using database implementation.",
+                    "len" => "Field length if need it",
                     "required" => "True/false Required field",
                     "readonly" => "True/false Not writable field",
                     "locked" => "True/false System field",

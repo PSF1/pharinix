@@ -256,7 +256,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "count" => true,
             "group" => "`modified`",
             ));
-        $this->assertEquals(4, $resp[0]["ammount"]);
+        $this->assertEquals(4, $resp[0]["amount"]);
     }
     
     public function testGetNodes_Count_Group2() {
@@ -265,7 +265,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "count" => true,
             "where" => "mod(`order`,2) = 0",
             ));
-        $this->assertEquals(2, $resp[0]["ammount"]);
+        $this->assertEquals(2, $resp[0]["amount"]);
     }
     
     public function testGetNodes_Offset() {
@@ -279,7 +279,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
     public function testGetNodes_Lenght() {
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
-            "lenght" => 1,
+            "length" => 1,
             ));
         $this->assertEquals(1, count($resp));
     }
@@ -288,7 +288,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
             "offset" => 1,
-            "lenght" => 3,
+            "length" => 3,
             ));
         $this->assertEquals(3, count($resp));
     }

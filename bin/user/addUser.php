@@ -64,7 +64,7 @@ if (!class_exists("commandAddUser")) {
                         "count" => true,
                         "where" => "`mail` = '{$params["mail"]}'",
                     ));
-                    if ($grp[0]["ammount"] == 0 && $mail[0]["ammount"] == 0) {
+                    if ($grp[0]["amount"] == 0 && $mail[0]["amount"] == 0) {
                         // Create group
                         $gid = driverCommand::run("addNode", array(
                             "nodetype" => "group",
