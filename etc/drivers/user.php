@@ -90,6 +90,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean I can create?
      */
     public static function secNodeCanCreate($key = 0, $owner = false, $group = false) {
+        if (driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_CREATE:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_CREATE:0) | 
                 (self::PERMISSION_NODE_ALL_CREATE);
@@ -104,6 +105,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean I can read?
      */
     public static function secNodeCanRead($key = 0, $owner = false, $group = false) {
+        if (driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_READ:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_READ:0) | 
                 (self::PERMISSION_NODE_ALL_READ);
@@ -118,6 +120,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean I can update?
      */
     public static function secNodeCanUpdate($key = 0, $owner = false, $group = false) {
+        if (driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_UPDATE:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_UPDATE:0) | 
                 (self::PERMISSION_NODE_ALL_UPDATE);
@@ -132,6 +135,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean I can delete?
      */
     public static function secNodeCanDelete($key = 0, $owner = false, $group = false) {
+        if (driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_DEL:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_DEL:0) | 
                 (self::PERMISSION_NODE_ALL_DEL);
@@ -327,13 +331,20 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             $usr = $userID;
             $grp = array(0);
             if ($userID != 0) {
-                $resp = driverCommand::run("getNode", array(
-                    "nodetype" => "user",
-                    "node" => $userID,
-                ));
-                if (!isset($resp[$userID])) return;
+                // Is a valid user
+                $sql = "select `id` from `node_user` where `id` = ".$userID;
+                $q = dbConn::Execute($sql);
+                if ($q->EOF) return;
                 $usr = $userID;
-                $grp = $resp[$userID]["groups"];
+                
+                $relTable = '`node_relation_user_groups_group`';
+                $sql = "select `type2` from $relTable where `type1` = $id";
+                $q = dbConn::Execute($sql);
+                $grp = array();
+                while (!$q->EOF) {
+                    $grp[] = $q->fields["type2"];
+                    $q->MoveNext();
+                }
             }
             if (!self::isSudoed()) {
                 $_SESSION["sudo_user_id"] = $_SESSION["user_id"];
@@ -349,6 +360,10 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         }
     }
     
+    /**
+     * Have the user root powers?
+     * @return boolean
+     */
     public static function isSudoed() {
         return isset($_SESSION["sudo_user_id"]);
     }
@@ -422,6 +437,18 @@ define('PERMISSION_NODE_DEFAULT', (driverUser::PERMISSION_NODE_OWNER_CREATE |
                           driverUser::PERMISSION_NODE_OWNER_READ |
                           driverUser::PERMISSION_NODE_OWNER_UPDATE |
                           driverUser::PERMISSION_NODE_GROUP_READ));
+define('PERMISSION_NODE_OWNER_ALL', (driverUser::PERMISSION_NODE_OWNER_CREATE | 
+                          driverUser::PERMISSION_NODE_OWNER_DEL | 
+                          driverUser::PERMISSION_NODE_OWNER_READ |
+                          driverUser::PERMISSION_NODE_OWNER_UPDATE));
+define('PERMISSION_NODE_GROUP_ALL', (driverUser::PERMISSION_NODE_GROUP_CREATE | 
+                          driverUser::PERMISSION_NODE_GROUP_DEL | 
+                          driverUser::PERMISSION_NODE_GROUP_READ |
+                          driverUser::PERMISSION_NODE_GROUP_UPDATE));
+define('PERMISSION_NODE_ALL_ALL', (driverUser::PERMISSION_NODE_ALL_CREATE | 
+                          driverUser::PERMISSION_NODE_ALL_DEL | 
+                          driverUser::PERMISSION_NODE_ALL_READ |
+                          driverUser::PERMISSION_NODE_ALL_UPDATE));
 define('PERMISSION_FILE_DEFAULT', (driverUser::PERMISSION_FILE_OWNER_READ | 
                           driverUser::PERMISSION_FILE_OWNER_WRITE | 
                           driverUser::PERMISSION_FILE_OWNER_EXECUTE |

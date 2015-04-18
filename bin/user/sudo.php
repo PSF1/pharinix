@@ -51,13 +51,10 @@ if (!class_exists("commandSudo")) {
             $resp = parent::getAccessData($me);
             if ($resp["group"] == 0) {
                 // We change default group from root to sudoers.
-                $grp = driverCommand::run("getNodes", array(
-                    "nodetype" => "group",
-                    "where" => "`title` = 'sudoers'",
-                ));
-                if (!isset($grp["ok"]) && count($grp) > 0) {
-                    $key = array_keys($grp);
-                    $resp["group"] = $key[0];
+                $sql = "select `id` from `node_group` where `title` = 'sudoers'";
+                $q = dbConn::Execute($sql);
+                if (!$q->EOF) {
+                    $resp["group"] = $q->fields["id"];
                 }
             }
             return $resp;

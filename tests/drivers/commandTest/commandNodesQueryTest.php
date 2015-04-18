@@ -114,7 +114,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $this->assertNotEquals("", $resp[1]["created"]);
         $this->assertEquals("NODE 1", $resp[1]["title"]);
         $this->assertArrayHasKey("relation", $resp[1]);
-        $this->assertTrue(count($resp[1]["relation"]) == 1);
+        $this->assertEquals(1, count($resp[1]["relation"]));
         $this->assertEquals("1", $resp[1]["relation"][0]);
     }
     
@@ -126,7 +126,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $this->assertNotEquals("", $resp[2]["created"]);
         $this->assertEquals("NODE 2", $resp[2]["title"]);
         $this->assertArrayHasKey("relation", $resp[2]);
-        $this->assertTrue(count($resp[2]["relation"]) == 2);
+        $this->assertEquals(2 ,count($resp[2]["relation"]));
         $this->assertEquals("1", $resp[2]["relation"][0]);
         $this->assertEquals("2", $resp[2]["relation"][1]);
     }
@@ -139,7 +139,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $this->assertNotEquals("", $resp[3]["created"]);
         $this->assertEquals("NODE 3", $resp[3]["title"]);
         $this->assertArrayHasKey("relation", $resp[3]);
-        $this->assertTrue(count($resp[3]["relation"]) == 3);
+        $this->assertEquals(3, count($resp[3]["relation"]));
         $this->assertEquals("1", $resp[3]["relation"][0]);
         $this->assertEquals("2", $resp[3]["relation"][1]);
         $this->assertEquals("3", $resp[3]["relation"][2]);
@@ -153,7 +153,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $this->assertNotEquals("", $resp[4]["created"]);
         $this->assertEquals("NODE 4", $resp[4]["title"]);
         $this->assertArrayHasKey("relation", $resp[4]);
-        $this->assertTrue(count($resp[4]["relation"]) == 4);
+        $this->assertEquals(4, count($resp[4]["relation"]));
         $this->assertEquals("1", $resp[4]["relation"][0]);
         $this->assertEquals("2", $resp[4]["relation"][1]);
         $this->assertEquals("3", $resp[4]["relation"][2]);
@@ -182,7 +182,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
             ));
-        $this->assertTrue(count($resp) == 4);
+        $this->assertEquals(4 ,count($resp));
     }
     
     public function testGetNodes_Fields_With_ID() {
@@ -190,7 +190,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "fields" => "id, order, title",
             ));
-        $this->assertTrue(count($resp) == 4);
+        $this->assertEquals(4, count($resp));
         foreach($resp as $id => $node) {
             $this->assertEquals("NODE $id", $node["title"]);
             $this->assertEquals(5 - $id, $node["order"]);
@@ -202,7 +202,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "fields" => "`order`, title",
             ));
-        $this->assertTrue(count($resp) == 4);
+        $this->assertEquals(4 ,count($resp));
         foreach($resp as $id => $node) {
             $this->assertEquals("NODE $id", $node["title"]);
             $this->assertEquals(5 - $id, $node["order"]);
@@ -214,7 +214,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "where" => "`order` = 4",
             ));
-        $this->assertTrue(count($resp) == 1);
+        $this->assertEquals(1, count($resp));
         $this->assertEquals("NODE 1", $resp[1]["title"]);
         $this->assertEquals(4, $resp[1]["order"]);
     }
@@ -224,7 +224,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "where" => "`order` = 4 || `title` like '%2'",
             ));
-        $this->assertTrue(count($resp) == 2);
+        $this->assertEquals(2, count($resp));
     }
     
     public function testGetNodes_Order() {
@@ -247,7 +247,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "group" => "`modified`",
             ));
-        $this->assertTrue(count($resp) == 1);
+        $this->assertEquals(1, count($resp));
     }
     
     public function testGetNodes_Count_Group() {
@@ -256,7 +256,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "count" => true,
             "group" => "`modified`",
             ));
-        $this->assertTrue($resp[0]["ammount"] == 4);
+        $this->assertEquals(4, $resp[0]["ammount"]);
     }
     
     public function testGetNodes_Count_Group2() {
@@ -265,7 +265,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "count" => true,
             "where" => "mod(`order`,2) = 0",
             ));
-        $this->assertTrue($resp[0]["ammount"] == 2);
+        $this->assertEquals(2, $resp[0]["ammount"]);
     }
     
     public function testGetNodes_Offset() {
@@ -273,7 +273,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "offset" => 3,
             ));
-        $this->assertTrue(count($resp) == 1);
+        $this->assertEquals(1, count($resp));
     }
     
     public function testGetNodes_Lenght() {
@@ -281,7 +281,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "nodetype" => "test",
             "lenght" => 1,
             ));
-        $this->assertTrue(count($resp) == 1);
+        $this->assertEquals(1, count($resp));
     }
     
     public function testGetNodes_Offset_Lenght() {
@@ -290,7 +290,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             "offset" => 1,
             "lenght" => 3,
             ));
-        $this->assertTrue(count($resp) == 3);
+        $this->assertEquals(3, count($resp));
     }
     
     // Updates

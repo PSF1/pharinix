@@ -43,9 +43,15 @@ if (!class_exists("commandUpdateNodes")) {
                 $resp["msg"] = "Node ID required";
                 return $resp;
             } else {
-                $sql = "select `id` from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
-                $q = dbConn::Execute($sql);
-                if ($q->EOF) {
+                $eof = true;
+                try {
+                    $sql = "select `id` from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
+                    $q = dbConn::Execute($sql);
+                    $eof = $q->EOF;
+                } catch (Exception $ex) {
+                    $eof = true;
+                }
+                if ($eof) {
                     $resp["msg"] = "Unknowed node ID";
                     return $resp;
                 }

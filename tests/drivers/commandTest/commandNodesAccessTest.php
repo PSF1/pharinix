@@ -31,7 +31,13 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         // Add user
         driverUser::sessionStart();
         driverUser::sudo();
-        driverCommand::run("addUser", array(
+        $adduser = driverCommand::run("addUser", array(
+            "mail" => "testlogin2@localhost",
+            "pass" => "testlogin2",
+            "name" => "testlogin2",
+            "title" => "testlogin2",
+        ));
+        $adduser = driverCommand::run("addUser", array(
             "mail" => "testlogin@localhost",
             "pass" => "testlogin",
             "name" => "testlogin",
@@ -73,6 +79,21 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
                 array("#clean" => ""),
                 array("addNode" => "nodetype=test&title=NODE%204&order=1"),
             ),
+        ));
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "nid" => 1,
+            "owner" => "testlogin@localhost",
+        ));
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "nid" => 2,
+            "group" => "testlogin2",
+        ));
+        driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "nid" => 3,
+            "flags" => PERMISSION_NODE_ALL_ALL,
         ));
         // End sudo
         driverUser::sudo(false);
@@ -174,22 +195,401 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
     
     /*
      * AddNode
-     */
-    
-    /*
      * delNode
      */
+    // Root can add node
+    public function testRootAddNode() {
+        driverUser::sudo();
+        driverCommand::run("addNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "order" => 50
+           ));
+        // Verify
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Undo
+        driverCommand::run("delNode", array(
+            "nodetype" => "test",
+            "nid" => $q->fields["id"],
+        ));
+        // Verify
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        
+        driverUser::sudo(false);
+    }
     
-    /*
-     * getNode
-     */
+    // Owner can add node
+    public function testOwnerAddNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "owner" => "testlogin@localhost",
+        ));
+        driverUser::sudo(false);
+        // User login
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // User add a node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "order" => 50
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        driverCommand::run("delNode", array(
+            "nodetype" => "test",
+            "nid" => $q->fields["id"],
+        ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Log out
+        driverUser::logOut();
+        // Set root how owner of node type
+        driverUser::sudo();
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "owner" => "0",
+        ));
+        driverUser::sudo(false);
+    }
     
-    /*
-     * getNodes
-     */
+    // Owner group can add node
+    public function testOwnerGroupAddNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "group" => "testlogin",
+        ));
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_GROUP_ALL,
+        ));
+        driverUser::sudo(false);
+        // User login
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // User add a node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "order" => 50
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        driverCommand::run("delNode", array(
+            "nodetype" => "test",
+            "nid" => $q->fields["id"],
+        ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Log out
+        driverUser::logOut();
+        // Set root how owner of node type
+        driverUser::sudo();
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "group" => "0",
+        ));
+        driverUser::sudo(false);
+    }
+    
+    // Others can add node
+    public function testGuestCanAddNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_ALL_ALL,
+        ));
+        driverUser::sudo(false);
+        // User logout
+        driverUser::logout();
+        // User add a node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "order" => 50
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        driverCommand::run("delNode", array(
+            "nodetype" => "test",
+            "nid" => $q->fields["id"],
+        ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Set root how owner of node type
+        driverUser::sudo();
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_DEFAULT,
+        ));
+        driverUser::sudo(false);
+    }
+    
+    // Others can't add node
+    public function testGuestCantAddNode() {
+        // User logout
+        driverUser::logOut();
+        // User add a node
+        $resp = driverCommand::run("addNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "order" => 50
+           ));
+        $this->assertFalse($resp["ok"]);
+        // Verify that it is not added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+    }
     
     /*
      * updateNode
      */
+    // Root can add node
+    public function testRootUpdateNode() {
+        driverUser::sudo();
+        driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "nid" => 1,
+            "title" => "NODE 50",
+           ));
+        // Verify
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Undo
+        driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "nid" => 1,
+            "title" => "NODE 1",
+           ));
+        // Verify
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        
+        driverUser::sudo(false);
+    }
     
+    // Owner can add node
+    public function testOwnerUpdateNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "owner" => "testlogin@localhost",
+        ));
+        driverUser::sudo(false);
+        // User login
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // User add a node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "nid" => 1
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 1",
+            "nid" => 1
+           ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Log out
+        driverUser::logOut();
+        // Set root how owner of node type
+        driverUser::sudo();
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "owner" => "0",
+        ));
+        driverUser::sudo(false);
+    }
+    
+    // Owner group can add node
+    public function testOwnerGroupUpdateNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "group" => "testlogin",
+        ));
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_GROUP_ALL,
+        ));
+        driverUser::sudo(false);
+        // User login
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // User add a node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "nid" => 1
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 1",
+            "nid" => 1
+           ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Log out
+        driverUser::logOut();
+        // Set root how owner of node type
+        driverUser::sudo();
+        driverCommand::run("chownNode", array(
+            "nodetype" => "test",
+            "group" => "0",
+        ));
+        driverUser::sudo(false);
+    }
+    
+    // Others can add node
+    public function testGuestCanUpdateNode() {
+        // Set user how node type's owner
+        driverUser::sudo();
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_ALL_ALL,
+        ));
+        driverUser::sudo(false);
+        // User logout
+        driverUser::logout();
+        // User add a node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "nid" => 1
+           ));
+        // Verify that the node is added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Remove node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 1",
+            "nid" => 1
+           ));
+        // Verify that it's removed
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        // Set root how owner of node type
+        driverUser::sudo();
+        $resp = driverCommand::run("chmodNode", array(
+            "nodetype" => "test",
+            "flags" => PERMISSION_NODE_DEFAULT,
+        ));
+        driverUser::sudo(false);
+    }
+    
+    // Others can't add node
+    public function testGuestCantUpdateNode() {
+        // User logout
+        driverUser::logOut();
+        // User add a node
+        $resp = driverCommand::run("updateNode", array(
+            "nodetype" => "test",
+            "title" => "NODE 50",
+            "nid" => 1
+           ));
+        $this->assertFalse($resp["ok"]);
+        // Verify that it is not added
+        $sql = "select * from `node_test` where `title` = 'NODE 50'";
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+    }
+    
+    /*
+     * getNodes
+     * getNode
+     */
+    // Root can read all
+    public function testRootCanReadAllNodes() {
+        driverUser::sudo();
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+        ));
+        // All
+        $this->assertEquals(4, count($resp));
+        driverUser::sudo(false);
+    }
+    
+    // Owner can read only her nodes
+    public function testOwnerCanReadNodes() {
+        // User login
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // Read
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+        ));
+        // 1 by owned + 1 by all
+        $this->assertEquals(2, count($resp));
+        // User logout
+        driverUser::logOut();
+    }
+    
+    // Owner group can read only her nodes
+    public function testGroupCanReadNodes() {
+        // User login
+        driverUser::logIn("testlogin2@localhost", md5("testlogin2"));
+        // Read
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+        ));
+        // 1 by group + 1 by all
+        $this->assertEquals(2, count($resp));
+        // User logout
+        driverUser::logOut();
+    }
+    
+    // Others can read only her nodes
+    public function testGuestCanReadNodes() {
+        // User logout
+        driverUser::logOut();
+        // Read
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+        ));
+        // 1 by all
+        $this->assertEquals(1, count($resp));
+    }
 }

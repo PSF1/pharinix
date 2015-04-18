@@ -23,8 +23,6 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-// TODO: SECURITY !!
-
 if (!class_exists("commandGetNodes")) {
     class commandGetNodes extends driverCommand {
 
@@ -69,6 +67,24 @@ if (!class_exists("commandGetNodes")) {
                 }
                 // Build segments
                 if ($params["where"] != "") $params["where"] = " where ".$params["where"];
+                // Security control
+                if (!driverUser::isSudoed()) {
+                    $usrGrps = driverUser::getGroupsID();
+                    $grpQuery = "";
+                    foreach($usrGrps as $grp) {
+                        if ($grpQuery != "") $grpQuery .= " || ";
+                        if ($grp == "") $grp = -1;
+                        $grpQuery .= "`group_owner` = $grp";
+                    }
+                    $secWhere  = "(( IF(`user_owner` = ".driverUser::getID().",1024,0) | ";
+                    $secWhere .= "IF($grpQuery,64,0) | 4) ";
+                    $secWhere .= "& `access`)";
+                    if ($params["where"] != "") {
+                        $params["where"] = " && ".$secWhere;
+                    } else {
+                        $params["where"] = " where ".$secWhere;
+                    }
+                }
                 if ($params["order"] != "") $params["order"] = " order by ".$params["order"];
                 if ($params["group"] != "") $params["group"] = " group by ".$params["group"];
                 $limit = $params["offset"];
