@@ -50,8 +50,11 @@ CREATE TABLE `node_algo` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-INSERT INTO `node_algo` VALUES  (1,0,0,3904,0,'2015-04-17 19:41:34',0,'2015-03-26 20:33:13','Hola');
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+INSERT INTO `node_algo` VALUES  (1,0,0,3904,0,'2015-04-17 19:41:34',0,'2015-03-26 20:33:13','Hola'),
+ (2,21,0,3904,0,NULL,0,NULL,'Grupo'),
+ (3,0,23,3904,0,NULL,0,NULL,'Propietario'),
+ (4,0,0,15,0,NULL,0,NULL,'Todos');
 CREATE TABLE `node_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_owner` int(10) unsigned DEFAULT '0',
@@ -63,9 +66,10 @@ CREATE TABLE `node_group` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1524 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2126 DEFAULT CHARSET=latin1;
 INSERT INTO `node_group` VALUES  (219,0,0,3904,0,NULL,0,NULL,'sudoers'),
- (21,0,0,3904,2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','PSF');
+ (21,0,0,3904,2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','PSF'),
+ (1713,0,0,3904,0,'2015-04-18 12:02:01',0,'2015-04-18 12:02:01','testlogin2');
 CREATE TABLE `node_nuevo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modifier` int(10) unsigned DEFAULT '0',
@@ -97,9 +101,10 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM AUTO_INCREMENT=1853 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2661 DEFAULT CHARSET=latin1;
 INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
- (21,23,21);
+ (21,23,21),
+ (2144,1713,1713);
 CREATE TABLE `node_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -113,7 +118,7 @@ CREATE TABLE `node_type` (
   `group_owner` int(10) unsigned NOT NULL,
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9060 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10415 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18:38:55',0,'0','title',0,0,3904),
  (555,'user','2015-03-21 18:56:43',0,'2015-04-17 17:14:07',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-04-17 17:14:16',0,'1','title',0,0,3904),
@@ -134,7 +139,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=84304 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=96832 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','0','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','0','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','0','1',556,'0','User creator','','0','0'),
@@ -203,9 +208,10 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1524 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2126 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (2,0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
- (23,0,0,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez');
+ (23,0,0,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez'),
+ (1713,0,0,3904,0,'testlogin2@localhost','124653cf9d6a29a3d4b5f264b1105dec','testlogin2',0,'2015-04-18 12:02:01',0,'2015-04-18 12:02:01','testlogin2');
 CREATE TABLE `page-blocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpage` int(10) unsigned NOT NULL,
@@ -214,7 +220,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36938 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43740 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (10,0,'footCopy','echoHTML','html=%3Ch3%3EPharinix+Copyright+%C2%A9+%3C%3Fphp+echo+date%28%22Y%22%29%3B+%3F%3E+Pedro+Pelaez%3C%2Fh3%3E%0D%0A%3Cdiv%3EThis+program+is+free+software%3B+you+can+redistribute+it+and%2For+modify+it+under+the+terms+of+the+GNU+General+Public+License+as+published+by+the+Free+Software+Foundation%3B+either+version+2+of+the+License%2C+or+%28at+your+option%29+any+later+version.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AThis+program+is+distributed+in+the+hope+that+it+will+be+useful%2C+but+WITHOUT+ANY+WARRANTY%3B+without+even+the+implied+warranty+of+MERCHANTABILITY+or+FITNESS+FOR+A+PARTICULAR+PURPOSE.++See+the+GNU+General+Public+License+for+more+details.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AYou+should+have+received+a+copy+of+the+GNU+General+Public+License+along+with+this+program%3B+if+not%2C+write+to+the+Free+Software+Foundation%2C+Inc.%2C+59+Temple+Place+-+Suite+330%2C+Boston%2C+MA++02111-1307%2C+USA.%0D%0A%3C%2Fdiv%3E',0),
  (12,3,'content','echoHTML','html=<h1>Page not found: <?php echo \"\'{$_GET[\"rewrite\"]}\'\";?></h1>',0),
@@ -254,6 +260,8 @@ INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (9940,9913,'content','getNodeHtml','nodetype=group&node=16',0),
  (9950,9923,'content','getNodeHtml','nodetype=group&node=21',0),
  (9951,9924,'content','getNodeHtml','nodetype=user&node=23',0),
+ (38935,38902,'content','getNodeHtml','nodetype=group&node=1713',0),
+ (38936,38903,'content','getNodeHtml','nodetype=user&node=1713',0),
  (21426,21393,'content','getNodeHtml','nodetype=user&node=67',0),
  (21425,21392,'content','getNodeHtml','nodetype=group&node=66',0),
  (21423,21390,'content','getNodeHtml','nodetype=group&node=65',0),
@@ -270,7 +278,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36905 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43707 DEFAULT CHARSET=latin1;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -311,7 +319,9 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home
  (21392,'node_type_group_66','etc/templates/pages/default.xml','Node 66','',''),
  (21390,'node_type_group_65','etc/templates/pages/default.xml','Node 65','',''),
  (21391,'node_type_user_66','etc/templates/pages/default.xml','Node 66','',''),
+ (38902,'node_type_group_1713','etc/templates/pages/default.xml','Node 1713','',''),
  (36313,'node_type_nuevo','etc/templates/pages/default.xml','nuevo node type','',''),
+ (38903,'node_type_user_1713','etc/templates/pages/default.xml','Node 1713','',''),
  (33259,'node_type_user_1327','etc/templates/pages/default.xml','Node 1327','',''),
  (33258,'node_type_group_1327','etc/templates/pages/default.xml','Node 1327','',''),
  (32775,'node_type_otracosa','etc/templates/pages/default.xml','otracosa node type','','');
@@ -332,7 +342,7 @@ CREATE TABLE `url_rewrite` (
   `rewriteto` longtext,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=36998 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43809 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home'),
  (3,'help/command','command=pageToHTML&page=help/command'),
  (9945,'node/group/7','command=pageToHTML&page=node_type_group_7'),
@@ -363,6 +373,8 @@ INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home'),
  (9963,'node/group/16','command=pageToHTML&page=node_type_group_16'),
  (9974,'node/user/23','command=pageToHTML&page=node_type_user_23'),
  (9973,'node/group/21','command=pageToHTML&page=node_type_group_21'),
+ (38998,'node/group/1713','command=pageToHTML&page=node_type_group_1713'),
+ (38999,'node/user/1713','command=pageToHTML&page=node_type_user_1713'),
  (36405,'node/type/nuevo','command=pageToHTML&page=node_type_nuevo'),
  (33349,'node/user/1327','command=pageToHTML&page=node_type_user_1327'),
  (33348,'node/group/1327','command=pageToHTML&page=node_type_group_1327'),
