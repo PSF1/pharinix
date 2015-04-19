@@ -27,34 +27,66 @@ if (!class_exists("commandManHelpOnline")) {
 
         public static function runMe(&$params, $debug = true) {
             ?>
-            <form class="form-horizontal" role="form" action="." method="post" enctype="application/x-www-form-urlencoded">
+            <form class="form-horizontal" id="manHelpOnline" role="form">
                 <fieldset>
 
                     <!-- Form Name -->
                     <legend>Command help</legend>
 
-                    <!-- Text input-->
+                    <!-- Select Basic -->
                     <div class="form-group">
-                        <input type="hidden" name="interface" value="1">
-                        <label class="col-md-4 control-label" for="cmd">Command</label>
-                        <div class="col-md-5">
-                            <input id="cmd" name="cmd" type="text" placeholder="nothing" class="form-control input-md" required="">
-                            <span class="help-block">Command</span>
-                        </div>
+                      <label class="col-md-4 control-label" for="selectCmd">Command</label>
+                      <div class="col-md-5">
+                        <select id="selectCmd" name="selectCmd" class="form-control ">
+                            <?php
+                            $cmds = driverCommand::run("getCommandList");
+                            foreach($cmds["commands"] as $cmd) {
+                                echo "<option>$cmd</option>";
+                            }
+                            ?>
+                        </select>
+                      </div>
                     </div>
                     
                     <!-- Button -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="submit"></label>
+                        <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
-                            <button id="submit" name="submit" class="btn btn-primary">Help</button>
+                            <button id="getHelp" class="btn btn-primary">Help</button>
                         </div>
                     </div>
                 </fieldset>
             </form>
+            <div class="row">
+                <div class="col-md-12" id="manHelpBlock">
+                    
+                </div>
+            </div>
             <?php
-            if (isset($_POST["cmd"])) {
-                driverCommand::run("manHTML", array("cmd" => $_POST["cmd"]));
+            $script = <<<EOT
+$(document).ready(function(){
+        $("#getHelp").click(function(e){
+            $("#manHelpBlock").empty();
+            $.ajax({
+                method: "POST",
+                url: ".",
+                data: { 
+                    command: "manHTML",
+                    cmd: $("#selectCmd").val(),
+                    interface: "nothing"
+                }
+            })
+             .done(function( msg ) {
+                $("#manHelpBlock").html(msg);
+            });
+            return false;
+        });
+   });
+EOT;
+            if ($_POST["interface"] == "echoHtml") {
+                self::$customScripts .= $script;
+            } else {
+                echo "<script>$script</script>";
             }
         }
 
