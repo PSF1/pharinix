@@ -50,6 +50,26 @@ class driverToolsTest extends PHPUnit_Framework_TestCase {
         
     }
     
+    public function test_Str_Start() {
+        $this->assertTrue(driverTools::str_start("a", "abc"), 'str_start("a", "abc")');
+        $this->assertFalse(driverTools::str_start("a", "ABC"), 'str_start("a", "ABC")');
+        $this->assertFalse(driverTools::str_start("a", "hi"), 'str_start("a", "hi")');
+        $this->assertTrue(driverTools::str_start("ab", "ab"), 'str_start("ab", "ab")');
+        $this->assertFalse(driverTools::str_start("ab", "a"), 'str_start("ab", "a")');
+        $this->assertTrue(driverTools::str_start("ab", "abc"), 'str_start("ab", "abc")');
+        $this->assertFalse(driverTools::str_start("abc", "ab"), 'str_start("abc", "ab")');
+    }
+    
+    public function test_Str_End() {
+        $this->assertTrue(driverTools::str_end("c", "abc"), 'str_end("c", "abc")');
+        $this->assertFalse(driverTools::str_end("c", "ABC"), 'str_end("c", "ABC")');
+        $this->assertFalse(driverTools::str_end("a", "hi"), 'str_end("a", "hi")');
+        $this->assertTrue(driverTools::str_end("ab", "ab"), 'str_end("ab", "ab")');
+        $this->assertFalse(driverTools::str_end("ab", "a"), 'str_end("ab", "a")');
+        $this->assertTrue(driverTools::str_end("bc", "abc"), 'str_end("bc", "abc")');
+        $this->assertFalse(driverTools::str_end("abc", "ab"), 'str_end("abc", "ab")');
+    }
+    
     public function test_pathInfo_OnlyExtension() {
         $fInfo = driverTools::pathInfo(".htaccess");
         $this->assertTrue($fInfo["exists"]);
