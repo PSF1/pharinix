@@ -161,4 +161,26 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
+    
+    /**
+     * start $string with $start ?
+     * @param string $start Start string
+     * @param string $string String that would start with $start
+     * @return boolean
+     */
+    public static function str_start($start, $string) {
+        $cap = substr($string, 0, strlen($start));
+        return ($cap == $start);
+    }
+    
+    /**
+     * end $string with $end ?
+     * @param string $end End string
+     * @param string $string String that would end with $end
+     * @return boolean
+     */
+    public static function str_end($end, $string) {
+        $cap = substr($string, -1 * strlen($end));
+        return ($cap == $end);
+    }
 }
