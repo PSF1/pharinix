@@ -80,7 +80,7 @@ if (!class_exists("commandGetNodes")) {
                     $secWhere .= "IF($grpQuery,64,0) | 4) ";
                     $secWhere .= "& `access`)";
                     if ($params["where"] != "") {
-                        $params["where"] = " && ".$secWhere;
+                        $params["where"] .= " && ".$secWhere;
                     } else {
                         $params["where"] = " where ".$secWhere;
                     }
