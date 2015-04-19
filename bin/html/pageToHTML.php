@@ -144,6 +144,9 @@ if (!class_exists("commandPageToHTML")) {
 //                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
 //                    echo "</div>";
 //                    echo "</div>";
+                    if (self::$customScripts != "") {
+                        echo "<script>".self::$customScripts."</script>";
+                    }
                     echo '</body>';
                 } else {
                     throw new Exception("Page template '{$def->fields["template"]}' not found.");

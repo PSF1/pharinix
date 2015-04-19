@@ -37,6 +37,12 @@ class driverCommand {
     protected static $paths = null;
     
     /**
+     * Custom javascripts to add in generated pages.
+     * @var string 
+     */
+    protected static $customScripts = "";
+    
+    /**
      * Execute a command
      * @param string $cmd
      * @param array $params
