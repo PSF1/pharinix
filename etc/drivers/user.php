@@ -415,20 +415,24 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     
     public static function getUserName($id) {
         if ($id == 0) return "root";
-        $name = driverCommand::run("getNode", array("nodetype" => "user", "node" => $id));
-        if (!isset($name["ok"])) {
-            return $name[$id]["name"];
+        $sql = "select `name` from `node_user` where `id` = ".$id;
+        $q = dbConn::Execute($sql);
+        if ($q->EOF) {
+            return "unknown";
+        } else {
+            return $q->fields["name"];
         }
-        return "unknown";
     }
     
     public static function getGroupName($id) {
         if ($id == 0) return "root";
-        $name = driverCommand::run("getNode", array("nodetype" => "group", "node" => $id));
-        if (!isset($name["ok"])) {
-            return $name[$id]["title"];
+        $sql = "select `title` from `node_group` where `id` = ".$id;
+        $q = dbConn::Execute($sql);
+        if ($q->EOF) {
+            return "unknown";
+        } else {
+            return $q->fields["title"];
         }
-        return "unknown";
     }
 }
 
