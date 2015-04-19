@@ -28,7 +28,9 @@ if (!class_exists("commandGetNodeHtml")) {
 
         public static function runMe(&$params, $debug = true) {
             // TODO: Format the output...
+            echo "<pre>";
             var_dump(driverCommand::run("getNode", $params));
+            echo "</pre>";
         }
 
         public static function getAccess($ignore = "") {

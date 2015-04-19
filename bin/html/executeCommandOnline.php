@@ -67,12 +67,16 @@ if (!class_exists("commandExecuteCommandOnline")) {
             <?php
             if (isset($_POST["post"])) {
                 echo '<label class="col-md-4 control-label">Executed:</label>';
+                echo "<pre>";
                 var_dump($_POST);
+                echo "</pre>";
                 $aux = array();
                 parse_str($_POST["post"], $aux);
                 $resp = driverCommand::run($_POST["cmd"], $aux);
                 echo '<label class="col-md-4 control-label">Response:</label>';
+                echo "<pre>";
                 var_dump($resp);
+                echo "</pre>";
             }
         }
 
