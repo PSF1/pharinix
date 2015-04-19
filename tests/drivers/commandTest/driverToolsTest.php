@@ -51,6 +51,7 @@ class driverToolsTest extends PHPUnit_Framework_TestCase {
     }
     
     public function test_Str_Start() {
+        $this->assertTrue(driverTools::str_start("", "abc"), 'str_start("", "abc")');
         $this->assertTrue(driverTools::str_start("a", "abc"), 'str_start("a", "abc")');
         $this->assertFalse(driverTools::str_start("a", "ABC"), 'str_start("a", "ABC")');
         $this->assertFalse(driverTools::str_start("a", "hi"), 'str_start("a", "hi")');
@@ -61,6 +62,7 @@ class driverToolsTest extends PHPUnit_Framework_TestCase {
     }
     
     public function test_Str_End() {
+        $this->assertTrue(driverTools::str_end("", "abc"), 'str_end("", "abc")');
         $this->assertTrue(driverTools::str_end("c", "abc"), 'str_end("c", "abc")');
         $this->assertFalse(driverTools::str_end("c", "ABC"), 'str_end("c", "ABC")');
         $this->assertFalse(driverTools::str_end("a", "hi"), 'str_end("a", "hi")');

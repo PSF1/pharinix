@@ -169,6 +169,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean
      */
     public static function str_start($start, $string) {
+        if ($start == "") return true;
         $cap = substr($string, 0, strlen($start));
         return ($cap == $start);
     }
@@ -180,6 +181,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
      * @return boolean
      */
     public static function str_end($end, $string) {
+        if ($end == "") return true;
         $cap = substr($string, -1 * strlen($end));
         return ($cap == $end);
     }
