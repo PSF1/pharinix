@@ -58,6 +58,10 @@ if (!class_exists("commandMan")) {
                                 $resp["help"][$cmd]["response"][$key] = $value;
                             }
                         }
+                        $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                        $resp["help"][$cmd]["owner"] = $acc["owner"];
+                        $resp["help"][$cmd]["group"] = $acc["group"];
+                        $resp["help"][$cmd]["flags"] = $acc["flags"];
                         return $resp;
                     }
                 }
