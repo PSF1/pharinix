@@ -45,7 +45,7 @@ if (!class_exists("commandFormatFieldLongtext")) {
                 if ($p["multivalued"]) {
                     // Basic types dont have multivalue.
                 } else {
-                    if ($p["toread"] || $p["readonly"] || $p["system"]) { // to read
+                    if ($p["toread"] || $p["readonly"]) { // to read
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
                         echo '<div class="form-group">';
                         echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
