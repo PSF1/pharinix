@@ -38,6 +38,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "<th>Is key</th>";
             echo "<th>length</th>";
             echo "<th>Required</th>";
+            echo "<th>Locked</th>";
             echo "<th>Read only</th>";
             echo "<th>System</th>";
             echo "<th>Multivalued</th>";
@@ -67,6 +68,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
                 echo "<td>{$field["iskey"]}</td>";
                 echo "<td>{$field["len"]}</td>";
                 echo "<td>{$field["required"]}</td>";
+                echo "<td>{$field["locked"]}</td>";
                 echo "<td>{$field["readonly"]}</td>";
                 echo "<td>{$field["locked"]}</td>";
                 echo "<td>{$field["multi"]}</td>";
