@@ -52,7 +52,7 @@ if (!class_exists("commandAddNodeType")) {
                         "label_field" => "title",
                       ), $params);
             $params["name"] = strtolower($params["name"]);
-            if ($params["name"] == "type" || $params["name"] == "type_field") {
+            if ($params["name"] == "type" || $params["name"] == "type_field"  || $params["name"] == "formats") {
                 $resp["msg"] = "Node type name is a protected name. ";
             }
             if ($params["name"] == "") {
