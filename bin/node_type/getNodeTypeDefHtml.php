@@ -65,13 +65,43 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
                     echo "<a href=\"".CMS_DEFAULT_URL_BASE."node/type/{$field["type"]}\">{$field["type"]}</a>";
                 }
                 echo "</td>";
-                echo "<td>{$field["iskey"]}</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["iskey"],
+                ));
+                echo "</td>";
                 echo "<td>{$field["len"]}</td>";
-                echo "<td>{$field["required"]}</td>";
-                echo "<td>{$field["locked"]}</td>";
-                echo "<td>{$field["readonly"]}</td>";
-                echo "<td>{$field["locked"]}</td>";
-                echo "<td>{$field["multi"]}</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["required"],
+                ));
+                echo "</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["locked"],
+                ));
+                echo "</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["readonly"],
+                ));
+                echo "</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["locked"],
+                ));
+                echo "</td>";
+                echo "<td>";
+                driverCommand::run("formatFieldBool", array(
+                    "toread" => true,
+                    "value" => $field["multi"],
+                ));
+                echo "</td>";
                 echo "<td>{$field["default"]}</td>";
                 echo "<td>{$field["label"]}</td>";
                 echo "<td>{$field["help"]}</td>";
