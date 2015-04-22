@@ -24,6 +24,11 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 // TODO: For multidomain session information must be necessary asociate session with domain.
 
  class driverUser {
+     /**
+      * sudoers group ID
+      * @var string 
+      */
+    protected static $sudoersID = null;
     
 // Nodes -----------------------------------------------------------------------
 /*
@@ -360,6 +365,30 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         }
     }
     
+    /**
+     * Have user sudoers group?
+     * @return boolean
+     */
+    public static function haveSudoersGroup() {
+        $sid = self::getSudoersGroupID();
+        return array_search($sid, $_SESSION["user_groups"]) !== false;
+    }
+    /**
+     * Sudoers group ID
+     * @return boolean
+     */
+    public static function getSudoersGroupID() {
+        if (self::$sudoersID != null) return self::$sudoersID;
+        
+        $sql = "select `id` from `node_group` where `title` = 'sudoers'";
+        $q = dbConn::Execute($sql);
+        if (!$q->EOF) {
+            self::$sudoersID = $q->fields["id"];
+            return $q->fields["id"];
+        } else {
+            return false;
+        }
+    }
     /**
      * Have the user root powers?
      * @return boolean

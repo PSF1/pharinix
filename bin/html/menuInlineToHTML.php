@@ -45,7 +45,7 @@ if (!class_exists("commandMenuInlineToHTML")) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Pharinix</a>
+      <a class="navbar-brand" href="<?php echo CMS_DEFAULT_URL_BASE;?>">Pharinix</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,22 +68,70 @@ if (!class_exists("commandMenuInlineToHTML")) {
         </li>
       </ul>
       <!-- LEFT -->
-      <form class="navbar-form navbar-left" role="search">
+<!--      <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+      </form>-->
       
       <!-- RIGHT -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">3 Link</a></li>
+        <li>
+            <?php
+            if (driverUser::isSudoed()) {
+                ?>
+            <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="command" value="sudo"/>
+                <input type="hidden" name="user" value=""/>
+                <input type="hidden" name="interface" value="goHome"/>
+                <button type="submit" class="btn btn-danger">Exit superuser</button>
+            </form>
+            <?php
+            } elseif (driverUser::haveSudoersGroup()) {
+                ?>
+            <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="command" value="sudo"/>
+                <input type="hidden" name="user" value="root@localhost"/>
+                <input type="hidden" name="interface" value="goHome"/>
+                <button type="submit" class="btn btn-link">Get superuser</button>
+            </form>
+            <?php
+            }
+            if (!driverUser::isLoged()) {
+                ?>
+                <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="command" value="startSession"/>
+                    <input type="hidden" name="interface" value="goHome"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="user" placeholder="mail">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="pass" placeholder="password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Login</button>
+                </form>
+            <?php
+            } else {
+                ?>
+            <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="command" value="endSession"/>
+                <input type="hidden" name="interface" value="goHome"/>
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+            <?php
+            }
+            ?>
+        </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Types <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <?php
+                $types = driverCommand::run("getNodeTypeList");
+                foreach($types as $type) {
+                    echo '<li><a href="'.CMS_DEFAULT_URL_BASE.'/node/type/'.$type.'">'.$type.'</a></li>';
+                }
+            ?>
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
