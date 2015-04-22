@@ -338,7 +338,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
                 $usr = $userID;
                 
                 $relTable = '`node_relation_user_groups_group`';
-                $sql = "select `type2` from $relTable where `type1` = $id";
+                $sql = "select `type2` from $relTable where `type1` = $userID";
                 $q = dbConn::Execute($sql);
                 $grp = array();
                 while (!$q->EOF) {
