@@ -84,7 +84,8 @@ $(document).ready(function(){
    });
 EOT;
             if ($_POST["interface"] == "echoHtml") {
-                self::$customScripts .= $script;
+                $reg = &self::getRegister("customscripts");
+                $reg .= $script;
             } else {
                 echo "<script>$script</script>";
             }

@@ -34,6 +34,9 @@ if (!class_exists("commandPageToHTML")) {
     class commandPageToHTML extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            self::getRegister("customscripts"); // To allow commands set javascripts
+            self::getRegister("customcss"); // To allow commands set css
+            
             include_once("usr/xml2array/xml2array.php");
             include_once("etc/drivers/pages.php");
             if (!function_exists("pageToHTMLParseBlock")) {
@@ -144,8 +147,13 @@ if (!class_exists("commandPageToHTML")) {
 //                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
 //                    echo "</div>";
 //                    echo "</div>";
-                    if (self::$customScripts != "") {
-                        echo "<script>".self::$customScripts."</script>";
+                    $reg = self::getRegister("customscripts");
+                    if ($reg != "") {
+                        echo "<script>".$reg."</script>";
+                    }
+                    $reg = self::getRegister("customcss");
+                    if ($reg != "") {
+                        echo "<style>".$reg."</style>";
                     }
                     echo '</body>';
                 } else {
