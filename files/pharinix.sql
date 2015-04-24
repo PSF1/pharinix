@@ -63,9 +63,14 @@ CREATE TABLE `node_formats` (
   `write` varchar(1) NOT NULL DEFAULT '0',
   `default` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 INSERT INTO `node_formats` VALUES  (1,'formatFieldLongtext','longtext','1','1','1'),
- (2,'formatFieldBool','bool','1','1','1');
+ (2,'formatFieldBool','bool','1','1','1'),
+ (3,'formatFieldDouble','double','1','1','1'),
+ (4,'formatFieldInteger','integer','1','1','1'),
+ (5,'formatFieldString','string','1','1','1'),
+ (6,'formatFieldDate','datetime','1','1','1'),
+ (7,'formatFieldPassword','password','1','1','1');
 CREATE TABLE `node_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_owner` int(10) unsigned DEFAULT '0',
@@ -231,7 +236,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46871 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=46886 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (10,0,'footCopy','echoHTML','html=%3Ch3%3EPharinix+Copyright+%C2%A9+%3C%3Fphp+echo+date%28%22Y%22%29%3B+%3F%3E+Pedro+Pelaez%3C%2Fh3%3E%0D%0A%3Cdiv%3EThis+program+is+free+software%3B+you+can+redistribute+it+and%2For+modify+it+under+the+terms+of+the+GNU+General+Public+License+as+published+by+the+Free+Software+Foundation%3B+either+version+2+of+the+License%2C+or+%28at+your+option%29+any+later+version.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AThis+program+is+distributed+in+the+hope+that+it+will+be+useful%2C+but+WITHOUT+ANY+WARRANTY%3B+without+even+the+implied+warranty+of+MERCHANTABILITY+or+FITNESS+FOR+A+PARTICULAR+PURPOSE.++See+the+GNU+General+Public+License+for+more+details.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AYou+should+have+received+a+copy+of+the+GNU+General+Public+License+along+with+this+program%3B+if+not%2C+write+to+the+Free+Software+Foundation%2C+Inc.%2C+59+Temple+Place+-+Suite+330%2C+Boston%2C+MA++02111-1307%2C+USA.%0D%0A%3C%2Fdiv%3E',0),
  (12,3,'content','echoHTML','html=<h1>Page not found: <?php echo \"\'{$_GET[\"rewrite\"]}\'\";?></h1>',0),
@@ -271,17 +276,32 @@ INSERT INTO `page-blocks` VALUES  (9,1,'colRight','executeCommandOnline','',0),
  (9940,9913,'content','getNodeHtml','nodetype=group&node=16',0),
  (9950,9923,'content','getNodeHtml','nodetype=group&node=21',0),
  (9951,9924,'content','getNodeHtml','nodetype=user&node=23',0),
+ (46873,46837,'bool_write','formatFieldBool','fieldname=testboolwrite&toread=0&towrite=1&value&required=1&readonly=0&system=0&multivalued=0&label=Bool&help=A bool field',0),
+ (46872,46837,'longtext_read','formatFieldLongtext','fieldname=testlongtextread&toread=1&towrite=0&value&required=1&readonly=0&system=0&multivalued=0&value=longtext&label=Longtext&help=A long text field',0),
+ (46871,46837,'longtext_write','formatFieldLongtext','fieldname=testlongtextwrite&toread=0&towrite=1&value&required=1&readonly=0&system=0&multivalued=0&default=longtext&label=Longtext&help=A long text field',0),
  (45780,0,'mainMenu','menuInlineToHTML','',0),
+ (46874,46837,'bool_read','formatFieldBool','fieldname=testboolwrite&toread=1&towrite=0&value=1&required=1&readonly=0&system=0&multivalued=0&label=Bool&help=A bool field',0),
  (38935,38902,'content','getNodeHtml','nodetype=group&node=1713',0),
  (38936,38903,'content','getNodeHtml','nodetype=user&node=1713',0),
  (21426,21393,'content','getNodeHtml','nodetype=user&node=67',0),
  (21425,21392,'content','getNodeHtml','nodetype=group&node=66',0),
  (21423,21390,'content','getNodeHtml','nodetype=group&node=65',0),
  (21424,21391,'content','getNodeHtml','nodetype=user&node=66',0),
+ (46876,46837,'double_read','formatFieldDouble','fieldname=testdoubleread&toread=1&towrite=0&value=100&required=1&readonly=0&system=0&multivalued=0&label=Double&help=A double field',0),
  (36346,36313,'content','getNodeTypeDefHtml','nodetype=nuevo',0),
+ (46875,46837,'double_write','formatFieldDouble','fieldname=testdoublewrite&toread=0&towrite=1&value=100&required=1&readonly=0&system=0&multivalued=0&label=Double&help=A double field',0),
  (33292,33259,'content','getNodeHtml','nodetype=user&node=1327',0),
  (33291,33258,'content','getNodeHtml','nodetype=group&node=1327',0),
- (32808,32775,'content','getNodeTypeDefHtml','nodetype=otracosa',0);
+ (32808,32775,'content','getNodeTypeDefHtml','nodetype=otracosa',0),
+ (46877,46837,'integer_write','formatFieldInteger','fieldname=testintegerwrite&toread=0&towrite=1&value=100&required=1&readonly=0&system=0&multivalued=0&label=Integer&help=A integer field',0),
+ (46878,46837,'integer_read','formatFieldInteger','fieldname=testintegerread&toread=1&towrite=0&value=100&required=1&readonly=0&system=0&multivalued=0&label=Integer&help=A integer field',0),
+ (46879,46837,'string_write','formatFieldString','fieldname=teststringwrite&toread=0&towrite=1&value=String&required=1&readonly=0&system=0&multivalued=0&label=String&help=A string field',0),
+ (46880,46837,'string_read','formatFieldString','fieldname=teststringread&toread=1&towrite=0&value=String&required=1&readonly=0&system=0&multivalued=0&label=String&help=A string field',0),
+ (46881,46837,'password_write','formatFieldPassword','fieldname=testpasswordwrite&toread=0&towrite=1&value=password&required=1&readonly=0&system=0&multivalued=0&label=Password&help=A password field',0),
+ (46882,46837,'password_read','formatFieldPassword','fieldname=testpasswordread&toread=1&towrite=0&value=password&required=1&readonly=0&system=0&multivalued=0&label=Password&help=A password field',0),
+ (46883,46837,'datetime_write','formatFieldDate','fieldname=testdatewrite&toread=0&towrite=1&value=24-04-2015&required=1&readonly=0&system=0&multivalued=0&label=Date&help=A datetime field',0),
+ (46884,46837,'datetime_read','formatFieldDate','fieldname=testdateread&toread=1&towrite=0&value=24-04-2015&required=1&readonly=0&system=0&multivalued=0&label=Date&help=A datetime field',0),
+ (46885,46837,'headblock','echoHTML','html=<legend>Formatters demo</legend>',0);
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -290,7 +310,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46837 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=46838 DEFAULT CHARSET=latin1;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -327,6 +347,7 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_column.xml','Home
  (9913,'node_type_group_16','etc/templates/pages/default.xml','Node 16','',''),
  (9923,'node_type_group_21','etc/templates/pages/default.xml','Node 21','',''),
  (9924,'node_type_user_23','etc/templates/pages/default.xml','Node 23','',''),
+ (46837,'help/formatters','etc/templates/pages/formatter.xml','Formatters gallery','',''),
  (21393,'node_type_user_67','etc/templates/pages/default.xml','Node 67','',''),
  (21392,'node_type_group_66','etc/templates/pages/default.xml','Node 66','',''),
  (21390,'node_type_group_65','etc/templates/pages/default.xml','Node 65','',''),
@@ -354,7 +375,7 @@ CREATE TABLE `url_rewrite` (
   `rewriteto` longtext,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=46944 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=46946 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home'),
  (3,'help/command','command=pageToHTML&page=help/command'),
  (9945,'node/group/7','command=pageToHTML&page=node_type_group_7'),
@@ -385,6 +406,8 @@ INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home'),
  (9963,'node/group/16','command=pageToHTML&page=node_type_group_16'),
  (9974,'node/user/23','command=pageToHTML&page=node_type_user_23'),
  (9973,'node/group/21','command=pageToHTML&page=node_type_group_21'),
+ (46945,'help/console','command=pageToHTML&page=home'),
+ (46944,'help/formatters','command=pageToHTML&page=help/formatters'),
  (38998,'node/group/1713','command=pageToHTML&page=node_type_group_1713'),
  (38999,'node/user/1713','command=pageToHTML&page=node_type_user_1713'),
  (36405,'node/type/nuevo','command=pageToHTML&page=node_type_nuevo'),
