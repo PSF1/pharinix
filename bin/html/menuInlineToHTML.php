@@ -41,7 +41,7 @@ body {
 }
 </style>
 <div id="top">
-    <nav class="navbar navbar-fixed-top ">
+    <nav class="navbar navbar-fixed-top navbar-default ">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -58,20 +58,10 @@ body {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <!-- DEFAULT LEFT -->
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">1 Link <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2 Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="<?php echo CMS_DEFAULT_URL_BASE;?>">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    &nbsp;Home
+                </a></li>
           </ul>
           <!-- LEFT -->
     <!--      <form class="navbar-form navbar-left" role="search">
@@ -130,16 +120,40 @@ body {
                 ?>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Types <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                  &nbsp;Help <span class="caret"></span>
+              </a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/console">Console</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/command">Commands</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/formatters">Formatters demo</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/icons">Bootstrap icons</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                  &nbsp;Types <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation" class="dropdown-header">Visible types</li>
                 <?php
                     $types = driverCommand::run("getNodeTypeList");
                     foreach($types as $type) {
-                        echo '<li><a href="'.CMS_DEFAULT_URL_BASE.'/node/type/'.$type.'">'.$type.'</a></li>';
+                        echo '<li><a href="'.CMS_DEFAULT_URL_BASE.'node/type/'.$type.'">'.$type.'</a></li>';
                     }
                 ?>
                 <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li role="presentation" class="dropdown-header">Fixed types</li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>node/type/user">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        &nbsp;user
+                    </a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>node/type/group">
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                        &nbsp;group
+                    </a></li>
               </ul>
             </li>
           </ul>

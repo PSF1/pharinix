@@ -133,7 +133,7 @@ if (!class_exists("commandTemplateEditor")) {
                 url:  "<?php echo CMS_DEFAULT_URL_BASE; ?>",
                 data: {
                     command: "templateEditorList",
-                    interface: 0,
+                    interface: "toJson",
 
                 }
             }).done(function ( data ) {

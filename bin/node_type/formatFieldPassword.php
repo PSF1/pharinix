@@ -179,7 +179,7 @@ $('input[data-toggle="popover"]').popover({
     trigger: 'focus'
 });
 
-})
+});
 EOT;
                         self::$firstPasswordWrite = false;
                         }
