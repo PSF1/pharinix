@@ -48,24 +48,24 @@ if (!class_exists("commandFormatFieldPassword")) {
                 } else {
                     if ($p["toread"] || $p["readonly"]) { // to read
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         echo '</label>';
-                        echo '<div class="col-md-8">';
                         echo "<div class=\"\">*******</div>";
                         echo '</div>';
                         echo '</div>';
                     } else { // to write
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         if ($p["required"]) {
                             echo '&nbsp;<span class="glyphicon glyphicon-asterisk text-danger" aria-hidden="true"></span>';
                         }
                         echo '</label>';
-                        echo '<div class="col-md-8">';
                         echo '<input id="'.$p["fieldname"].'" name="'.$p["fieldname"].
                                 '" type="password" placeholder="Password" '.
                                 'class="form-control " '.($p["required"]?"required":"").

@@ -48,11 +48,11 @@ if (!class_exists("commandFormatFieldDate")) {
                 } else {
                     if ($p["toread"] || $p["readonly"]) { // to read
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         echo '</label>';
-                        echo '<div class="col-md-8">';
                         echo '<div id="'.$p["fieldname"].'">'.$p["value"].'</div>';
                         echo '</div>';
                         echo '</div>';
@@ -61,19 +61,20 @@ if (!class_exists("commandFormatFieldDate")) {
                             $p["value"] = $p["default"];
                         }
                         if (self::$firstHtmltextWrite) {
+                            //TODO: Quit this and send by other way...
                             echo '<script src="'.CMS_DEFAULT_URL_BASE.'/usr/datepicker/js/bootstrap-datepicker.js"></script>';
                             echo '<link rel="stylesheet" href="'.CMS_DEFAULT_URL_BASE.'/usr/datepicker/css/datepicker.css" />';
                             self::$firstHtmltextWrite = false;
                         }
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         if ($p["required"]) {
                             echo '&nbsp;<span class="glyphicon glyphicon-asterisk text-danger" aria-hidden="true"></span>';
                         }
                         echo '</label>';
-                        echo '<div class="col-md-8">';
                         echo '<input id="'.$p["fieldname"].'" name="'.$p["fieldname"].
                                 '" type="text" placeholder="'.$p["default"].'" '.
                                 'class="form-control " '.($p["required"]?"required":"").

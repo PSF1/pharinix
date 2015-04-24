@@ -47,24 +47,24 @@ if (!class_exists("commandFormatFieldInteger")) {
                 } else {
                     if ($p["toread"] || $p["readonly"]) { // to read
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         echo '</label>';
-                        echo '<div class="col-md-8">';
                         echo '<div id="'.$p["fieldname"].'">'.intval($p["value"]).'</div>';
                         echo '</div>';
                         echo '</div>';
                     } else { // to write
                         echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
                         echo '<div class="form-group">';
-                        echo '<label class="col-md-4 control-label" for="'.$p["fieldname"].'">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
                         echo $p["label"];
                         if ($p["required"]) {
                             echo '&nbsp;<span class="glyphicon glyphicon-asterisk text-danger" aria-hidden="true"></span>';
                         }
                         echo '</label>';
-                        echo '<div class="col-lg-8">';
                         echo '<input id="'.$p["fieldname"].'" name="'.$p["fieldname"].'" type="number" placeholder="'.$p["default"].'" value="'.intval($p["value"]).'" class="form-control " '.($p["required"]?"required":"").'>';
                         echo "<div class=\"help help-block\">".$p["help"]."</div>";
                         echo '</div>';

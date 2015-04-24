@@ -46,7 +46,15 @@ if (!class_exists("commandFormatFieldBool")) {
                     // Basic types dont have multivalue.
                 } else {
                     if ($p["toread"] || $p["readonly"]) { // to read
-                        echo $p["value"]?"Yes":"No";
+                        echo '<!-- Field "'.$p["fieldname"].'" -->';
+                        echo '<div class="col-md-12 col-sm-12 col-xs-12">';
+                        echo '<div class="form-group">';
+                        echo '<label class="control-label" for="'.$p["fieldname"].'">';
+                        echo $p["label"];
+                        echo '</label>';
+                        echo '<div id="'.$p["fieldname"].'">'.($p["value"]?"Yes":"No").'</div>';
+                        echo '</div>';
+                        echo '</div>';
                     } else { // to write
                         if ($p["value"] == "") {
                             $p["value"] = $p["default"];
