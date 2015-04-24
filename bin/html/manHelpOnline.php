@@ -63,13 +63,14 @@ if (!class_exists("commandManHelpOnline")) {
                 </div>
             </div>
             <?php
+            $burl = CMS_DEFAULT_URL_BASE;
             $script = <<<EOT
 $(document).ready(function(){
         $("#getHelp").click(function(e){
             $("#manHelpBlock").empty();
             $.ajax({
                 method: "POST",
-                url: ".",
+                url: "$burl",
                 data: { 
                     command: "manHTML",
                     cmd: $("#selectCmd").val(),

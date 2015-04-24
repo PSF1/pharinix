@@ -128,7 +128,11 @@ body {
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/console">Console</a></li>
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/command">Commands</a></li>
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/formatters">Formatters demo</a></li>
+                <li class="divider"></li>
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/icons">Bootstrap icons</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/tabs_panels">Tabs & Panels</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/ui_elements">UI Elements</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/forms">Forms</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -144,7 +148,6 @@ body {
                         echo '<li><a href="'.CMS_DEFAULT_URL_BASE.'node/type/'.$type.'">'.$type.'</a></li>';
                     }
                 ?>
-                <li class="divider"></li>
                 <li role="presentation" class="dropdown-header">Fixed types</li>
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>node/type/user">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
