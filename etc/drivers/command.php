@@ -86,9 +86,22 @@ class driverCommand {
                 return $resp;
             }
         }
-        throw new Exception("Command '{$cmd}' not found");
+        if ($_POST["interface"] == "echoHtml") {
+            self::getAlert("Command '{$cmd}' not found");
+        } else {
+            return array("ok" => false, "msg" => "Command '{$cmd}' not found");
+        }
     }
     
+    public static function getAlert($msg) {
+            return <<<EOT
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span> $msg
+</div>
+EOT;
+        }
+        
     /**
      * Each command must override it
      * @param array $params Parameters

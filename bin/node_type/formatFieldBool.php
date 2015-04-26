@@ -76,15 +76,6 @@ if (!class_exists("commandFormatFieldBool")) {
                 
             }
         }
-        
-        private function getAlert($msg) {
-            return <<<EOT
-<div class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span class="sr-only">Error:</span> $msg
-</div>
-EOT;
-        }
 
         public static function getHelp() {
             return array(
