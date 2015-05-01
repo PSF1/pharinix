@@ -49,7 +49,11 @@ if (!class_exists("commandBlockLogin")) {
             return array(
                 "description" => "Show a example login form", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

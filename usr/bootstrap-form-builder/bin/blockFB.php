@@ -45,7 +45,11 @@ if (!class_exists("commandBlockFB")) {
             return array(
                 "description" => "Echo a form builder block.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }
