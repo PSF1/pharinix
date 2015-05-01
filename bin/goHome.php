@@ -31,7 +31,11 @@ if (!class_exists("commandGoHome")) {
             return array(
                 "description" => "Redirect the browser to home.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
         

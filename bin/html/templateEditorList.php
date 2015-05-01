@@ -46,7 +46,11 @@ if (!class_exists("commandTemplateEditorList")) {
             return array(
                 "description" => "Echo a json list of templates. ['default', ...]}", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

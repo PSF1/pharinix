@@ -54,6 +54,16 @@ if (!class_exists("commandStartSession")) {
                 "response" => array(
                     "ok" => "TRUE if session started.",
                     "id" => "Session ID to use how auth_token."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "user" => "string",
+                        "pass" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "id" => "string"
+                    ),
                 )
             );
         }

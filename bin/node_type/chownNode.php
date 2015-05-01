@@ -191,6 +191,17 @@ if (!class_exists("commandChownNode")) {
                 ), 
                 "response" => array(
                     "ok" => "TRUE if changed."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "nid" => "integer",
+                        "owner" => "string",
+                        "group" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean"
+                    ),
                 )
             );
         }

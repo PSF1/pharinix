@@ -211,6 +211,17 @@ if (!class_exists("commandUpdateNodes")) {
                 "response" => array(
                     "ok" => "True/False node updated",
                     "msg" => "If error, it's a message about error",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "nid" => "integer",
+                        "any" => "args",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                    ),
                 )
             );
         }

@@ -83,7 +83,14 @@ if (!class_exists("commandDelNodeField")) {
                     "nodetype" => "Node type name",
                     "name" => "Node field name to erase"
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "name" => "string"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

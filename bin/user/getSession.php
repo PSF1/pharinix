@@ -46,6 +46,12 @@ if (!class_exists("commandGetSession")) {
                 "parameters" => array(), 
                 "response" => array(
                     "data" => "Session array"
+                ),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "data" => "array"
+                    ),
                 )
             );
         }

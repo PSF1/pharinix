@@ -182,7 +182,13 @@ body {
                 "parameters" => array(
                     "menu" => "Menu to convert."
                     ),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "menu" => "string"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
 

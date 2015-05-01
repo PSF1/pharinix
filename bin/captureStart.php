@@ -44,7 +44,11 @@ if (!class_exists("commandCaptureStart")) {
             return array(
                 "description" => "Start a echo buffered capture. The capture methods have control about stack of calls, please execute 'captureEndAll' to ensure that all this buffers are closed.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

@@ -47,7 +47,13 @@ if (!class_exists("commandGetRWUrls")) {
             return array(
                 "description" => "Return a complete list of URL rewrites.", 
                 "parameters" => array(), 
-                "response" => array("list" => "List of URLs")
+                "response" => array("list" => "List of URLs"),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "list" => "array"
+                    ),
+                )
             );
         }
     }

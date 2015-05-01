@@ -58,6 +58,15 @@ if (!class_exists("commandChmod")) {
                 ), 
                 "response" => array(
                     "ok" => "TRUE if changed."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "cmd" => "string",
+                        "flags" => "integer",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean"
+                    ),
                 )
             );
         }

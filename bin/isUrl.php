@@ -54,6 +54,14 @@ if (!class_exists("commandIsUrl")) {
                 "response" => array(
                     "ok" => "TRUE if the URL exist.", 
                     ),
+                "type" => array(
+                    "parameters" => array(
+                        "url" => "string", 
+                        ), 
+                    "response" => array(
+                        "ok" => "boolean", 
+                        ),
+                )
             );
         }
     }

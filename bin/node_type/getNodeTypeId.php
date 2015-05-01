@@ -58,6 +58,14 @@ if (!class_exists("commandGetNodeTypeID")) {
                 ), 
                 "response" => array(
                     "id" => "ID of the node type. False if not found."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "name" => "string",
+                    ), 
+                    "response" => array(
+                        "id" => "integer"
+                    ),
                 )
             );
         }

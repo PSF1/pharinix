@@ -106,7 +106,26 @@ if (!class_exists("commandGetNodeTypeDef")) {
                         "user_owner" => "ID of owner user.",
                         "group_owner" => "ID of owner group.",
                         "access" => "Access flags. (nodesec)",
-                    )
+                    ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                    ), 
+                    "response" => array(
+                            "id" => "integer",
+                            "name" => "string",
+                            "locked" => "boolean",
+                            "label_field" => "string",
+                            "fields" => "array",
+                            "created" => "datetime",
+                            "creator_node_user" => "integer",
+                            "modified" => "datetime",
+                            "modifier_node_user" => "integer",
+                            "user_owner" => "integer",
+                            "group_owner" => "integer",
+                            "access" => "integer",
+                        ),
+                )
             );
         }
     }

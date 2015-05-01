@@ -123,6 +123,16 @@ if (!class_exists("commandChown")) {
                 ), 
                 "response" => array(
                     "ok" => "TRUE if changed."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "cmd" => "string",
+                        "owner" => "string",
+                        "group" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean"
+                    ),
                 )
             );
         }

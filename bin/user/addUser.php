@@ -118,6 +118,19 @@ if (!class_exists("commandAddUser")) {
                     "ok" => "TRUE if the user is added.",
                     "msg" => "If ok is FALSE contains the error message.",
                     "nid" => "If ok is TRUE contains the new user ID.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "mail" => "string",
+                        "pass" => "string",
+                        "name" => "string",
+                        "title" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                        "nid" => "integer",
+                    ),
                 )
             );
         }

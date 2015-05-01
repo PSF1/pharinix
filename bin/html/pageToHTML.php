@@ -177,7 +177,13 @@ if (!class_exists("commandPageToHTML")) {
             return array(
                 "description" => "Transform a page to HTML",
                 "parameters" => array("page" => "Page to convert, see 'url_rewrite' in table."),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "page" => "string"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
 

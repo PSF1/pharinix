@@ -120,7 +120,11 @@ EOT;
         return array(
             "description" => "Command base class", 
             "parameters" => array(), 
-            "response" => array()
+            "response" => array(),
+            "type" => array(
+                "parameters" => array(), 
+                "response" => array(),
+            )
         );
     }
     

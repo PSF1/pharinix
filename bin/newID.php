@@ -40,7 +40,13 @@ if (!class_exists("commandNewID")) {
             return array(
                 "description" => "Return a new unique ID as string.", 
                 "parameters" => array(), 
-                "response" => array("id" => "The new unique ID string.")
+                "response" => array("id" => "The new unique ID string."),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "id" => "string"
+                    ),
+                )
             );
         }
     }

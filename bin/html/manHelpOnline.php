@@ -105,7 +105,11 @@ EOT;
             return array(
                 "description" => "Show a form to get help about a command.",
                 "parameters" => array(),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
 

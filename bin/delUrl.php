@@ -47,7 +47,13 @@ if (!class_exists("commandDelUrl")) {
                 "parameters" => array(
                     "url" => "The URL to erase, relative at root. Ex. home to http://127.0.0.1/home",
                 ),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "url" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

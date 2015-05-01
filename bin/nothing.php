@@ -31,7 +31,11 @@ if (!class_exists("commandNothing")) {
             return array(
                 "description" => "Nothing to do", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
         

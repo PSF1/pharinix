@@ -80,7 +80,14 @@ if (!class_exists("commandDelUser")) {
                     "uid" => "The user id.",
                     "mail" => "The user mail.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "uid" => "integer",
+                        "mail" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

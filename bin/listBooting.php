@@ -52,7 +52,11 @@ if (!class_exists("commandListBooting")) {
             return array(
                 "description" => "Get a list of commands from boot process.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

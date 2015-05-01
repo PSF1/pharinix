@@ -27,51 +27,63 @@ if (!class_exists("commandCommandHelpWikiExport")) {
             $params = array_merge(array(
                 "path" => "C:\Users\psf\Documents\github\pharinix.wiki\Command's-help.md", 
             ), $params);
-            $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::Execute($sql);
-            ob_start();
-            echo "# Command's list\n\n";
-            $ncmds = 0;
-            while(!$q->EOF) {
-                echo "## Package path '{$q->fields["path"]}'\n\n";
-                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
-                foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($q->fields["path"], "", $cmd);
-                    $cmd = str_replace(".php", "", $cmd);
-                    echo "### Command `$cmd`\n\n";
-                    ++$ncmds;
-                    $object = include($q->fields["path"].$cmd.".php");
-                    $hlp = $object->getHelp();
-                    echo "Description\n\n";
-                    echo "{$hlp["description"]}\n\n";
-                    if (count($hlp["parameters"]) > 0) {
-                        echo "Parameters\n\n";
-                        foreach ($hlp["parameters"] as $key => $value) {
-                            echo "* `$key`: $value\n";
+            try {
+                $sql = "SELECT * FROM `bin-path`";
+                $q = dbConn::Execute($sql);
+                ob_start();
+                echo "# Command's list\n\n";
+                $ncmds = 0;
+                while(!$q->EOF) {
+                    echo "## Package path '{$q->fields["path"]}'\n\n";
+                    $cmds = driverTools::lsDir($q->fields["path"], "*.php");
+                    foreach($cmds["files"] as $cmd) {
+                        $cmd = str_replace($q->fields["path"], "", $cmd);
+                        $cmd = str_replace(".php", "", $cmd);
+                        echo "### Command `$cmd`\n\n";
+                        ++$ncmds;
+                        $object = include($q->fields["path"].$cmd.".php");
+                        $hlp = $object->getHelp();
+                        echo "Description\n\n";
+                        echo "{$hlp["description"]}\n\n";
+                        if (count($hlp["parameters"]) > 0) {
+                            echo "Parameters\n\n";
+                            foreach ($hlp["parameters"] as $key => $value) {
+                                $tp = "";
+                                if (isset($hlp["type"]["parameters"][$key])) {
+                                    $tp = '`'.$hlp["type"]["parameters"][$key].'` / ';
+                                }
+                                echo "* $tp`$key`: $value\n";
+                            }
+                            echo "\n\n";
                         }
+                        if (count($hlp["response"]) > 0) {
+                            echo "Responses\n\n";
+                            foreach ($hlp["response"] as $key => $value) {
+                                $tp = "";
+                                if (isset($hlp["type"]["response"][$key])) {
+                                    $tp = '`'.$hlp["type"]["response"][$key].'` / ';
+                                }
+                                echo "* $tp`$key`: $value\n";
+                            }
+                            echo "\n\n";
+                        }
+                        // Access data
+                        echo "Permissions\n\n";
+                        $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                        echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
+                        echo "* `Group`: ".driverUser::getGroupName($acc["group"])."\n";
+                        echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
                         echo "\n\n";
                     }
-                    if (count($hlp["response"]) > 0) {
-                        echo "Responses\n\n";
-                        foreach ($hlp["response"] as $key => $value) {
-                            echo "* `$key`: $value\n";
-                        }
-                        echo "\n\n";
-                    }
-                    // Access data
-                    echo "Permissions\n\n";
-                    $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
-                    echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
-                    echo "* `Group`: ".driverUser::getGroupName($acc["group"])."\n";
-                    echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
-                    echo "\n\n";
+                    $q->MoveNext();
                 }
-                $q->MoveNext();
+                echo "\n\n";
+                echo "Exported $ncmds commands by `commandHelpWikiExport` at ".date("Y-m-d H:i:s");
+                $output = ob_get_clean();
+                file_put_contents($params["path"], $output);
+            } catch (Exception $exc) {
+                
             }
-            echo "\n\n";
-            echo "Exported $ncmds commands by `commandHelpWikiExport` at ".date("Y-m-d H:i:s");
-            $output = ob_get_clean();
-            file_put_contents($params["path"], $output);
         }
 
         public static function getAccess($ignore = "") {
@@ -89,7 +101,13 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                 "parameters" => array(
                     "path" => "File path where export.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "path" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

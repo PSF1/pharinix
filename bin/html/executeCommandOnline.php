@@ -93,7 +93,13 @@ if (!class_exists("commandExecuteCommandOnline")) {
             return array(
                 "description" => "Show a form to define the command to execute.",
                 "parameters" => array("post" => "Post's parameters encoded as string."),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "post" => "string"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
 

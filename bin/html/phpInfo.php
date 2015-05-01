@@ -40,7 +40,11 @@ if (!class_exists("commandPhpInfo")) {
             return array(
                 "description" => "Display phpInfo() response.", 
                 "parameters" => array(),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

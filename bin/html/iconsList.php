@@ -128,7 +128,11 @@ if (!class_exists("commandIconsList")) {
             return array(
                 "description" => "Display reference icon's list.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

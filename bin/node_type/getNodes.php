@@ -204,6 +204,21 @@ if (!class_exists("commandGetNodes")) {
                 ), 
                 "response" => array(
                     "rs" => "Node array with the ID how index. Multivalued fields will be returned how related ID's array.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "count" => "boolean",
+                        "fields" => "string",
+                        "where" => "string",
+                        "order" => "string",
+                        "group" => "string",
+                        "offset" => "integer",
+                        "length" => "integer",
+                    ), 
+                    "response" => array(
+                        "rs" => "array",
+                    ),
                 )
             );
         }

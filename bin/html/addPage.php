@@ -90,7 +90,18 @@ if (!class_exists("commandAddPage")) {
                     'keys' => 'Page meta key words.',
                     'url' => 'Optional page URL.',
                 ),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        'name' => 'string',
+                        'template' => 'string',
+                        'title' => 'string',
+                        'description' => 'string',
+                        'keys' => 'string',
+                        'url' => 'string',
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

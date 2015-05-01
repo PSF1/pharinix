@@ -79,8 +79,20 @@ if (!class_exists("commandGetBlocksFromTemplate")) {
         public static function getHelp() {
             return array(
                 "description" => "Parse a page template and return her blocks places.",
-                "parameters" => array("page" => "XML page to parse"),
-                "response" => array("blocks" => "Array of blocks places.")
+                "parameters" => array(
+                    "page" => "XML page to parse"
+                    ),
+                "response" => array(
+                    "blocks" => "Array of blocks places."
+                    ),
+                "type" => array(
+                    "parameters" => array(
+                        "page" => "string"
+                        ),
+                    "response" => array(
+                        "blocks" => "array"
+                        ),
+                )
             );
         }
 

@@ -64,7 +64,11 @@ if (!class_exists("commandUsageToHTML")) {
             return array(
                 "description" => "Print resource consume in HTML format",
                 "parameters" => array(),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
 

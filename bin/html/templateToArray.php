@@ -125,6 +125,17 @@ if (!class_exists("commandTemplateToArray")) {
                     "title" => "Default page title.",
                     "head" => "Head content",
                     "body" => "Body structure in HTML, it's parsed to template editor.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "template" => "string",
+                    ),
+                    "response" => array(
+                        "name" => "string",
+                        "title" => "string",
+                        "head" => "string",
+                        "body" => "string",
+                    ),
                 )
             );
         }

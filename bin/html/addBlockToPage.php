@@ -67,7 +67,17 @@ if (!class_exists("commandAddBlockToPage")) {
                     'parameters' => 'Parameters of command, it must be a URL encoded string.',
                     'priority' => 'Order of blocks. Default 0, first.',
                 ),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        'page' => 'string',
+                        'idcol' => 'integer',
+                        'command' => 'string',
+                        'parameters' => 'string',
+                        'priority' => 'integer',
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

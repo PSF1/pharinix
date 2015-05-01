@@ -55,7 +55,13 @@ if (!class_exists("commandEchoHTML")) {
             return array(
                 "description" => "Eval, echo, a HTML+PHP code", 
                 "parameters" => array('html' => 'String to evaluate.'), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        'html' => 'string',
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

@@ -200,6 +200,17 @@ if (!class_exists("commandAddNode")) {
                     "ok" => "True/False node added",
                     "msg" => "If error, it's a message about error",
                     "nid" => "ID of new node",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "any" => "args",
+                        "nodetype" => "string",
+                    ),
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                        "nid" => "integer",
+                    ),
                 )
             );
         }

@@ -59,6 +59,15 @@ if (!class_exists("commandGetNode")) {
                 ), 
                 "response" => array(
                     "node" => "Array with node content indexed by field name.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "node" => "integer",
+                    ), 
+                    "response" => array(
+                        "node" => "array",
+                    ),
                 )
             );
         }

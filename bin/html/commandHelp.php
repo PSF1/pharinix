@@ -42,7 +42,13 @@ if (!class_exists("commandCommandHelp")) {
                         echo "<h4>Parameters</h4>";
                         echo "<ul>";
                         foreach ($hlp["parameters"] as $key => $value) {
-                            echo "<li><b>$key</b>: $value</li>";
+                            echo "<li>";
+                            echo '<span class="label label-success">';
+                            if (isset($hlp["type"]["parameters"][$key])) {
+                                echo '<span class="badge">'.$hlp["type"]["parameters"][$key].'</span>&nbsp;';
+                            }
+                            echo "$key</span>: $value";
+                            echo "</li>";
                         }
                         echo "</ul>";
                     }
@@ -50,7 +56,13 @@ if (!class_exists("commandCommandHelp")) {
                         echo "<h4>Responses</h4>";
                         echo "<ul>";
                         foreach ($hlp["response"] as $key => $value) {
-                            echo "<li><b>$key</b>: $value</li>";
+                            echo "<li>";
+                            echo '<span class="label label-success">';
+                            if (isset($hlp["type"]["response"][$key])) {
+                                echo '<span class="badge">'.$hlp["type"]["response"][$key].'</span>&nbsp;';
+                            }
+                            echo "$key</span>: $value";
+                            echo "</li>";
                         }
                         echo "</ul>";
                     }
@@ -80,7 +92,11 @@ if (!class_exists("commandCommandHelp")) {
             return array(
                 "description" => "Display commands help.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

@@ -43,8 +43,20 @@ if (!class_exists("commandTrace")) {
         public static function getHelp() {
             return array(
                 "description" => "Add a new trace message", 
-                "parameters" => array("command" => "Executed command", "parameters" => "Array of original parameters", "return" => "Array of responses"), 
-                "response" => array()
+                "parameters" => array(
+                    "command" => "Executed command", 
+                    "parameters" => "Array of original parameters", 
+                    "return" => "Array of responses"
+                    ), 
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "command" => "string", 
+                        "parameters" => "array", 
+                        "return" => "array"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

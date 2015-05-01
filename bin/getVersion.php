@@ -42,6 +42,12 @@ if (!class_exists("commandGetVersion")) {
                 "parameters" => array(), 
                 "response" => array(
                     "version" => "Pharinix version."
+                ),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "version" => "string"
+                    ),
                 )
             );
         }

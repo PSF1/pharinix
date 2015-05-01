@@ -83,7 +83,13 @@ if (!class_exists("commandDelNodeType")) {
                 "parameters" => array(
                     "name" => "Node type to erase."
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "name" => "string"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

@@ -53,7 +53,11 @@ if (!class_exists("commandTraceToHTML")) {
             return array(
                 "description" => "Print trace information in HTML format",
                 "parameters" => array(),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
 

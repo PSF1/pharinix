@@ -71,6 +71,12 @@ if (!class_exists("commandGetNodeTypeList")) {
                 "parameters" => array(), 
                 "response" => array(
                     "types" => "Array with node type names.",
+                ),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "types" => "array",
+                    ),
                 )
             );
         }

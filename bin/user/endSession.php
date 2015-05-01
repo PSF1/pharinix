@@ -41,7 +41,11 @@ if (!class_exists("commandEndSession")) {
             return array(
                 "description" => "Close the user session.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

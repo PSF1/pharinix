@@ -65,6 +65,14 @@ if (!class_exists("commandIsBasicFieldType")) {
                 ), 
                 "response" => array(
                     "basic" => "True/False is a basic type"
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "type" => "string"
+                    ), 
+                    "response" => array(
+                        "basic" => "boolean"
+                    ),
                 )
             );
         }

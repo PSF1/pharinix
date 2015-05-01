@@ -112,6 +112,18 @@ if (!class_exists("commandTemplateEditorSave")) {
                 "response" => array(
                     "ok" => "TRUE if is ok.",
                     "msg" => "In case of error the error message.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "tpl" => "string",
+                        "name" => "string",
+                        "title" => "string",
+                        "head" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                    ),
                 )
             );
         }

@@ -51,7 +51,11 @@ if (!class_exists("commandUsageEnd")) {
             return array(
                 "description" => "Capture final resources consumed", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

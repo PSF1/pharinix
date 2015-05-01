@@ -231,6 +231,18 @@ if (!class_exists("commandAddNodeType")) {
                     "ok" => "True/False field added",
                     "msg" => "If error, it's a message about error",
                     "nid" => "ID of new node type",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "name" => "string",
+                        "locked" => "boolean",
+                        "label_field" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                        "nid" => "integer",
+                    ),
                 )
             );
         }

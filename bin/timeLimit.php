@@ -40,7 +40,13 @@ if (!class_exists("commandTimeLimit")) {
                 "parameters" => array(
                     "s" => "Seconds of new execution time limit. If is upper of 7200s, or is 0, the limit is set to 7200s.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "s" => "integer",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

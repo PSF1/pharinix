@@ -51,6 +51,16 @@ if (!class_exists("commandAddBooting")) {
                 ), 
                 "response" => array(
                     "uid" => "Unique ID to we can delete the boot command."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "command" => "string",
+                        "parameters" => "string",
+                        "priority" => "integer",
+                    ), 
+                    "response" => array(
+                        "uid" => "string"
+                    ),
                 )
             );
         }

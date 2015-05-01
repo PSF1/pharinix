@@ -207,6 +207,26 @@ if (!class_exists("commandAddNodeField")) {
                 "response" => array(
                     "ok" => "True/False field added",
                     "msg" => "If error, it's a message about error"
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "name" => "string",
+                        "type" => "string",
+                        "iskey" => "boolean",
+                        "len" => "integer",
+                        "required" => "boolean",
+                        "readonly" => "boolean",
+                        "locked" => "boolean",
+                        "multi" => "boolean",
+                        "node_type" => "string",
+                        "default" => "string",
+                        "label" => "string",
+                        "help" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string"
+                    ),
                 )
             );
         }

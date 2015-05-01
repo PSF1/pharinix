@@ -224,7 +224,11 @@ if (!class_exists("commandTemplateEditor")) {
             return array(
                 "description" => "Show template grid editor.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

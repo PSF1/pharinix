@@ -49,7 +49,14 @@ if (!class_exists("commandGetNodeHtml")) {
                     "type" => "Node type.",
                     "node" => "Node ID.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "type" => "string",
+                        "node" => "integer",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

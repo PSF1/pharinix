@@ -48,7 +48,11 @@ if (!class_exists("commandRewriteBasicList")) {
             return array(
                 "description" => "Echo a list of URLs in the system.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

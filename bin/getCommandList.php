@@ -65,7 +65,15 @@ if (!class_exists("commandGetCommandList")) {
                 ), 
                 "response" => array(
                     "commands" => "Result list"
-                    )
+                    ),
+                "type" => array(
+                    "parameters" => array(
+                        "startby" => "string",
+                    ), 
+                    "response" => array(
+                        "commands" => "array"
+                        ),
+                )
             );
         }
     }

@@ -87,6 +87,16 @@ if (!class_exists("commandDelNode")) {
                 "response" => array(
                     "ok" => "True/False node erased",
                     "msg" => "If error, it's a message about error",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nid" => "integer",
+                        "nodetype" => "string",
+                    ),
+                    "response" => array(
+                        "ok" => "boolean",
+                        "msg" => "string",
+                    ),
                 )
             );
         }

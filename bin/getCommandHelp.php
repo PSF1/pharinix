@@ -68,7 +68,13 @@ if (!class_exists("commandGetCommandHelp")) {
             return array(
                 "description" => "Command's help as array.", 
                 "parameters" => array(), 
-                "response" => array("help" => "Help grouped by bin path. array('bin/html' => array...)")
+                "response" => array("help" => "Help grouped by bin path. array('bin/html' => array...)"),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "help" => "array"
+                    ),
+                )
             );
         }
     }

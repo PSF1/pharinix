@@ -115,6 +115,19 @@ if (!class_exists("commandBatch")) {
                     "ok" => "If error is set to FALSE, else will be unset.",
                     "msg" => "If error is set to the error message, else will be unset. ",
                     "error" => "If error is set to a string with the command and her input parameters, else will be unset.",
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "starter" => "array",
+                        "commands" => "array",
+                        "echoed" => "string",
+                    ), 
+                    "response" => array(
+                        "any" => "args",
+                        "ok" => "boolean",
+                        "msg" => "string",
+                        "error" => "string",
+                    ),
                 )
             );
         }

@@ -54,7 +54,13 @@ if (!class_exists("commandDelPage")) {
                 "parameters" => array(
                     'name' => 'ID of page.',
                 ),
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        'name' => 'string',
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

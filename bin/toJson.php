@@ -56,8 +56,20 @@ if (!class_exists("commandToJSON")) {
         public static function getHelp() {
             return array(
                 "description" => "Translate parameters to JSON string.", 
-                "parameters" => array("some" => "It can receive any amount of parameters."), 
-                "response" => array("json" => "The json string.")
+                "parameters" => array(
+                    "some" => "It can receive any amount of parameters."
+                    ), 
+                "response" => array(
+                    "json" => "The json string."
+                    ),
+                "type" => array(
+                    "parameters" => array(
+                        "some" => "args"
+                        ), 
+                    "response" => array(
+                        "json" => "string"
+                        ),
+                )
             );
         }
     }

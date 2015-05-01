@@ -46,7 +46,11 @@ if (!class_exists("commandCaptureEndAll")) {
             return array(
                 "description" => "Ensure that all the echo buffer are close ignoring her contents.", 
                 "parameters" => array(), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(),
+                )
             );
         }
     }

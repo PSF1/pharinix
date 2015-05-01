@@ -113,6 +113,16 @@ if (!class_exists("commandChmodNode")) {
                 ), 
                 "response" => array(
                     "ok" => "TRUE if changed."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                        "nid" => "integer",
+                        "flags" => "integer",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean"
+                    ),
                 )
             );
         }

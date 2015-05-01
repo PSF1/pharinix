@@ -94,7 +94,24 @@ if (!class_exists("commandFormatFieldBool")) {
                     "label" => "Label.",
                     "help" => "Help to write forms.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "fieldname" => "string",
+                        "toread" => "boolean",
+                        "towrite" => "boolean",
+                        "value" => "string",
+                        "length" => "integer",
+                        "required" => "boolean",
+                        "readonly" => "boolean",
+                        "system" => "boolean",
+                        "multivalued" => "boolean",
+                        "default" => "string",
+                        "label" => "string",
+                        "help" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
         

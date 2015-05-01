@@ -39,6 +39,12 @@ if (!class_exists("commandRegisterDebug")) {
                 "parameters" => array(), 
                 "response" => array(
                     "val" => "The commandDriver register array."
+                ),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "val" => "array"
+                    ),
                 )
             );
         }

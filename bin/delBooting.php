@@ -42,7 +42,13 @@ if (!class_exists("commandDelBooting")) {
                 "parameters" => array(
                     "uid" => "Reference ID of the boot command,",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "uid" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

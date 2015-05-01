@@ -143,7 +143,13 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
                 "parameters" => array(
                     "nodetype" => "Node type name",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "nodetype" => "string",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

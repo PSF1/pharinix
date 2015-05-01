@@ -52,6 +52,12 @@ if (!class_exists("commandCaptureEnd")) {
                 "parameters" => array(), 
                 "response" => array(
                     "buffer" => "The string captured."
+                ),
+                "type" => array(
+                    "parameters" => array(), 
+                    "response" => array(
+                        "buffer" => "string"
+                    ),
                 )
             );
         }

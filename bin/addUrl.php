@@ -55,7 +55,17 @@ if (!class_exists("commandAddUrl")) {
                     "cmd" => "POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home"), 
                 "response" => array(
                     "ok" => "TRUE if new URL added.", 
-                    "msg" => "If FALSE contain the error message."),
+                    "msg" => "If FALSE contain the error message."
+                    ),
+                "type" => array(
+                    "parameters" => array(
+                        "url" => "string", 
+                        "cmd" => "string"), 
+                    "response" => array(
+                        "ok" => "boolean", 
+                        "msg" => "string"
+                        ),
+                )
             );
         }
     }

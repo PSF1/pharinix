@@ -71,7 +71,17 @@ if (!class_exists("commandAddFieldFormat")) {
                     "iswrite" => "Can format field to read & write.",
                     "isdefault" => "This formatter is the default formatter to this type.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "cmd" => "string",
+                        "type" => "string",
+                        "isread" => "boolean",
+                        "iswrite" => "boolean",
+                        "isdefault" => "boolean",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
         

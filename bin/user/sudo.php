@@ -68,6 +68,14 @@ if (!class_exists("commandSudo")) {
                 ), 
                 "response" => array(
                     "ok" => "TRUE if session started."
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        "user" => "string",
+                    ), 
+                    "response" => array(
+                        "ok" => "boolean"
+                    ),
                 )
             );
         }

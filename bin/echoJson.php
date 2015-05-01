@@ -42,7 +42,13 @@ if (!class_exists("commandEchoJSON")) {
             return array(
                 "description" => "Echo to browser the JSON representation of parameters, try to change the HTTP header to Content-type: application/json.", 
                 "parameters" => array("some" => "It can receive any amount of parameters."), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "some" => "args"
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }

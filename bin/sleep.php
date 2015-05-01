@@ -45,7 +45,13 @@ if (!class_exists("commandSleep")) {
                 "parameters" => array(
                     "s" => "Seconds to sleep, no more that 30.",
                 ), 
-                "response" => array()
+                "response" => array(),
+                "type" => array(
+                    "parameters" => array(
+                        "s" => "integer",
+                    ), 
+                    "response" => array(),
+                )
             );
         }
     }
