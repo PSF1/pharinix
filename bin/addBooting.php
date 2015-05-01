@@ -25,7 +25,7 @@ if (!class_exists("commandAddBooting")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                    "command" => "noting",
+                    "cmd" => "noting",
                     "parameters" => "",
                     "priority" => "0",
                 ), $params);
@@ -45,7 +45,7 @@ if (!class_exists("commandAddBooting")) {
             return array(
                 "description" => "Add a command, with parameters, to the boot process. This will executed with each user petition.", 
                 "parameters" => array(
-                    "command" => "Command to execute",
+                    "cmd" => "Command to execute",
                     "parameters" => "Post string to put in the command.",
                     "priority" => "Priority of execution.",
                 ), 
@@ -54,7 +54,7 @@ if (!class_exists("commandAddBooting")) {
                 ),
                 "type" => array(
                     "parameters" => array(
-                        "command" => "string",
+                        "cmd" => "string",
                         "parameters" => "string",
                         "priority" => "integer",
                     ), 
