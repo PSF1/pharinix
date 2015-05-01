@@ -213,24 +213,40 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         return $resp;
     }
     
-    public static function secFileToString($key) {
+    public static function secFileToString($key, $html = false) {
         $resp = "";
         
-        $resp .= "Owner:";
-        $resp .= $key & self::PERMISSION_FILE_OWNER_READ?"Read,":"";
-        $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?"Write,":"";
-        $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?"Execute":"";
-        
-        $resp .= " Group:";
-        $resp .= $key & self::PERMISSION_FILE_GROUP_READ?"Read,":"";
-        $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?"Write,":"";
-        $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?"Execute":"";
-        
-        $resp .= " All:";
-        $resp .= $key & self::PERMISSION_FILE_ALL_READ?"Read,":"";
-        $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?"Write,":"";
-        $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?"Execute":"";
-        
+        if (!$html) {
+            $resp .= "Owner:";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_READ?"Read,":"";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?"Write,":"";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?"Execute":"";
+
+            $resp .= " Group:";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_READ?"Read,":"";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?"Write,":"";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?"Execute":"";
+
+            $resp .= " All:";
+            $resp .= $key & self::PERMISSION_FILE_ALL_READ?"Read,":"";
+            $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?"Write,":"";
+            $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?"Execute":"";
+        } else {
+            $resp .= "Owner:";
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_READ, "Read");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_WRITE, "Write");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_EXECUTE, "Execute");
+
+            $resp .= " Group:";
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_READ, "Read");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_WRITE, "Write");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_EXECUTE, "Execute");
+
+            $resp .= " All:";
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_READ, "Read");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_WRITE, "Write");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_EXECUTE, "Execute");
+        }
         return $resp;
     }
     

@@ -67,7 +67,7 @@ if (!class_exists("commandManHTML")) {
                 echo "<ul>";
                 echo "<li><b>Owner</b>: ".driverUser::getUserName($inf["owner"])."</li>";
                 echo "<li><b>Group</b>: ".driverUser::getGroupName($inf["group"])."</li>";
-                echo "<li><b>Flags</b>: ".driverUser::secFileToString($inf["flags"])."</li>";
+                echo "<li><b>Flags</b>: ".driverUser::secFileToString($inf["flags"], true)."</li>";
                 echo "</ul>";
             }
         }
