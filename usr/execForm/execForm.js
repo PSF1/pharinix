@@ -105,7 +105,9 @@ $(document).ready(function(){
             interface: "echoJson",
         };
         for(var i = 1; i < frm.length; i = i+2) {
-            query[frm[i].value] = frm[i+1].value;
+            if (frm[i+1].value != "") {
+                query[frm[i].value] = frm[i+1].value;
+            }
         }
         execute(query, function(data){
             var resp = JSON.stringify(data, null, '\t');
