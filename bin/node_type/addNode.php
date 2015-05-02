@@ -34,9 +34,11 @@ if (!class_exists("commandAddNode")) {
             $params = array_merge(array(
                 "nodetype" => "",
                 "created" => date("Y-m-d H:i:s"),
-                "creator" => driverUser::getID(), // Asign the user ID
+                "creator" => driverUser::getID(), 
                 "modified" => date("Y-m-d H:i:s"), 
-                "modifier" => driverUser::getID(), // Asign the user ID
+                "modifier" => driverUser::getID(), 
+                "user_owner" => driverUser::getID(), 
+                "group_owner" => driverUser::getDefaultGroupID(), 
                     ), $params);
             if ($params["nodetype"] == "") { // Node type defined?
                 $resp["msg"] = "Node type required";
