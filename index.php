@@ -81,7 +81,10 @@ if ($_POST["interface"] == "1" || $_POST["interface"] == "echoHtml") {
     if (!isset($_POST["command"])) {
         $_POST["command"] = "nothing";
     }
-    $resp = driverCommand::run($_POST["command"], driverCommand::getPOSTParams($_POST));
+    $params = driverCommand::getPOSTParams($_POST);
+    unset($params["command"]);
+    unset($params["interface"]);
+    $resp = driverCommand::run($_POST["command"], $params);
     driverCommand::run($_POST["interface"], $resp);
 }
 
