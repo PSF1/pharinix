@@ -25,15 +25,21 @@ if (!class_exists("commandAddBooting")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                    "cmd" => "noting",
+                    "cmd" => null,
                     "parameters" => "",
                     "priority" => "0",
                 ), $params);
-            $sql = "insert into `booting` set `command` = '{$params["command"]}', ";
-            $sql .= "`parameters` = '{$params["parameters"]}', ";
-            $sql .= "`priority` = '{$params["priority"]}', ";
-            $sql .= "`ref` = '".uniqid("", true)."'";
-            dbConn::Execute($sql);
+            if ($params["cmd"] != null) {
+                $uid = uniqid("", true);
+                $sql = "insert into `booting` set `command` = '{$params["command"]}', ";
+                $sql .= "`parameters` = '{$params["parameters"]}', ";
+                $sql .= "`priority` = '{$params["priority"]}', ";
+                $sql .= "`ref` = '".$uid."'";
+                dbConn::Execute($sql);
+                return array("uid" => $uid);
+            } else {
+                return array("ok" => false, "msg" => "'cmd' parameter is required.");
+            }
         }
         
         public static function getAccess($ignore = "") {
