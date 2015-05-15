@@ -90,6 +90,7 @@ INSERT INTO `node_group` VALUES  (219,0,0,3904,0,NULL,0,NULL,'sudoers'),
  (1713,0,0,3904,0,'2015-04-18 12:02:01',0,'2015-04-18 12:02:01','testlogin2');
 CREATE TABLE `node_notes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `note` longtext,
   `modifier` int(10) unsigned DEFAULT '0',
   `modified` datetime DEFAULT NULL,
   `creator` int(10) unsigned DEFAULT '0',
@@ -100,10 +101,10 @@ CREATE TABLE `node_notes` (
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-INSERT INTO `node_notes` VALUES  (1,2,'2015-05-02 09:45:17',2,'2015-05-02 09:45:17',3904,0,0,'Note'),
- (2,2,'2015-05-02 09:49:09',2,'2015-05-02 09:49:09',3904,0,0,'Note'),
- (3,2,'2015-05-02 10:06:02',2,'2015-05-02 10:06:02',3904,0,0,'otra nota'),
- (4,2,'2015-05-02 10:11:45',2,'2015-05-02 10:11:45',3904,0,2,'a ver este....');
+INSERT INTO `node_notes` VALUES  (1,NULL,2,'2015-05-02 09:45:17',2,'2015-05-02 09:45:17',3904,0,0,'Note'),
+ (2,NULL,2,'2015-05-02 09:49:09',2,'2015-05-02 09:49:09',3904,0,0,'Note'),
+ (3,NULL,2,'2015-05-02 10:06:02',2,'2015-05-02 10:06:02',3904,0,0,'otra nota'),
+ (4,NULL,2,'2015-05-02 10:11:45',2,'2015-05-02 10:11:45',3904,0,2,'a ver este....');
 CREATE TABLE `node_nuevo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modifier` int(10) unsigned DEFAULT '0',
@@ -158,7 +159,7 @@ INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18
  (556,'group','2015-03-21 19:10:19',0,'2015-04-17 17:14:16',0,'1','title',0,0,3904),
  (8180,'otracosa','2015-04-11 17:59:42',0,'2015-04-11 17:59:42',0,'0','title',0,0,3904),
  (8935,'nuevo','2015-04-17 17:03:39',0,'2015-04-17 17:03:39',0,'0','title',0,0,3904),
- (11772,'notes','2015-05-02 09:44:01',0,'2015-05-02 09:44:01',0,'0','title',0,0,15);
+ (11772,'notes','2015-05-02 09:44:01',0,'2015-05-13 23:48:54',0,'0','title',0,0,15);
 CREATE TABLE `node_type_field` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -174,7 +175,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=112562 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=112563 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','1','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','1','1',556,'0','User creator','','0','0'),
@@ -235,7 +236,8 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (109350,'access','nodesec',0,'0','0','1',11772,'3904','Access','Access control flags.','0','0'),
  (109349,'group_owner','group',0,'0','0','1',11772,'0','Group','Owner group','0','0'),
  (109348,'user_owner','user',0,'0','0','1',11772,'0','Owner','Owner user','0','0'),
- (109347,'title','string',250,'1','0','0',11772,'','Title','A title string for this node.','0','0');
+ (109347,'title','string',250,'1','0','0',11772,'','Title','A title string for this node.','0','0'),
+ (112562,'note','longtext',0,'1','0','0',11772,'','Note','A long text','0','0');
 CREATE TABLE `node_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_owner` int(10) unsigned DEFAULT '0',
@@ -413,53 +415,22 @@ CREATE TABLE `url_rewrite` (
   `url` longtext,
   `rewriteto` longtext,
   `type` varchar(1) NOT NULL DEFAULT 'r',
+  `priority` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=51873 DEFAULT CHARSET=latin1;
-INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r'),
- (3,'help/command','command=pageToHTML&page=help/command','r'),
- (9945,'node/group/7','command=pageToHTML&page=node_type_group_7','r'),
- (13,'template/editor','command=pageToHTML&page=template/editor','r'),
- (14,'help/icons','command=pageToHTML&page=help/icons','r'),
- (9947,'node/group/8','command=pageToHTML&page=node_type_group_8','r'),
- (986,'node/type/algo','command=pageToHTML&page=node_type_algo','r'),
- (3209,'node/type/user','command=pageToHTML&page=node_type_user','r'),
- (3210,'node/type/group','command=pageToHTML&page=node_type_group','r'),
- (3489,'node/algo/1','command=pageToHTML&page=node_type_algo_1','r'),
- (9935,'node/group/2','command=pageToHTML&page=node_type_group_2','r'),
- (9937,'node/group/3','command=pageToHTML&page=node_type_group_3','r'),
- (9939,'node/group/4','command=pageToHTML&page=node_type_group_4','r'),
- (47493,'help/ui_elements','command=pageToHTML&page=help/ui','r'),
- (9941,'node/group/5','command=pageToHTML&page=node_type_group_5','r'),
- (21461,'node/group/65','command=pageToHTML&page=node_type_group_65','r'),
- (9943,'node/group/6','command=pageToHTML&page=node_type_group_6','r'),
- (21464,'node/user/67','command=pageToHTML&page=node_type_user_67','r'),
- (21462,'node/user/66','command=pageToHTML&page=node_type_user_66','r'),
- (9949,'node/group/9','command=pageToHTML&page=node_type_group_9','r'),
- (9951,'node/group/10','command=pageToHTML&page=node_type_group_10','r'),
- (21463,'node/group/66','command=pageToHTML&page=node_type_group_66','r'),
- (9953,'node/group/11','command=pageToHTML&page=node_type_group_11','r'),
- (9954,'node/user/1','command=pageToHTML&page=node_type_user_1','r'),
- (9955,'node/group/12','command=pageToHTML&page=node_type_group_12','r'),
- (9957,'node/group/13','command=pageToHTML&page=node_type_group_13','r'),
- (9959,'node/group/14','command=pageToHTML&page=node_type_group_14','r'),
- (9964,'node/user/2','command=pageToHTML&page=node_type_user_2','r'),
- (9963,'node/group/16','command=pageToHTML&page=node_type_group_16','r'),
- (9974,'node/user/23','command=pageToHTML&page=node_type_user_23','r'),
- (9973,'node/group/21','command=pageToHTML&page=node_type_group_21','r'),
- (47494,'help/forms','command=pageToHTML&page=help/forms','r'),
- (46945,'help/console','command=pageToHTML&page=home','r'),
- (46944,'help/formatters','command=pageToHTML&page=help/formatters','r'),
- (38998,'node/group/1713','command=pageToHTML&page=node_type_group_1713','r'),
- (38999,'node/user/1713','command=pageToHTML&page=node_type_user_1713','r'),
- (47492,'help/tabs_panels','command=pageToHTML&page=tab_panel','r'),
- (36405,'node/type/nuevo','command=pageToHTML&page=node_type_nuevo','r'),
- (33349,'node/user/1327','command=pageToHTML&page=node_type_user_1327','r'),
- (33348,'node/group/1327','command=pageToHTML&page=node_type_group_1327','r'),
- (32864,'node/type/otracosa','command=pageToHTML&page=node_type_otracosa','r'),
- (50231,'node/type/notes','command=pageToHTML&page=node_type_notes','r'),
- (51324,'node/$type/$id','nothing','m'),
- (51326,'node/$type/$id/json','command=getNode&nodetype=$type&node=$id&interface=echoJson','m');
+) ENGINE=MyISAM AUTO_INCREMENT=51874 DEFAULT CHARSET=latin1;
+INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r',0),
+ (3,'help/command','command=pageToHTML&page=help/command','r',0),
+ (13,'template/editor','command=pageToHTML&page=template/editor','r',0),
+ (14,'help/icons','command=pageToHTML&page=help/icons','r',0),
+ (47493,'help/ui_elements','command=pageToHTML&page=help/ui','r',0),
+ (47494,'help/forms','command=pageToHTML&page=help/forms','r',0),
+ (46945,'help/console','command=pageToHTML&page=home','r',0),
+ (46944,'help/formatters','command=pageToHTML&page=help/formatters','r',0),
+ (47492,'help/tabs_panels','command=pageToHTML&page=tab_panel','r',0),
+ (51324,'node/$type/$id','command=pageToHTML&page=node_type_$type_$id','m',0),
+ (51873,'node/type/$type','command=pageToHTML&page=node_type_$type','m',10),
+ (51326,'node/$type/$id/json','command=getNode&nodetype=$type&node=$id&interface=echoJson','m',0);
 
 
 

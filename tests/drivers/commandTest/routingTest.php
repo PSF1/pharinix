@@ -91,5 +91,12 @@ class routingTest extends PHPUnit_Framework_TestCase {
         $mapped = $this->dummyGetRewritedUrl("node/user/23/json", 
                 'node/$id/$type/json', 'node=$id');
         $this->assertEquals("node=user", $mapped);
+        // Variable embed in command
+        $mapped = $this->dummyGetRewritedUrl("node/user/23/json", 
+                'node/$type/$id/json', 'node=$id_$type');
+        $this->assertEquals("node=23_user", $mapped);
+        $mapped = $this->dummyGetRewritedUrl("node/type/user", 
+                'node/type/$type', 'command=pageToHTML&page=node_type_$type');
+        $this->assertEquals("command=pageToHTML&page=node_type_user", $mapped);
     }
 }

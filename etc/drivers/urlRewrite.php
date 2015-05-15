@@ -92,7 +92,7 @@ class driverUrlRewrite {
         $parts = explode("/", $url);
         $nparts = count($parts);
         $where = '(@nvars:=ROUND((CHAR_LENGTH(`url`)-CHAR_LENGTH(REPLACE(`url`,"$","")))/CHAR_LENGTH("$"))) and @nvars > 0 && @nvars <= '.$nparts;
-        $sql = "SELECT * FROM `url_rewrite` where $where";
+        $sql = "SELECT * FROM `url_rewrite` where $where order by priority desc";
         $q = $db->Execute($sql);
         if (!$q->EOF) {
             // Find the correct map
