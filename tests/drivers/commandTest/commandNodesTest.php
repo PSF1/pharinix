@@ -954,7 +954,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
             ));
         $this->assertTrue($resp["nid"] > 0);
         $resp = driverCommand::run("isUrl", array("url" => "node/testtype/".$resp["nid"]));
-        $this->assertTrue($resp["ok"]);
+        $this->assertFalse($resp["ok"]); // With URL mapping this is not necesary.
         // Clean data base
         $this->cleanDatabase($id);
     }

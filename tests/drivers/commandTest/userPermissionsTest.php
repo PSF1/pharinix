@@ -65,6 +65,14 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     }
 
     // Sessions
+    public function testUserHaveGroup() {
+        driverUser::logOut();
+        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        // Tests
+        $this->assertTrue(driverUser::haveGroup("testlogin"));
+        $this->assertFalse(driverUser::haveGroup("sudoers"));
+    }
+    
     public function testSessionAutoStart_Guest() {
         driverUser::logOut();
         driverUser::sessionStart();

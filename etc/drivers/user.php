@@ -382,6 +382,30 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     }
     
     /**
+     * Have the user this group?
+     * @param string $grp Group name
+     * @return boolean
+     */
+    public static function haveGroup($grp) {
+        $sid = self::getGroupID($grp);
+        return array_search($sid, $_SESSION["user_groups"]) !== false;
+    }
+    /**
+     * Group ID
+     * @param string $grp Group name
+     * @return integer FALSE if not found.
+     */
+    public static function getGroupID($grp) {
+        $sql = "select `id` from `node_group` where `title` = '$grp'";
+        $q = dbConn::Execute($sql);
+        if (!$q->EOF) {
+            return $q->fields["id"];
+        } else {
+            return false;
+        }
+    }
+    
+    /**
      * Have user sudoers group?
      * @return boolean
      */
