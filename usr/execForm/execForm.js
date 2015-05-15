@@ -28,11 +28,13 @@ function loadCmdDef(cmd, callback) {
     }).done(callback);    
 }
 
-function execute(query, callback) {
+function execute(query, dataType, callback) {
+    $("#response").html("...");
     $.ajax({
         type: "POST",
         url:  PHARINIX_ROOT_URL,
-        data: query
+        data: query,
+        dataType: dataType,
     }).done(callback);    
 }
 
@@ -54,6 +56,31 @@ function addParamToTable(name, type, help, defValue) {
     html += "</td>";
     html += "<td>";
     html += '<input class="form-control" name="pvalue[]" type="text" value="'+defValue+'">';
+    html += "</td>";
+    html += "</tr>";
+    if (help) {
+        
+    }
+    
+    $('#paramsTable > tbody:last').append(html);
+}
+
+function addInterfaceToTable(name, type, help, defValue) {
+    if(!defValue) defValue = "";
+    var html = "<tr>";
+    html += "<td>";
+    
+    html += '<a href="#" data-toggle="tooltip" title="'+help+'"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a> ';
+    html += '<input name="pname[]" type="hidden" value="'+name+'">';
+    html += '<b>'+name+'</b> <span class="badge">'+type+'</span>';
+        
+    html += "</td>";
+    html += "<td>";
+    html += '<select class="form-control" name="pvalue[]" >';
+    html += '<option value="echoHtml" '+(defValue=='echoHtml'?"selected":"")+'>HTML</option>';
+    html += '<option value="echoJson" '+(defValue=='echoJson'?"selected":"")+'>JSON</option>';
+//    html += '<option value="echoXml" '+(defValue=='echoXml'?"selected":"")+'>XML</option>';
+    html += '</select>';
     html += "</td>";
     html += "</tr>";
     if (help) {
@@ -85,7 +112,7 @@ $(document).ready(function(){
             var cmdHelp = data.help[cmd];
             $("#cmdHelp").html(cmdHelp.description);
             clearParamsTable();
-            addParamToTable("interface", "string", "Interface to use","echoJson");
+            addInterfaceToTable("interface", "string", "Required server MIME type interface to use","echoJson");
             $.each(cmdHelp.type.parameters, function(name, type){
                 if (type != "args") {
                     addParamToTable(name, type, cmdHelp.parameters[name]);
@@ -109,8 +136,23 @@ $(document).ready(function(){
                 query[frm[i].value] = frm[i+1].value;
             }
         }
-        execute(query, function(data){
-            var resp = JSON.stringify(data, null, '\t');
+        var dataType = "json";
+        switch(query.interface) {
+            case "echoJson":
+                dataType = null;
+            default:
+                dataType = "text";
+                break;
+        }
+        execute(query, dataType, function(data){
+            var resp = data;
+            switch(query.interface) {
+                case "echoJson":
+                    resp = JSON.stringify(JSON.parse(data), null, '\t');
+                case "echoXml":
+                    resp = "<pre>" + resp + "</pre>";
+                    break;
+            }
             $("#response").html(resp);
         });
     });
