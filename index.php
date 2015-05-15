@@ -41,6 +41,11 @@ if (CMS_DEBUG) {
     $output["used_time"]["start"] = $mtime;
 }
 new driverUrlRewrite();
+
+if (!isset($_POST["interface"])) {
+    $_POST["interface"] = "echoHtml";
+}
+
 // Boot process
 $boot = driverCommand::run("listBooting");
 foreach($boot as $cmd) {
@@ -49,10 +54,6 @@ foreach($boot as $cmd) {
     driverCommand::run($cmd["command"], $prms);
 }
 unset($boot);
-
-if (!isset($_POST["interface"])) {
-    $_POST["interface"] = "echoHtml";
-}
 
 // "GET" fusion with "POST"
 foreach ($_GET as $key => $value) {
