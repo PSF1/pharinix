@@ -46,6 +46,11 @@ if (!isset($_POST["interface"])) {
     $_POST["interface"] = "echoHtml";
 }
 
+// "GET" fusion with "POST"
+foreach ($_GET as $key => $value) {
+    $_POST[$key] = $value;
+}
+
 // Boot process
 $boot = driverCommand::run("listBooting");
 foreach($boot as $cmd) {
@@ -55,10 +60,6 @@ foreach($boot as $cmd) {
 }
 unset($boot);
 
-// "GET" fusion with "POST"
-foreach ($_GET as $key => $value) {
-    $_POST[$key] = $value;
-}
 // Default command
 if ($_POST["interface"] == "1" || $_POST["interface"] == "echoHtml") {
     $page = "home"; // Default page
