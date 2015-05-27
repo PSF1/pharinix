@@ -493,6 +493,21 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         }
     }
     
+    /**
+     * Get user ID searching by mail.
+     * @param string $mail User mail to find
+     * @return string|boolean False if not found.
+     */
+    public static function getUserIDByMail($mail) {
+        $sql = "select `id` from `node_user` where `mail` = '".$mail."'";
+        $q = dbConn::Execute($sql);
+        if ($q->EOF) {
+            return false;
+        } else {
+            return $q->fields["id"];
+        }
+    }
+    
     public static function getGroupName($id) {
         if ($id == 0) return "root";
         $sql = "select `title` from `node_group` where `id` = ".$id;
