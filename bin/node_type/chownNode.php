@@ -66,24 +66,16 @@ if (!class_exists("commandChownNode")) {
             if ($params["owner"] != null && $params["owner"] != "0") {
                 if (!is_int($params["owner"])) {
                     // Owner is a mail
-                    $resp = driverCommand::run("getNodes", array(
-                        "nodetype" => "user",
-                        "fields" => "id",
-                        "where" => "`mail` = '".$params["owner"]."'",
-                    ));
-                    if (count($resp) == 0) {
+                    $resp = driverUser::getUserIDByMail($params["owner"]);
+                    if ($resp === false) {
                         return array("ok" => false, "msg" => "Bad user id.");
                     } else {
-                        $ids = array_keys($resp);
-                        $owner = $ids[0];
+                        $owner = $resp;
                     }
                 } else {
                     // Owner is a ID
-                    $resp = driverCommand::run("getNode", array(
-                        "nodetype" => "user",
-                        "node" => $params["owner"],
-                    ));
-                    if (count($resp) == 0) {
+                    $resp = driverUser::getUserName($params["owner"]);
+                    if ($resp == "unknown") {
                         return array("ok" => false, "msg" => "Bad user id.");
                     }
                     $owner = $params["owner"];
@@ -92,24 +84,16 @@ if (!class_exists("commandChownNode")) {
             if ($params["group"] != null && $params["group"] != "0") {
                 if (!is_int($params["group"])) {
                     // group is a title
-                    $resp = driverCommand::run("getNodes", array(
-                        "nodetype" => "group",
-                        "fields" => "id",
-                        "where" => "`title` = '".$params["group"]."'",
-                    ));
-                    if (count($resp) == 0) {
+                    $resp = driverUser::getGroupID($params["group"]);
+                    if ($resp === false) {
                         return array("ok" => false, "msg" => "Bad group id.");
                     } else {
-                        $ids = array_keys($resp);
-                        $group = $ids[0];
+                        $group = $resp;
                     }
                 } else {
                     // group is a ID
-                    $resp = driverCommand::run("getNode", array(
-                        "nodetype" => "group",
-                        "node" => $params["group"],
-                    ));
-                    if (count($resp) == 0) {
+                    $resp = driverUser::getGroupName($params["group"]);
+                    if ($resp == "unknown") {
                         return array("ok" => false, "msg" => "Bad group id.");
                     }
                     $group = $params["group"];
