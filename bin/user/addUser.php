@@ -84,9 +84,10 @@ if (!class_exists("commandAddUser")) {
                             if ($uid["ok"]) {
                                 $resp["nid"] = $uid["nid"];
                                 // Each user own himself
-                                driverCommand::run("updateNode", array(
+                                driverCommand::run("chownNode", array(
                                     "nodetype" => "user",
-                                    "user_owner" => $resp["nid"],
+                                    "nid" => $resp["nid"],
+                                    "owner" => $params["mail"],
                                 ));
                                 $resp["ok"] = true;
                             } else {

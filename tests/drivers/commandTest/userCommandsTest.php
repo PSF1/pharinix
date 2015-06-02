@@ -113,6 +113,11 @@ class userCommandsTest extends PHPUnit_Framework_TestCase {
         $sql = "SELECT `id` FROM `node_user` where `mail` = 'example@localhost'";
         $q = dbConn::Execute($sql);
         $this->assertFalse($q->EOF);
+        // Each user own himself
+        $sql = "SELECT `user_owner` FROM `node_user` where `mail` = 'example@localhost'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        $this->assertEquals($resp["nid"], $q->fields["user_owner"]);
         // Delete user
         driverCommand::run("delUser", array(
             "mail" => "example@localhost",
