@@ -31,7 +31,7 @@ if (!class_exists("commandAddBooting")) {
                 ), $params);
             if ($params["cmd"] != null) {
                 $uid = uniqid("", true);
-                $sql = "insert into `booting` set `command` = '{$params["command"]}', ";
+                $sql = "insert into `booting` set `command` = '{$params["cmd"]}', ";
                 $sql .= "`parameters` = '{$params["parameters"]}', ";
                 $sql .= "`priority` = '{$params["priority"]}', ";
                 $sql .= "`ref` = '".$uid."'";
