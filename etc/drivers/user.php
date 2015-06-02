@@ -456,11 +456,15 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     /**
      * User ID.<br>
      * ID of -1 is root user.
+     * @param boolean $real If true always it return real ID, if false and the user is sudoed return 0. Default false.
      * @return int
      */
-    public static function getID() {
+    public static function getID($real = false) {
         if (!isset($_SESSION) || !isset($_SESSION["user_id"])) {
             return 0;
+        }
+        if ($real && self::isSudoed()) {
+            return $_SESSION["sudo_user_id"];
         }
         return $_SESSION["user_id"];
     }

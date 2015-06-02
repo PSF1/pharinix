@@ -149,6 +149,10 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         ));
         $this->assertEquals($usrKeys[0], $_SESSION["sudo_user_id"]);
         $this->assertEquals(0, $_SESSION["user_id"]);
+        // Test driverUser::getID(true)
+        $this->assertEquals($usrKeys[0], driverUser::getID(true));
+        // Test driverUser::getID(false)
+        $this->assertEquals(0, driverUser::getID());
         
         $this->assertTrue(count($_SESSION["user_groups"]) > 0);
         $this->assertEquals(0, $_SESSION["user_groups"][0]);
