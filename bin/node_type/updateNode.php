@@ -23,8 +23,6 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-// TODO: SECURITY !!
-
 if (!class_exists("commandUpdateNodes")) {
     class commandUpdateNodes extends driverCommand {
 
@@ -39,27 +37,43 @@ if (!class_exists("commandUpdateNodes")) {
                 "modifier" => driverUser::getID(),
                     ), $params);
             
-            if ($params["nid"] == "") {
-                $resp["msg"] = "Node ID required";
-                return $resp;
-            } else {
-                $eof = true;
-                try {
-                    $sql = "select `id` from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
-                    $q = dbConn::Execute($sql);
-                    $eof = $q->EOF;
-                } catch (Exception $ex) {
-                    $eof = true;
-                }
-                if ($eof) {
-                    $resp["msg"] = "Unknowed node ID";
-                    return $resp;
-                }
-            }
-            
             if ($params["nodetype"] == "") { // Node type defined?
                 $resp["msg"] = "Node type required";
             } else {
+                // Erase insecure parameters for user nodes
+                if (!driverUser::isSudoed() && $params["nodetype"] == "user") {
+                    unset($params["groups"]);
+                }
+                // Erase insecure parameters for nodes
+                unset($params["access"]);
+                unset($params["user_owner"]);
+                unset($params["group_owner"]);
+                // 
+                $nodeAccess = 0;
+                $nodeUser_owner = 0;
+                $nodeGroup_owner = 0;
+                if ($params["nid"] == "") {
+                    $resp["msg"] = "Node ID required";
+                    return $resp;
+                } else {
+                    $eof = true;
+                    try {
+                        $sql = "select `id`, `access`, `user_owner`, `group_owner` from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
+                        $q = dbConn::Execute($sql);
+                        $eof = $q->EOF;
+                        if (!$eof) {
+                            $nodeAccess = $q->fields["access"];
+                            $nodeUser_owner = $q->fields["user_owner"];
+                            $nodeGroup_owner = $q->fields["group_owner"];
+                        }
+                    } catch (Exception $ex) {
+                        $eof = true;
+                    }
+                    if ($eof) {
+                        $resp["msg"] = "Unknowed node ID";
+                        return $resp;
+                    }
+                }
                 $ntid = driverCommand::run("getNodeTypeId", array("name" => $params["nodetype"]));
                 $ndefFields = driverCommand::run("getNodeTypeDef", $params);
                 $ntid = $ndefFields["id"];
@@ -69,9 +83,14 @@ if (!class_exists("commandUpdateNodes")) {
                     // -------------------------------
                     // Access control
                     $usrGrps = driverUser::getGroupsID();
-                    $allowed = driverUser::secNodeCanUpdate($ndefFields["access"], 
+                    $allowed = driverUser::secNodeCanUpdate($nodeAccess, 
+                            $nodeUser_owner == driverUser::getID(), 
+                            array_search($nodeGroup_owner, $usrGrps) !== FALSE);
+                    if (!$allowed) {
+                        $allowed = driverUser::secNodeCanUpdate($ndefFields["access"], 
                             $ndefFields["user_owner"] == driverUser::getID(), 
                             array_search($ndefFields["group_owner"], $usrGrps) !== FALSE);
+                    }
                     if ($allowed) {
                         $ndefFields = $ndefFields["fields"];
                         // Required fields presents? (required or iskey)

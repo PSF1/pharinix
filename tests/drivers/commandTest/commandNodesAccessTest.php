@@ -400,17 +400,18 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run("chownNode", array(
             "nodetype" => "test",
             "owner" => "testlogin@localhost",
+            "nid" => 1,
         ));
         driverUser::sudo(false);
         // User login
         driverUser::logIn("testlogin@localhost", md5("testlogin"));
-        // User add a node
+        // Update a node
         $resp = driverCommand::run("updateNode", array(
             "nodetype" => "test",
             "title" => "NODE 50",
             "nid" => 1
            ));
-        // Verify that the node is added
+        // Verify that the node is updated
         $sql = "select * from `node_test` where `title` = 'NODE 50'";
         $q = dbConn::Execute($sql);
         $this->assertFalse($q->EOF);
@@ -555,6 +556,11 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
     
     // Owner can read only her nodes
     public function testOwnerCanReadNodes() {
+        driverUser::sudo();
+        $resp = driverCommand::run("getNodes", array(
+            "nodetype" => "test",
+        ));
+        driverUser::sudo(false);
         // User login
         driverUser::logIn("testlogin@localhost", md5("testlogin"));
         // Read
