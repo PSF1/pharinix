@@ -144,15 +144,15 @@ if (!class_exists("commandChownNode")) {
                             $can["group_owner"] = $group;
                         }
                         // Change ownership
-                        $resp = driverCommand::run("updateNode", array(
-                            "nodetype" => $nodetype,
-                            "user_owner" => $can["user_owner"],
-                            "group_owner" => $can["group_owner"],
-                            "nid" => $params["nid"],
-                        ));
-                        if (isset($resp["ok"]) && $resp["ok"] === false) {
-                            return $resp;
-                        }
+                        $sql = "update `node_$nodetype` set ";
+                        $sql .= "`user_owner` = {$can["user_owner"]}, ";
+                        $sql .= "`group_owner` = {$can["group_owner"]}, ";
+                        $sql .= "`access` = {$can["access"]} ";
+                        $sql .= "where `id` = '".$params["nid"]."'";
+                        dbConn::Execute($sql);
+//                        if (isset($resp["ok"]) && $resp["ok"] === false) {
+//                            return $resp;
+//                        }
                         $resp = array("ok" => true);
                     } else {
                         $resp = array("ok" => false, "msg" => "You need ownership.");

@@ -83,14 +83,13 @@ if (!class_exists("commandChmodNode")) {
                     $ids = array_keys($can);
                     if (driverUser::getID() == 0 || driverUser::getID() == $can["user_owner"]) {
                         // Change node flags
-                        $resp = driverCommand::run("updateNode", array(
-                            "nodetype" => $nodetype,
-                            "access" => $params["flags"],
-                            "nid" => $params["nid"],
-                        ));
-                        if (isset($resp["ok"]) && $resp["ok"] === false) {
-                            return $resp;
-                        }
+                        $sql = "update `node_$nodetype` set ";
+                        $sql .= "`access` = {$params["flags"]} ";
+                        $sql .= "where `id` = '".$params["nid"]."'";
+                        dbConn::Execute($sql);
+//                        if (isset($resp["ok"]) && $resp["ok"] === false) {
+//                            return $resp;
+//                        }
                         $resp = array("ok" => true);
                     } else {
                         $resp = array("ok" => false, "msg" => "You need ownership.");
