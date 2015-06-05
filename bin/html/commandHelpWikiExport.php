@@ -27,6 +27,10 @@ if (!class_exists("commandCommandHelpWikiExport")) {
             $params = array_merge(array(
                 "path" => "C:\Users\psf\Documents\github\pharinix.wiki\Command's-help.md", 
             ), $params);
+            $fInfo = driverTools::pathInfo($params["path"]);
+            if (!is_dir($fInfo["path"])) {
+                return;
+            }
             try {
                 $sql = "SELECT * FROM `bin-path`";
                 $q = dbConn::Execute($sql);
