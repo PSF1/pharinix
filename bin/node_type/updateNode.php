@@ -33,8 +33,6 @@ if (!class_exists("commandUpdateNodes")) {
             $params = array_merge(array(
                 "nodetype" => "",
                 "nid" => "",
-                "modified" => date("Y-m-d H:i:s"), 
-                "modifier" => driverUser::getID(),
                     ), $params);
             
             if ($params["nodetype"] == "") { // Node type defined?
@@ -48,6 +46,13 @@ if (!class_exists("commandUpdateNodes")) {
                 unset($params["access"]);
                 unset($params["user_owner"]);
                 unset($params["group_owner"]);
+                unset($params["modifier"]);
+                unset($params["modified"]);
+                unset($params["creator"]);
+                unset($params["created"]);
+                $params["modifier"] = driverUser::getID(true);
+                $params["modified"] = date("Y-m-d H:i:s");
+                
                 // 
                 $nodeAccess = 0;
                 $nodeUser_owner = 0;
