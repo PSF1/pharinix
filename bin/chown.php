@@ -34,7 +34,7 @@ if (!class_exists("commandChown")) {
             $group = null;
             // Detect wrong values
             if ($params["owner"] != null) {
-                if (!is_int($params["owner"])) {
+                if (!is_numeric($params["owner"])) {
                     // Owner is a mail
                     $resp = driverUser::getUserIDByMail($params["owner"]);
                     if ($resp === false) {
@@ -52,7 +52,7 @@ if (!class_exists("commandChown")) {
                 }
             }
             if ($params["group"] != null) {
-                if (!is_int($params["group"])) {
+                if (!is_numeric($params["group"])) {
                     // group is a title
                     $resp = driverUser::getGroupID($params["group"]);
                     if ($resp === false) {

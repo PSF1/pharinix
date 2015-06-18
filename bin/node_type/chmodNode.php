@@ -32,7 +32,7 @@ if (!class_exists("commandChmodNode")) {
             $nodetype = null;
             // Detect wrong values
             if ($params["nodetype"] != null) {
-                if (!is_int($params["nodetype"])) {
+                if (!is_numeric($params["nodetype"])) {
                     // Node type is a name
                     $resp = driverCommand::run("getNodeTypeId", array(
                         "name" => $params["nodetype"],

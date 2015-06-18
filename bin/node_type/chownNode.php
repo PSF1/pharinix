@@ -41,7 +41,7 @@ if (!class_exists("commandChownNode")) {
             }
             // Detect wrong values
             if ($params["nodetype"] != null) {
-                if (!is_int($params["nodetype"])) {
+                if (!is_numeric($params["nodetype"])) {
                     // Node type is a name
                     $resp = driverCommand::run("getNodeTypeId", array(
                         "name" => $params["nodetype"],
@@ -64,7 +64,7 @@ if (!class_exists("commandChownNode")) {
                 return array("ok" => false, "msg" => "Node type is required.");
             }
             if ($params["owner"] != null && $params["owner"] != "0") {
-                if (!is_int($params["owner"])) {
+                if (!is_numeric($params["owner"])) {
                     // Owner is a mail
                     $resp = driverUser::getUserIDByMail($params["owner"]);
                     if ($resp === false) {
@@ -82,7 +82,7 @@ if (!class_exists("commandChownNode")) {
                 }
             }
             if ($params["group"] != null && $params["group"] != "0") {
-                if (!is_int($params["group"])) {
+                if (!is_numeric($params["group"])) {
                     // group is a title
                     $resp = driverUser::getGroupID($params["group"]);
                     if ($resp === false) {
