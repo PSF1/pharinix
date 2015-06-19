@@ -149,7 +149,7 @@ $(document).ready(function(){
             switch(query.interface) {
                 case "echoJson":
                     resp = JSON.stringify(JSON.parse(data), null, '\t');
-                    resp = adv.replace(/\</g, '&lt;');
+                    resp = resp.replace(/\</g, '&lt;');
                 case "echoXml":
                     resp = "<pre>" + resp + "</pre>";
                     break;
