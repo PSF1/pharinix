@@ -33,16 +33,25 @@ if (!class_exists("commandAddNode")) {
             // Default values
             $params = array_merge(array(
                 "nodetype" => "",
-                "created" => date("Y-m-d H:i:s"),
-                "creator" => driverUser::getID(), 
-                "modified" => date("Y-m-d H:i:s"), 
-                "modifier" => driverUser::getID(), 
-                "user_owner" => driverUser::getID(), 
-                "group_owner" => driverUser::getDefaultGroupID(), 
                     ), $params);
             if ($params["nodetype"] == "") { // Node type defined?
                 $resp["msg"] = "Node type required";
             } else {
+                // Erase insecure parameters for nodes
+                unset($params["access"]);
+                unset($params["user_owner"]);
+                unset($params["group_owner"]);
+                unset($params["modifier"]);
+                unset($params["modified"]);
+                unset($params["creator"]);
+                unset($params["created"]);
+                $params["modifier"] = driverUser::getID(true);
+                $params["modified"] = date("Y-m-d H:i:s");
+                $params["created"] = date("Y-m-d H:i:s");
+                $params["creator"] = driverUser::getID();
+                $params["user_owner"] = driverUser::getID();
+                $params["group_owner"] = driverUser::getDefaultGroupID();
+                
                 // Verify node type
                 $typeDef = driverCommand::run("getNodeTypeDef", array(
                     "nodetype" => $params["nodetype"],

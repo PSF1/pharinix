@@ -25,8 +25,9 @@ if (!class_exists("commandGetBaseJS")) {
 
         public static function runMe(&$params, $debug = true) {
             header("Content-Type:application/javascript");
-            echo "var PHARINIX_ROOT_URL = '".CMS_DEFAULT_URL_BASE."';\n";
-            echo "$(document).tooltip({selector: \"[data-toggle=tooltip]\",container: \"body\"})";
+            $js = file_get_contents('etc/templates/pharinix/baseJS.js');
+            $js = str_replace('{$$CMS_DEFAULT_URL_BASE}', CMS_DEFAULT_URL_BASE, $js);
+            echo $js;
         }
 
         public static function getAccess($ignore = "") {
