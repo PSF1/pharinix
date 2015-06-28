@@ -52,11 +52,15 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $cfg = new driverConfigIni('tests/drivers/cfg_ini/start_new_line.ini');
         $ind = 0;
         $resps = array(
+            "\n",
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "value",
+            "\n",
             false
         );
         do {
@@ -71,10 +75,13 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "\"value value value value value value \nvalue value value value value \"",
+            "\n",
             false
         );
         do {
@@ -89,10 +96,13 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "'value value value value value value \nvalue value value value value '",
+            "\n",
             false
         );
         do {
@@ -107,10 +117,13 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "\"value 'value' value value value value \nvalue value value value value \"",
+            "\n",
             false
         );
         do {
@@ -125,8 +138,11 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
+            "\n",
             "key2",
             "=",
             "value",
@@ -144,11 +160,14 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "1",
             "; A comment",
+            "\n",
             "key1",
             "=",
             "; Other comment",
@@ -166,7 +185,9 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "\"1 ; A comment\nkey = ; Other comment\"",
@@ -200,10 +221,13 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $ind = 0;
         $resps = array(
             "; this is an INI file",
+            "\n",
             "[section]",
+            "\n",
             "key",
             "=",
             "1",
+            "\n",
             "key",
             "=",
             "2",
@@ -286,8 +310,8 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
     public function testParse_no_value() {
         $cfg = new driverConfigIni('tests/drivers/cfg_ini/no_value.ini');
         $cfg->parse();
-        $this->assertEquals("key2", $cfg->getSection('[section]')->get('key'));
-        $this->assertEquals('"=" not espected.', $cfg->getError());
+        $this->assertEquals("", $cfg->getSection('[section]')->get('key'));
+        $this->assertEquals("value", $cfg->getSection('[section]')->get('key2'));
     }
     
     public function testParse_php_head() {
@@ -322,5 +346,34 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $cfg->parse();
         $this->assertEquals("value", $cfg->getSection('[section]')->get('key'));
         $this->assertEquals("value", $cfg->getSection('[section 2]')->get('key'));
+    }
+    
+    public function testParse_two_sections_set_value() {
+        $cfg = new driverConfigIni('tests/drivers/cfg_ini/two_sections.ini');
+        $cfg->parse();
+        $this->assertEquals("value", $cfg->getSection('[section]')->get('key'));
+        $this->assertEquals("value", $cfg->getSection('[section 2]')->get('key'));
+        $cfg->getSection('[section 2]')->set('key', '"new value"');
+        $this->assertEquals('new value', $cfg->getSection('[section 2]')->get('key'));
+    }
+    
+    public function testParse_save() {
+        $testfile = 'tests/drivers/cfg_ini/save_test.ini';
+        if (is_file($testfile)) {
+            unlink($testfile);
+        }
+        $cfg = new driverConfigIni('tests/drivers/cfg_ini/two_sections.ini');
+        $cfg->parse();
+        $cfg->getSection('[section 2]')->set('key', "'new value\nnew line'");
+        $cfg->getSection('[section 2]')->set('key2', "2");
+        $cfg->save($testfile);
+        // Saved?
+        $this->assertTrue(is_file($testfile));
+        // Test values
+        $cfg = new driverConfigIni($testfile);
+        $cfg->parse();
+        $this->assertEquals("value", $cfg->getSection('[section]')->get('key'));
+        $this->assertEquals("new value\nnew line", $cfg->getSection('[section 2]')->get('key'));
+        $this->assertEquals("2", $cfg->getSection('[section 2]')->get('key2'));
     }
 }

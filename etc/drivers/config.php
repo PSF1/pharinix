@@ -113,6 +113,26 @@ class driverConfigIni {
         }
     }
     
+    public function save($file = '') {
+        if ($file == '') {
+            $file = $this->file;
+        }
+        $h = fopen($file, 'wb+');
+        foreach($this->sections as $name => $section) {
+            if ($name != ' ') {
+                fwrite($h, $name);
+            }
+            foreach($section->getLines() as $line) {
+                if ($line instanceof driverConfigIniComment) {
+                    fwrite($h, $line->line);
+                } else if ($line instanceof driverConfigIniPair) {
+                    fwrite($h, $line->key . " = " . $line->value);
+                }
+            }
+        }
+        fclose($h);
+    }
+    
     /**
      * Parse the file to memory
      */
@@ -133,8 +153,10 @@ class driverConfigIni {
                 }
                 $activeSection = $this->sections[$line];
                 $waitingKey = true;
-            } else if (driverTools::str_start(";", $line)) {
-                $activeSection->add($line);
+            } else if (driverTools::str_start(";", $line) || $line == "\n") {
+                $cm = new driverConfigIniComment();
+                $cm->line = $line;
+                $activeSection->add($cm);
                 $waitingKey = true;
             } else {
                 if ($waitingKey) {
@@ -190,6 +212,7 @@ class driverConfigIni {
                     break;
                 case "'": // String value
                     if ($mode == self::LEX_MODE_STRING_SINGLE_VALUE) {
+                        ++$this->lexInd;
                         return "'".$resp."'";
                     }
                     if ($mode != self::LEX_MODE_STRING_VALUE) {
@@ -200,6 +223,7 @@ class driverConfigIni {
                     break;
                 case '"': // String value
                     if ($mode == self::LEX_MODE_STRING_VALUE) {
+                        ++$this->lexInd;
                         return '"'.$resp.'"';
                     }
                     if ($mode != self::LEX_MODE_STRING_SINGLE_VALUE) {
@@ -230,7 +254,12 @@ class driverConfigIni {
                     } else if ($mode == self::LEX_MODE_STRING_VALUE || $mode == self::LEX_MODE_STRING_SINGLE_VALUE) {
                         $resp .= $c;
                     } else if ($mode == self::LEX_MODE_KEY) {
-                        if ($resp != '') return $resp;
+                        if ($resp != '') {
+                            return $resp;
+                        } else {
+                            ++$this->lexInd;
+                            return "\n";
+                        }
                     }
                     break;
                 case '=':
