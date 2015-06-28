@@ -56,12 +56,8 @@ class driverCommand {
                     $q->MoveNext();
                 }
             } else {
-                // TODO: Prepare other methods to get defaults paths
                 // Without database select default paths
-                driverCommand::$paths[] = "bin/";
-                driverCommand::$paths[] = "bin/node_type/";
-                driverCommand::$paths[] = "bin/user/";
-                driverCommand::$paths[] = "bin/html/";
+                driverCommand::$paths = explode(";", driverConfig::getCFG()->getSection('[core]')->get('path'));
             }
         }
         $resp = array();

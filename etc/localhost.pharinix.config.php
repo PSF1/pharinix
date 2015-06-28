@@ -23,10 +23,11 @@ CMS_DEBUG = false
 CMS_DEBUG_LOG_SQL = false
 CMS_MIN_PHP_VER = "5.3"
 CMS_DEFAULT_URL_BASE = "http://127.0.0.1/pharinix/"
+path = 'bin/;bin/node_type/;bin/router/;bin/user/;bin/html/;bin/cfg/'
 
 [mysql]
 MYSQL_USER = "root"
-MYSQL_PASS = 
+MYSQL_PASS = ''
 MYSQL_HOST = "127.0.0.1"
 MYSQL_DBNAME = "miana"
 ADODB_PERF_NO_RUN_SQL = 1

@@ -25,6 +25,10 @@ define("CMS_VERSION", "1.06.28");
 class driverConfig {
     public static $cfg = null;
     
+    /**
+     * Return configuration control
+     * @return driverConfigIni
+     */
     public static function getCFG() {
         if (driverConfig::$cfg == null) {
             driverConfig::$cfg = new driverConfigIni(driverConfig::getConfigFilePath());
@@ -90,7 +94,7 @@ class driverConfigIni {
             return;
         }
         $this->file = $file;
-        $this->fileContent = file_get_contents($this->file);
+        $this->fileContent = str_replace("\r","",file_get_contents($this->file));
         $this->lexInd = 0;
         $this->lexMaxInd = strlen($this->fileContent);
         //
@@ -124,6 +128,12 @@ class driverConfigIni {
         }
     }
     
+    public function delSection($name) {
+        if (array_key_exists($name, $this->sections)) {
+            unset($this->sections[$name]);
+        }
+    }
+    
     public function save($file = '') {
         if ($file == '') {
             $file = $this->file;
@@ -131,19 +141,28 @@ class driverConfigIni {
         $h = fopen($file, 'wb+');
         foreach($this->sections as $name => $section) {
             if ($name != ' ') {
-                fwrite($h, $name);
+                fwrite($h, "\n".$name."\n");
             }
             foreach($section->getLines() as $line) {
                 if ($line instanceof driverConfigIniComment) {
-                    fwrite($h, $line->line);
+                    if ($line->line != "\n") {
+                        fwrite($h, $line->line."\n");
+                    }
                 } else if ($line instanceof driverConfigIniPair) {
-                    fwrite($h, $line->key . " = " . $line->value);
+                    fwrite($h, $line->key . " = " . $line->value."\n");
                 }
             }
         }
         fclose($h);
     }
     
+    public function addSection($name) {
+        if (!isset($this->sections[$name])) {
+            $activeSection = new driverConfigIniSection();
+            $activeSection->setName($name);
+            $this->sections[$name] = $activeSection;
+        }
+    }
     /**
      * Parse the file to memory
      */
@@ -321,6 +340,10 @@ class driverConfigIniSection {
         return $this->lines;
     }
     
+    public function &getKeys() {
+        return $this->keys;
+    }
+    
     public function getName() {
         return $this->name;
     }
@@ -374,12 +397,12 @@ class driverConfigIniSection {
         $max = count($this->lines);
         for($i = 0; $i < $max; ++$i) {
             $ref = $this->lines[$i];
-            if ($line instanceof driverConfigIniComment) {
+            if ($line instanceof driverConfigIniComment && $ref instanceof driverConfigIniComment) {
                 if ($ref->line == $line->line) {
                     unset($this->lines[$i]);
                     return;
                 }
-            } if ($line instanceof driverConfigIniPair) {
+            } if ($line instanceof driverConfigIniPair && $ref instanceof driverConfigIniPair) {
                 if ($ref->key == $line->key) {
                     unset($this->lines[$i]);
                     unset($this->keys[$line->key]);
