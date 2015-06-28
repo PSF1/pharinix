@@ -279,7 +279,7 @@ class commandTest extends PHPUnit_Framework_TestCase {
     
     public function testRemoteGetCommand() {
         $resp = commandTools::getURL(CMS_DEFAULT_URL_BASE."?command=getSession&interface=echoJson");
-        
+        var_dump($resp);
         $this->assertContains("HTTP/1.1 200 OK", $resp["header"]);
         $this->assertContains("Content-Type: application/json", $resp["header"]);
         
