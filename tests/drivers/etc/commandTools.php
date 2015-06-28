@@ -28,6 +28,7 @@ class commandTools {
      * @link http://hayageek.com/php-curl-post-get
      */
     public static function getURL($url, $params = null) {
+        var_dump($url);
         $postData = '';
         if ($params != null) {
             //create name value pairs seperated by &
