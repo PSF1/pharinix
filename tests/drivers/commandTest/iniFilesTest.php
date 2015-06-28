@@ -348,6 +348,12 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("value", $cfg->getSection('[section 2]')->get('key'));
     }
     
+    public function testParse_especial_chars_on_value() {
+        $cfg = new driverConfigIni('tests/drivers/cfg_ini/especial_chars_on_value.ini');
+        $cfg->parse();
+        $this->assertEquals(";\"[]", $cfg->getSection('[section]')->get('key'));
+    }
+    
     public function testParse_two_sections_set_value() {
         $cfg = new driverConfigIni('tests/drivers/cfg_ini/two_sections.ini');
         $cfg->parse();

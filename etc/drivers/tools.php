@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
+//if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
  class driverTools {
 

@@ -20,9 +20,10 @@
  */
 
 // Requires
+include_once("etc/drivers/tools.php");
 include_once 'etc/drivers/config.php';
-include_once(driverConfig::getConfigFilePath());
-
+driverConfig::getCFG();
+        
 include_once("usr/adodb/cmsapi.php");
 include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");

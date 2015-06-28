@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
@@ -24,6 +23,18 @@ define("CMS_VERSION", "1.06.28");
 @header("generator: Pharinix/".CMS_VERSION);
 
 class driverConfig {
+    public static $cfg = null;
+    
+    public static function getCFG() {
+        if (driverConfig::$cfg == null) {
+            driverConfig::$cfg = new driverConfigIni(driverConfig::getConfigFilePath());
+            driverConfig::$cfg->parse();
+            define('CMS_DEBUG', driverConfig::$cfg->getSection('[core]')->getAsBoolean('CMS_DEBUG'));
+            define('CMS_DEFAULT_URL_BASE', driverConfig::$cfg->getSection('[core]')->get('CMS_DEFAULT_URL_BASE'));
+            define('ADODB_PERF_NO_RUN_SQL', driverConfig::$cfg->getSection('[mysql]')->get('ADODB_PERF_NO_RUN_SQL'));
+        }
+        return driverConfig::$cfg;
+    }
     
     /**
      * Search the best config file to load.
@@ -318,9 +329,14 @@ class driverConfigIniSection {
         $this->name = $name;
     }
 
+    /**
+     * Read a configuration key
+     * @param string $key Key to read from the section
+     * @return string
+     */
     public function get($key) {
         if (array_key_exists($key, $this->keys)) {
-            $val = $this->keys[$key]->value;
+            $val = trim($this->keys[$key]->value);
             if (driverTools::str_start("'", $val) || driverTools::str_start('"', $val)) {
                 $val = substr($val, 1, strlen($val)-2);
             }
@@ -328,6 +344,12 @@ class driverConfigIniSection {
         } else {
             return null;
         }
+    }
+    
+    public function getAsBoolean($key) {
+        $val = strtolower(trim($this->get($key)));
+        $resp = ($val == 'true' || $val == 'on' || $val == '1');
+        return $resp;
     }
     
     public function set($key, $value) {

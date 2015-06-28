@@ -76,10 +76,16 @@ class dbConn {
     }
     
     public static function get() {
+        $cfg = driverConfig::getCFG();
         if (self::$conn == null) {
             self::$conn = NewADOConnection('mysql');
             try {
-                self::$conn->Connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DBNAME);
+                self::$conn->Connect(
+                        $cfg->getSection('[mysql]')->get('MYSQL_HOST'), 
+                        $cfg->getSection('[mysql]')->get('MYSQL_USER'), 
+                        $cfg->getSection('[mysql]')->get('MYSQL_PASS'), 
+                        $cfg->getSection('[mysql]')->get('MYSQL_DBNAME')
+                    );
                 self::$connected = true;
             } catch (Exception $exc) {
                 self::$connected = false;
@@ -88,7 +94,7 @@ class dbConn {
             if (CMS_DEBUG) {
                 self::$perf =& NewPerfMonitor(self::$conn);
             }
-            self::$conn->LogSQL(CMS_DEBUG_LOG_SQL);
+            self::$conn->LogSQL($cfg->getSection('[mysql]')->getAsBoolean('CMS_DEBUG_LOG_SQL'));
         }
         return self::$conn;
     }
