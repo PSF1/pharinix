@@ -43,7 +43,7 @@ class driverHook {
      * 
      * @var array
      */
-    protected static $Config = Array();
+    protected static $Config = Array('extensions' => array());
 
     /**
      * Call a hook function
