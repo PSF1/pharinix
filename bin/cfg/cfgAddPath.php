@@ -45,7 +45,7 @@ if (!class_exists("commandCfgAddPath")) {
                 }
             }
             $val .= ';'.$params['path'];
-            $section->set('path', $val);
+            $section->set('path', "'$val'");
             driverConfig::getCFG()->save();
             $resp = array(
                 'path' => $val,

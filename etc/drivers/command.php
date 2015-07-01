@@ -20,10 +20,11 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
+include_once 'hooks.php';
 /**
  * Command execution class and base class to commands
  */
-class driverCommand {
+class driverCommand extends driverHook {
     /**
      * Array to pass delayed information between commands.
      * @var array 
@@ -48,17 +49,17 @@ class driverCommand {
         $cmd = str_replace(".", "", $cmd);
         if (driverCommand::$paths == null) {
             driverCommand::$paths = array();
-            if (dbConn::haveConnection()) {
-                $sql = "SELECT * FROM `bin-path`";
-                $q = dbConn::Execute($sql);
-                while (!$q->EOF) {
-                    driverCommand::$paths[] = $q->fields["path"];
-                    $q->MoveNext();
-                }
-            } else {
+//            if (dbConn::haveConnection()) {
+//                $sql = "SELECT * FROM `bin-path`";
+//                $q = dbConn::Execute($sql);
+//                while (!$q->EOF) {
+//                    driverCommand::$paths[] = $q->fields["path"];
+//                    $q->MoveNext();
+//                }
+//            } else {
                 // Without database select default paths
                 driverCommand::$paths = explode(";", driverConfig::getCFG()->getSection('[core]')->get('path'));
-            }
+//            }
         }
         $resp = array();
         foreach(driverCommand::$paths as $path) {
@@ -83,19 +84,23 @@ class driverCommand {
             }
         }
         if ($_POST["interface"] == "echoHtml") {
-            self::getAlert("Command '{$cmd}' not found");
+            echo self::getAlert("Command '{$cmd}' not found");
         } else {
             return array("ok" => false, "msg" => "Command '{$cmd}' not found");
         }
     }
     
     public static function getAlert($msg) {
-            return <<<EOT
+            $resp = <<<EOT
 <div class="alert alert-danger" role="alert">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <span class="sr-only">Error:</span> $msg
 </div>
 EOT;
+            self::CallHook('driverCommandGetAlertHook', array(
+                'alert' => &$resp,
+            ));
+            return $resp;
         }
         
     /**
