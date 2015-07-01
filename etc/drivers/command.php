@@ -109,6 +109,7 @@ class driverCommand extends driverHook {
 EOT;
             self::CallHook('driverCommandGetAlertHook', array(
                 'alert' => &$resp,
+                'msg' => &$msg,
             ));
             return $resp;
         }
