@@ -70,14 +70,10 @@ class driverCommand extends driverHook {
                     self::CallHook('before'.$cmd.'Hook', array(
                         'parameters' => &$params,
                     ));
-                    ob_start(); // Capture echos
                     $resp = $object->runMe($params);
-                    $echos = ob_get_clean();
                     self::CallHook('after'.$cmd.'Hook', array(
                         'response' => &$resp,
-                        'echos' => &$echos,
                     ));
-                    echo $echos;
                     if (CMS_DEBUG && $debug) {
                         var_dump($cmd." < ".self::formatParamsArray($params)." => ".self::formatParamsArray($resp));
                         driverCommand::run("trace", array("command" => $cmd, "parameters" => $params, "return" => $resp), false);
