@@ -26,20 +26,23 @@ $(document).tooltip({
 /**
  * Load data from the Pharinix API
  * @param object postData POST parameters. ex. { command: 'nothing', }
- * @param function onSuccess Success callback function
+ * @param function onSuccess (response body) Success callback function
+ * @param function onFail (status number, status text, response body) Fail callback function
  * @param function onStart Start callback function
  * @param function onEnd End callback function
  * @returns {undefined}
  */
-function apiCall(postData, onSuccess, onStart, onEnd) {
+function apiCall(postData, onSuccess, onFail, onStart, onEnd) {
     if (onStart) onStart();
     $.ajax({
         type: "POST",
         url: PHARINIX_ROOT_URL,
         data: postData,
         success: function (data) {
-            onSuccess(data);
+            if (onSuccess) onSuccess(data);
         }
+    }).fail(function(jqXHR, textStatus, errorThrown){
+        if (onFail) onFail(jqXHR.status, errorThrown, jqXHR.responseText);
     }).always(function(){
         if (onEnd) onEnd();
     });
