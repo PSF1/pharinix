@@ -82,6 +82,9 @@ if (!class_exists("commandPageToHTML")) {
             }
 
             $def = driverPages::getPage($params["page"]);
+            if ($def === false) {
+                $def = driverPages::getPage('404');
+            }
             if ($def !== false) {
                 if (is_file($def->fields["template"])) {
                     $page = file_get_contents($def->fields["template"]);

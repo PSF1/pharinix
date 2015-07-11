@@ -80,7 +80,7 @@ class dbConn {
         if (self::$conn == null) {
             self::$conn = NewADOConnection('mysql');
             try {
-                self::$conn->Connect(
+                @self::$conn->Connect(
                         $cfg->getSection('[mysql]')->get('MYSQL_HOST'), 
                         $cfg->getSection('[mysql]')->get('MYSQL_USER'), 
                         $cfg->getSection('[mysql]')->get('MYSQL_PASS'), 
