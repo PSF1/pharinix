@@ -56,9 +56,10 @@ if (!class_exists("commandDelUser")) {
                 "where" => "`title` = '".$node[$params["uid"]]["name"]."'",
             ));
             if (count($grp) > 0) {
+                $keys = array_keys($grp);
                 driverCommand::run("delNode", array(
                     "nodetype" => "group",
-                    "nid" => array_keys($grp)[0],
+                    "nid" => $keys[0],
                 ));
             }
             // Del user node
