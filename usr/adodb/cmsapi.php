@@ -56,9 +56,12 @@ class dbConn {
     public static function haveConnection() {
         if (self::$lockConnection) return false;
         $resp = false;
-        self::get();
-        if (self::$conn != null) {
-            $resp = self::$connected;
+        $cfg = driverConfig::getCFG();
+        if (!$cfg->getSection('[safe_mode]')->getAsBoolean('active')) {
+            self::get();
+            if (self::$conn != null && self::$conn->IsConnected()) {
+                $resp = self::$connected;
+            }
         }
         return $resp;
     }
@@ -70,7 +73,7 @@ class dbConn {
         if (self::haveConnection()) {
             $resp = self::get()->Execute($sql);
         } else {
-            $resp = new fakeRecordset();
+            $resp = new fakeRecordset($sql);
         }
         return $resp;
     }
@@ -141,18 +144,155 @@ class dbConn {
     }
 
     public static function lastID() {
-        $db = dbConn::get();
-        $sql = "SELECT LAST_INSERT_ID()";
-        $rs = $db->Execute($sql);
-        return $rs->fields[0];
+        if (self::haveConnection()) {
+            $sql = "SELECT LAST_INSERT_ID()";
+            $rs = dbConn::Execute($sql);
+            return $rs->fields[0];
+        } else {
+            return 0;
+        }
     }
 
 }
 
 class fakeRecordset {
+    /**
+     *
+     * @var driverConfigIni 
+     */
+    protected static $ini = null;
     public $EOF = true;
+    protected $index = 0;
+    protected $count = 0;
+    public $records = array();
+    public $fields = array();
+    
+    public function __construct($sql) {
+        if (self::$ini == null) {
+            self::$ini = new driverConfigIni('etc/templates/pharinix/default_recordsets.ini');
+            self::$ini->parse();
+        }
+        $tables = json_decode(self::$ini->getSection('[recordset]')->get('tables'));
+        $this->EOF = true;
+        $this->index = 0;
+        $this->count = 0;
+        $this->records = array();
+        foreach($tables as $table) {
+            if (strpos($sql, $table) !== false ) {
+                $data = self::$ini->getSection('[recordset]')->get('table_'.$table);
+                if ($table == 'node_user') {
+                    $cfg = driverConfig::getCFG();
+                    $data = str_replace(
+                            'fake@localhost', 
+                            $cfg->getSection('[safe_mode]')->get('user'), 
+                            $data);
+                    $data = str_replace(
+                            '[{ms5_pass}]', 
+                            md5($cfg->getSection('[safe_mode]')->get('pass')), 
+                            $data);
+                }
+                if ($data != null) {
+                    $data = json_decode(utf8_encode($data));
+                    $this->records = $data->recordset;
+                    include_once 'usr/php_sql_parser/PHPSQLParser.php';
+                    $sqlP = new PHPSQLParser($sql);
+                    if (count($this->records) > 0) {
+                        $where = $this->getWhere($sqlP, $sql);
+                        if ($where != '') {
+                            $aux = array();
+                            foreach ($this->records as $record) {
+                                $accept = false;
+                                $jrec = json_encode($record);
+                                $accept = (eval("\$record = json_decode('$jrec'); return $where;"));
+                                if ($accept) {
+                                    $aux[] = $record;
+                                }
+                            }
+                            $this->records = $aux;
+                        }
+                    }
+                    $this->index = 0;
+                    $this->count = count($this->records);
+                    $this->EOF = ($this->count == 0);
+                    if (isset($sqlP->parsed['ORDER'])) {
+                        if (isset($sqlP->parsed['ORDER']['direction']) && 
+                            $sqlP->parsed['ORDER']['direction']=='ASC') {
+                            usort($this->records, 'fakeRecordset::compASC');
+                        } else {
+                            usort($this->records, 'fakeRecordset::compDESC');
+                        }
+                    }
+                    $this->setRecord();
+                }
+                break;
+            }
+        }
+    }
+    
+    public static function compASC($a, $b) {
+        return 1;
+    }
+    
+    public static function compDESC($a, $b) {
+        return -1;
+    }
+    
+    public function MoveNext() {
+        if ($this->index + 1 < $this->count) {
+            ++$this->index;
+        } else {
+            $this->EOF = true;
+        }
+        $this->setRecord();
+    }
     
     public function MoveFirst() {
-        
+        $this->index = 0;
+        $this->setRecord();
+    }
+    
+    protected function setRecord() {
+        $this->fields = array();
+        if (!$this->EOF) {
+            foreach ($this->records[$this->index] as $key => $value) {
+                $this->fields[$key] = $value;
+            }
+        }
+    }
+    
+    protected function getWhere($sqlP, $sql) {
+        $where = "";
+        if (!isset($sqlP->parsed['WHERE'])) {
+            return '';
+        }
+        foreach($sqlP->parsed['WHERE'] as $cond) {
+            $where .= $this->parseWhere($cond)." ";
+        }
+        $where = str_replace(" and ", " && ", $where);
+        $where = str_replace(" AND ", " && ", $where);
+        $where = str_replace(" or ", " || ", $where);
+        $where = str_replace(" OR ", " || ", $where);
+        $where = str_replace("`", "", $where);
+        return $where;
+    }
+    
+    protected function parseWhere($whereP) {
+        if ($whereP['sub_tree'] !== false) {
+            $where = "";
+            foreach($whereP['sub_tree'] as $cond) {
+                $where .= $this->parseWhere($cond)." ";
+            }
+            return "($where)";
+        } else {
+            switch ($whereP['expr_type']) {
+                case 'colref':
+                    return '$record->'.$whereP['no_quotes'];
+                case 'operator':
+                    return str_replace("=", "==", $whereP['base_expr']);
+                    return str_replace("<>", "!=", $whereP['base_expr']);
+                case 'const':
+                    return $whereP['base_expr'];
+            }
+        }
     }
 }

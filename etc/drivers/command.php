@@ -37,6 +37,14 @@ class driverCommand extends driverHook {
      */
     protected static $paths = null;
     
+    public static function getPaths() {
+        if (driverCommand::$paths == null) {
+            driverCommand::$paths = array();
+                driverCommand::$paths = explode(";", driverConfig::getCFG()->getSection('[core]')->get('path'));
+//            }
+        }
+        return driverCommand::$paths;
+    }
     /**
      * Execute a command
      * @param string $cmd
@@ -47,20 +55,7 @@ class driverCommand extends driverHook {
         $cmd = str_replace("/", "", $cmd);
         $cmd = str_replace("\\", "", $cmd);
         $cmd = str_replace(".", "", $cmd);
-        if (driverCommand::$paths == null) {
-            driverCommand::$paths = array();
-//            if (dbConn::haveConnection()) {
-//                $sql = "SELECT * FROM `bin-path`";
-//                $q = dbConn::Execute($sql);
-//                while (!$q->EOF) {
-//                    driverCommand::$paths[] = $q->fields["path"];
-//                    $q->MoveNext();
-//                }
-//            } else {
-                // Without database select default paths
-                driverCommand::$paths = explode(";", driverConfig::getCFG()->getSection('[core]')->get('path'));
-//            }
-        }
+        driverCommand::getPaths();
         $resp = array();
         foreach(driverCommand::$paths as $path) {
             if (is_file($path.$cmd.".php")) {

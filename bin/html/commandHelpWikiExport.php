@@ -32,20 +32,19 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                 return;
             }
             try {
-                $sql = "SELECT * FROM `bin-path`";
-                $q = dbConn::Execute($sql);
+                $paths = driverCommand::getPaths();
                 ob_start();
                 echo "# Command's list\n\n";
                 $ncmds = 0;
-                while(!$q->EOF) {
-                    echo "## Package path '{$q->fields["path"]}'\n\n";
-                    $cmds = driverTools::lsDir($q->fields["path"], "*.php");
+                foreach($paths as $path) {
+                    echo "## Package path '{$path}'\n\n";
+                    $cmds = driverTools::lsDir($path, "*.php");
                     foreach($cmds["files"] as $cmd) {
-                        $cmd = str_replace($q->fields["path"], "", $cmd);
+                        $cmd = str_replace($path, "", $cmd);
                         $cmd = str_replace(".php", "", $cmd);
                         echo "### Command `$cmd`\n\n";
                         ++$ncmds;
-                        $object = include($q->fields["path"].$cmd.".php");
+                        $object = include($path.$cmd.".php");
                         $hlp = $object->getHelp();
                         echo "Description\n\n";
                         echo "{$hlp["description"]}\n\n";
@@ -73,13 +72,12 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                         }
                         // Access data
                         echo "Permissions\n\n";
-                        $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                        $acc = $object->getAccessData($path.$cmd.".php");
                         echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
                         echo "* `Group`: ".driverUser::getGroupName($acc["group"])."\n";
                         echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
                         echo "\n\n";
                     }
-                    $q->MoveNext();
                 }
                 echo "\n\n";
                 echo "Exported $ncmds commands by `commandHelpWikiExport` at ".date("Y-m-d H:i:s");

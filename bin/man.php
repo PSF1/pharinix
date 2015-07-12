@@ -33,17 +33,16 @@ if (!class_exists("commandMan")) {
                     $params["cmd"] =>array("description" => "Command '{$params["cmd"]}' not found."))
                     );
             
-            $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::Execute($sql);
-            while(!$q->EOF) {
-                $cmds = driverTools::lsDir($q->fields["path"]);
+            $paths = driverCommand::getPaths();
+            foreach($paths as $path) {
+                $cmds = driverTools::lsDir($path);
                 foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($q->fields["path"], "", $cmd);
+                    $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
                     if ($cmd == $params["cmd"]) {
                         $resp["help"] = array();
                         $resp["help"][$cmd] = array();
-                        $object = include($q->fields["path"].$cmd.".php");
+                        $object = include($path.$cmd.".php");
                         $hlp = $object->getHelp();
                         $resp["help"][$cmd]["description"] = $hlp["description"];
                         if (count($hlp["parameters"]) > 0) {
@@ -59,14 +58,13 @@ if (!class_exists("commandMan")) {
                             }
                         }
                         $resp["help"][$cmd]["type"] = $hlp["type"];
-                        $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                        $acc = $object->getAccessData($path.$cmd.".php");
                         $resp["help"][$cmd]["owner"] = $acc["owner"];
                         $resp["help"][$cmd]["group"] = $acc["group"];
                         $resp["help"][$cmd]["flags"] = $acc["flags"];
                         return $resp;
                     }
                 }
-                $q->MoveNext();
             }
             return $resp;
         }

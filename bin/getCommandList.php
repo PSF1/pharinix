@@ -31,18 +31,16 @@ if (!class_exists("commandGetCommandList")) {
             $resp = array(
                 "commands" => array()
                 );
-            $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::Execute($sql);
-            while(!$q->EOF) {
-                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
+            $paths = driverCommand::getPaths();
+            foreach($paths as $path) {
+                $cmds = driverTools::lsDir($path, "*.php");
                 foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($q->fields["path"], "", $cmd);
+                    $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
                     if (driverTools::str_start($params["startby"], $cmd)) {
                         $resp["commands"][] = $cmd;
                     }
                 }
-                $q->MoveNext();
             }
             sort($resp["commands"]);
             return $resp;

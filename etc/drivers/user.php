@@ -300,7 +300,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             $_SESSION["user_root_id"] = 0;
             $_SESSION["group_root_id"] = 0;
             
-            $sql = "SELECT `node_user`.`id` from `node_user` where `node_user`.`name` = 'guest'";
+            $sql = "SELECT `id` from `node_user` where `name` = 'guest'";
             $q = dbConn::Execute($sql);
             $_SESSION["user_id"] = -1;
             if (!$q->EOF) {

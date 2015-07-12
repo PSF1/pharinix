@@ -25,32 +25,30 @@ if (!class_exists("commandGetCommandHelp")) {
 
         public static function runMe(&$params, $debug = true) {
             $resp = array("help" => array());
-            $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::Execute($sql);
-            while(!$q->EOF) {
-                $resp["help"][$q->fields["path"]] = array();
-                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
+            $paths = driverCommand::getPaths();
+            foreach ($paths as $path) {
+                $resp["help"][$path] = array();
+                $cmds = driverTools::lsDir($path, "*.php");
                 foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($q->fields["path"], "", $cmd);
+                    $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
-                    $resp["help"][$q->fields["path"]][$cmd] = array();
-                    $object = include($q->fields["path"].$cmd.".php");
+                    $resp["help"][$path][$cmd] = array();
+                    $object = include($path.$cmd.".php");
                     $hlp = $object->getHelp();
-                    $resp["help"][$q->fields["path"]][$cmd]["description"] = $hlp["description"];
+                    $resp["help"][$path][$cmd]["description"] = $hlp["description"];
                     if (count($hlp["parameters"]) > 0) {
-                        $resp["help"][$q->fields["path"]][$cmd]["parameters"] = array();
+                        $resp["help"][$path][$cmd]["parameters"] = array();
                         foreach ($hlp["parameters"] as $key => $value) {
-                            $resp["help"][$q->fields["path"]][$cmd]["parameters"][$key] = $value;
+                            $resp["help"][$path][$cmd]["parameters"][$key] = $value;
                         }
                     }
                     if (count($hlp["response"]) > 0) {
-                        $resp["help"][$q->fields["path"]][$cmd]["response"] = array();
+                        $resp["help"][$path][$cmd]["response"] = array();
                         foreach ($hlp["response"] as $key => $value) {
-                            $resp["help"][$q->fields["path"]][$cmd]["response"][$key] = $value;
+                            $resp["help"][$path][$cmd]["response"][$key] = $value;
                         }
                     }
                 }
-                $q->MoveNext();
             }
             return $resp;
         }

@@ -24,17 +24,16 @@ if (!class_exists("commandCommandHelp")) {
     class commandCommandHelp extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $sql = "SELECT * FROM `bin-path`";
-            $q = dbConn::Execute($sql);
+            $paths = driverCommand::getPaths();
             echo "<legend>Command's list</legend>";
-            while(!$q->EOF) {
-                echo "<h2>Package path '{$q->fields["path"]}'</h2>";
-                $cmds = driverTools::lsDir($q->fields["path"], "*.php");
+            foreach ($paths as $path) {
+                echo "<h2>Package path '{$path}'</h2>";
+                $cmds = driverTools::lsDir($path, "*.php");
                 foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($q->fields["path"], "", $cmd);
+                    $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
                     echo "<h3>Command '$cmd'</h3>";
-                    $object = include($q->fields["path"].$cmd.".php");
+                    $object = include($path.$cmd.".php");
                     $hlp = $object->getHelp();
                     echo "<h4>Description</h4>";
                     echo "<p>{$hlp["description"]}</p>";
@@ -68,14 +67,13 @@ if (!class_exists("commandCommandHelp")) {
                     }
                     // Access data
                     echo "<h4>Permissions</h4>";
-                    $acc = $object->getAccessData($q->fields["path"].$cmd.".php");
+                    $acc = $object->getAccessData($path.$cmd.".php");
                     echo "<ul>";
                     echo "<li><b>Owner</b>: ".driverUser::getUserName($acc["owner"])."</li>";
                     echo "<li><b>Group</b>: ".driverUser::getGroupName($acc["group"])."</li>";
                     echo "<li><b>Flags</b>: ".driverUser::secFileToString($acc["flags"], true)."</li>";
                     echo "</ul>";
                 }
-                $q->MoveNext();
             }
         }
 

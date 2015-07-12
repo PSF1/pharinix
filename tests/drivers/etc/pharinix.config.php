@@ -31,3 +31,10 @@ MYSQL_PASS = ''
 MYSQL_HOST = "127.0.0.1"
 MYSQL_DBNAME = "miana"
 ADODB_PERF_NO_RUN_SQL = 1
+
+[safe_mode]
+; Ignore database connection
+active = false
+; Root access without data base connection
+user = 'aaaaa976@gmail.com'
+pass = '1234'
