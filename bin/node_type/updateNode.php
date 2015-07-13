@@ -113,7 +113,7 @@ if (!class_exists("commandUpdateNodes")) {
                             // All selected items are fields of the node?
                             $allOk = true;
                             foreach ($params as $name => $value) {
-                                if ($name != "nodetype" && $name != "nid") {
+                                if ($name != "nodetype" && $name != "nid"  && $name != "id") {
                                     $nameOk = $name;
                                     foreach ($ndefFields as $ndefField) {
                                         if ($ndefField["name"] == $name) {

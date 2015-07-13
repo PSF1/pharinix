@@ -204,6 +204,7 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
             ));
         $this->assertEquals(4 ,count($resp));
         foreach($resp as $id => $node) {
+            $this->assertEquals($id, $node["id"]);
             $this->assertEquals("NODE $id", $node["title"]);
             $this->assertEquals(5 - $id, $node["order"]);
         }
@@ -245,9 +246,9 @@ class commandNodesQueryTest extends PHPUnit_Framework_TestCase {
     public function testGetNodes_Group() {
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
-            "group" => "`modified`",
+            "group" => "`title`",
             ));
-        $this->assertEquals(1, count($resp));
+        $this->assertEquals(4, count($resp));
     }
     
     public function testGetNodes_Count_Group() {

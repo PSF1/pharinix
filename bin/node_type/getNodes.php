@@ -114,6 +114,7 @@ if (!class_exists("commandGetNodes")) {
                         if ($params["count"] === true) {
                             $resp[] = $item;
                         } else {
+                            $item['id'] = $q->fields["id"];
                             $resp[$q->fields["id"]] = $item;
                         }
                         $q->MoveNext();
