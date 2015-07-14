@@ -16,6 +16,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+/**
+ * http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript
+ * http://jsfiddle.net/KJQ9K/554/
+ * @param JSON json
+ * @returns string HTML markup
+ */
+function jsonSyntaxHighlight(json) {
+    json = JSON.stringify(json, undefined, 4);
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+    
 function loadCmdDef(cmd, callback) {
     $.ajax({
         type: "POST",
@@ -144,15 +171,20 @@ $(document).ready(function(){
                 dataType = "text";
                 break;
         }
-        execute(query, dataType, function(data){
+        apiCall(query, function(data){
             var resp = data;
+            console.log(resp);
+            $('#response').removeClass();
             switch(query.interface) {
                 case "echoJson":
-                    resp = JSON.stringify(JSON.parse(data), null, '\t');
-                    resp = resp.replace(/\</g, '&lt;');
+                    $('#response').addClass('json_hightlight');
+                    resp = jsonSyntaxHighlight(data);
                 case "echoXml":
                     resp = "<pre>" + resp + "</pre>";
                     break;
+            }
+            if (resp == '') {
+                resp = '<div class="alert alert-danger">I can\'t get response, please, try with other interface type.</div>';
             }
             $("#response").html(resp);
         });
