@@ -20,18 +20,6 @@
 
 CREATE DATABASE IF NOT EXISTS miana;
 USE miana;
-CREATE TABLE `bin-path` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `path` longtext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-INSERT INTO `bin-path` VALUES  (1,'bin/'),
- (2,'bin/html/'),
- (3,'usr/bootstrap-form-builder/bin/'),
- (4,'bin/node_type/'),
- (5,'bin/user/'),
- (6,'bin/router/'),
- (7,'bin/cfg/');
 CREATE TABLE `booting` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `command` varchar(250) NOT NULL,
@@ -85,7 +73,7 @@ CREATE TABLE `node_group` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4208 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4257 DEFAULT CHARSET=latin1;
 INSERT INTO `node_group` VALUES  (219,0,0,3904,0,NULL,0,NULL,'sudoers'),
  (21,0,0,3904,2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','PSF'),
  (4060,0,0,3904,2,'2015-07-13 23:42:14',0,'2015-07-13 23:42:14','testlogin2');
@@ -138,7 +126,7 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM AUTO_INCREMENT=4943 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4996 DEFAULT CHARSET=latin1;
 INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
  (21,23,21),
  (4783,4060,4060);
@@ -155,7 +143,7 @@ CREATE TABLE `node_type` (
   `group_owner` int(10) unsigned NOT NULL,
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16239 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16355 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18:38:55',0,'0','title',0,0,3904),
  (555,'user','2015-03-21 18:56:43',0,'2015-04-17 17:14:07',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-04-17 17:14:16',0,'1','title',0,0,3904),
@@ -177,7 +165,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=146039 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=147108 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','1','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','1','1',556,'0','User creator','','0','0'),
@@ -255,7 +243,7 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4208 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4257 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (2,0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
  (23,0,0,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez'),
  (4060,0,4060,3904,0,'testlogin2@localhost','124653cf9d6a29a3d4b5f264b1105dec','testlogin2',2,'2015-07-13 23:42:14',0,'2015-07-13 23:42:14','testlogin2');
@@ -267,9 +255,12 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=68785 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=69333 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','execForm','',1),
- (10,0,'footCopy','echoHTML','html=%3Ch3%3EPharinix+Copyright+%C2%A9+%3C%3Fphp+echo+date%28%22Y%22%29%3B+%3F%3E+Pedro+Pelaez%3C%2Fh3%3E%0D%0A%3Cdiv%3EThis+program+is+free+software%3B+you+can+redistribute+it+and%2For+modify+it+under+the+terms+of+the+GNU+General+Public+License+as+published+by+the+Free+Software+Foundation%3B+either+version+2+of+the+License%2C+or+%28at+your+option%29+any+later+version.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AThis+program+is+distributed+in+the+hope+that+it+will+be+useful%2C+but+WITHOUT+ANY+WARRANTY%3B+without+even+the+implied+warranty+of+MERCHANTABILITY+or+FITNESS+FOR+A+PARTICULAR+PURPOSE.++See+the+GNU+General+Public+License+for+more+details.%3Cbr%2F%3E%0D%0A%3Cbr%2F%3E%0D%0AYou+should+have+received+a+copy+of+the+GNU+General+Public+License+along+with+this+program%3B+if+not%2C+write+to+the+Free+Software+Foundation%2C+Inc.%2C+59+Temple+Place+-+Suite+330%2C+Boston%2C+MA++02111-1307%2C+USA.%0D%0A%3C%2Fdiv%3E',0),
+ (10,0,'footCopy','echoHTML','html=%3Ch4%3EPharinix%20Copyright%20%C2%A9%20%3C%3Fphp%20echo%20date(%22Y%22)%3B%20%3F%3E%20Pedro%20Pelaez%3C%2Fh4%3E%0A%3Ch5%3EGNU%20Software%3C%2Fh5%3E',0),
+ (69332,69246,'colLeft','textUrlEncoder','',10),
+ (69330,69246,'colRight','execForm','',1),
+ (69331,69246,'colLeft','manHelpOnline','',1),
  (12,3,'content','echoHTML','html=<h1>Page not found: <?php echo \"\'{$_GET[\"rewrite\"]}\'\";?></h1>',0),
  (14,1,'colLeft','textUrlEncoder','',10),
  (9922,9895,'content','getNodeHtml','nodetype=group&node=7',0),
@@ -346,7 +337,7 @@ INSERT INTO `page-blocks` VALUES  (47435,46837,'htmltext_write','formatFieldHtml
  (50169,0,'footCopy','echoHTML','html=%3Cscript%3E%0A%20%20(function(i%2Cs%2Co%2Cg%2Cr%2Ca%2Cm)%7Bi%5B%27GoogleAnalyticsObject%27%5D%3Dr%3Bi%5Br%5D%3Di%5Br%5D%7C%7Cfunction()%7B%0A%20%20(i%5Br%5D.q%3Di%5Br%5D.q%7C%7C%5B%5D).push(arguments)%7D%2Ci%5Br%5D.l%3D1*new%20Date()%3Ba%3Ds.createElement(o)%2C%0A%20%20m%3Ds.getElementsByTagName(o)%5B0%5D%3Ba.async%3D1%3Ba.src%3Dg%3Bm.parentNode.insertBefore(a%2Cm)%0A%20%20%7D)(window%2Cdocument%2C%27script%27%2C%27%2F%2Fwww.google-analytics.com%2Fanalytics.js%27%2C%27ga%27)%3B%0A%0A%20%20ga(%27create%27%2C%20%27UA-62530992-1%27%2C%20%27auto%27)%3B%0A%20%20ga(%27send%27%2C%20%27pageview%27)%3B%0A%0A%3C%2Fscript%3E',10),
  (62861,62794,'content','getNodeHtml','nodetype=group&node=',0),
  (62859,62794,'content','getNodeHtml','nodetype=group&node=',0),
- (51806,1,'header_content','echoHTML','html=%3Cscript%3E%0A%24(function%20()%20%7B%0A%20%20%20%20%22use%20strict%22%3B%0A%09function%20doScroll()%20%7B%0A%20%20%20%20%20%20%20%20var%20yPos%20%3D%20-(%24(window).scrollTop()%20%2F%20%24bgobj.data(%27speed%27))%3B%0A%20%20%20%20%20%20%20%20%2F%2F%20Put%20together%20our%20final%20background%20position%0A%20%20%20%20%20%20%20%20var%20coords%20%3D%20%27100%25%20%27%20%2B%20yPos%20%2B%20%27px%27%3B%0A%20%20%20%20%20%20%20%20%2F%2F%20Move%20the%20background%0A%20%20%20%20%20%20%20%20%24bgobj.css(%7B%20backgroundPosition%3A%20coords%20%7D)%3B%0A%09%7D%0A%20%20%20%20var%20%24bgobj%20%3D%20%24(%22.ha-bg-parallax%22)%3B%20%2F%2F%20assigning%20the%20object%0A%20%20%20%20%24(window).on(%22scroll%22%2C%20doScroll)%3B%0A%09%24(%27div.product-chooser%27).not(%27.disabled%27).find(%27div.product-chooser-item%27).on(%27click%27%2C%20function()%7B%0A%09%09%24(this).parent().parent().find(%27div.product-chooser-item%27).removeClass(%27selected%27)%3B%0A%09%09%24(this).addClass(%27selected%27)%3B%0A%09%09%24(this).find(%27input%5Btype%3D%22radio%22%5D%27).prop(%22checked%22%2C%20true)%3B%09%0A%09%7D)%3B%0A%09doScroll()%3B%0A%7D)%3B%0A%3C%2Fscript%3E%0A%3Cstyle%3E%0A%20.ha-bg-parallax%20%7B%0A%20%20%20%20background%3A%20url(%27etc%2Ftemplates%2Fpharinix%2Fbird-7.jpg%27)%2050%25%20-195px%20no-repeat%20fixed%3B%0A%20%20%20%20-moz-background-size%3A%20cover%3B%0A%20%20%20%20-o-background-size%3A%20cover%3B%0A%20%20%20%20-webkit-background-size%3A%20cover%3B%0A%20%20%20%20background-size%3A%20cover%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20margin%3A%200%20auto%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20display%3A%20table%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%7D%0A.ha-bg-parallax%20.ha-parallax-body%20%7B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%7D%0A.ha-bg-parallax%20.ha-content-whitecolor%20%7B%0A%20%20%20%20font-size%3A%2017px%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20width%3A%2045%25%3B%0A%20%20%20%20margin%3A%20auto%3B%0A%7D%0A.ha-bg-parallax%20.ha-diamond-divider-md%20%7B%0A%20%20%20%20margin%3A%2015px%200px%3B%0A%7D%0A.ha-bg-parallax%20.ha-heading-parallax%20%7B%0A%20%20%20%20font-style%3A%20italic%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20text-transform%3A%20none%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20padding-bottom%3A%200px%3B%0A%7D%0Adiv.clear%7B%0A%20%20%20%20clear%3A%20both%3B%0A%7D%0Adiv.product-chooser%7B%0A%7D%0A%20%20%20%20div.product-chooser.disabled%20div.product-chooser-item%0A%20%20%20%20%7B%0A%09%09zoom%3A%201%3B%0A%09%09filter%3A%20alpha(opacity%3D60)%3B%0A%09%09opacity%3A%200.6%3B%0A%09%09cursor%3A%20default%3B%0A%09%7D%0A%09div.product-chooser%20div.product-chooser-item%7B%0A%09%09padding%3A%2011px%3B%0A%09%09border-radius%3A%206px%3B%0A%09%09cursor%3A%20pointer%3B%0A%09%09position%3A%20relative%3B%0A%09%09border%3A%201px%20solid%20%23efefef%3B%0A%09%09margin-bottom%3A%2010px%3B%0A%20%20%20%20%20%20%20%20margin-left%3A%2010px%3B%0A%20%20%20%20%20%20%20%20margin-right%3A%2010x%3B%0A%09%7D%0A%09div.product-chooser%20div.product-chooser-item.selected%7B%0A%09%09border%3A%204px%20solid%20%23428bca%3B%0A%09%09background%3A%20%23efefef%3B%0A%09%09padding%3A%208px%3B%0A%09%09filter%3A%20alpha(opacity%3D100)%3B%0A%09%09opacity%3A%201%3B%0A%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20img%7B%0A%09%09%09padding%3A%200%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20span.title%7B%0A%09%09%09display%3A%20block%3B%0A%09%09%09margin%3A%2010px%200%205px%200%3B%0A%09%09%09font-weight%3A%20bold%3B%0A%09%09%09font-size%3A%2012px%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20span.description%7B%0A%09%09%09font-size%3A%2012px%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20input%7B%0A%09%09%09position%3A%20absolute%3B%0A%09%09%09left%3A%200%3B%0A%09%09%09top%3A%200%3B%0A%09%09%09visibility%3Ahidden%3B%0A%09%09%7D%0A%3C%2Fstyle%3E%0A%20%3Cdiv%3E%0A%09%3Cdiv%20class%3D%22ha-bg-parallax%20text-center%20block-marginb-none%22%20data-type%3D%22background%22%20data-speed%3D%2220%22%3E%0A%09%3Cdiv%20class%3D%22ha-parallax-body%22%3E%0A%09%3Cdiv%20class%3D%22ha-content%20ha-content-whitecolor%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EWelcome%20to%20Pharinix!%3C%2Fh1%3E%0A%20%20%3Cp%3EPharinix%20is%20a%20light%20weight%20framework%20with%20many%20interesting%20features.%20Data%20model%20with%20unix%20like%20security%2C%20configurable%20with%20it%20self%2C%20URL%20rewrite%20and%20mapping%2C%20etc...%20it%27s%20the%20perfect%20backend%20to%20your%20application.%3C%2Fp%3E%0A%20%20%3Cp%3EPlease%20help%20me%20adding%20issues%20to%20the%20GitHub%20proyect.%3C%2Fp%3E%0A%20%20%3Cp%3EThanks%20by%20try%20Pharinix%3C%2Fp%3E%0A%20%20%3Cp%3E%3Ca%20class%3D%22btn%20btn-primary%20btn-lg%22%20role%3D%22button%22%20href%3D%22https%3A%2F%2Fgithub.com%2FPSF1%2Fpharinix%22%20target%3D%22_blank%22%3ESee%20more%3C%2Fa%3E%3C%2Fp%3E%0A%20%20%3Cp%3EStart%20playing%20with%20Pharinix%2C%20below%20this%20block%20has%20the%20console%20to%20execute%20commands...%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22ha-parallax-divider-wrapper%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22ha-diamond-divider-md%20img-responsive%22%3E%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%3C%2Fdiv%3E',0),
+ (51806,1,'header_content','echoHTML','html=%3Cscript%3E%0A%24(function%20()%20%7B%0A%20%20%20%20%22use%20strict%22%3B%0A%09function%20doScroll()%20%7B%0A%20%20%20%20%20%20%20%20var%20yPos%20%3D%20-(%24(window).scrollTop()%20%2F%20%24bgobj.data(%27speed%27))%3B%0A%20%20%20%20%20%20%20%20%2F%2F%20Put%20together%20our%20final%20background%20position%0A%20%20%20%20%20%20%20%20var%20coords%20%3D%20%27100%25%20%27%20%2B%20yPos%20%2B%20%27px%27%3B%0A%20%20%20%20%20%20%20%20%2F%2F%20Move%20the%20background%0A%20%20%20%20%20%20%20%20%24bgobj.css(%7B%20backgroundPosition%3A%20coords%20%7D)%3B%0A%09%7D%0A%20%20%20%20var%20%24bgobj%20%3D%20%24(%22.ha-bg-parallax%22)%3B%20%2F%2F%20assigning%20the%20object%0A%20%20%20%20%24(window).on(%22scroll%22%2C%20doScroll)%3B%0A%09%24(%27div.product-chooser%27).not(%27.disabled%27).find(%27div.product-chooser-item%27).on(%27click%27%2C%20function()%7B%0A%09%09%24(this).parent().parent().find(%27div.product-chooser-item%27).removeClass(%27selected%27)%3B%0A%09%09%24(this).addClass(%27selected%27)%3B%0A%09%09%24(this).find(%27input%5Btype%3D%22radio%22%5D%27).prop(%22checked%22%2C%20true)%3B%09%0A%09%7D)%3B%0A%09doScroll()%3B%0A%7D)%3B%0A%3C%2Fscript%3E%0A%3Cstyle%3E%0A%23header_content%20%7B%0A%09padding%3A%200%3B%0A%09margin-top%3A%20-10px%3B%0A%7D%0A%0A.ha-content%20%7B%0A%20%20padding-top%3A%2030px%3B%0A%20%20padding-bottom%3A%2030px%3B%0A%7D%0A%0A%20.ha-bg-parallax%20%7B%0A%20%20%20%20background%3A%20url(%27etc%2Ftemplates%2Fpharinix%2Fbird-7.jpg%27)%2050%25%20-195px%20no-repeat%20fixed%3B%0A%20%20%20%20-moz-background-size%3A%20cover%3B%0A%20%20%20%20-o-background-size%3A%20cover%3B%0A%20%20%20%20-webkit-background-size%3A%20cover%3B%0A%20%20%20%20background-size%3A%20cover%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20margin%3A%200%20auto%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20display%3A%20table%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%7D%0A.ha-bg-parallax%20.ha-parallax-body%20%7B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%7D%0A.ha-bg-parallax%20.ha-content-whitecolor%20%7B%0A%20%20%20%20font-size%3A%2017px%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20width%3A%2045%25%3B%0A%20%20%20%20margin%3A%20auto%3B%0A%7D%0A.ha-bg-parallax%20.ha-diamond-divider-md%20%7B%0A%20%20%20%20margin%3A%2015px%200px%3B%0A%7D%0A.ha-bg-parallax%20.ha-heading-parallax%20%7B%0A%20%20%20%20font-style%3A%20italic%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20text-transform%3A%20none%3B%0A%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20padding-bottom%3A%200px%3B%0A%7D%0Adiv.clear%7B%0A%20%20%20%20clear%3A%20both%3B%0A%7D%0Adiv.product-chooser%7B%0A%7D%0A%20%20%20%20div.product-chooser.disabled%20div.product-chooser-item%0A%20%20%20%20%7B%0A%09%09zoom%3A%201%3B%0A%09%09filter%3A%20alpha(opacity%3D60)%3B%0A%09%09opacity%3A%200.6%3B%0A%09%09cursor%3A%20default%3B%0A%09%7D%0A%09div.product-chooser%20div.product-chooser-item%7B%0A%09%09padding%3A%2011px%3B%0A%09%09border-radius%3A%206px%3B%0A%09%09cursor%3A%20pointer%3B%0A%09%09position%3A%20relative%3B%0A%09%09border%3A%201px%20solid%20%23efefef%3B%0A%09%09margin-bottom%3A%2010px%3B%0A%20%20%20%20%20%20%20%20margin-left%3A%2010px%3B%0A%20%20%20%20%20%20%20%20margin-right%3A%2010x%3B%0A%09%7D%0A%09div.product-chooser%20div.product-chooser-item.selected%7B%0A%09%09border%3A%204px%20solid%20%23428bca%3B%0A%09%09background%3A%20%23efefef%3B%0A%09%09padding%3A%208px%3B%0A%09%09filter%3A%20alpha(opacity%3D100)%3B%0A%09%09opacity%3A%201%3B%0A%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20img%7B%0A%09%09%09padding%3A%200%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20span.title%7B%0A%09%09%09display%3A%20block%3B%0A%09%09%09margin%3A%2010px%200%205px%200%3B%0A%09%09%09font-weight%3A%20bold%3B%0A%09%09%09font-size%3A%2012px%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20span.description%7B%0A%09%09%09font-size%3A%2012px%3B%0A%09%09%7D%0A%09%09div.product-chooser%20div.product-chooser-item%20input%7B%0A%09%09%09position%3A%20absolute%3B%0A%09%09%09left%3A%200%3B%0A%09%09%09top%3A%200%3B%0A%09%09%09visibility%3Ahidden%3B%0A%09%09%7D%0A%3C%2Fstyle%3E%0A%20%3Cdiv%3E%0A%09%3Cdiv%20class%3D%22ha-bg-parallax%20text-center%20block-marginb-none%22%20data-type%3D%22background%22%20data-speed%3D%2220%22%3E%0A%09%3Cdiv%20class%3D%22ha-parallax-body%22%3E%0A%09%3Cdiv%20class%3D%22ha-content%20ha-content-whitecolor%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EWelcome%20to%20Pharinix!%3C%2Fh1%3E%0A%20%20%3Cp%3EPharinix%20is%20a%20light%20weight%20framework%20with%20many%20interesting%20features.%20Data%20model%20with%20unix%20like%20security%2C%20configurable%20with%20it%20self%2C%20URL%20rewrite%20and%20mapping%2C%20etc...%20it%27s%20the%20perfect%20backend%20to%20your%20application.%3C%2Fp%3E%0A%20%20%3Cp%3EPlease%20help%20me%20adding%20issues%20to%20the%20GitHub%20proyect.%3C%2Fp%3E%0A%20%20%3Cp%3EThanks%20by%20try%20Pharinix%3C%2Fp%3E%0A%20%20%3Cp%3E%3Ca%20class%3D%22btn%20btn-primary%20btn-lg%22%20role%3D%22button%22%20href%3D%22https%3A%2F%2Fgithub.com%2FPSF1%2Fpharinix%22%20target%3D%22_blank%22%3ESee%20more%3C%2Fa%3E%3C%2Fp%3E%0A%20%20%3Cp%3EStart%20playing%20with%20Pharinix%2C%20below%20this%20block%20has%20the%20console%20to%20execute%20commands...%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22ha-parallax-divider-wrapper%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20class%3D%22ha-diamond-divider-md%20img-responsive%22%3E%3C%2Fspan%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%3C%2Fdiv%3E',0),
  (62856,62794,'content','getNodeHtml','nodetype=group&node=',0),
  (62857,62794,'content','getNodeHtml','nodetype=group&node=',0),
  (62858,62794,'content','getNodeHtml','nodetype=group&node=',0),
@@ -386,7 +377,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=68701 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=69247 DEFAULT CHARSET=latin1;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -445,7 +436,8 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xm
  (62794,'node_type_group_','etc/templates/pages/default.xml','Node ','',''),
  (63722,'node_type_group_3895','etc/templates/pages/default.xml','Node 3895','',''),
  (52298,'node_type_notes_5','etc/templates/pages/default.xml','Node 5','',''),
- (63720,'node_type_group_3894','etc/templates/pages/default.xml','Node 3894','','');
+ (63720,'node_type_group_3894','etc/templates/pages/default.xml','Node 3894','',''),
+ (69246,'help/console','etc/templates/pages/two_column.xml','Console','','');
 CREATE TABLE `sec` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(250) NOT NULL,
@@ -465,14 +457,14 @@ CREATE TABLE `url_rewrite` (
   `priority` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=52448 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=52450 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r',0),
  (3,'help/command','command=pageToHTML&page=help/command','r',0),
  (13,'template/editor','command=pageToHTML&page=template/editor','r',0),
  (14,'help/icons','command=pageToHTML&page=help/icons','r',0),
  (47493,'help/ui_elements','command=pageToHTML&page=help/ui','r',0),
  (47494,'help/forms','command=pageToHTML&page=help/forms','r',0),
- (46945,'help/console','command=pageToHTML&page=home','r',0),
+ (46945,'help/console','command=pageToHTML&page=help/console','r',0),
  (46944,'help/formatters','command=pageToHTML&page=help/formatters','r',0),
  (47492,'help/tabs_panels','command=pageToHTML&page=tab_panel','r',0),
  (51324,'node/$type/$id','command=pageToHTML&page=node_type_$type_$id','m',0),
