@@ -1,0 +1,112 @@
+{
+    "meta":{
+        "name":"Template module",
+        "slugname":"template_mod",
+        "version": "1.0",
+        "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
+        "website": "https://github.com/PSF1/pharinix",
+        "description": "Example module to Pharinix.",
+        "licence": "GNU General Public License 2"
+    },
+    "configuration": {
+        "[template_mod]": {
+            "config_key1":"'a value'",
+            "config_key2":"'other value'",
+            "config_true":true,
+            "config_1":1
+        }
+    },
+    "booting": [
+        {
+            "nothing":{
+                "param1":"value",
+                "param1":"value"
+            }
+        },
+        {
+            "nothing": {
+                "param1":"value",
+                "param1":"value"
+            }
+        }
+    ],
+    "bin_paths": [
+        "bin/",
+        "bin/bin2/"
+    ],
+    "nodetypes": {
+        "exaNode": {
+            "field1":{
+                "type":"string",
+                "iskey":false,
+                "length":0,
+                "required":false,
+                "locked":false,
+                "readOnly":false,
+                "system":false,
+                "multivalued":false,
+                "default":"",
+                "label":"Field 1",
+                "help":"A field"
+            },
+            "field2":{
+                "type":"string",
+                "iskey":false,
+                "length":0,
+                "required":false,
+                "locked":false,
+                "readOnly":false,
+                "system":false,
+                "multivalued":false,
+                "default":"",
+                "label":"Field 2",
+                "help":"A second field"
+            }
+        }
+    },
+    "sql": {
+        "install": [
+            "show schemas",
+            "use miana"
+        ],
+        "uninstall": [
+            "show schemas",
+            "use miana"
+        ]
+    },
+    "install": [
+        {"nothing":
+            {
+                "param1":"value",
+                "param1":"value"
+            }
+        },
+        {"nothing":
+            {
+                "param1":"value",
+                "param1":"value"
+            }
+        }
+    ],
+    "uninstall": [
+        {"nothing":
+            {
+                "param1":"value",
+                "param1":"value"
+            }
+        },
+        {"nothing":
+            {
+                "param1":"value",
+                "param1":"value"
+            }
+        }
+    ],
+    "requirements": {
+        "pharinix": "1.07.x"
+    },
+    "platforms":[
+        "win",
+        "linux"
+    ]
+}

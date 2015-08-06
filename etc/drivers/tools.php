@@ -128,7 +128,82 @@
         closedir($directorio);
         return $resp;
     }
+    
+    /**
+     +-------------------------------------------------------------------------+
+     | Revive Adserver                                                         |
+     | http://www.revive-adserver.com                                          |
+     |                                                                         |
+     | Copyright: See the COPYRIGHT.txt file.                                  |
+     | License: GPLv2 or later, see the LICENSE.txt file.                      |
+     +-------------------------------------------------------------------------+
+     * Attempts to remove the file indicated by the $sFilename path from the
+     * filesystem. If the $filename indicates non-empty directory the function
+     * will remove it along with all its content.
+     *
+     * @param string $sFilename
+     * @return boolean True if the operation is successful, Exception if there
+     * was a failure.
+    */
+    public static function fileRemove($sFilename) {
+        if (file_exists($sFilename)) {
+            if (is_dir($sFilename)) {
+                $directory = opendir($sFilename);
+                if (false === $directory) {
+                    $error = new Exception("Can't open the directory: '$sFilename'.");
+                    return $error;
+                }
+                while (($sChild = readdir($directory)) !== false) {
+                    if ($sChild == '.' or $sChild == '..') {
+                        continue;
+                    }
+                    $result = self::fileRemove($sFilename . '/' . $sChild);
+                    if ($result instanceof Exception) {
+                        return $result;
+                    }
+                }
+                closedir($directory);
+                $result = rmdir($sFilename);
+                if ($result === false) {
+                    $error = new Exception("Can't delete the directory: '$sFilename'.");
+                    return $error;
+                }
+            } else {
+                if(!unlink($sFilename)) {
+                    return new Exception("Can't remove the file: '$sFilename'.");
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
+    /**
+     * Compare two versions strings. Version numbers must have de format <mayor>.<minor>.<revision>, and all parts must be numbers. Ex. '1.2.3' . In $need, minor or revision can be 'x' to allow any value.
+     * @param string $need Version number
+     * @param string $have Version number
+     * @return boolean TRUE if $have is greater or equal to $need
+     */
+    public static function versionIsGreaterOrEqual($need, $have) {
+        $need = explode(".", $need);
+        $have = explode(".", $have);
+        for($i = 0; $i < 3; $i++) {
+            if (!isset($need[$i])) {
+                $need[$i] = 0;
+            } else {
+                $need[$i] = intval($need[$i]);
+            }
+            if (!isset($have[$i])) {
+                $have[$i] = 0;
+            } else {
+                $have[$i] = intval($have[$i]);
+            }
+            if (!($have[$i] >= $need[$i])) return false;
+            if ($have[$i] > $need[$i]) break;
+        }
+        return true;
+    }
+    
     public static function formatDate($mysqlDate, $withTime = true) {
         if ($mysqlDate == "")
             return "";

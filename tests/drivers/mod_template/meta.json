@@ -1,0 +1,39 @@
+{
+    "meta":{
+        "name":"Booting module",
+        "slugname":"booting_mod",
+        "version": "1.0",
+        "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
+        "website": "https://github.com/PSF1/pharinix",
+        "description": "Example module to Pharinix.",
+        "licence": "GNU General Public License 2"
+    },
+    "configuration": {},
+    "booting": [
+        {
+            "nothing":{
+                "param1":"value",
+                "param2":"value"
+            },
+            "priority": 10
+        },
+        {
+            "nothing": {
+                "param1":"value",
+                "param2":"value"
+            }
+        }
+    ],
+    "bin_paths": [],
+    "nodetypes": {},
+    "sql": {},
+    "install": [],
+    "uninstall": [],
+    "requirements": {
+        "pharinix": "1.07.x"
+    },
+    "platforms":[
+        "win",
+        "linux"
+    ]
+}
