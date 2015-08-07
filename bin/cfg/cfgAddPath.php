@@ -55,7 +55,7 @@ if (!class_exists("commandCfgAddPath")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return commands path.", 
+                "description" => "Add a new command path.", 
                 "parameters" => array(
                     "path" => "New path to add.",
                 ), 

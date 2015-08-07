@@ -45,6 +45,14 @@ class driverCommand extends driverHook {
         }
         return driverCommand::$paths;
     }
+    
+    /**
+     * Clear paths cache
+     */
+    public static function refreshPaths() {
+        driverCommand::$paths = null;
+    }
+    
     /**
      * Execute a command
      * @param string $cmd
@@ -84,7 +92,7 @@ class driverCommand extends driverHook {
                 return $resp;
             }
         }
-        if ($_POST["interface"] == "echoHtml") {
+        if (isset($_POST["interface"]) && $_POST["interface"] == "echoHtml") {
             echo self::getAlert("Command '{$cmd}' not found");
         } else {
             return array("ok" => false, "msg" => "Command '{$cmd}' not found");

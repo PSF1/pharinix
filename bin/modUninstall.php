@@ -75,7 +75,12 @@ if (!class_exists("commandModUninstal")) {
                 }
             }
             // Remove command's paths
-            
+            foreach($meta->bin_paths as $cpath) {
+                driverCommand::run('cfgDelPath', array(
+                    'path' => $cpath
+                ));
+            }
+            driverCommand::refreshPaths();
             // Remove configuration
             if (isset($meta->configuration)) {
                 foreach($meta->configuration as $group => $values) {

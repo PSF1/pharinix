@@ -110,7 +110,12 @@ if (!class_exists("commandModInstall")) {
                 driverConfig::getCFG()->save();
             }
             // Install command's paths
-            
+            foreach($meta->bin_paths as $cpath) {
+                driverCommand::run('cfgAddPath', array(
+                    'path' => $cpath
+                ));
+            }
+            driverCommand::refreshPaths();
             // Install booting
             $narr = array();
             foreach($meta->booting as $bootObj) {

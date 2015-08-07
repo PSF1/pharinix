@@ -179,6 +179,23 @@ class modulesTest extends PHPUnit_Framework_TestCase {
         driverUser::sudo(false);
     }
     
+    public function testCommand_path() {
+        driverUser::sudo(true);
+        
+        $resp = driverCommand::run('modInstall', array(
+            'zip' => 'tests/drivers/mod_template/mod_command_path.zip',
+        ));
+        // Try
+        $resp = driverCommand::run('cmd_template');
+        $this->assertEquals('cmd_template', $resp);
+        // Uninstall
+        driverCommand::run('modUninstall', array('name' => 'command_path_mod'));
+        $resp = driverCommand::run('cmd_template');
+        $this->assertFalse($resp['ok']);
+        
+        driverUser::sudo(false);
+    }
+    
     public function testVersionIsGreaterOrEqual() {
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1', '2'));
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1.1', '1.2'));
