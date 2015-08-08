@@ -78,6 +78,7 @@ class modulesTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run('modInstall', array(
             'zip' => 'tests/drivers/mod_template/mod_neutral.zip',
         ));
+        var_dump($resp);
         $this->assertTrue($resp['ok']);
         $this->assertTrue(is_dir('usr/neutral_mod/'));
         $this->assertTrue(is_file('usr/neutral_mod/meta.json'));
