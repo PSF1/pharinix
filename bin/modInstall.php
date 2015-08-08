@@ -222,7 +222,18 @@ if (!class_exists("commandModInstall")) {
                 }
             }
             // Execute install commands
-            
+            if (isset($meta->install)) {
+                foreach($meta->install as $bootObj) {
+                    $pars = array();
+                    foreach($bootObj as $key => $value) {
+                        $cmd = $key;
+                        foreach($value as $par => $val) {
+                            $pars[$par] = $val;
+                        }
+                    }
+                    driverCommand::run($cmd, $pars);
+                }
+            }
             
             return array("ok" => true, "path" => $installPath);
         }

@@ -57,7 +57,18 @@ if (!class_exists("commandModUninstal")) {
             }
             $installPath = $mod['path'];
             // Execute uninstall commands
-            
+            if (isset($meta->uninstall)) {
+                foreach($meta->uninstall as $bootObj) {
+                    $pars = array();
+                    foreach($bootObj as $key => $value) {
+                        $cmd = $key;
+                        foreach($value as $par => $val) {
+                            $pars[$par] = $val;
+                        }
+                    }
+                    driverCommand::run($cmd, $pars);
+                }
+            }
             // Run SQL queries
             if (isset($meta->sql)) {
                 if (isset($meta->sql->uninstall)) {

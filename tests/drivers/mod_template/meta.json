@@ -1,7 +1,7 @@
 {
     "meta":{
-        "name":"SQL example module",
-        "slugname":"sql_example_mod",
+        "name":"Commands example module",
+        "slugname":"commands_example_mod",
         "version": "1.0",
         "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
         "website": "https://github.com/PSF1/pharinix",
@@ -12,16 +12,28 @@
     "booting": [],
     "bin_paths": [],
     "nodetypes": {},
-    "sql": {
-        "install": [
-            "CREATE TABLE `test_table` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT,`command` varchar(250) NOT NULL,`parameters` longtext NOT NULL,`priority` int(10) unsigned NOT NULL,`ref` varchar(250) NOT NULL,PRIMARY KEY (`id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;"
-        ],
-        "uninstall": [
-            "DROP TABLE IF EXISTS `test_table`"
-        ]
-    },
-    "install": [],
-    "uninstall": [],
+    "sql": {},
+    "install": [
+        {"cfgAddSection":
+            {
+                "section":"[test_config]"
+            }
+        },
+        {"cfgSetValue":
+            {
+                "section":"[test_config]",
+                "key":"test",
+                "value":"true"
+            }
+        }
+    ],
+    "uninstall": [
+        {"cfgDelSection":
+            {
+                "section":"[test_config]"
+            }
+        }
+    ],
     "requirements": {
         "pharinix": "1.07.x"
     },
