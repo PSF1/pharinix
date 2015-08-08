@@ -196,6 +196,85 @@ class modulesTest extends PHPUnit_Framework_TestCase {
         driverUser::sudo(false);
     }
     
+    public function testNodes() {
+        driverUser::sudo(true);
+        
+        $resp = driverCommand::run('modInstall', array(
+            'zip' => 'tests/drivers/mod_template/mod_nodes_example.zip',
+        ));
+        // Try
+        $resp = driverCommand::run('getNodeTypeList');
+        $findExaNode = false;
+        $findExaNode2 = false;
+        foreach($resp as $type) {
+            switch ($type) {
+                case 'exanode':
+                    $findExaNode = true;
+                    break;
+                case 'exanode2':
+                    $findExaNode2 = TRUE;
+                    break;
+            }
+        }
+        $this->assertTrue($findExaNode);
+        $this->assertTrue($findExaNode2);
+        $nodetype = driverCommand::run('getNodeTypeDef', array(
+            'nodetype' => 'exanode'
+        ));
+        $haveTitle = false;
+        $haveField1 = false;
+        $haveField2 = false;
+        foreach($nodetype['fields'] as $field) {
+            switch($field['name']) {
+                case 'title': $haveTitle = true; break;
+                case "field1": $haveField1 = true; break;
+                case "field2": $haveField2 = true; break;
+            }
+        }
+        $this->assertFalse($haveTitle);
+        $this->assertTrue($haveField1);
+        $this->assertTrue($haveField2);
+        $this->assertEquals('field1', $nodetype['label_field']);
+        
+        $nodetype = driverCommand::run('getNodeTypeDef', array(
+            'nodetype' => 'exanode2'
+        ));
+        $haveTitle = false;
+        $haveField1 = false;
+        $haveField2 = false;
+        foreach($nodetype['fields'] as $field) {
+            switch($field['name']) {
+                case 'title': $haveTitle = true; break;
+                case "field1": $haveField1 = true; break;
+                case "field2": $haveField2 = true; break;
+            }
+        }
+        $this->assertTrue($haveTitle);
+        $this->assertTrue($haveField1);
+        $this->assertFalse($haveField2);
+        $this->assertEquals('title', $nodetype['label_field']);
+        
+        // Uninstall
+        driverCommand::run('modUninstall', array('name' => 'nodes_example_mod'));
+        $resp = driverCommand::run('getNodeTypeList');
+        $findExaNode = false;
+        $findExaNode2 = false;
+        foreach($resp as $type) {
+            switch ($type) {
+                case 'exanode':
+                    $findExaNode = true;
+                    break;
+                case 'exanode2':
+                    $findExaNode2 = TRUE;
+                    break;
+            }
+        }
+        $this->assertFalse($findExaNode);
+        $this->assertFalse($findExaNode2);
+        
+        driverUser::sudo(false);
+    }
+    
     public function testVersionIsGreaterOrEqual() {
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1', '2'));
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1.1', '1.2'));

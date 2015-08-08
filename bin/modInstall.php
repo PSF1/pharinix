@@ -110,40 +110,44 @@ if (!class_exists("commandModInstall")) {
                 driverConfig::getCFG()->save();
             }
             // Install command's paths
-            foreach($meta->bin_paths as $cpath) {
-                driverCommand::run('cfgAddPath', array(
-                    'path' => $cpath
-                ));
-            }
-            driverCommand::refreshPaths();
-            // Install booting
-            $narr = array();
-            foreach($meta->booting as $bootObj) {
-                $cmd = '';
-                $pars = array();
-                $priority = 0;
-                foreach($bootObj as $key => $value) {
-                    switch ($key) {
-                        case 'priority':
-                            $priority = $value;
-                            break;
-                        default: // Is a command
-                            $cmd = $key;
-                            foreach($value as $par => $val) {
-                                $pars[] = $par."=".$val;
-                            }
-                            break;
-                    }
+            if (isset($meta->bin_paths)) {
+                foreach($meta->bin_paths as $cpath) {
+                    driverCommand::run('cfgAddPath', array(
+                        'path' => $cpath
+                    ));
                 }
-                $boot = driverCommand::run('addBooting', array(
-                    'cmd' => $cmd,
-                    'parameters' => implode("&", $pars),
-                    'priority' => $priority,
-                ));
-                $bootObj->id = $boot['uid'];
-                $narr[] = $bootObj;
+                driverCommand::refreshPaths();
             }
-            $meta->booting = $narr;
+            // Install booting
+            if (isset($meta->booting)) {
+                $narr = array();
+                foreach($meta->booting as $bootObj) {
+                    $cmd = '';
+                    $pars = array();
+                    $priority = 0;
+                    foreach($bootObj as $key => $value) {
+                        switch ($key) {
+                            case 'priority':
+                                $priority = $value;
+                                break;
+                            default: // Is a command
+                                $cmd = $key;
+                                foreach($value as $par => $val) {
+                                    $pars[] = $par."=".$val;
+                                }
+                                break;
+                        }
+                    }
+                    $boot = driverCommand::run('addBooting', array(
+                        'cmd' => $cmd,
+                        'parameters' => implode("&", $pars),
+                        'priority' => $priority,
+                    ));
+                    $bootObj->id = $boot['uid'];
+                    $narr[] = $bootObj;
+                }
+                $meta->booting = $narr;
+            }
             // Install meta to modules table
             driverCommand::run('addNode', array(
                 'nodetype' => 'modules',
@@ -153,7 +157,62 @@ if (!class_exists("commandModInstall")) {
                 'version' => $meta->meta->version,
             ));
             // Install node types
-            
+            if (isset($meta->nodetypes)) {
+                foreach($meta->nodetypes as $nodetype => $def) {
+                    $nodetype = strtolower($nodetype);
+                    // Find especial field names like __removetitle
+                    $haveTitle = true;
+                    $labelField = '';
+                    foreach($def as $name => $fieldDef) {
+                        switch ($name) {
+                            case '__removetitle':
+                                $haveTitle = !$fieldDef;
+                                break;
+                            case '__labelfield':
+                                $labelField = $fieldDef;
+                                break;
+                        }
+                    }
+                    // Create node types
+                    $conf = array( 'name' => $nodetype );
+                    if ($labelField != '') {
+                        $conf['label_field'] = $labelField;
+                    }
+                    driverCommand::run('addNodeType', $conf);
+                    if (!$haveTitle) {
+                        driverCommand::run('delNodeField', array(
+                            'nodetype' => $nodetype,
+                            'name' => 'title'
+                        ));
+                    }
+                    // Create fields
+                    foreach($def as $name => $fieldDef) {
+                        switch ($name) {
+                            case '__removetitle':
+                            case '__labelfield':
+                                break;
+                            default:
+                                $field = array(
+                                    'node_type' => $nodetype,
+                                    'name' => $name
+                                );
+                                if (isset($fieldDef->type)) $field['type'] = $fieldDef->type;
+                                if (isset($fieldDef->iskey)) $field['iskey'] = $fieldDef->iskey;
+                                if (isset($fieldDef->len)) $field['len'] = $fieldDef->len;
+                                if (isset($fieldDef->required)) $field['required'] = $fieldDef->required;
+                                if (isset($fieldDef->readonly)) $field['readonly'] = $fieldDef->readonly;
+                                if (isset($fieldDef->locked)) $field['locked'] = $fieldDef->locked;
+                                if (isset($fieldDef->multi)) $field['multi'] = $fieldDef->multi;
+                                if (isset($fieldDef->default)) $field['default'] = $fieldDef->default;
+                                if (isset($fieldDef->label)) $field['label'] = $fieldDef->label;
+                                if (isset($fieldDef->help)) $field['help'] = $fieldDef->help;
+                                    
+                                driverCommand::run('addNodeField', $field);
+                                break;
+                        }
+                    }
+                }
+            }
             // Run SQL queries
             
             // Execute install commands

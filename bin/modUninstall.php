@@ -61,7 +61,13 @@ if (!class_exists("commandModUninstal")) {
             // Run SQL queries
             
             // Remove node types
-            
+            if (isset($meta->nodetypes)) {
+                foreach($meta->nodetypes as $nodetype => $def) {
+                    // Remove node types
+                    $conf = array( 'name' => $nodetype );
+                    driverCommand::run('delNodeType', $conf);
+                }
+            }
             // Remove booting
             foreach($meta->booting as $bootObj) {
                 foreach($bootObj as $key => $value) {

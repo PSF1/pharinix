@@ -1,7 +1,7 @@
 {
     "meta":{
-        "name":"Command path module",
-        "slugname":"command_path_mod",
+        "name":"Nodes example module",
+        "slugname":"nodes_example_mod",
         "version": "1.0",
         "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
         "website": "https://github.com/PSF1/pharinix",
@@ -10,10 +10,54 @@
     },
     "configuration": {},
     "booting": [],
-    "bin_paths": [
-        "usr/command_path_mod/bin/"
-    ],
-    "nodetypes": {},
+    "bin_paths": [],
+    "nodetypes": {
+        "exaNode": {
+            "__removetitle": true,
+            "__labelfield": "field1",
+            "field1":{
+                "type":"string",
+                "iskey":false,
+                "length":0,
+                "required":false,
+                "locked":false,
+                "readOnly":false,
+                "system":false,
+                "multivalued":false,
+                "default":"",
+                "label":"Field 1",
+                "help":"A field"
+            },
+            "field2":{
+                "type":"string",
+                "iskey":false,
+                "length":0,
+                "required":false,
+                "locked":false,
+                "readOnly":false,
+                "system":false,
+                "multivalued":false,
+                "default":"",
+                "label":"Field 2",
+                "help":"A second field"
+            }
+        },
+        "exaNode2": {
+            "field1":{
+                "type":"string",
+                "iskey":false,
+                "length":0,
+                "required":false,
+                "locked":false,
+                "readOnly":false,
+                "system":false,
+                "multivalued":false,
+                "default":"",
+                "label":"Field 1",
+                "help":"A field"
+            }
+        }
+    },
     "sql": {},
     "install": [],
     "uninstall": [],
