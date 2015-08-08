@@ -214,7 +214,13 @@ if (!class_exists("commandModInstall")) {
                 }
             }
             // Run SQL queries
-            
+            if (isset($meta->sql)) {
+                if (isset($meta->sql->install)) {
+                    foreach ($meta->sql->install as $sql) {
+                        dbConn::Execute($sql);
+                    }
+                }
+            }
             // Execute install commands
             
             

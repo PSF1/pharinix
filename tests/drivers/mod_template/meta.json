@@ -1,7 +1,7 @@
 {
     "meta":{
-        "name":"Nodes example module",
-        "slugname":"nodes_example_mod",
+        "name":"SQL example module",
+        "slugname":"sql_example_mod",
         "version": "1.0",
         "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
         "website": "https://github.com/PSF1/pharinix",
@@ -11,54 +11,15 @@
     "configuration": {},
     "booting": [],
     "bin_paths": [],
-    "nodetypes": {
-        "exaNode": {
-            "__removetitle": true,
-            "__labelfield": "field1",
-            "field1":{
-                "type":"string",
-                "iskey":false,
-                "length":0,
-                "required":false,
-                "locked":false,
-                "readOnly":false,
-                "system":false,
-                "multivalued":false,
-                "default":"",
-                "label":"Field 1",
-                "help":"A field"
-            },
-            "field2":{
-                "type":"string",
-                "iskey":false,
-                "length":0,
-                "required":false,
-                "locked":false,
-                "readOnly":false,
-                "system":false,
-                "multivalued":false,
-                "default":"",
-                "label":"Field 2",
-                "help":"A second field"
-            }
-        },
-        "exaNode2": {
-            "field1":{
-                "type":"string",
-                "iskey":false,
-                "length":0,
-                "required":false,
-                "locked":false,
-                "readOnly":false,
-                "system":false,
-                "multivalued":false,
-                "default":"",
-                "label":"Field 1",
-                "help":"A field"
-            }
-        }
+    "nodetypes": {},
+    "sql": {
+        "install": [
+            "CREATE TABLE `test_table` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT,`command` varchar(250) NOT NULL,`parameters` longtext NOT NULL,`priority` int(10) unsigned NOT NULL,`ref` varchar(250) NOT NULL,PRIMARY KEY (`id`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;"
+        ],
+        "uninstall": [
+            "DROP TABLE IF EXISTS `test_table`"
+        ]
     },
-    "sql": {},
     "install": [],
     "uninstall": [],
     "requirements": {

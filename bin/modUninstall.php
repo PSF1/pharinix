@@ -59,6 +59,13 @@ if (!class_exists("commandModUninstal")) {
             // Execute uninstall commands
             
             // Run SQL queries
+            if (isset($meta->sql)) {
+                if (isset($meta->sql->uninstall)) {
+                    foreach ($meta->sql->uninstall as $sql) {
+                        dbConn::Execute($sql);
+                    }
+                }
+            }
             
             // Remove node types
             if (isset($meta->nodetypes)) {
@@ -69,24 +76,28 @@ if (!class_exists("commandModUninstal")) {
                 }
             }
             // Remove booting
-            foreach($meta->booting as $bootObj) {
-                foreach($bootObj as $key => $value) {
-                    switch ($key) {
-                        case 'id':
-                            driverCommand::run('delBooting', array(
-                                'uid' => $value,
-                            ));
-                            break;
+            if (isset($meta->booting)) {
+                foreach($meta->booting as $bootObj) {
+                    foreach($bootObj as $key => $value) {
+                        switch ($key) {
+                            case 'id':
+                                driverCommand::run('delBooting', array(
+                                    'uid' => $value,
+                                ));
+                                break;
+                        }
                     }
                 }
             }
             // Remove command's paths
-            foreach($meta->bin_paths as $cpath) {
-                driverCommand::run('cfgDelPath', array(
-                    'path' => $cpath
-                ));
+            if (isset($meta->bin_paths)) {
+                foreach($meta->bin_paths as $cpath) {
+                    driverCommand::run('cfgDelPath', array(
+                        'path' => $cpath
+                    ));
+                }
+                driverCommand::refreshPaths();
             }
-            driverCommand::refreshPaths();
             // Remove configuration
             if (isset($meta->configuration)) {
                 foreach($meta->configuration as $group => $values) {

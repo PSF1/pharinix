@@ -275,6 +275,24 @@ class modulesTest extends PHPUnit_Framework_TestCase {
         driverUser::sudo(false);
     }
     
+    public function testSQL() {
+        driverUser::sudo(true);
+        
+        $resp = driverCommand::run('modInstall', array(
+            'zip' => 'tests/drivers/mod_template/mod_sql_example.zip',
+        ));
+        // Try
+        $sql = "show tables like 'test_table'";
+        $q = dbConn::Execute($sql);
+        $this->assertFalse($q->EOF);
+        // Uninstall
+        driverCommand::run('modUninstall', array('name' => 'sql_example_mod'));
+        $q = dbConn::Execute($sql);
+        $this->assertTrue($q->EOF);
+        
+        driverUser::sudo(false);
+    }
+    
     public function testVersionIsGreaterOrEqual() {
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1', '2'));
         $this->assertTrue(driverTools::versionIsGreaterOrEqual('1.1', '1.2'));
