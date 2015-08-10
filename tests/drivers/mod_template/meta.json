@@ -1,7 +1,7 @@
 {
     "meta":{
-        "name":"Commands example module",
-        "slugname":"commands_example_mod",
+        "name":"Command path module",
+        "slugname":"command_path_mod",
         "version": "1.0",
         "autor": "Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>",
         "website": "https://github.com/PSF1/pharinix",
@@ -10,30 +10,13 @@
     },
     "configuration": {},
     "booting": [],
-    "bin_paths": [],
+    "bin_paths": [
+        "bin/"
+    ],
     "nodetypes": {},
     "sql": {},
-    "install": [
-        {"cfgAddSection":
-            {
-                "section":"[test_config]"
-            }
-        },
-        {"cfgSetValue":
-            {
-                "section":"[test_config]",
-                "key":"test",
-                "value":"true"
-            }
-        }
-    ],
-    "uninstall": [
-        {"cfgDelSection":
-            {
-                "section":"[test_config]"
-            }
-        }
-    ],
+    "install": [],
+    "uninstall": [],
     "requirements": {
         "pharinix": "1.07.x"
     },

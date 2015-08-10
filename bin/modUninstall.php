@@ -104,7 +104,7 @@ if (!class_exists("commandModUninstal")) {
             if (isset($meta->bin_paths)) {
                 foreach($meta->bin_paths as $cpath) {
                     driverCommand::run('cfgDelPath', array(
-                        'path' => $cpath
+                        'path' => $installPath.$cpath
                     ));
                 }
                 driverCommand::refreshPaths();

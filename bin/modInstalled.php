@@ -30,7 +30,7 @@ if (!class_exists("commandModInstalled")) {
 
         public static function getHelp() {
             return array(
-                "description" => "List installed modules. Only root cat read the list from the database.", 
+                "description" => "List installed modules. Only root can read the list from the database.", 
                 "parameters" => array(), 
                 "response" => array(
                         "modules" => "List of modules.",

@@ -20,36 +20,53 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandModGetPath")) {
-    class commandModGetPath extends driverCommand {
+if (!class_exists("commandModInstallFromGitHub")) {
+    class commandModInstallFromGitHub extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                'name' => ''
+                "path" => "usr/",
+                "url" => "",
             ), $params);
-            $sql = 'select `path` from `node_modules` where `title` = \''.$params['name'].'\'';
-            $resp = '';
-            $q = dbConn::get()->Execute($sql);
-            if (!$q->EOF) {
-                $resp = $q->fields['path'];
+            
+            $resp = driverCommand::run('curlGetFile', array(
+                'url' => $params['url']
+            ));
+            
+            if (!$resp['ok']) {
+                return $resp;
+            } else { // Prepare the temporal package.
+                // Unzip files
+                
+                // Re-zip with the correct structure
+                
+                // Do the real install
+                
+                // Remove temporal package and downloaded file
+                
             }
-            return array('path' => $resp);
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Get the instalation path of a module.", 
+                "description" => "Install a module from GitHub project, it can be from master ZIP or tag release ZIP file. (Requires cURL.)", 
                 "parameters" => array(
-                        "name" => "Module name.",
-                    ), 
+                    "path" => "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'",
+                    "url" => "URL of the module's GitHub ZIP file.",
+                ), 
                 "response" => array(
-                        "path" => "Module path.",
+                        "ok" => "TRUE if the installation is OK.",
+                        "msg" => "If install error this contains the error message.",
+                        "path" => "If install ok contains the install path.",
                     ),
                 "type" => array(
                     "parameters" => array(
-                        "name" => "string",
+                        "path" => "string",
+                        "url" => "string",
                     ), 
                     "response" => array(
+                        "ok" => "booelan",
+                        "msg" => "string",
                         "path" => "string",
                     ),
                 )
@@ -61,9 +78,9 @@ if (!class_exists("commandModGetPath")) {
             return parent::getAccess($me);
         }
         
-        public static function getAccessFlags() {
-            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-        }
+//        public static function getAccessFlags() {
+//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+//        }
     }
 }
-return new commandModGetPath();
+return new commandModInstallFromGitHub();
