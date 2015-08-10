@@ -42,10 +42,16 @@ if (!class_exists("commandCurlGetFile")) {
                 curl_setopt($ch, CURLOPT_TIMEOUT, 50);
                 curl_setopt($ch, CURLOPT_FILE, $fp);
                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                 curl_exec($ch);
+                $err = curl_error($ch);
                 curl_close($ch);
                 fclose($fp);
-                return array('ok' => true, 'file' => $tmpFile);
+                if ($err != '') {
+                    return array('ok' => false, 'msg' => $err);
+                } else {
+                    return array('ok' => true, 'file' => $tmpFile);
+                }
             } else {
                 return array('ok' => false, 'msg' => 'cURL not installed.');
             }
