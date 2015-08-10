@@ -36,20 +36,70 @@ if (!class_exists("commandModInstallFromGitHub")) {
             if (!$resp['ok']) {
                 return $resp;
             } else { // Prepare the temporal package.
+                $file = $resp['file'];
                 // Unzip files
-                
+                $fZip = new ZipArchive();
+                $fZip->open($file);
+                $uid = uniqid();
+                $gitFolder = 'var/tmp/'.$uid.'/';
+                if (!is_dir('var/tmp/')) mkdir('var/tmp/');
+                mkdir($gitFolder);
+                $fZip->extractTo($gitFolder);
+                $fZip->close();
+                @unlink($file);
                 // Re-zip with the correct structure
-                
-                // Do the real install
-                
-                // Remove temporal package and downloaded file
-                
+                $auxFolderContent = driverTools::lsDir($gitFolder);
+                if (count($auxFolderContent['folders']) > 0) {
+                    if (is_file($auxFolderContent['folders'][0].'/meta.json')) {
+                        $tmpZip = new ZipArchive();
+                        $tmpZipuid = uniqid();
+                        $tmpZipFilePath = 'var/tmp/'.$tmpZipuid.".tmp";
+                        $tmpZip->open($tmpZipFilePath, ZipArchive::CREATE);
+                        self::addFiles($tmpZip, $auxFolderContent['folders'][0]);
+                        $tmpZip->close();
+                        driverTools::fileRemove($gitFolder);
+                        // Do the real install
+                        $resp = driverCommand::run('modInstall', array(
+                            'zip' => $tmpZipFilePath
+                        ));
+                        // Remove temporal package file
+                        @unlink($tmpZipFilePath);
+                        // Response
+                        return $resp;
+                    } else {
+                        driverTools::fileRemove($gitFolder);
+                        return array('ok' => false, 'msg' => 'Wrong git zip structure, meta file not found.');
+                    }
+                } else {
+                    driverTools::fileRemove($gitFolder);
+                    return array('ok' => false, 'msg' => 'Wrong git zip structure.');
+                }
+            }
+        }
+        
+        /**
+         * 
+         * @param ZipArchive $zip
+         * @param string $path
+         */
+        public static function addFiles($zip, $path, $basePath = "") {
+            if(!driverTools::str_end("/", $path)) $path .= '/';
+            if ($basePath == "") {
+                $basePath = $path;
+            }
+            $content = driverTools::lsDir($path, '*');
+            foreach($content['files'] as $file) {
+                $nFile = str_replace($basePath, "", $file);
+                $zip->addFile($file, $nFile);
+            }
+            foreach($content['folders'] as $folder) {
+                self::addFiles($zip, $folder, $basePath);
             }
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Install a module from GitHub project, it can be from master ZIP or tag release ZIP file. (Requires cURL.)", 
+                "description" => "Install a module from GitHub project, it must be from a tag release ZIP file. (Requires cURL.)", 
                 "parameters" => array(
                     "path" => "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'",
                     "url" => "URL of the module's GitHub ZIP file.",
