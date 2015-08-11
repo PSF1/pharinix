@@ -25,11 +25,15 @@ if (!class_exists("commandToJSON")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = self::cleanItem($params);
-            return array("json" => json_encode($params, JSON_FORCE_OBJECT));
+            $resp = array("json" => json_encode($params, JSON_FORCE_OBJECT));
+            if (json_last_error_msg() != "") {
+                $resp = array('json' => '"'.json_last_error_msg().'"');
+            }
+            return $resp;
         }
         
         private static function cleanItem($params) {
-            if (!is_array($params)) return $params;
+            if (!is_array($params) && !($params instanceof stdClass)) return $params;
             foreach ($params as $key => $value) {
                 if (is_string($value)) $value = utf8_encode($value);
                 if (is_string($key)) {
