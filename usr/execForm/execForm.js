@@ -153,6 +153,7 @@ $(document).ready(function(){
     });
     
     $("#executeCmd").click(function(){
+        $("#response").html("...");
         var frm = $("#remoteApi").serializeArray();
         var query = {
             command: frm[0].value,
