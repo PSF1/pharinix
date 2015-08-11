@@ -105,6 +105,7 @@ function addInterfaceToTable(name, type, help, defValue) {
     html += "<td>";
     html += '<select class="form-control" name="pvalue[]" >';
     html += '<option value="echoHtml" '+(defValue=='echoHtml'?"selected":"")+'>HTML</option>';
+    html += '<option value="echoText" '+(defValue=='echoText'?"selected":"")+'>Text</option>';
     html += '<option value="echoJson" '+(defValue=='echoJson'?"selected":"")+'>JSON</option>';
 //    html += '<option value="echoXml" '+(defValue=='echoXml'?"selected":"")+'>XML</option>';
     html += '</select>';
@@ -180,6 +181,9 @@ $(document).ready(function(){
                 case "echoJson":
                     $('#response').addClass('json_hightlight');
                     resp = jsonSyntaxHighlight(data);
+                case "echoText":
+                    resp = "<pre>" + resp + "</pre>";
+                    break;
                 case "echoXml":
                     resp = "<pre>" + resp + "</pre>";
                     break;
