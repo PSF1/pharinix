@@ -26,7 +26,7 @@ if (!class_exists("commandToJSON")) {
         public static function runMe(&$params, $debug = true) {
             $params = self::cleanItem($params);
             $resp = array("json" => json_encode($params, JSON_FORCE_OBJECT));
-            if (json_last_error_msg() != "") {
+            if (json_last_error_msg() != "No error") {
                 $resp = array('json' => '"'.json_last_error_msg().'"');
             }
             return $resp;
