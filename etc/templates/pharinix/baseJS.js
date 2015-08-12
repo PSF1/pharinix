@@ -48,6 +48,24 @@ function apiCall(postData, onSuccess, onFail, onStart, onEnd) {
     });
 }
 
+function formatBytes(bytes, precision) {
+    if (precision == null) precision = 2;
+    precision = Math.pow(10, precision);
+    var units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+    bytes = Math.max(bytes, 0);
+    var pow = Math.floor((bytes ? Math.log(bytes) : 0) / Math.log(1024));
+    pow = Math.min(pow, units.length - 1);
+
+    // Uncomment one of the following alternatives
+    //bytes /= Math.pow(1024, pow);
+    bytes /= (1 << (10 * pow)); 
+    var resp = bytes * precision;
+    resp = Math.round(resp);
+    resp = resp / precision;
+    return resp+' '+units[pow];
+}
+
 /**
  * Base 64 implementation
  * Encode: var encodedString = Base64.encode('Hello World!');
