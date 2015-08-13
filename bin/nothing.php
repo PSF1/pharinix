@@ -24,12 +24,12 @@ if (!class_exists("commandNothing")) {
     class commandNothing extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            if(CMS_DEBUG) echo "<i>I do nothing...</i>";
+            if(CMS_DEBUG) echo '<i>'.__("I do nothing...").'</i>';
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Nothing to do", 
+                "description" => __("Nothing to do"), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(
