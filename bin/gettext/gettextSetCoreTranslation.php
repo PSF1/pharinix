@@ -1,0 +1,95 @@
+<?php
+
+/* 
+ * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
+ * Sources https://github.com/PSF1/pharinix
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
+
+if (!class_exists("commandGettextSetCoreTranslation")) {
+    class commandGettextSetCoreTranslation extends driverCommand {
+
+        public static function runMe(&$params, $debug = true) {
+            $params = array_merge(array(
+                'languaje' => '',
+                'original' => '',
+                'translation' => '',
+            ), $params);
+            
+            if ($params['languaje'] == '') {
+                return array('ok' => false, 'msg' => __('Languaje is required.'));
+            }
+            
+            if ($params['original'] == '') {
+                return array('ok' => false, 'msg' => __('Original text is required.'));
+            }
+            
+            $poFile = 'etc/i18n/'.$params['languaje'].'.po';
+            $moFile = 'etc/i18n/'.$params['languaje'].'.mo';
+            
+            $fInfo = driverTools::pathInfo($poFile);
+            if ($fInfo['writable']) {
+                $po = Gettext\Extractors\Po::fromFile($poFile);
+                $tr = $po->find(null, $params['original']);
+                if ($tr) { 
+                    $tr->setTranslation($params['translation']);
+                    Gettext\Generators\Po::toFile($po, $poFile);
+                    Gettext\Generators\Mo::toFile($po, $moFile);
+                } else {
+                    return array('ok' => false, 'msg' => __('Original text not found.'));
+                }
+                return array('ok' => true);
+            } else {
+                return array('ok' => false, 'msg' => __('PO file is not writable.'));
+            }
+        }
+        
+        public static function getHelp() {
+            return array(
+                "description" => __("Save a translation and compile in a MO file."), 
+                "parameters" => array(
+                    'languaje' => __('Language code.'),
+                    'original' => __('Orinignal, english, text.'),
+                    'translation' => __('Tranlated text.'),
+                ), 
+                "response" => array(
+                    'ok' => __('TRUE if ok.')
+                ),
+                "type" => array(
+                    "parameters" => array(
+                        'languaje' => 'string',
+                        'original' => 'string',
+                        'translation' => 'string',
+                    ), 
+                    "response" => array(
+                        'ok' => 'boolean'
+                    ),
+                )
+            );
+        }
+        
+        public static function getAccess($ignore = "") {
+            $me = __FILE__;
+            return parent::getAccess($me);
+        }
+        
+//        public static function getAccessFlags() {
+//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+//        }
+    }
+}
+return new commandGettextSetCoreTranslation();

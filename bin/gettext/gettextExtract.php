@@ -26,6 +26,11 @@ if (!class_exists("commandGettextExtract")) {
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
                 'path' => './',
+                'language' => '',
+                "projectIdVersion" => 'Pharinix/'.CMS_VERSION,
+                "reportMsgidBugsTo" => '',
+                "lastTranslator" => '',
+                "languageTeam" => '',
                 'po' => '',
             ), $params);
             
@@ -40,9 +45,17 @@ if (!class_exists("commandGettextExtract")) {
             if (!is_file($params['po'])) {
                 $po = fopen($params['po'], 'wb+');
                 fclose($po);
+                $po = Gettext\Extractors\Po::fromFile($params['po']);
+                $po->setLanguage($params['language']);
+                $po->setHeader('Project-Id-Version', $params['projectIdVersion']);
+                $po->setHeader('Report-Msgid-Bugs-To', $params['reportMsgidBugsTo']);
+                $po->setHeader('Last-Translator', $params['lastTranslator']);
+                $po->setHeader('Language-Team', $params['languageTeam']);
+                Gettext\Generators\Po::toFile($po, $params['po']);
             }
             $fInfo = driverTools::pathInfo($params['po']);
             if ($fInfo['writable']) {
+                $translations = null;
                 // PHP Code
                 $files = self::getFiles($params['path'], '*.php');
                 if (count($files))
@@ -52,10 +65,19 @@ if (!class_exists("commandGettextExtract")) {
                 if (count($files))
                     $translations = Gettext\Extractors\PhpCode::fromFile($files, $translations);
                 
-                $po = Gettext\Extractors\Po::fromFile('etc/i18n/es.po');
+                $po = Gettext\Extractors\Po::fromFile($params['po']);
+                $po->setHeader('Last-Translator', $params['lastTranslator']);
+                $prev = $po->count();
+                
                 $translations->mergeWith($po);
                 
                 Gettext\Generators\Po::toFile($translations, $params['po']);
+                
+                return array(
+                    'ok' => true, 
+                    'previous' => $prev,
+                    'items' => $translations->count()
+                );
             } else {
                 return array('ok' => false, 'msg' => __('PO file is not writable.'));
             }
@@ -68,11 +90,15 @@ if (!class_exists("commandGettextExtract")) {
          * @return array
          */
         public static function getFiles($path, $pattern) {
+            if (!driverTools::str_end('/', $path)) {
+                $path .= '/';
+            }
             $resp = array();
             $ls = driverTools::lsDir($path, $pattern);
             foreach($ls['files'] as $file) {
                 $resp[] = $file;
             }
+            $ls = driverTools::lsDir($path, '*');
             foreach($ls['folders'] as $folder) {
                 $subls = self::getFiles($folder, $pattern);
                 foreach($subls as $file) {
@@ -87,15 +113,31 @@ if (!class_exists("commandGettextExtract")) {
                 "description" => __("Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."), 
                 "parameters" => array(
                     'path' => __('Root file path to scan, relative to Pharinix root folder.'),
-                    'po' => __('PO file where  write results.'),
+                    'language' => __('Language code of the file.'),
+                    "projectIdVersion" => __('Translated software version.'),
+                    "reportMsgidBugsTo" => __('Contact information to report translation bugs.'),
+                    "lastTranslator" => __('Last translator name and mail.'),
+                    "languageTeam" => __('Languaje team.'),
+                    'po' => __('PO file where write results.'),
                 ), 
-                "response" => array(),
+                "response" => array(
+                    'previous' => __('Number of items before scan.'),
+                    'items' => __('Number of items after scan.')
+                ),
                 "type" => array(
                     "parameters" => array(
                         'path' => 'string',
+                        'language' => 'string',
+                        "projectIdVersion" => 'string',
+                        "reportMsgidBugsTo" => 'string',
+                        "lastTranslator" => 'string',
+                        "languageTeam" => 'string',
                         'po' => 'string',
                     ), 
-                    "response" => array(),
+                    "response" => array(
+                        'previous' => 'string',
+                        'items' => 'string'
+                    ),
                 )
             );
         }
@@ -105,9 +147,9 @@ if (!class_exists("commandGettextExtract")) {
             return parent::getAccess($me);
         }
         
-        public static function getAccessFlags() {
-            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-        }
+//        public static function getAccessFlags() {
+//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+//        }
     }
 }
 return new commandGettextExtract();
