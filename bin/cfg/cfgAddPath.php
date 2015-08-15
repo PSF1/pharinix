@@ -28,20 +28,20 @@ if (!class_exists("commandCfgAddPath")) {
                 'path' => '',
             ), $params);
             if ($params['path'] == '') {
-                return array('ok' => false, 'msg' => 'Path required.');
+                return array('ok' => false, 'msg' => __('Path required.'));
             }
             if (!is_dir($params['path'])) {
-                return array('ok' => false, 'msg' => 'Path not found.');
+                return array('ok' => false, 'msg' => __('Path not found.'));
             }
             $section = driverConfig::getCFG()->getSection('[core]');
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $val = $section->get("path");
             $aval = explode(";",  $val);
             foreach($aval as $path) {
                 if ($path == $params['path']) {
-                    return array('ok' => false, 'msg' => 'Path included.');
+                    return array('ok' => false, 'msg' => __('Path included.'));
                 }
             }
             $val .= ';'.$params['path'];
@@ -55,12 +55,12 @@ if (!class_exists("commandCfgAddPath")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new command path.", 
+                "description" => __("Add a new command path."), 
                 "parameters" => array(
-                    "path" => "New path to add.",
+                    "path" => __("New path to add."),
                 ), 
                 "response" => array(
-                    "Path" => "Value of commands path."
+                    "Path" => __("Value of commands path.")
                 ),
                 "type" => array(
                     "parameters" => array(

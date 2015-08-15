@@ -42,10 +42,10 @@ if (!class_exists("commandGetSession")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return user session data. Warning! It can display sensible data.", 
+                "description" => __("Return user session data. Warning! It can display sensible data."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "data" => "Session array"
+                    "data" => __("Session array")
                 ),
                 "type" => array(
                     "parameters" => array(), 

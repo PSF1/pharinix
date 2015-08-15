@@ -89,23 +89,23 @@ if (!class_exists("commandGetNodeTypeDef")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Get array definition of node type.", 
+                "description" => __("Get array definition of node type."), 
                 "parameters" => array(
-                    "nodetype" => "Node type name",
+                    "nodetype" => __("Node type name"),
                 ), 
                 "response" => array(
-                        "id" => "Node type ID",
-                        "name" => "Node type name",
-                        "locked" => "True/false, is a system node type?",
-                        "label_field" => "Name of field used how label to lists.",
-                        "fields" => "Array with field's definitions. Each field is a array with this elements: 'name', 'type', 'iskey', 'len', 'required', 'readonly', 'locked', 'default', 'label', 'help', 'multi'.",
-                        "created" => "Creation date.",
-                        "creator_node_user" => "Creator ID.",
-                        "modified" => "Modification date.",
-                        "modifier_node_user" => "Modifier ID.",
-                        "user_owner" => "ID of owner user.",
-                        "group_owner" => "ID of owner group.",
-                        "access" => "Access flags. (nodesec)",
+                        "id" => __("Node type ID"),
+                        "name" => __("Node type name"),
+                        "locked" => __("True/false, is a system node type?"),
+                        "label_field" => __("Name of field used how label to lists."),
+                        "fields" => __("Array with field's definitions. Each field is a array with this elements: 'name', 'type', 'iskey', 'len', 'required', 'readonly', 'locked', 'default', 'label', 'help', 'multi'."),
+                        "created" => __("Creation date."),
+                        "creator_node_user" => __("Creator ID."),
+                        "modified" => __("Modification date."),
+                        "modifier_node_user" => __("Modifier ID."),
+                        "user_owner" => __("ID of owner user."),
+                        "group_owner" => __("ID of owner group."),
+                        "access" => __("Access flags. (nodesec)"),
                     ),
                 "type" => array(
                     "parameters" => array(

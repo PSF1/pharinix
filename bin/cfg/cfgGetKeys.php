@@ -29,7 +29,7 @@ if (!class_exists("commandCfgGetKeys")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $resp = array(
                 'keys' => array(),
@@ -42,9 +42,9 @@ if (!class_exists("commandCfgGetKeys")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return a list of keys in a section in configuration.", 
+                "description" => __("Return a list of keys in a section in configuration."), 
                 "parameters" => array(
-                    'section' => 'Section to list.',
+                    'section' => __('Section to list.'),
                 ), 
                 "response" => array(
                     "keys" => "Array of section names."

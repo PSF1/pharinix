@@ -48,10 +48,10 @@ if (!class_exists("commandCaptureEnd")) {
         
         public static function getHelp() {
             return array(
-                "description" => "If any, capture the actual echo buffer and return.", 
+                "description" => __("If any, capture the actual echo buffer and return."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "buffer" => "The string captured."
+                    "buffer" => __("The string captured.")
                 ),
                 "type" => array(
                     "parameters" => array(), 

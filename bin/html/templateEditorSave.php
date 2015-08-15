@@ -27,7 +27,7 @@ if (!class_exists("commandTemplateEditorSave")) {
             $params = array_merge(array("tpl" => "", "name" => ""), $params);
             
             if ($params["name"] == "" || $params["tpl"] == "") {
-                throw new Exception("templateEditorSave: Name or tpl is empty.");
+                throw new Exception("templateEditorSave: ".__("Name or tpl is empty."));
             } else {
                 include_once("usr/xml2array/xml2array.php");
                 if (!function_exists("commandTemplateEditorSaveParseDiv")) {
@@ -73,6 +73,7 @@ if (!class_exists("commandTemplateEditorSave")) {
                 $params["tpl"] = base64_decode($params["tpl"]);
                 $struct = xml_string_to_array($params["tpl"]);
                 $xml = "";
+                // TODO: Change languaje to the actual one.
                 $xml .= '<page lang="en" charset="utf-8">'."\n";
                 $xml .= "\t".'<name>'.$params["name"].'</name>'."\n";
                 $xml .= "\t".'<title>'.$params["title"].'</title>'."\n";
@@ -102,16 +103,16 @@ if (!class_exists("commandTemplateEditorSave")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Save a user template from the template editor.", 
+                "description" => __("Save a user template from the template editor."), 
                 "parameters" => array(
-                    "tpl" => "Base 64 encoded HTML definition of the template.",
-                    "name" => "Template name, It must be a compatible file name.",
-                    "title" => "Template default title.",
-                    "head" => "Base 64 encoded meta information to add to the HTML head area.",
+                    "tpl" => __("Base 64 encoded HTML definition of the template."),
+                    "name" => __("Template name, It must be a compatible file name."),
+                    "title" => __("Template default title."),
+                    "head" => __("Base 64 encoded meta information to add to the HTML head area."),
                     ), 
                 "response" => array(
-                    "ok" => "TRUE if is ok.",
-                    "msg" => "In case of error the error message.",
+                    "ok" => __("TRUE if is ok."),
+                    "msg" => __("In case of error the error message."),
                 ),
                 "type" => array(
                     "parameters" => array(

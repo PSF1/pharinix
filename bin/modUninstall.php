@@ -29,7 +29,7 @@ if (!class_exists("commandModUninstal")) {
             ), $params);
             
             if ($params['name'] == '') {
-                return array("ok" => false, "msg" => 'Module name is required.');
+                return array("ok" => false, "msg" => __('Module name is required.'));
             }
             
             $mods = driverCommand::run('getNodes', array(
@@ -37,10 +37,10 @@ if (!class_exists("commandModUninstal")) {
                 'where' => "`title` = '{$params['name']}'"
             ));
             if (count($mods) == 0) {
-                return array("ok" => false, "msg" => 'Module not found.');
+                return array("ok" => false, "msg" => __('Module not found.'));
             }
             if (count($mods) > 1) {
-                return array("ok" => false, "msg" => 'Module name is not unique.');
+                return array("ok" => false, "msg" => __('Module name is not unique.'));
             }
             
             // TODO: If this modules is required by others installed modules don't allow uninstall.
@@ -138,13 +138,13 @@ if (!class_exists("commandModUninstal")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Remove a module.", 
+                "description" => __("Remove a module."), 
                 "parameters" => array(
-                    "name" => "Slugname of the module to uninstall.",
+                    "name" => __("Slugname of the module to uninstall."),
                 ), 
                 "response" => array(
-                        "ok" => "TRUE if the uninstallation is OK.",
-                        "msg" => "If uninstall error this contains the error message.",
+                        "ok" => __("TRUE if the uninstallation is OK."),
+                        "msg" => __("If uninstall error this contains the error message."),
                     ),
                 "type" => array(
                     "parameters" => array(

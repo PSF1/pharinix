@@ -40,7 +40,7 @@ function decode(fid) {
 }
 </script>
                 <form onsubmit="return false;">
-                    <legend>URL Decoder/Encoder</legend>
+                    <legend><?php __e('URL Decoder/Encoder'); ?></legend>
                     <div class="form-group">
                         <textarea class="form-control" style="width: 100%;" id="dencoder<?php echo $fid;?>"></textarea>
                     </div>
@@ -50,9 +50,11 @@ function decode(fid) {
                     </div>
                     <div class="help-block">
                         <ul>
-                            <li>Input a string of text and encode or decode it as you like.</li>
+                            <li><?php __e('Input a string of text and encode or decode it as you like.'); ?></li>
                         </ul>
-                        The URL Decoder/Encoder is licensed under a Creative Commons <a href="http://creativecommons.org/licenses/by-sa/2.0/" rel="license">Attribution-ShareAlike 2.0</a> License. <img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights.gif">
+                        <?php
+                        echo sprintf(__('The URL Decoder/Encoder is licensed under a Creative Commons %s License.'), '<a href="http://creativecommons.org/licenses/by-sa/2.0/" rel="license">'.__("Attribution-ShareAlike 2.0").'</a>');
+                        ?> <img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights.gif">
                     </div>
                 </form>
 <?php
@@ -69,8 +71,7 @@ function decode(fid) {
         
         public static function getHelp() {
             return array(
-                "description" => "Encode/Decode a string as a URL.<p>The URL Decoder/Encoder is licensed under a Creative Commons <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\" rel=\"license\">Attribution-ShareAlike 2.0</a> License by <a href=\"http://meyerweb.com/eric/tools/dencoder/\" target=\"_blank\">Eric Meyer</a>.
-</p>", 
+                "description" => __("Encode/Decode a string as a URL.<p>The URL Decoder/Encoder is licensed under a Creative Commons Attribution-ShareAlike 2.0 License, http://creativecommons.org/licenses/by-sa/2.0/, by Eric Meyer, http://meyerweb.com/eric/tools/dencoder/."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

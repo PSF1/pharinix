@@ -51,13 +51,13 @@ if (!class_exists("commandChmod")) {
 
         public static function getHelp() {
             return array(
-                "description" => "To change permission of command that is owned by you. To execute commands only Execution is considered.", 
+                "description" => __("To change permission of command that is owned by you. To execute commands only Execution is considered."), 
                 "parameters" => array(
-                    "cmd" => "Command that you need change permission.",
-                    "flags" => "Integer with the new permissions.",
+                    "cmd" => __("Command that you need change permission."),
+                    "flags" => __("Integer with the new permissions."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if changed."
+                    "ok" => __("TRUE if changed.")
                 ),
                 "type" => array(
                     "parameters" => array(

@@ -41,7 +41,7 @@ if (!class_exists("commandFormatFieldPassword")) {
                 ), $params);
             
             if ($p["toread"] == $p["towrite"]) {
-                echo self::getAlert("Object of call must be read or write.");
+                echo self::getAlert(__("Object of call must be read or write."));
             } else {
                 if ($p["multivalued"]) {
                     // Basic types dont have multivalue.
@@ -67,11 +67,11 @@ if (!class_exists("commandFormatFieldPassword")) {
                         }
                         echo '</label>';
                         echo '<input id="'.$p["fieldname"].'" name="'.$p["fieldname"].
-                                '" type="password" placeholder="Password" '.
+                                '" type="password" placeholder="'.__('Password').'" '.
                                 'class="form-control " '.($p["required"]?"required":"").
                                 ' value="'.$p["value"].'"'.
                                 'data-toggle="popover" '.
-                                'title="Password Strength" data-content="Enter Password...">';
+                                'title="Password Strength" data-content="'.__('Enter Password...').'">';
                         echo "<div class=\"help help-block\">".$p["help"]."</div>";
                         echo '</div>';
                         echo '</div>';
@@ -135,6 +135,11 @@ if (!class_exists("commandFormatFieldPassword")) {
 }
 EOT;
                             $reg = &self::getRegister("customscripts");
+                            $VeryStrong = 'Very Strong';
+                            $Strong = 'Strong';
+                            $AlmostStrong = 'Almost Strong';
+                            $Weak = 'Weak';
+                            $VeryWeak = 'Very Weak';
                             $reg .= <<<EOT
 $(document).ready(function(){
 
@@ -154,18 +159,18 @@ $('#{$p["fieldname"]}').on('keyup', function () {
     var stength = 'Weak';
     var pclass = 'danger';
     if (best.test(pass) == true) {
-        stength = 'Very Strong';
+        stength = '{$VeryStrong}';
         pclass = 'success';
     } else if (better.test(pass) == true) {
-        stength = 'Strong';
+        stength = '{$Strong}';
         pclass = 'warning';
     } else if (good.test(pass) == true) {
-        stength = 'Almost Strong';
+        stength = '{$AlmostStrong}';
         pclass = 'warning';
     } else if (bad.test(pass) == true) {
-        stength = 'Weak';
+        stength = '{$Weak}';
     } else {
-        stength = 'Very Weak';
+        stength = '{$VeryWeak}';
     }
 
     var popover = password.attr('data-content', stength).data('bs.popover');
@@ -191,20 +196,20 @@ EOT;
 
         public static function getHelp() {
             return array(
-                "description" => "Format password field to read or write.", 
+                "description" => __("Format password field to read or write."), 
                 "parameters" => array(
-                    "fieldname" => "Field name to the form control.",
-                    "toread" => "Caller need a read form.",
-                    "towrite" => "Caller need a write form.",
-                    "value" => "Field value.",
-                    "length" => "Field max length.",
-                    "required" => "Is a required field.",
-                    "readonly" => "Is a read only field.",
-                    "system" => "Is a system field, it isn't allow write.",
-                    "multivalued" => "Is a multi valued field.",
-                    "default" => "Default value.",
-                    "label" => "Label.",
-                    "help" => "Help to write forms.",
+                    "fieldname" => __("Field name to the form control."),
+                    "toread" => __("Caller need a read form."),
+                    "towrite" => __("Caller need a write form."),
+                    "value" => __("Field value."),
+                    "length" => __("Field max length."),
+                    "required" => __("Is a required field."),
+                    "readonly" => __("Is a read only field."),
+                    "system" => __("Is a system field, it isn't allow write."),
+                    "multivalued" => __("Is a multi valued field."),
+                    "default" => __("Default value."),
+                    "label" => __("Label."),
+                    "help" => __("Help to write forms."),
                 ), 
                 "response" => array(),
                 "type" => array(

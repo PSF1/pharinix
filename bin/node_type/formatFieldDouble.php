@@ -40,7 +40,7 @@ if (!class_exists("commandFormatFieldDouble")) {
                 ), $params);
             
             if ($p["toread"] == $p["towrite"]) {
-                echo self::getAlert("Object of call must be read or write.");
+                echo self::getAlert(__("Object of call must be read or write."));
             } else {
                 if ($p["multivalued"]) {
                     // Basic types dont have multivalue.
@@ -77,20 +77,20 @@ if (!class_exists("commandFormatFieldDouble")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Format decimal field to read or write.", 
+                "description" => __("Format decimal field to read or write."), 
                 "parameters" => array(
-                    "fieldname" => "Field name to the form control.",
-                    "toread" => "Caller need a read form.",
-                    "towrite" => "Caller need a write form.",
-                    "value" => "Field value.",
-                    "length" => "Field max length.",
-                    "required" => "Is a required field.",
-                    "readonly" => "Is a read only field.",
-                    "system" => "Is a system field, it isn't allow write.",
-                    "multivalued" => "Is a multi valued field.",
-                    "default" => "Default value.",
-                    "label" => "Label.",
-                    "help" => "Help to write forms.",
+                    "fieldname" => __("Field name to the form control."),
+                    "toread" => __("Caller need a read form."),
+                    "towrite" => __("Caller need a write form."),
+                    "value" => __("Field value."),
+                    "length" => __("Field max length."),
+                    "required" => __("Is a required field."),
+                    "readonly" => __("Is a read only field."),
+                    "system" => __("Is a system field, it isn't allow write."),
+                    "multivalued" => __("Is a multi valued field."),
+                    "default" => __("Default value."),
+                    "label" => __("Label."),
+                    "help" => __("Help to write forms."),
                 ), 
                 "response" => array(),
                 "type" => array(

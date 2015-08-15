@@ -47,7 +47,7 @@ if (!class_exists("commandChownNode")) {
                         "name" => $params["nodetype"],
                     ));
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad node type id.");
+                        return array("ok" => false, "msg" => __("Bad node type id."));
                     } else {
                         $nodetype = $params["nodetype"];
                     }
@@ -56,19 +56,19 @@ if (!class_exists("commandChownNode")) {
                     $sql = "SELECT * FROM `node_type` where `id` = ".$params["nodetype"];
                     $q = dbConn::Execute($sql);
                     if ($q->EOF) {
-                        return array("ok" => false, "msg" => "Bad node type id.");
+                        return array("ok" => false, "msg" => __("Bad node type id."));
                     }
                     $nodetype = $q->fields["name"];
                 }
             } else {
-                return array("ok" => false, "msg" => "Node type is required.");
+                return array("ok" => false, "msg" => __("Node type is required."));
             }
             if ($params["owner"] != null && $params["owner"] != "0") {
                 if (!is_numeric($params["owner"])) {
                     // Owner is a mail
                     $resp = driverUser::getUserIDByMail($params["owner"]);
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad user id.");
+                        return array("ok" => false, "msg" => __("Bad user id."));
                     } else {
                         $owner = $resp;
                     }
@@ -76,7 +76,7 @@ if (!class_exists("commandChownNode")) {
                     // Owner is a ID
                     $resp = driverUser::getUserName($params["owner"]);
                     if ($resp == "unknown") {
-                        return array("ok" => false, "msg" => "Bad user id.");
+                        return array("ok" => false, "msg" => __("Bad user id."));
                     }
                     $owner = $params["owner"];
                 }
@@ -86,7 +86,7 @@ if (!class_exists("commandChownNode")) {
                     // group is a title
                     $resp = driverUser::getGroupID($params["group"]);
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad group id.");
+                        return array("ok" => false, "msg" => __("Bad group id."));
                     } else {
                         $group = $resp;
                     }
@@ -94,7 +94,7 @@ if (!class_exists("commandChownNode")) {
                     // group is a ID
                     $resp = driverUser::getGroupName($params["group"]);
                     if ($resp == "unknown") {
-                        return array("ok" => false, "msg" => "Bad group id.");
+                        return array("ok" => false, "msg" => __("Bad group id."));
                     }
                     $group = $params["group"];
                 }
@@ -123,7 +123,7 @@ if (!class_exists("commandChownNode")) {
 
                     $resp = array("ok" => true);
                 } else {
-                    $resp = array("ok" => false, "msg" => "You need ownership.");
+                    $resp = array("ok" => false, "msg" => __("You need ownership."));
                 }
             } else {
                 // Change node
@@ -155,10 +155,10 @@ if (!class_exists("commandChownNode")) {
 //                        }
                         $resp = array("ok" => true);
                     } else {
-                        $resp = array("ok" => false, "msg" => "You need ownership.");
+                        $resp = array("ok" => false, "msg" => __("You need ownership."));
                     }
                 } else {
-                    $resp = array("ok" => false, "msg" => "unknown node or you can't read.");
+                    $resp = array("ok" => false, "msg" => __("unknown node or you can't read."));
                 }
             }
             return $resp;
@@ -166,15 +166,15 @@ if (!class_exists("commandChownNode")) {
 
         public static function getHelp() {
             return array(
-                "description" => "To change owner, and/or group, of the node types or nodes.", 
+                "description" => __("To change owner, and/or group, of the node types or nodes."), 
                 "parameters" => array(
-                    "nodetype" => "Node type that you need change ownership or type of the node to change.",
-                    "nid" => "Node ID of the node that you need change. Optional, if it's set try change a node, else try change a node type.",
-                    "owner" => "Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero.",
-                    "group" => "Title or ID of the group. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero.",
+                    "nodetype" => __("Node type that you need change ownership or type of the node to change."),
+                    "nid" => __("Node ID of the node that you need change. Optional, if it's set try change a node, else try change a node type."),
+                    "owner" => __("Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero."),
+                    "group" => __("Title or ID of the group. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if changed."
+                    "ok" => __("TRUE if changed.")
                 ),
                 "type" => array(
                     "parameters" => array(

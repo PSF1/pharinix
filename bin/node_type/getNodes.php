@@ -146,7 +146,7 @@ if (!class_exists("commandGetNodes")) {
             } else {
                 return array(
                         "ok" => false,
-                        "msg" => "Node type '{$params["nodetype"]}' not found.",
+                        "msg" => sprintf(__("Node type '%s' not found."), $params["nodetype"]),
                         );
             }
         }
@@ -192,19 +192,19 @@ if (!class_exists("commandGetNodes")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return list of nodes from a node type. All field's names must be enclosed with '`'", 
+                "description" => __("Return list of nodes from a node type. All field's names must be enclosed with '`'"), 
                 "parameters" => array(
-                    "nodetype" => "Node type.",
-                    "count" => "Bool, If true then return number, in a 'amount' field, of nodes but without node data.",
-                    "fields" => "Comma separated string list. Optional, default '*'.",
-                    "where" => "Where condition.",
-                    "order" => "Order by fields.",
-                    "group" => "Group by fields.",
-                    "offset" => "Index of first node to return. Optional, default 0.",
-                    "length" => "Number of nodes to return from the offset. Optional, default 100.",
+                    "nodetype" => __("Node type."),
+                    "count" => __("Bool, If true then return number, in a 'amount' field, of nodes but without node data."),
+                    "fields" => __("Comma separated string list. Optional, default '*'."),
+                    "where" => __("Where condition."),
+                    "order" => __("Order by fields."),
+                    "group" => __("Group by fields."),
+                    "offset" => __("Index of first node to return. Optional, default 0."),
+                    "length" => __("Number of nodes to return from the offset. Optional, default 100."),
                 ), 
                 "response" => array(
-                    "rs" => "Node array with the ID how index. Multivalued fields will be returned how related ID's array.",
+                    "rs" => __("Node array with the ID how index. Multivalued fields will be returned how related ID's array."),
                 ),
                 "type" => array(
                     "parameters" => array(

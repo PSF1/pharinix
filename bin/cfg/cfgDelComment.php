@@ -30,7 +30,7 @@ if (!class_exists("commandCfgDelComment")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $cm = new driverConfigIniComment();
             $cm->line = "; ".$params['comment'];
@@ -40,10 +40,10 @@ if (!class_exists("commandCfgDelComment")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Del a comment to configuration.", 
+                "description" => __("Del a comment to configuration."), 
                 "parameters" => array(
-                    'section' => 'Section.',
-                    'comment' => 'Configuration comment to delete.',
+                    'section' => __('Section.'),
+                    'comment' => __('Configuration comment to delete.'),
                 ), 
                 "response" => array(),
                 "type" => array(

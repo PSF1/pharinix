@@ -29,7 +29,7 @@ if (!class_exists("commandCfgAddSection")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section != null) {
-                return array('ok' => false, 'msg' => 'Section found.');
+                return array('ok' => false, 'msg' => __('Section found.'));
             }
             driverConfig::getCFG()->addSection($params['section']);
             driverConfig::getCFG()->save();
@@ -37,9 +37,9 @@ if (!class_exists("commandCfgAddSection")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new section to configuration.", 
+                "description" => __("Add a new section to configuration."), 
                 "parameters" => array(
-                    'section' => 'Section name, it must be "[name]".',
+                    'section' => __('Section name, it must be "[name]".'),
                 ), 
                 "response" => array(),
                 "type" => array(

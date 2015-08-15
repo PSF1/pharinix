@@ -26,12 +26,12 @@ if (!class_exists("commandAddUrl")) {
         public static function runMe(&$params, $debug = true) {
             $resp = array("ok" => false, "msg" => "");
             if ($params["url"] == "" || $params["cmd"] == "") {
-                $resp["msg"] = "URL or CMD is empty.";
+                $resp["msg"] = __("URL or CMD is empty.");
             } else {
                 $sql = "SELECT `id` FROM `url_rewrite` where `url` = '{$params["url"]}'";
                 $q = dbConn::Execute($sql);
                 if (!$q->EOF) {
-                    $resp["msg"] = "URL just existe.";
+                    $resp["msg"] = __("URL just existe.");
                 } else {
                     $sql = "insert into `url_rewrite` set `url` = '{$params["url"]}', `rewriteto` = '{$params["cmd"]}'";
                     dbConn::Execute($sql);
@@ -49,13 +49,13 @@ if (!class_exists("commandAddUrl")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new URL to the rewrite list.", 
+                "description" => __("Add a new URL to the rewrite list."), 
                 "parameters" => array(
-                    "url" => "The new URL, relative at root. Ex. home to http://127.0.0.1/home", 
-                    "cmd" => "POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home"), 
+                    "url" => __("The new URL, relative at root. Ex. home to http://127.0.0.1/home"), 
+                    "cmd" => __("POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home")), 
                 "response" => array(
-                    "ok" => "TRUE if new URL added.", 
-                    "msg" => "If FALSE contain the error message."
+                    "ok" => __("TRUE if new URL added."), 
+                    "msg" => __("If FALSE contain the error message.")
                     ),
                 "type" => array(
                     "parameters" => array(

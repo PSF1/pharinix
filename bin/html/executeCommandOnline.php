@@ -31,24 +31,24 @@ if (!class_exists("commandExecuteCommandOnline")) {
                 <fieldset>
 
                     <!-- Form Name -->
-                    <legend>Direct command</legend>
+                    <legend><?php __e('Direct command'); ?></legend>
 
                     <!-- Text input-->
                     <div class="form-group">
                         <input type="hidden" name="interface" value="1">
-                        <label class="col-md-4 control-label" for="cmd">Command</label>
+                        <label class="col-md-4 control-label" for="cmd"><?php __e('Command'); ?></label>
                         <div class="col-md-5">
                             <input id="cmd" name="cmd" type="text" placeholder="nothing" class="form-control input-md" required="">
-                            <span class="help-block">Command to execute</span>
+                            <span class="help-block"><?php __e('Command to execute'); ?></span>
                         </div>
                     </div>
 
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="post">POST's parameters</label>
+                        <label class="col-md-4 control-label" for="post"><?php __e('POST\'s parameters'); ?></label>
                         <div class="col-md-4">
                             <textarea class="form-control" id="post" name="post"></textarea>
-                            <span class="help-block">Post's parameters encoded as string.</span>
+                            <span class="help-block"><?php __e('Post\'s parameters encoded as string.'); ?></span>
                         </div>
                     </div>
 
@@ -56,24 +56,24 @@ if (!class_exists("commandExecuteCommandOnline")) {
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="submit"></label>
                         <div class="col-md-4">
-                            <button id="submit" name="submit" class="btn btn-primary">Execute</button>
+                            <button id="submit" name="submit" class="btn btn-primary"><?php __e('Execute'); ?></button>
                         </div>
                     </div>
                     <a href="help/command" class="btn btn-xs btn-info" target="_blank">
-                        <span class="glyphicon glyphicon-info-sign"></span> Command's help
+                        <span class="glyphicon glyphicon-info-sign"></span> <?php __e('Command\'s help'); ?>
                     </a>
                 </fieldset>
             </form>
             <?php
             if (isset($_POST["post"])) {
-                echo '<label class="col-md-4 control-label">Executed:</label>';
+                echo '<label class="col-md-4 control-label">'.__("Executed").':</label>';
                 echo "<pre>";
                 var_dump($_POST);
                 echo "</pre>";
                 $aux = array();
                 parse_str($_POST["post"], $aux);
                 $resp = driverCommand::run($_POST["cmd"], $aux);
-                echo '<label class="col-md-4 control-label">Response:</label>';
+                echo '<label class="col-md-4 control-label">'.__("Response").':</label>';
                 echo "<pre>";
                 var_dump($resp);
                 echo "</pre>";
@@ -91,8 +91,8 @@ if (!class_exists("commandExecuteCommandOnline")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Show a form to define the command to execute.",
-                "parameters" => array("post" => "Post's parameters encoded as string."),
+                "description" => __("Show a form to define the command to execute."),
+                "parameters" => array("post" => __("Post's parameters encoded as string.")),
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(

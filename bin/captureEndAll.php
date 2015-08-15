@@ -44,7 +44,7 @@ if (!class_exists("commandCaptureEndAll")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Ensure that all the echo buffer are close ignoring her contents.", 
+                "description" => __("Ensure that all the echo buffer are close ignoring her contents."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

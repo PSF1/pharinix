@@ -52,12 +52,12 @@ if (!class_exists("commandGetNodeTypeID")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Search ID of node type by name", 
+                "description" => __("Search ID of node type by name"), 
                 "parameters" => array(
-                    "name" => "Node type name to search.",
+                    "name" => __("Node type name to search."),
                 ), 
                 "response" => array(
-                    "id" => "ID of the node type. False if not found."
+                    "id" => __("ID of the node type. False if not found.")
                 ),
                 "type" => array(
                     "parameters" => array(

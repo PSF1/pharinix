@@ -47,13 +47,13 @@ if (!class_exists("commandBatch")) {
                     $lastCommand = "'$cmd' => '$params'";
                     if (self::isMeta($cmd)) {
                         if (self::isValidMeta($cmd)) {
-                            switch ($cmd) {
+                            switch ($cmd) { // TODO: Add more meta commands
                                 case "#clean":
                                     $output = array();
                                 break;
                             }
                         } else {
-                            throw new Exception("Meta '$cmd' is unknowed.");
+                            throw new Exception(sprintf(__("Meta '%s' is unknowed."), $cmd));
                         }
                     } else {
                         $aux = array();
@@ -104,17 +104,17 @@ if (!class_exists("commandBatch")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end.", 
+                "description" => __("Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end."), 
                 "parameters" => array(
-                    "starter" => "Array of parameters to merge at the start.",
-                    "commands" => "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and passed how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output.",
-                    "echoed" => "If is empty or not define the output will out in response, else will be passed how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response.",
+                    "starter" => __("Array of parameters to merge at the start."),
+                    "commands" => __("Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and passed how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output."),
+                    "echoed" => __("If is empty or not define the output will out in response, else will be passed how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response."),
                 ), 
                 "response" => array(
-                    "any" => "The final response of the batch.",
-                    "ok" => "If error is set to FALSE, else will be unset.",
-                    "msg" => "If error is set to the error message, else will be unset. ",
-                    "error" => "If error is set to a string with the command and her input parameters, else will be unset.",
+                    "any" => __("The final response of the batch."),
+                    "ok" => __("If error is set to FALSE, else will be unset."),
+                    "msg" => __("If error is set to the error message, else will be unset. "),
+                    "error" => __("If error is set to a string with the command and her input parameters, else will be unset."),
                 ),
                 "type" => array(
                     "parameters" => array(

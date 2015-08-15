@@ -45,9 +45,9 @@ if (!class_exists("commandGetRWUrls")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return a complete list of URL rewrites.", 
+                "description" => __("Return a complete list of URL rewrites."), 
                 "parameters" => array(), 
-                "response" => array("list" => "List of URLs"),
+                "response" => array("list" => __("List of URLs")),
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(

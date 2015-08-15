@@ -50,9 +50,9 @@ if (!class_exists("commandDelPage")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Del a page.", 
+                "description" => __("Del a page."), 
                 "parameters" => array(
-                    'name' => 'ID of page.',
+                    'name' => __('ID of page.'),
                 ),
                 "response" => array(),
                 "type" => array(

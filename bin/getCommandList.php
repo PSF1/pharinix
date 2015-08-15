@@ -57,12 +57,12 @@ if (!class_exists("commandGetCommandList")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Command's list as array filter by startby parameter.", 
+                "description" => __("Command's list as array filter by startby parameter."), 
                 "parameters" => array(
-                    "startby" => "Filter by start of command name.",
+                    "startby" => __("Filter by start of command name."),
                 ), 
                 "response" => array(
-                    "commands" => "Result list"
+                    "commands" => __("Result list")
                     ),
                 "type" => array(
                     "parameters" => array(

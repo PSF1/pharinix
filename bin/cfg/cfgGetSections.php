@@ -32,10 +32,10 @@ if (!class_exists("commandCfgGetSections")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return a list of sections in configuration.", 
+                "description" => __("Return a list of sections in configuration."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "sections" => "Array of section names."
+                    "sections" => __("Array of section names.")
                 ),
                 "type" => array(
                     "parameters" => array(), 

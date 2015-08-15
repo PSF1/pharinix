@@ -53,10 +53,10 @@ if (!class_exists("commandAddNodeType")) {
                       ), $params);
             $params["name"] = strtolower($params["name"]);
             if ($params["name"] == "type" || $params["name"] == "type_field"  || $params["name"] == "formats") {
-                $resp["msg"] = "Node type name is a protected name. ";
+                $resp["msg"] = __("Node type name is a protected name.")." ";
             }
             if ($params["name"] == "") {
-                $resp["msg"] = "Node type name is required. ";
+                $resp["msg"] = __("Node type name is required.")." ";
             }
             if ($resp["msg"] != "") return $resp;
 
@@ -220,16 +220,16 @@ if (!class_exists("commandAddNodeType")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new node type, with a default string field with name 'title'.", 
+                "description" => __("Add a new node type, with a default string field with name 'title'."), 
                 "parameters" => array(
-                    "name" => "Node type name",
-                    "locked" => "True/false System field. Optional, default false.",
-                    "label_field" => "Name of the field used how label to list nodes. Optional, default 'title'.",
+                    "name" => __("Node type name"),
+                    "locked" => __("True/false System field. Optional, default false."),
+                    "label_field" => __("Name of the field used how label to list nodes. Optional, default 'title'."),
                 ), 
                 "response" => array(
-                    "ok" => "True/False field added",
-                    "msg" => "If error, it's a message about error",
-                    "nid" => "ID of new node type",
+                    "ok" => __("True/False field added"),
+                    "msg" => __("If error, it's a message about error"),
+                    "nid" => __("ID of new node type"),
                 ),
                 "type" => array(
                     "parameters" => array(

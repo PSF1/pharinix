@@ -36,7 +36,7 @@ if (!class_exists("commandUpdateNodes")) {
                     ), $params);
             
             if ($params["nodetype"] == "") { // Node type defined?
-                $resp["msg"] = "Node type required";
+                $resp["msg"] = __("Node type required");
             } else {
                 // Erase insecure parameters for user nodes
                 if (!driverUser::isSudoed() && $params["nodetype"] == "user") {
@@ -58,7 +58,7 @@ if (!class_exists("commandUpdateNodes")) {
                 $nodeUser_owner = 0;
                 $nodeGroup_owner = 0;
                 if ($params["nid"] == "") {
-                    $resp["msg"] = "Node ID required";
+                    $resp["msg"] = __("Node ID required");
                     return $resp;
                 } else {
                     $eof = true;
@@ -75,7 +75,7 @@ if (!class_exists("commandUpdateNodes")) {
                         $eof = true;
                     }
                     if ($eof) {
-                        $resp["msg"] = "Unknowed node ID";
+                        $resp["msg"] = __("Unknowed node ID");
                         return $resp;
                     }
                 }
@@ -83,7 +83,7 @@ if (!class_exists("commandUpdateNodes")) {
                 $ndefFields = driverCommand::run("getNodeTypeDef", $params);
                 $ntid = $ndefFields["id"];
                 if ($ntid === false) { // I dont know the node type
-                    $resp["msg"] = "Unknowed node type '{$params["nodetype"]}'";
+                    $resp["msg"] = sprintf(__("Unknowed node type '%s'"), $params["nodetype"]);
                 } else {
                     // -------------------------------
                     // Access control
@@ -108,7 +108,7 @@ if (!class_exists("commandUpdateNodes")) {
     //                    }
                         if (!$okRequired) {
                             // You miss a required node field
-                            $resp["msg"] = "Missing node field required.";
+                            $resp["msg"] = __("Missing node field required.");
                         } else {
                             // All selected items are fields of the node?
                             $allOk = true;
@@ -128,7 +128,7 @@ if (!class_exists("commandUpdateNodes")) {
                                 }
                             }
                             if ($allOk !== true) {
-                                $resp["msg"] = "Field '{$allOk}' are not fields of '{$params["nodetype"]}' node type.";
+                                $resp["msg"] = sprintf(__("Field '%s' are not fields of '%s' node type."), $allOk, $params["nodetype"]);
                             } else {
                                 // Duplicated keys?
                                 $where = "";
@@ -148,7 +148,7 @@ if (!class_exists("commandUpdateNodes")) {
                                 }
                                 if ($ctrl > 0) {
                                     // Duplicate keys
-                                    $resp["msg"] = "Duplicate keys.";
+                                    $resp["msg"] = __("Duplicate keys.");
                                 } else {
                                     // NOW, we can save node !! :D :D
                                     $sql = "";
@@ -200,7 +200,7 @@ if (!class_exists("commandUpdateNodes")) {
                             }
                         }
                     } else {
-                        $resp["msg"] = "You can't update nodes.";
+                        $resp["msg"] = __("You can't update nodes.");
                     }
                 }
             }
@@ -226,15 +226,15 @@ if (!class_exists("commandUpdateNodes")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Update a node", 
+                "description" => __("Update a node"), 
                 "parameters" => array(
-                    "nodetype" => "Node type of node to update.",
-                    "nid" => "ID of node.",
-                    "any" => "A parameter for each field of the type.",
+                    "nodetype" => __("Node type of node to update."),
+                    "nid" => __("ID of node."),
+                    "any" => __("A parameter for each field of the type."),
                 ), 
                 "response" => array(
-                    "ok" => "True/False node updated",
-                    "msg" => "If error, it's a message about error",
+                    "ok" => __("True/False node updated"),
+                    "msg" => __("If error, it's a message about error"),
                 ),
                 "type" => array(
                     "parameters" => array(

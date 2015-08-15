@@ -35,13 +35,13 @@ if (!class_exists("commandTemplateEditor")) {
         #footer .gm-colSettingsID, #footer .gm-rowSettingsID {color:#000;}
     </style>
     <!-- Form Name -->
-    <legend>Template editor</legend>
+    <legend><?php __e('Template editor'); ?></legend>
 
     
 
 <div class="col-md-8">
-    <div class="help-block">With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it.</div>
-<div class="help-block">To start creating the template press any of the numeric buttons.</div>
+    <div class="help-block"><?php __e("With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it."); ?></div>
+<div class="help-block"><?php __e('To start creating the template press any of the numeric buttons.'); ?></div>
     <!--<div class="container">-->
         <div id="template">
 <?php
@@ -74,7 +74,7 @@ if (!class_exists("commandTemplateEditor")) {
                     editableRegionEnabled: false,
                     rowCustomClasses: [],
                     colCustomClasses: [],
-                    controlAppend: "<div class='btn-group pull-right'><button title='Edit Source Code' type='button' class='btn btn-xs btn-primary gm-edit-mode'><span class='fa fa-code'></span></button><button title='Preview' type='button' class='btn btn-xs btn-primary gm-preview'><span class='fa fa-eye'></span></button>     <div class='dropdown pull-right gm-layout-mode'><button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button> <ul class='dropdown-menu' role='menu'><li><a data-width='auto' title='Desktop'><span class='fa fa-desktop'></span> Desktop</a></li><li><a title='Tablet' data-width='768'><span class='fa fa-tablet'></span> Tablet</a></li><li><a title='Phone' data-width='640'><span class='fa fa-mobile-phone'></span> Phone</a></li></ul></div>    <button type='button' class='btn  btn-xs  btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span><span class='sr-only'>Toggle Dropdown</span></button><ul class='dropdown-menu' role='menu'><li><a title='Reset Grid' href='#' class='gm-resetgrid'><span class='fa fa-trash-o'></span> Reset</a></li></ul></div>",
+                    controlAppend: "<div class='btn-group pull-right'><button title='<?php __e('Edit Source Code'); ?>' type='button' class='btn btn-xs btn-primary gm-edit-mode'><span class='fa fa-code'></span></button><button title='<?php __e('Preview'); ?>' type='button' class='btn btn-xs btn-primary gm-preview'><span class='fa fa-eye'></span></button>     <div class='dropdown pull-right gm-layout-mode'><button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button> <ul class='dropdown-menu' role='menu'><li><a data-width='auto' title='<?php __e('Desktop');?>'><span class='fa fa-desktop'></span> <?php __e('Desktop'); ?></a></li><li><a title='<?php __e('Tablet'); ?>' data-width='768'><span class='fa fa-tablet'></span> <?php __e('Tablet'); ?></a></li><li><a title='<?php __e('Phone'); ?>' data-width='640'><span class='fa fa-mobile-phone'></span> <?php __e('Phone'); ?></a></li></ul></div>    <button type='button' class='btn  btn-xs  btn-primary dropdown-toggle' data-toggle='dropdown'><span class='caret'></span><span class='sr-only'><?php __e('Toggle Dropdown'); ?></span></button><ul class='dropdown-menu' role='menu'><li><a title='<?php __e('Reset Grid'); ?>' href='#' class='gm-resetgrid'><span class='fa fa-trash-o'></span> <?php __e('Reset'); ?></a></li></ul></div>",
                 });
         var gm = $("#template").data('gridmanager');
         gm.originalCreateRow = gm.createRow;
@@ -101,13 +101,13 @@ if (!class_exists("commandTemplateEditor")) {
         $("#btnSave").on("click", function(){
             var name = $("#tplName").val();
             if (name == "") {
-                alert("This template need a name.");
+                alert("<?php __e('This template need a name.');?>");
             } else {
                 gm.deinitCanvas();
                 var canvas=gm.$el.find("#" + gm.options.canvasId);
                 var tpl = canvas.html().trim();
                 if (tpl == "") {
-                    alert("This template is empty.");
+                    alert("<?php __e('This template is empty.'); ?>");
                 } else {
                     $.ajax({
                         type: "POST",
@@ -150,29 +150,29 @@ if (!class_exists("commandTemplateEditor")) {
 <div class="col-md-4">
     <div class="form-horizontal">
                 <fieldset>
-                    <legend>Meta</legend>
+                    <legend><?php __e('Meta'); ?></legend>
                     <!-- Text input-->
                     <div class="form-group required-control">
-                        <label class="col-md-3 control-label" for="tplName">Template name</label>
+                        <label class="col-md-3 control-label" for="tplName"><?php __e('Template name'); ?></label>
                         <div class="col-md-9">
-                            <input id="tplName" name="tplName" type="text" placeholder="name" class="form-control " required="" value="<?php echo $tpl["name"]; ?>">
+                            <input id="tplName" name="tplName" type="text" placeholder="<?php __e('name'); ?>" class="form-control " required="" value="<?php echo $tpl["name"]; ?>">
                         </div>
                     </div>
                     
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="tplTitle">Default title</label>
+                        <label class="col-md-3 control-label" for="tplTitle"><?php __e('Default title'); ?></label>
                         <div class="col-md-9">
-                            <input id="tplTitle" name="tplTitle" type="text" placeholder="Title" class="form-control "  value="<?php echo $tpl["title"]; ?>">
+                            <input id="tplTitle" name="tplTitle" type="text" placeholder="<?php __e('Title'); ?>" class="form-control "  value="<?php echo $tpl["title"]; ?>">
                         </div>
                     </div>
                     
                     <!-- Textarea -->
                     <div class="form-group">
-                      <label class="col-md-3 control-label" for="txtHead">Head includes</label>
+                      <label class="col-md-3 control-label" for="txtHead"><?php __e('Head includes'); ?></label>
                       <div class="col-md-9">
                           <textarea id="txtHead" name="txtHead" class="form-control"><?php echo $tpl["head"]; ?></textarea>
-                          <div class="help-block">The default values are required, You don't must change this if you don't know how.</div>
+                          <div class="help-block"><?php __e('The default values are required, You don\'t must change this if you don\'t know how.'); ?></div>
                       </div>
                     </div>
 
@@ -180,7 +180,7 @@ if (!class_exists("commandTemplateEditor")) {
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="singlebutton"></label>
                         <div class="col-lg-9">
-                            <button type="button" id="btnSave" name="singlebutton" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> Save</button>
+                            <button type="button" id="btnSave" name="singlebutton" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> <?php __e('Save'); ?></button>
                         </div>
                     </div>
 
@@ -190,11 +190,11 @@ if (!class_exists("commandTemplateEditor")) {
                     <fieldset>
                         
                         <!-- Form Name -->
-                        <legend>Load template</legend>
+                        <legend><?php __e('Load template'); ?></legend>
 
                         <!-- Select Basic -->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="selectTemplate">Load template</label>
+                            <label class="col-md-3 control-label" for="selectTemplate"><?php __e('Load template'); ?></label>
                             <div class="col-md-9">
                                 <select id="selectTemplate" name="selectTemplate" class="form-control "></select>
                             </div>
@@ -204,8 +204,8 @@ if (!class_exists("commandTemplateEditor")) {
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="cmdLoad"></label>
                             <div class="col-lg-9">
-                                <button id="cmdLoad" name="cmdLoad" class="btn btn-warning"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span> Load</button>
-                                <div class="help-block">Changes will be loosed.</div>
+                                <button id="cmdLoad" name="cmdLoad" class="btn btn-warning"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span> <?php __e('Load'); ?></button>
+                                <div class="help-block"><?php __e('Changes will be loosed.'); ?></div>
                             </div>
                         </div>
 
@@ -222,7 +222,7 @@ if (!class_exists("commandTemplateEditor")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Show template grid editor.", 
+                "description" => __("Show template grid editor."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

@@ -30,7 +30,10 @@ if (!class_exists("commandMan")) {
                     ), $params);
             
             $resp = array("help" => array(
-                    $params["cmd"] =>array("description" => "Command '{$params["cmd"]}' not found."))
+                    $params["cmd"] => array(
+                        "description" => sprintf(__("Command '%s' not found."), $params["cmd"]) 
+                        )
+                      )
                     );
             
             $paths = driverCommand::getPaths();
@@ -80,12 +83,12 @@ if (!class_exists("commandMan")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Get help about a command how array. Ex. man ('cmd' => 'man'). Get this help.", 
+                "description" => __("Get help about a command how array. Ex. man ('cmd' => 'man'). Get this help."), 
                 "parameters" => array(
-                    "cmd" => "The command to query."
+                    "cmd" => __("The command to query.")
                 ), 
                 "response" => array(
-                    'help' => "The help array."
+                    'help' => __("The help array.")
                 ),
                 "type" => array(
                     "parameters" => array(

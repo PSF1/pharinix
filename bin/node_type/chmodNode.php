@@ -38,7 +38,7 @@ if (!class_exists("commandChmodNode")) {
                         "name" => $params["nodetype"],
                     ));
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad node type id.");
+                        return array("ok" => false, "msg" => __("Bad node type id."));
                     } else {
                         $nodetype = $params["nodetype"];
                     }
@@ -47,12 +47,12 @@ if (!class_exists("commandChmodNode")) {
                     $sql = "SELECT * FROM `node_type` where `id` = ".$params["nodetype"];
                     $q = dbConn::Execute($sql);
                     if ($q->EOF) {
-                        return array("ok" => false, "msg" => "Bad node type id.");
+                        return array("ok" => false, "msg" => __("Bad node type id."));
                     }
                     $nodetype = $q->fields["name"];
                 }
             } else {
-                return array("ok" => false, "msg" => "Node type is required.");
+                return array("ok" => false, "msg" => __("Node type is required."));
             }
             
             //Change
@@ -69,7 +69,7 @@ if (!class_exists("commandChmodNode")) {
                     dbConn::Execute($sql);
                     $resp = array("ok" => true);
                 } else {
-                    $resp = array("ok" => false, "msg" => "You need ownership.");
+                    $resp = array("ok" => false, "msg" => __("You need ownership."));
                 }
             } else {
                 // Change node
@@ -92,10 +92,10 @@ if (!class_exists("commandChmodNode")) {
 //                        }
                         $resp = array("ok" => true);
                     } else {
-                        $resp = array("ok" => false, "msg" => "You need ownership.");
+                        $resp = array("ok" => false, "msg" => __("You need ownership."));
                     }
                 } else {
-                    $resp = array("ok" => false, "msg" => "unknown node or you can't read.");
+                    $resp = array("ok" => false, "msg" => __("unknown node or you can't read."));
                 }
             }
             
@@ -104,14 +104,14 @@ if (!class_exists("commandChmodNode")) {
 
         public static function getHelp() {
             return array(
-                "description" => "To change permission of node type or node that is owned by you.", 
+                "description" => __("To change permission of node type or node that is owned by you."), 
                 "parameters" => array(
-                    "nodetype" => "Node type that you need change permission.",
-                    "nid" => "Node ID of the node that you need change. Optional, if it's set try change a node, else try change a node type.",
-                    "flags" => "Integer with the new permissions.",
+                    "nodetype" => __("Node type that you need change permission."),
+                    "nid" => __("Node ID of the node that you need change. Optional, if it's set try change a node, else try change a node type."),
+                    "flags" => __("Integer with the new permissions."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if changed."
+                    "ok" => __("TRUE if changed.")
                 ),
                 "type" => array(
                     "parameters" => array(

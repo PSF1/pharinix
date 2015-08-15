@@ -67,10 +67,10 @@ if (!class_exists("commandGetNodeTypeList")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return a list of node types.", 
+                "description" => __("Return a list of node types."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "types" => "Array with node type names.",
+                    "types" => __("Array with node type names."),
                 ),
                 "type" => array(
                     "parameters" => array(), 

@@ -31,11 +31,11 @@ if (!class_exists("commandManHelpOnline")) {
                 <fieldset>
 
                     <!-- Form Name -->
-                    <legend>Command help</legend>
+                    <legend><?php __e('Command help'); ?></legend>
 
                     <!-- Select Basic -->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="selectCmd">Command</label>
+                      <label class="col-md-4 control-label" for="selectCmd"><?php __e('Command'); ?></label>
                       <div class="col-md-5">
                         <select id="selectCmd" name="selectCmd" class="form-control ">
                             <?php
@@ -52,7 +52,7 @@ if (!class_exists("commandManHelpOnline")) {
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
-                            <button id="getHelp" class="btn btn-primary">Help</button>
+                            <button id="getHelp" class="btn btn-primary"><?php __e('Help'); ?></button>
                         </div>
                     </div>
                 </fieldset>
@@ -103,7 +103,7 @@ EOT;
         
         public static function getHelp() {
             return array(
-                "description" => "Show a form to get help about a command.",
+                "description" => __("Show a form to get help about a command."),
                 "parameters" => array(),
                 "response" => array(),
                 "type" => array(

@@ -116,15 +116,15 @@ if (!class_exists("commandTemplateToArray")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Transform a XML template to HTML, it not build blocks.",
+                "description" => __("Transform a XML template to HTML, it not build blocks."),
                 "parameters" => array(
-                    "template" => "XML to convert",
+                    "template" => __("XML to convert"),
                 ),
                 "response" => array(
-                    "name" => "Template name.",
-                    "title" => "Default page title.",
-                    "head" => "Head content",
-                    "body" => "Body structure in HTML, it's parsed to template editor.",
+                    "name" => __("Template name."),
+                    "title" => __("Default page title."),
+                    "head" => __("Head content"),
+                    "body" => __("Body structure in HTML, it's parsed to template editor."),
                 ),
                 "type" => array(
                     "parameters" => array(

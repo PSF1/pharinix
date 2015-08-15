@@ -38,7 +38,7 @@ if (!class_exists("commandAddBooting")) {
                 dbConn::Execute($sql);
                 return array("uid" => $uid);
             } else {
-                return array("ok" => false, "msg" => "'cmd' parameter is required.");
+                return array("ok" => false, "msg" => __("'cmd' parameter is required."));
             }
         }
         
@@ -49,14 +49,14 @@ if (!class_exists("commandAddBooting")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Add a command, with parameters, to the boot process. This will executed with each user petition.", 
+                "description" => __("Add a command, with parameters, to the boot process. This will executed with each user petition."), 
                 "parameters" => array(
-                    "cmd" => "Command to execute",
-                    "parameters" => "Post string to put in the command.",
-                    "priority" => "Priority of execution.",
+                    "cmd" => __("Command to execute"),
+                    "parameters" => __("Post string to put in the command."),
+                    "priority" => __("Priority of execution."),
                 ), 
                 "response" => array(
-                    "uid" => "Unique ID to we can delete the boot command."
+                    "uid" => __("Unique ID to we can delete the boot command.")
                 ),
                 "type" => array(
                     "parameters" => array(

@@ -36,10 +36,12 @@ if (!class_exists("commandGettextGetCoreTranslation")) {
             if ($fInfo['writable']) {
                 $po = Gettext\Extractors\Po::fromFile('etc/i18n/'.$params['languaje'].'.po');
                 $resp = array('items' => array());
+//                $item = new Gettext\Translation();
                 foreach($po as $item) {
                    $t = new stdClass();
                    $t->original = $item->getOriginal();
                    $t->translation = $item->getTranslation();
+                   $t->references = $item->getReferences();
                    $resp['items'][] = $t;
                 }
                 return $resp;

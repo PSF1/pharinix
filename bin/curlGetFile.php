@@ -29,7 +29,7 @@ if (!class_exists("commandCurlGetFile")) {
             ), $params);
             
             if ($params['url'] == '') {
-                return array('ok' => false, 'msg' => 'URL is required.');
+                return array('ok' => false, 'msg' => __('URL is required.'));
             }
             if (function_exists('curl_exec')) {
                 $uid = uniqid();
@@ -53,20 +53,20 @@ if (!class_exists("commandCurlGetFile")) {
                     return array('ok' => true, 'file' => $tmpFile);
                 }
             } else {
-                return array('ok' => false, 'msg' => 'cURL not installed.');
+                return array('ok' => false, 'msg' => __('cURL not installed.'));
             }
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Download a remote file from a HTTP or HTTPS URL. (Requires cURL installed in PHP.)", 
+                "description" => __("Download a remote file from a HTTP or HTTPS URL. (Requires cURL installed in PHP.)"), 
                 "parameters" => array(
-                    "url" => "URL of the file to download.",
+                    "url" => __("URL of the file to download."),
                 ), 
                 "response" => array(
-                        "ok" => "TRUE if the download is OK.",
-                        "msg" => "If download error this contains the error message.",
-                        "file" => "If download ok, contains the downloaded file path. Please remove the temporal file when finish with it.",
+                        "ok" => __("TRUE if the download is OK."),
+                        "msg" => __("If download error this contains the error message."),
+                        "file" => __("If download ok, contains the downloaded file path. Please remove the temporal file when finish with it."),
                     ),
                 "type" => array(
                     "parameters" => array(

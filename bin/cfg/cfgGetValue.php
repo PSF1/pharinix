@@ -30,11 +30,11 @@ if (!class_exists("commandCfgGetValue")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $val = $section->get($params['key']);
             if ($val == null) {
-                return array('ok' => false, 'msg' => 'Key not found.');
+                return array('ok' => false, 'msg' => __('Key not found.'));
             }
             $resp = array(
                 'value' => $val,
@@ -44,13 +44,13 @@ if (!class_exists("commandCfgGetValue")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return value of a configuration.", 
+                "description" => __("Return value of a configuration."), 
                 "parameters" => array(
-                    'section' => 'Section to list.',
-                    'key' => 'Key to read.',
+                    'section' => __('Section to list.'),
+                    'key' => __('Key to read.'),
                 ), 
                 "response" => array(
-                    "value" => "Value of configuration."
+                    "value" => __("Value of configuration.")
                 ),
                 "type" => array(
                     "parameters" => array(

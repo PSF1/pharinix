@@ -47,14 +47,14 @@ if (!class_exists("commandStartSession")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Start the user session.", 
+                "description" => __("Start the user session."), 
                 "parameters" => array(
-                    "user" => "User email to login.",
-                    "pass" => "User password to login.",
+                    "user" => __("User email to login."),
+                    "pass" => __("User password to login."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if session started.",
-                    "id" => "Session ID to use how auth_token."
+                    "ok" => __("TRUE if session started."),
+                    "id" => __("Session ID to use how auth_token.")
                 ),
                 "type" => array(
                     "parameters" => array(

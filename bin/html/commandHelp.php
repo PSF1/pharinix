@@ -25,20 +25,20 @@ if (!class_exists("commandCommandHelp")) {
 
         public static function runMe(&$params, $debug = true) {
             $paths = driverCommand::getPaths();
-            echo "<legend>Command's list</legend>";
+            echo "<legend>".__("Command's list")."</legend>";
             foreach ($paths as $path) {
-                echo "<h2>Package path '{$path}'</h2>";
+                echo "<h2>".sprintf(__("Package path '%s'"), $path)."</h2>";
                 $cmds = driverTools::lsDir($path, "*.php");
                 foreach($cmds["files"] as $cmd) {
                     $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
-                    echo "<h3>Command '$cmd'</h3>";
+                    echo "<h3>".sprintf(__("Command '%s'"), $cmd)."</h3>";
                     $object = include($path.$cmd.".php");
                     $hlp = $object->getHelp();
-                    echo "<h4>Description</h4>";
+                    echo "<h4>".__("Description")."</h4>";
                     echo "<p>{$hlp["description"]}</p>";
                     if (count($hlp["parameters"]) > 0) {
-                        echo "<h4>Parameters</h4>";
+                        echo "<h4>".__("Parameters")."</h4>";
                         echo "<ul>";
                         foreach ($hlp["parameters"] as $key => $value) {
                             echo "<li>";
@@ -52,7 +52,7 @@ if (!class_exists("commandCommandHelp")) {
                         echo "</ul>";
                     }
                     if (count($hlp["response"]) > 0) {
-                        echo "<h4>Responses</h4>";
+                        echo "<h4>".__("Responses")."</h4>";
                         echo "<ul>";
                         foreach ($hlp["response"] as $key => $value) {
                             echo "<li>";
@@ -66,12 +66,12 @@ if (!class_exists("commandCommandHelp")) {
                         echo "</ul>";
                     }
                     // Access data
-                    echo "<h4>Permissions</h4>";
+                    echo "<h4>".__("Permissions")."</h4>";
                     $acc = $object->getAccessData($path.$cmd.".php");
                     echo "<ul>";
-                    echo "<li><b>Owner</b>: ".driverUser::getUserName($acc["owner"])."</li>";
-                    echo "<li><b>Group</b>: ".driverUser::getGroupName($acc["group"])."</li>";
-                    echo "<li><b>Flags</b>: ".driverUser::secFileToString($acc["flags"], true)."</li>";
+                    echo "<li><b>".__("Owner")."</b>: ".driverUser::getUserName($acc["owner"])."</li>";
+                    echo "<li><b>".__("Group")."</b>: ".driverUser::getGroupName($acc["group"])."</li>";
+                    echo "<li><b>".__("Flags")."</b>: ".driverUser::secFileToString($acc["flags"], true)."</li>";
                     echo "</ul>";
                 }
             }
@@ -88,7 +88,7 @@ if (!class_exists("commandCommandHelp")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Display commands help.", 
+                "description" => __("Display commands help."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

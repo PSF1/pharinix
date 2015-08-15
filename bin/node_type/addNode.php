@@ -35,7 +35,7 @@ if (!class_exists("commandAddNode")) {
                 "nodetype" => "",
                     ), $params);
             if ($params["nodetype"] == "") { // Node type defined?
-                $resp["msg"] = "Node type required";
+                $resp["msg"] = __("Node type required");
             } else {
                 // Erase insecure parameters for nodes
                 unset($params["access"]);
@@ -57,7 +57,7 @@ if (!class_exists("commandAddNode")) {
                     "nodetype" => $params["nodetype"],
                 ));
                 if ($typeDef["id"] === false) { // I dont know the node type
-                    $resp["msg"] = "Unknowed node type '{$params["nodetype"]}'";
+                    $resp["msg"] = sprintf(__("Unknowed node type '%s'"), $params["nodetype"]);
                 } else {
                     // Access control
                     $usrGrps = driverUser::getGroupsID();
@@ -77,7 +77,7 @@ if (!class_exists("commandAddNode")) {
                         }
                         if (!$okRequired) {
                             // You miss a required node field
-                            $resp["msg"] = "Missing node field required.";
+                            $resp["msg"] = __("Missing node field required.");
                         } else {
                             // All selected items are fields of the node?
                             $allOk = true;
@@ -97,7 +97,7 @@ if (!class_exists("commandAddNode")) {
                                 }
                             }
                             if ($allOk !== true) {
-                                $resp["msg"] = "Field '{$allOk}' are not fields of '{$params["nodetype"]}' node type.";
+                                $resp["msg"] = sprintf(__("Field '%s' are not fields of '%s' node type."), $allOk,$params["nodetype"]);
                             } else {
                                 // Duplicated keys?
                                 $where = "";
@@ -117,7 +117,7 @@ if (!class_exists("commandAddNode")) {
                                 }
                                 if ($ctrl > 0) {
                                     // Duplicate keys
-                                    $resp["msg"] = "Duplicate keys.";
+                                    $resp["msg"] = __("Duplicate keys.");
                                 } else {
                                     // NOW, we can save node !! :D :D
                                     $sql = "";
@@ -175,7 +175,7 @@ if (!class_exists("commandAddNode")) {
                             }
                         }
                     } else {
-                        $resp["msg"] = "You can't add nodes.";
+                        $resp["msg"] = __("You can't add nodes.");
                     }
                 }
             }
@@ -201,15 +201,15 @@ if (!class_exists("commandAddNode")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new node.",
+                "description" => __("Add a new node."),
                 "parameters" => array(
-                    "any" => "A parameter for each field of the type.",
-                    "nodetype" => "Node type is from.",
+                    "any" => __("A parameter for each field of the type."),
+                    "nodetype" => __("Node type is from."),
                 ),
                 "response" => array(
-                    "ok" => "True/False node added",
-                    "msg" => "If error, it's a message about error",
-                    "nid" => "ID of new node",
+                    "ok" => __("True/False node added"),
+                    "msg" => __("If error, it's a message about error"),
+                    "nid" => __("ID of new node"),
                 ),
                 "type" => array(
                     "parameters" => array(

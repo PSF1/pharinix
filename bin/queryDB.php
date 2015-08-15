@@ -42,7 +42,7 @@ if (!class_exists("commandQueryDB")) {
                     $params['name']
                 );
                 if(!$conn->IsConnected()){
-                    $resp = array('ok' => false, 'msg' => 'Connection error.');
+                    $resp = array('ok' => false, 'msg' => __('Connection error.'));
                 } else {
                     $q = $conn->Execute($params['sql']);
                     while (!$q->EOF) {
@@ -51,7 +51,7 @@ if (!class_exists("commandQueryDB")) {
                     }
                 }
             } catch (Exception $exc) {
-                $resp = array('ok' => false, 'msg' => 'Connection error.');
+                $resp = array('ok' => false, 'msg' => __('Connection error.'));
             }
             
             return $resp;
@@ -64,16 +64,16 @@ if (!class_exists("commandQueryDB")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Do a direct query to a data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it.", 
+                "description" => __("Do a direct query to a data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it."), 
                 "parameters" => array(
-                    "host" => "DB host name.",
-                    "name" => "Database name.",
-                    "user" => "Username.",
-                    "pass" => "Password.",
-                    "sql" => "Query.",
+                    "host" => __("DB host name."),
+                    "name" => __("Database name."),
+                    "user" => __("Username."),
+                    "pass" => __("Password."),
+                    "sql" => __("Query."),
                 ), 
                 "response" => array(
-                    "recordset" => "Array with results."
+                    "recordset" => __("Array with results.")
                 ),
                 "type" => array(
                     "parameters" => array(

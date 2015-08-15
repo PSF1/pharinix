@@ -41,17 +41,17 @@ if (!class_exists("commandAddPage")) {
             $resp = array("ok" => false, "msg" => '');
             if (!is_file($params["template"])) {
                 $resp["ok"] = false;
-                $resp["msg"] = "Page template '{$params["template"]}' not found.";
+                $resp["msg"] = sprintf(__("Page template '%s' not found."), $params["template"]);
             } else {
                 if ($params["name"] == '') {
                     $resp["ok"] = false;
-                    $resp["msg"] = "Page need a unique name.";
+                    $resp["msg"] = __("Page need a unique name.");
                 } else {
                     $sql = "SELECT * FROM `pages` where `name` = '{$params["name"]}'";
                     $q = dbConn::Execute($sql);
                     if (!$q->EOF) {
                         $resp["ok"] = false;
-                        $resp["msg"] = "Page name just exist.";
+                        $resp["msg"] = __("Page name just exist.");
                     } else {
                         $sql = "insert into `pages` set ";
                         $sql .= "`name`= '{$params["name"]}', ";
@@ -81,14 +81,14 @@ if (!class_exists("commandAddPage")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new page.", 
+                "description" => __("Add a new page."), 
                 "parameters" => array(
-                    'name' => 'ID of page.',
-                    'template' => 'Optional, path to the XML template file.',
-                    'title' => 'Page title.',
-                    'description' => 'Page description.',
-                    'keys' => 'Page meta key words.',
-                    'url' => 'Optional page URL.',
+                    'name' => __('ID of page.'),
+                    'template' => __('Optional, path to the XML template file.'),
+                    'title' => __('Page title.'),
+                    'description' => __('Page description.'),
+                    'keys' => __('Page meta key words.'),
+                    'url' => __('Optional page URL.'),
                 ),
                 "response" => array(),
                 "type" => array(

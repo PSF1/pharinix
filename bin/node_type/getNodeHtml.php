@@ -44,10 +44,10 @@ if (!class_exists("commandGetNodeHtml")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Show node content in HTML.", 
+                "description" => __("Show node content in HTML."), 
                 "parameters" => array(
-                    "type" => "Node type.",
-                    "node" => "Node ID.",
+                    "type" => __("Node type."),
+                    "node" => __("Node ID."),
                 ), 
                 "response" => array(),
                 "type" => array(

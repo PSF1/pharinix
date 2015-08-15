@@ -31,11 +31,11 @@ if (!class_exists("commandManHTML")) {
             
             $hlp = driverCommand::run("man", $params);
             foreach($hlp["help"] as $cmd => $inf) {
-                echo "<h3>Command '".$cmd."'</h3>";
-                echo "<h4>Description</h4>";
+                echo "<h3>".__("Command")." '".$cmd."'</h3>";
+                echo "<h4>".__("Description")."</h4>";
                 echo "<p>{$inf["description"]}</p>";
                 if (isset($inf["parameters"])) {
-                    echo "<h4>Parameters</h4>";
+                    echo "<h4>".__("Parameters")."</h4>";
                     echo "<ul>";
                     foreach ($inf["parameters"] as $key => $value) {
                         echo "<li>";
@@ -49,7 +49,7 @@ if (!class_exists("commandManHTML")) {
                     echo "</ul>";
                 }
                 if (isset($inf["response"])) {
-                    echo "<h4>Responses</h4>";
+                    echo "<h4>".__("Responses")."</h4>";
                     echo "<ul>";
                     foreach ($inf["response"] as $key => $value) {
                         echo "<li>";
@@ -63,11 +63,11 @@ if (!class_exists("commandManHTML")) {
                     echo "</ul>";
                 }
                 // Access data
-                echo "<h4>Permissions</h4>";
+                echo "<h4>".__("Permissions")."</h4>";
                 echo "<ul>";
-                echo "<li><b>Owner</b>: ".driverUser::getUserName($inf["owner"])."</li>";
-                echo "<li><b>Group</b>: ".driverUser::getGroupName($inf["group"])."</li>";
-                echo "<li><b>Flags</b>: ".driverUser::secFileToString($inf["flags"], true)."</li>";
+                echo "<li><b>".__("Owner")."</b>: ".driverUser::getUserName($inf["owner"])."</li>";
+                echo "<li><b>".__("Group")."</b>: ".driverUser::getGroupName($inf["group"])."</li>";
+                echo "<li><b>".__("Flags")."</b>: ".driverUser::secFileToString($inf["flags"], true)."</li>";
                 echo "</ul>";
             }
         }
@@ -83,9 +83,9 @@ if (!class_exists("commandManHTML")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Echo help about a command how HTML. Ex. manHTML ('cmd' => 'manHTML'), echo this help.", 
+                "description" => __("Echo help about a command how HTML. Ex. manHTML ('cmd' => 'manHTML'), echo this help."), 
                 "parameters" => array(
-                    "cmd" => "The command to query."
+                    "cmd" => __("The command to query.")
                 ), 
                 "response" => array(),
                 "type" => array(

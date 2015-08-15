@@ -38,12 +38,12 @@ if (!class_exists("commandModGetPath")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Get the instalation path of a module.", 
+                "description" => __("Get the instalation path of a module."), 
                 "parameters" => array(
-                        "name" => "Module name.",
+                        "name" => __("Module name."),
                     ), 
                 "response" => array(
-                        "path" => "Module path.",
+                        "path" => __("Module path."),
                     ),
                 "type" => array(
                     "parameters" => array(

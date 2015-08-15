@@ -39,8 +39,8 @@ if (!class_exists("commandEchoText")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Echo to browser the print_r() representation of parameters, try to change the HTTP header to Content-type: text/plain.", 
-                "parameters" => array("some" => "It can receive any amount of parameters."), 
+                "description" => __("Echo to browser the print_r() representation of parameters, try to change the HTTP header to Content-type: text/plain."), 
+                "parameters" => array("some" => __("It can receive any amount of parameters.")), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(

@@ -35,10 +35,10 @@ if (!class_exists("commandRegisterDebug")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return the content of the commandDriver register.", 
+                "description" => __("Return the content of the commandDriver register."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "val" => "The commandDriver register array."
+                    "val" => __("The commandDriver register array.")
                 ),
                 "type" => array(
                     "parameters" => array(), 

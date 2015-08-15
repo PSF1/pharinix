@@ -29,7 +29,7 @@ if (!class_exists("commandCfgDelSection")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             driverConfig::getCFG()->delSection($params['section']);
             driverConfig::getCFG()->save();
@@ -37,9 +37,9 @@ if (!class_exists("commandCfgDelSection")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Del a section of configuration, and all her content.", 
+                "description" => __("Del a section of configuration, and all her content."), 
                 "parameters" => array(
-                    'section' => 'Section.',
+                    'section' => __('Section.'),
                 ), 
                 "response" => array(),
                 "type" => array(

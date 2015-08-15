@@ -36,20 +36,20 @@ if (!class_exists("commandAddUser")) {
                 "nid" => 0,
             );
             if ($params["name"] == "") {
-                $resp["msg"] .= "User name required. ";
+                $resp["msg"] .= __("User name required. ");
             }
             if ($params["mail"] == "") {
-                $resp["msg"] .= "User mail required. ";
+                $resp["msg"] .= __("User mail required. ");
             }
             $params["mail"] = strtolower($params["mail"]);
             if ($params["mail"] == "root@localhost") {
-                $resp["msg"] .= "'root@localhost' is in use. ";
+                $resp["msg"] .= __("'root@localhost' is in use. ");
             }
             if ($params["title"] == "") {
-                $resp["msg"] .= "User title required. ";
+                $resp["msg"] .= __("User title required. ");
             }
             if ($params["pass"] == "") {
-                $resp["msg"] .= "User password required. ";
+                $resp["msg"] .= __("User password required. ");
             }
             if ($resp["msg"] == "") {
                 try {
@@ -97,7 +97,7 @@ if (!class_exists("commandAddUser")) {
                             $resp = $gid;
                         }
                     } else {
-                        $resp["msg"] = "Mail or group in use.";
+                        $resp["msg"] = __("Mail or group in use.");
                     }
                 } catch (Exception $exc) {
                     $resp["msg"] = $exc->getMessage();
@@ -113,17 +113,17 @@ if (!class_exists("commandAddUser")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new user. All parameters are requires.", 
+                "description" => __("Add a new user. All parameters are requires."), 
                 "parameters" => array(
-                    "mail" => "The user mail.",
-                    "pass" => "The password in plain text.",
-                    "name" => "User name or nick, used how default group name too.",
-                    "title" => "User complete name.",
+                    "mail" => __("The user mail."),
+                    "pass" => __("The password in plain text."),
+                    "name" => __("User name or nick, used how default group name too."),
+                    "title" => __("User complete name."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if the user is added.",
-                    "msg" => "If ok is FALSE contains the error message.",
-                    "nid" => "If ok is TRUE contains the new user ID.",
+                    "ok" => __("TRUE if the user is added."),
+                    "msg" => __("If ok is FALSE contains the error message."),
+                    "nid" => __("If ok is TRUE contains the new user ID."),
                 ),
                 "type" => array(
                     "parameters" => array(

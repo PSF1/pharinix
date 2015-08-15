@@ -35,12 +35,12 @@ if (!class_exists("commandUsageToHTML")) {
             ?>
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>Resources used by Pharinix</h3>
+                    <h3><?php __e('Resources used by Pharinix'); ?></h3>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Memory</th>
-                                <th>Time</th>
+                                <th><?php __e('Memory'); ?></th>
+                                <th><?php __e('Time'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +62,7 @@ if (!class_exists("commandUsageToHTML")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Print resource consume in HTML format",
+                "description" => __("Print resource consume in HTML format"),
                 "parameters" => array(),
                 "response" => array(),
                 "type" => array(

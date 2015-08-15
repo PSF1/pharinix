@@ -41,9 +41,9 @@ if (!class_exists("commandSleep")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Sleep some seconds, no more that 30s.", 
+                "description" => __("Sleep some seconds, no more that 30s."), 
                 "parameters" => array(
-                    "s" => "Seconds to sleep, no more that 30.",
+                    "s" => __("Seconds to sleep, no more that 30."),
                 ), 
                 "response" => array(),
                 "type" => array(

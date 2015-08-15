@@ -26,11 +26,11 @@ if (!class_exists("commandCfgGetPath")) {
         public static function runMe(&$params, $debug = true) {
             $section = driverConfig::getCFG()->getSection('[core]');
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $val = $section->get("path");
             if ($val == null) {
-                return array('ok' => false, 'msg' => 'Key not found.');
+                return array('ok' => false, 'msg' => __('Key not found.'));
             }
             $resp = array(
                 'path' => $val,
@@ -40,10 +40,10 @@ if (!class_exists("commandCfgGetPath")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return commands path.", 
+                "description" => __("Return commands path."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "Path" => "Value of commands path."
+                    "Path" => __("Value of commands path.")
                 ),
                 "type" => array(
                     "parameters" => array(), 

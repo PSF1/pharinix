@@ -59,12 +59,12 @@ if (!class_exists("commandIsBasicFieldType")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Identify a field's node type how basic type or it's a reference to another node type.", 
+                "description" => __("Identify a field's node type how basic type or it's a reference to another node type."), 
                 "parameters" => array(
-                    "type" => "The type name to test."
+                    "type" => __("The type name to test.")
                 ), 
                 "response" => array(
-                    "basic" => "True/False is a basic type"
+                    "basic" => __("True/False is a basic type")
                 ),
                 "type" => array(
                     "parameters" => array(

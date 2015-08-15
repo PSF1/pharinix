@@ -29,10 +29,10 @@ if (!class_exists("commandGetRegisteredHooks")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Get info about registered hook handlers.", 
+                "description" => __("Get info about registered hook handlers."), 
                 "parameters" => array(), 
                 "response" => array(
-                    'hooks' => 'Hooks list.',
+                    'hooks' => __('Hooks list.'),
                 ),
                 "type" => array(
                     "parameters" => array(), 

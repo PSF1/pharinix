@@ -55,19 +55,19 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
     public static function secNodeToString($key) {
         $resp = "";
         
-        $resp .= "Owner:[";
+        $resp .= __("Owner").":[";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_CREATE, "Create").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_READ, "Read").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_UPDATE, "Update").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_DEL, "Delete");
         $resp .= "] ";
-        $resp .= " Group:[";
+        $resp .= " ".__("Group").":[";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_CREATE, "Create").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_READ, "Read").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_UPDATE, "Update").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_DEL, "Delete");
         $resp .= "] ";
-        $resp .= " All:[";
+        $resp .= " ".__("All").":[";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_CREATE, "Create").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_READ, "Read").", ";
         $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_UPDATE, "Update").", ";
@@ -217,32 +217,32 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         $resp = "";
         
         if (!$html) {
-            $resp .= "Owner:";
+            $resp .= __("Owner").":";
             $resp .= $key & self::PERMISSION_FILE_OWNER_READ?"Read,":"";
             $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?"Write,":"";
             $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?"Execute":"";
 
-            $resp .= " Group:";
+            $resp .= " ".__("Group").":";
             $resp .= $key & self::PERMISSION_FILE_GROUP_READ?"Read,":"";
             $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?"Write,":"";
             $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?"Execute":"";
 
-            $resp .= " All:";
+            $resp .= " ".__("All").":";
             $resp .= $key & self::PERMISSION_FILE_ALL_READ?"Read,":"";
             $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?"Write,":"";
             $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?"Execute":"";
         } else {
-            $resp .= "Owner:";
+            $resp .= __("Owner").":";
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_READ, "Read");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_WRITE, "Write");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_EXECUTE, "Execute");
 
-            $resp .= " Group:";
+            $resp .= " ".__("Group").":";
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_READ, "Read");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_WRITE, "Write");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_EXECUTE, "Execute");
 
-            $resp .= " All:";
+            $resp .= " ".__("All").":";
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_READ, "Read");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_WRITE, "Write");
             $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_EXECUTE, "Execute");

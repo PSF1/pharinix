@@ -38,9 +38,9 @@ if (!class_exists("commandNewID")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return a new unique ID as string.", 
+                "description" => __("Return a new unique ID as string."), 
                 "parameters" => array(), 
-                "response" => array("id" => "The new unique ID string."),
+                "response" => array("id" => __("The new unique ID string.")),
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(

@@ -29,7 +29,7 @@ if (!class_exists("commandGoHome")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Redirect the browser to home.", 
+                "description" => __("Redirect the browser to home."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

@@ -51,7 +51,7 @@ if (!class_exists("commandPageToHTML")) {
                                 }
                                 echo ">";
                                 if (CMS_DEBUG)
-                                    echo "<h6><span class=\"label label-success\">row ID: " . $row['@attributes']["id"] . "</span></h6>";
+                                    echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
                                 foreach ($row["col"] as $col) {
                                     echo "<div";
                                     foreach ($col['@attributes'] as $name => $attr) {
@@ -59,7 +59,7 @@ if (!class_exists("commandPageToHTML")) {
                                     }
                                     echo ">";
                                     if (CMS_DEBUG)
-                                        echo "<h6><span class=\"label label-success\">Col ID: " . $col['@attributes']["id"] . "</span></h6>";
+                                        echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $col['@attributes']["id"] . "</span></h6>";
                                     // Call command list
                                     $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
                                     while ($cmd !== false && !$cmd->EOF) {
@@ -162,10 +162,10 @@ if (!class_exists("commandPageToHTML")) {
                     }
                     echo '</body>';
                 } else {
-                    throw new Exception("Page template '{$def->fields["template"]}' not found.");
+                    throw new Exception(sprintf(__("Page template '%s' not found."), $def->fields["template"]));
                 }
             } else {
-                throw new Exception("Page '{$params["page"]}' not found.");
+                throw new Exception(sprintf(__("Page '%s' not found."), $params["page"]));
             }
         }
 
@@ -180,8 +180,8 @@ if (!class_exists("commandPageToHTML")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Transform a page to HTML",
-                "parameters" => array("page" => "Page to convert, see 'url_rewrite' in table."),
+                "description" => __("Transform a page to HTML"),
+                "parameters" => array("page" => __("Page to convert, see 'url_rewrite' table.")),
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(

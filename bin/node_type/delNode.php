@@ -36,9 +36,9 @@ if (!class_exists("commandDelNode")) {
                 "nid" => "",
                     ), $params);
             if ($params["nodetype"] == "") { // Node type defined?
-                $resp["msg"] = "Node type required";
+                $resp["msg"] = __("Node type required");
             } else if ($params["nid"] == "") { 
-                $resp["msg"] = "Node ID required";
+                $resp["msg"] = __("Node ID required");
             } else {
                 try {
                     $def = driverCommand::run("getNodeTypeDef", $params);
@@ -80,7 +80,7 @@ if (!class_exists("commandDelNode")) {
                         ));
                         $resp["ok"] = true;
                     } else {
-                        $resp["msg"] = "You can't delete nodes.";
+                        $resp["msg"] = __("You can't delete nodes.");
                     }
                 } catch (Exception $exc) {
                     $resp["msg"] = $exc->getMessage();
@@ -100,14 +100,14 @@ if (!class_exists("commandDelNode")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Delete a node.",
+                "description" => __("Delete a node."),
                 "parameters" => array(
-                    "nid" => "Node ID to erase.",
-                    "nodetype" => "Node type is from.",
+                    "nid" => __("Node ID to erase."),
+                    "nodetype" => __("Node type is from."),
                 ),
                 "response" => array(
-                    "ok" => "True/False node erased",
-                    "msg" => "If error, it's a message about error",
+                    "ok" => __("True/False node erased"),
+                    "msg" => __("If error, it's a message about error"),
                 ),
                 "type" => array(
                     "parameters" => array(

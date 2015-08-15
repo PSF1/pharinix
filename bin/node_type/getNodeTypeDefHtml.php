@@ -28,23 +28,23 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
 
         public static function runMe(&$params, $debug = true) {
             $def = driverCommand::run("getNodeTypeDef", array("nodetype" => $params["nodetype"]));
-            echo "<legend>Node type '".$def["name"]."'</legend>";
-            echo "<h3>Fields</h3>";
+            echo "<legend>".sprintf(__("Node type '%s'"), $def["name"])."</legend>";
+            echo "<h3>".__('Fields')."</h3>";
             echo "<table class=\"table\">";
             echo "<thead>";
             echo "<tr>";
-            echo "<th>Name</th>";
-            echo "<th>Type</th>";
-            echo "<th>Is key</th>";
-            echo "<th>length</th>";
-            echo "<th>Required</th>";
-            echo "<th>Locked</th>";
-            echo "<th>Read only</th>";
-            echo "<th>System</th>";
-            echo "<th>Multivalued</th>";
-            echo "<th>Default</th>";
-            echo "<th>Label</th>";
-            echo "<th>Help</th>";
+            echo "<th>".__('Name')."</th>";
+            echo "<th>".__('Type')."</th>";
+            echo "<th>".__('Is key')."</th>";
+            echo "<th>".__('length')."</th>";
+            echo "<th>".__('Required')."</th>";
+            echo "<th>".__('Locked')."</th>";
+            echo "<th>".__('Read only')."</th>";
+            echo "<th>".__('System')."</th>";
+            echo "<th>".__('Multivalued')."</th>";
+            echo "<th>".__('Default')."</th>";
+            echo "<th>".__('Label')."</th>";
+            echo "<th>".__('Help')."</th>";
             echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
@@ -110,20 +110,27 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
             echo "</tbody>";
             echo "</table>";
             if ($def["locked"]) {
-                echo "<p><span class=\"glyphicon glyphicon-exclamation-sign\"></span>&nbsp;This is a system node type.</p>";
+                echo "<p><span class=\"glyphicon glyphicon-exclamation-sign\"></span>&nbsp;".__('This is a system node type.')."</p>";
             }
-            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Created by '".
-                    driverUser::getUserName($def["creator_node_user"])."' in {$def["created"]}, modified by '".
-                    driverUser::getUserName($def["modifier_node_user"])."' in {$def["modified"]}.</p>";
+            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;";
+            echo sprintf(__("Created by '%s' in %s, modified by '%s' in %s."), 
+                    driverUser::getUserName($def["creator_node_user"]), 
+                    $def["created"], 
+                    driverUser::getUserName($def["modifier_node_user"]),
+                    $def["modified"]
+                    );
+            echo "</p>";
             $sql = "select count(*) from `node_{$params["nodetype"]}`";
             $q = dbConn::Execute($sql);
-            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;Contains {$q->fields[0]} record/s.</p>";
+            echo "<p><span class=\"glyphicon glyphicon-info-sign\"></span>&nbsp;";
+            echo sprintf(__("Contains %s record/s."), $q->fields[0]);
+            echo "</p>";
             echo "<p><span class=\"glyphicon glyphicon-lock\"></span>";
-            echo "&nbsp;Permisions: ";
+            echo "&nbsp;".__('Permisions').": ";
             echo "<ul>";
-            echo "<li><b>Owner</b>: ".driverUser::getUserName($def["user_owner"])."</li>";
-            echo "<li><b>Group</b>: ".driverUser::getGroupName($def["group_owner"])."</li>";
-            echo "<li><b>Flags</b>: ".driverUser::secNodeToString($def["access"])."</li>";
+            echo "<li><b>".__('Owner')."</b>: ".driverUser::getUserName($def["user_owner"])."</li>";
+            echo "<li><b>".__('Group')."</b>: ".driverUser::getGroupName($def["group_owner"])."</li>";
+            echo "<li><b>".__('Flags')."</b>: ".driverUser::secNodeToString($def["access"])."</li>";
             echo "</ul>";
             echo "</p>";
         }
@@ -139,9 +146,9 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Display definition of node type.", 
+                "description" => __("Display definition of node type."), 
                 "parameters" => array(
-                    "nodetype" => "Node type name",
+                    "nodetype" => __("Node type name"),
                 ), 
                 "response" => array(),
                 "type" => array(

@@ -62,12 +62,12 @@ if (!class_exists("commandSudo")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Change active user without logout and login. This is the unique method to get root access, super administration. A user can do sudo when it have sudoers group.", 
+                "description" => __("Change active user without logout and login. This is the unique method to get root access, super administration. A user can do sudo when it have sudoers group."), 
                 "parameters" => array(
-                    "user" => "User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo.",
+                    "user" => __("User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if session started."
+                    "ok" => __("TRUE if session started.")
                 ),
                 "type" => array(
                     "parameters" => array(

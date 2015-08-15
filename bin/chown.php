@@ -38,7 +38,7 @@ if (!class_exists("commandChown")) {
                     // Owner is a mail
                     $resp = driverUser::getUserIDByMail($params["owner"]);
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad user id.");
+                        return array("ok" => false, "msg" => __("Bad user id."));
                     } else {
                         $owner = $resp;
                     }
@@ -46,7 +46,7 @@ if (!class_exists("commandChown")) {
                     // Owner is a ID
                     $resp = driverUser::getUserName($params["owner"]);
                     if ($resp == "unknown") {
-                        return array("ok" => false, "msg" => "Bad user id.");
+                        return array("ok" => false, "msg" => __("Bad user id."));
                     }
                     $owner = $params["owner"];
                 }
@@ -56,7 +56,7 @@ if (!class_exists("commandChown")) {
                     // group is a title
                     $resp = driverUser::getGroupID($params["group"]);
                     if ($resp === false) {
-                        return array("ok" => false, "msg" => "Bad group id.");
+                        return array("ok" => false, "msg" => __("Bad group id."));
                     } else {
                         $group = $resp;
                     }
@@ -64,7 +64,7 @@ if (!class_exists("commandChown")) {
                     // group is a ID
                     $resp = driverUser::getGroupName($params["group"]);
                     if ($resp == "unknown") {
-                        return array("ok" => false, "msg" => "Bad group id.");
+                        return array("ok" => false, "msg" => __("Bad group id."));
                     }
                     $group = $params["group"];
                 }
@@ -90,7 +90,7 @@ if (!class_exists("commandChown")) {
                             );
                         $resp = array("ok" => true);
                     } else {
-                        $resp = array("ok" => false, "msg" => "You need ownership.");
+                        $resp = array("ok" => false, "msg" => __("You need ownership."));
                     }
                     return $resp;
                 }
@@ -99,14 +99,14 @@ if (!class_exists("commandChown")) {
 
         public static function getHelp() {
             return array(
-                "description" => "To change owner, and/or group, of the command.", 
+                "description" => __("To change owner, and/or group, of the command."), 
                 "parameters" => array(
-                    "cmd" => "Command that you need change ownership.",
-                    "owner" => "Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero.",
-                    "group" => "Title or ID of the group. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero.",
+                    "cmd" => __("Command that you need change ownership."),
+                    "owner" => __("Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero."),
+                    "group" => __("Title or ID of the group. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero."),
                 ), 
                 "response" => array(
-                    "ok" => "TRUE if changed."
+                    "ok" => __("TRUE if changed.")
                 ),
                 "type" => array(
                     "parameters" => array(

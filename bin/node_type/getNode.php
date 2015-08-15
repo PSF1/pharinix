@@ -52,13 +52,13 @@ if (!class_exists("commandGetNode")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return the node content.", 
+                "description" => __("Return the node content."), 
                 "parameters" => array(
-                    "nodetype" => "Node type.",
-                    "node" => "Node ID.",
+                    "nodetype" => __("Node type."),
+                    "node" => __("Node ID."),
                 ), 
                 "response" => array(
-                    "node" => "Array with node content indexed by field name.",
+                    "node" => __("Array with node content indexed by field name."),
                 ),
                 "type" => array(
                     "parameters" => array(

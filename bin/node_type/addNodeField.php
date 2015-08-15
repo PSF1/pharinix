@@ -67,13 +67,13 @@ if (!class_exists("commandAddNodeField")) {
                     ), $params);
             $params["name"] = strtolower($params["name"]);
             if ($params["name"] == "") {
-                $resp["msg"] = "Field name is required. ";
+                $resp["msg"] = __("Field name is required. ");
             }
             if ($params["type"] == "") {
-                $resp["msg"] .= "Field type is required. ";
+                $resp["msg"] .= __("Field type is required. ");
             }
             if ($params["node_type"] == "") {
-                $resp["msg"] .= "Node type is required. ";
+                $resp["msg"] .=__("Node type is required. ");
             }
             if ($resp["msg"] != "") return $resp;
 
@@ -98,7 +98,7 @@ if (!class_exists("commandAddNodeField")) {
                             $subtimeId = driverCommand::run("getNodeTypeId", array("name" => $params["type"]));
                             if ($subtimeId === false) {
                                 $resp["ok"] = FALSE;
-                                $resp["msg"] = "Node field sub type '{$params["type"]}' don't exist.";
+                                $resp["msg"] = sprintf(__("Node field sub type '%s' don't exist."), $params["type"]);
                             } else {
                                 $resp["ok"] = true;
                             }
@@ -169,15 +169,15 @@ if (!class_exists("commandAddNodeField")) {
                         }
                     } else {
                         $resp["ok"] = false;
-                        $resp["msg"] = "Node field name '{$params["name"]}' already exist.";
+                        $resp["msg"] = sprintf(__("Node field name '%s' already exist."), $params["name"]);
                     }
                 } else {
                     $resp["ok"] = false;
-                    $resp["msg"] = "You can't add fields to '{$params["node_type"]}'.";
+                    $resp["msg"] = sprintf(__("You can't add fields to '%s'."), $params["node_type"]);
                 }
             } else {
                 $resp["ok"] = false;
-                $resp["msg"] = "Node type '{$params["node_type"]}' don't exist.";
+                $resp["msg"] = sprintf(__("Node type '%s' don't exist."), $params["node_type"]);
             }
             return $resp;
         }
@@ -189,24 +189,24 @@ if (!class_exists("commandAddNodeField")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a new field to a node type. It need update permission over the node type.", 
+                "description" => __("Add a new field to a node type. It need update permission over the node type."), 
                 "parameters" => array(
-                    "name" => "Field name",
-                    "type" => "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type",
-                    "iskey" => "Any other record can have some value. This functionality is not using database implementation.",
-                    "len" => "Field length if need it",
-                    "required" => "True/false Required field",
-                    "readonly" => "True/false Not writable field",
-                    "locked" => "True/false System field",
-                    "multi" => "True/false multivalue field, only applicable on relations with other node types.",
-                    "node_type" => "Node type name",
-                    "default" => "Default value",
-                    "label" => "Label to show",
-                    "help" => "Help about field",
+                    "name" => __("Field name"),
+                    "type" => __("Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type"),
+                    "iskey" => __("Any other record can have some value. This functionality is not using database implementation."),
+                    "len" => __("Field length if need it"),
+                    "required" => __("True/false Required field"),
+                    "readonly" => __("True/false Not writable field"),
+                    "locked" => __("True/false System field"),
+                    "multi" => __("True/false multivalue field, only applicable on relations with other node types."),
+                    "node_type" => __("Node type name"),
+                    "default" => __("Default value"),
+                    "label" => __("Label to show"),
+                    "help" => __("Help about field"),
                 ), 
                 "response" => array(
-                    "ok" => "True/False field added",
-                    "msg" => "If error, it's a message about error"
+                    "ok" => __("True/False field added"),
+                    "msg" => __("If error, it's a message about error")
                 ),
                 "type" => array(
                     "parameters" => array(

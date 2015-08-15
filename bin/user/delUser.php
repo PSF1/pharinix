@@ -76,10 +76,10 @@ if (!class_exists("commandDelUser")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Delete a user by ID or mail.", 
+                "description" => __("Delete a user by ID or mail."), 
                 "parameters" => array(
-                    "uid" => "The user id.",
-                    "mail" => "The user mail.",
+                    "uid" => __("The user id."),
+                    "mail" => __("The user mail."),
                 ), 
                 "response" => array(),
                 "type" => array(

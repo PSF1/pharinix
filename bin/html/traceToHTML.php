@@ -36,7 +36,7 @@ if (!class_exists("commandTraceToHTML")) {
             <div class="row">
                 <div class="col-sm-12">
                     <?php
-                    echo "<h3>Trace information</h3>";
+                    echo "<h3>".__("Trace information")."</h3>";
                     self::parseTrace("trace", $output["trace"]);
                     ?>
                 </div>
@@ -51,7 +51,7 @@ if (!class_exists("commandTraceToHTML")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Print trace information in HTML format",
+                "description" => __("Print trace information in HTML format"),
                 "parameters" => array(),
                 "response" => array(),
                 "type" => array(
@@ -66,8 +66,8 @@ if (!class_exists("commandTraceToHTML")) {
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Key</th>
-                        <th>Value</th>
+                        <th><?php __e('Key'); ?></th>
+                        <th><?php __e('Value'); ?></th>
                     </tr>
                 </thead>
                 <tbody>

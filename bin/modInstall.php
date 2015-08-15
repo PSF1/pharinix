@@ -30,17 +30,17 @@ if (!class_exists("commandModInstall")) {
             ), $params);
             
             if (!is_file($params['zip'])) {
-                return array("ok" => false, "msg" => 'Module zip file not found.');
+                return array("ok" => false, "msg" => __('Module zip file not found.'));
             }
             if (!is_dir($params['path'])) {
-                return array("ok" => false, "msg" => 'Install path not found.');
+                return array("ok" => false, "msg" => __('Install path not found.'));
             }
             if (!driverTools::str_end('/', $params['path'])) {
                 $params['path'] .= '/';
             }
             $zip = driverTools::pathInfo($params['zip']);
             if (is_dir($params['path'].$zip['name'])) {
-                return array("ok" => false, "msg" => 'Install path is in use.');
+                return array("ok" => false, "msg" => __('Install path is in use.'));
             }
             $fZip = new ZipArchive();
             $fZip->open($params['zip']);
@@ -65,7 +65,10 @@ if (!class_exists("commandModInstall")) {
                 ));
                 if (count($mods) > 0) {
                     $ids = array_keys($mods);
-                    return array("ok" => false, "msg" => "Module '{$meta->meta->slugname}' is installed with version '{$mods[$ids[0]]['version']}'.");
+                    return array(
+                        "ok" => false, 
+                        "msg" => sprintf(__("Module '%s' is installed with version '%s'."), $meta->meta->slugname, $mods[$ids[0]]['version'])
+                        );
                 }
                 // Verify requirements
                 foreach($meta->requirements as $need => $version) {
@@ -73,7 +76,10 @@ if (!class_exists("commandModInstall")) {
                         $ver = driverCommand::run('getVersion');
                         $ver = $ver['version'];
                         if(!driverTools::versionIsGreaterOrEqual($version, $ver)) {
-                            return array("ok" => false, "msg" => "This module requires '$need' version '$version' and you have version '$ver'.");
+                            return array(
+                                "ok" => false, 
+                                "msg" => sprintf(__("This module requires '%s' version '%s' and you have version '%s'."), $need, $version, $ver)
+                                    );
                         }
                     } else {
                         $ver = driverCommand::run('getNodes', array(
@@ -81,11 +87,17 @@ if (!class_exists("commandModInstall")) {
                             'where' => "`title` = '$need'",
                         ));
                         if (count($ver) == 0) {
-                            return array("ok" => false, "msg" => "This module requires '$need' version '$version' and you don't have it.");
+                            return array(
+                                "ok" => false, 
+                                "msg" => sprintf(__("This module requires '%s' version '%s' and you don't have it."), $need, $version)
+                                    );
                         } else {
                             $ids = array_keys($ver);
                             if(!driverTools::versionIsGreaterOrEqual($version, $ver[$ids[0]]['version'])) {
-                                return array("ok" => false, "msg" => "This module requires '$need' version '$version' and you have version '$ver'.");
+                                return array(
+                                    "ok" => false, 
+                                    "msg" => sprintf(__("This module requires '%s' version '%s' and you have version '%s'."), $need, $version, $ver)
+                                        );
                             }
                         }
                     }
@@ -239,21 +251,24 @@ if (!class_exists("commandModInstall")) {
                 return array("ok" => true, "path" => $installPath);
             } else {
                 driverTools::fileRemove($tmpFolder);
-                return array("ok" => false, "msg" => "Meta file not found at '".$tmpFolder.'meta.json'."'. Have the package the correct structure?.");
+                return array(
+                    "ok" => false, 
+                    "msg" => sprintf(__("Meta file not found at '%s'. Have the package the correct structure?."), $tmpFolder.'meta.json')
+                    );
             }
         }
 
         public static function getHelp() {
             return array(
-                "description" => "Install a module.", 
+                "description" => __("Install a module."), 
                 "parameters" => array(
-                    "path" => "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'",
-                    "zip" => "Path to the ZIP file with the new module.",
+                    "path" => __("Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"),
+                    "zip" => __("Path to the ZIP file with the new module."),
                 ), 
                 "response" => array(
-                        "ok" => "TRUE if the installation is OK.",
-                        "msg" => "If install error this contains the error message.",
-                        "path" => "If install ok contains the install path.",
+                        "ok" => __("TRUE if the installation is OK."),
+                        "msg" => __("If install error this contains the error message."),
+                        "path" => __("If install ok contains the install path."),
                     ),
                 "type" => array(
                     "parameters" => array(

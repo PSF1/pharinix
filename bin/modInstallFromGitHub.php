@@ -68,11 +68,11 @@ if (!class_exists("commandModInstallFromGitHub")) {
                         return $resp;
                     } else {
                         driverTools::fileRemove($gitFolder);
-                        return array('ok' => false, 'msg' => 'Wrong git zip structure, meta file not found.');
+                        return array('ok' => false, 'msg' => __('Wrong git zip structure, meta file not found.'));
                     }
                 } else {
                     driverTools::fileRemove($gitFolder);
-                    return array('ok' => false, 'msg' => 'Wrong git zip structure.');
+                    return array('ok' => false, 'msg' => __('Wrong git zip structure.'));
                 }
             }
         }
@@ -99,15 +99,15 @@ if (!class_exists("commandModInstallFromGitHub")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Install a module from GitHub project, it must be from a tag release ZIP file. (Requires cURL.)", 
+                "description" => __("Install a module from GitHub project, it must be from a tag release ZIP file. (Requires cURL.)"), 
                 "parameters" => array(
-                    "path" => "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'",
-                    "url" => "URL of the module's GitHub ZIP file.",
+                    "path" => __("Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"),
+                    "url" => __("URL of the module's GitHub ZIP file."),
                 ), 
                 "response" => array(
-                        "ok" => "TRUE if the installation is OK.",
-                        "msg" => "If install error this contains the error message.",
-                        "path" => "If install ok contains the install path.",
+                        "ok" => __("TRUE if the installation is OK."),
+                        "msg" => __("If install error this contains the error message."),
+                        "path" => __("If install ok contains the install path."),
                     ),
                 "type" => array(
                     "parameters" => array(

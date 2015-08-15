@@ -28,11 +28,11 @@ if (!class_exists("commandCfgDelPath")) {
                 'path' => '',
             ), $params);
             if ($params['path'] == '') {
-                return array('ok' => false, 'msg' => 'Path required.');
+                return array('ok' => false, 'msg' => __('Path required.'));
             }
             $section = driverConfig::getCFG()->getSection('[core]');
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $val = $section->get("path");
             $aval = explode(";",  $val);
@@ -53,12 +53,12 @@ if (!class_exists("commandCfgDelPath")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Delete a commands path.", 
+                "description" => __("Delete a commands path."), 
                 "parameters" => array(
-                    "path" => "Path to erase.",
+                    "path" => __("Path to erase."),
                 ), 
                 "response" => array(
-                    "Path" => "Value of commands path."
+                    "Path" => __("Value of commands path.")
                 ),
                 "type" => array(
                     "parameters" => array(

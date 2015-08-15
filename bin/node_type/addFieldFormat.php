@@ -34,13 +34,13 @@ if (!class_exists("commandAddFieldFormat")) {
             
             $resp = array("ok" => false, "msg" => "");
             if ($params["cmd"] == "") {
-                $resp["msg"] = "'cmd' is required.";
+                $resp["msg"] = __("'cmd' is required.");
             }
             if ($params["type"] == "") {
-                $resp["msg"] = "'type' is required.";
+                $resp["msg"] = __("'type' is required.");
             }
             if (!$params["isread"] && !$params["iswrite"]) {
-                $resp["msg"] = "This formatter can't do nothing.";
+                $resp["msg"] = __("This formatter can't do nothing.");
             }
             
             if ($resp["msg"] == "") {
@@ -55,7 +55,7 @@ if (!class_exists("commandAddFieldFormat")) {
                     $sql .= "`default` = '".($params["isdefault"]?"1":"0")."' ";
                     dbConn::Execute($sql);
                 } else {
-                    $resp["msg"] = "Duplicated formatter.";
+                    $resp["msg"] = __("Duplicated formatter.");
                 }
             }
             return $resp;
@@ -63,13 +63,13 @@ if (!class_exists("commandAddFieldFormat")) {
 
         public static function getHelp() {
             return array(
-                "description" => "Add a new field formatter.", 
+                "description" => __("Add a new field formatter."), 
                 "parameters" => array(
-                    "cmd" => "Command that can format the field.",
-                    "type" => "Basic type to format.",
-                    "isread" => "Can format field to read only.",
-                    "iswrite" => "Can format field to read & write.",
-                    "isdefault" => "This formatter is the default formatter to this type.",
+                    "cmd" => __("Command that can format the field."),
+                    "type" => __("Basic type to format."),
+                    "isread" => __("Can format field to read only."),
+                    "iswrite" => __("Can format field to read & write."),
+                    "isdefault" => __("This formatter is the default formatter to this type."),
                 ), 
                 "response" => array(),
                 "type" => array(

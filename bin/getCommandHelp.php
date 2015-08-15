@@ -64,9 +64,9 @@ if (!class_exists("commandGetCommandHelp")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Command's help as array.", 
+                "description" => __("Command's help as array."), 
                 "parameters" => array(), 
-                "response" => array("help" => "Help grouped by bin path. array('bin/html' => array...)"),
+                "response" => array("help" => __("Help grouped by bin path. array('bin/html' => array...)")),
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(

@@ -30,7 +30,7 @@ if (!class_exists("commandCfgDelKey")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $cm = new driverConfigIniPair();
             $cm->key = $params['key'];
@@ -40,10 +40,10 @@ if (!class_exists("commandCfgDelKey")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Del a key/value of configuration.", 
+                "description" => __("Del a key/value of configuration."), 
                 "parameters" => array(
-                    'section' => 'Section.',
-                    'key' => 'Configuration key to delete.',
+                    'section' => __('Section.'),
+                    'key' => __('Configuration key to delete.'),
                 ), 
                 "response" => array(),
                 "type" => array(

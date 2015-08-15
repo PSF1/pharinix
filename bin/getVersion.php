@@ -38,10 +38,10 @@ if (!class_exists("commandGetVersion")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Return Pharinix version.", 
+                "description" => __("Return Pharinix version."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "version" => "Pharinix version."
+                    "version" => __("Pharinix version.")
                 ),
                 "type" => array(
                     "parameters" => array(), 

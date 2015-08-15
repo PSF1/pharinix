@@ -36,9 +36,9 @@ if (!class_exists("commandTimeLimit")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Change the PHP execution time limit. WARNING: Handle with care, a bad use of time limit can halt the server.", 
+                "description" => __("Change the PHP execution time limit. WARNING: Handle with care, a bad use of time limit can halt the server."), 
                 "parameters" => array(
-                    "s" => "Seconds of new execution time limit. If is upper of 7200s, or is 0, the limit is set to 7200s.",
+                    "s" => __("Seconds of new execution time limit. If is upper of 7200s, or is 0, the limit is set to 7200s."),
                 ), 
                 "response" => array(),
                 "type" => array(

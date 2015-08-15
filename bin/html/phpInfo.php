@@ -38,7 +38,7 @@ if (!class_exists("commandPhpInfo")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Display phpInfo() response.", 
+                "description" => __("Display phpInfo() response."), 
                 "parameters" => array(),
                 "response" => array(),
                 "type" => array(

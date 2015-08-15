@@ -47,12 +47,12 @@ if (!class_exists("commandIsUrl")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Query the rewrite list and return if the url is rewrited.", 
+                "description" => __("Query the rewrite list and return if the url is rewrited."), 
                 "parameters" => array(
-                    "url" => "The URL to test.", 
+                    "url" => __("The URL to test."), 
                     ), 
                 "response" => array(
-                    "ok" => "TRUE if the URL exist.", 
+                    "ok" => __("TRUE if the URL exist."), 
                     ),
                 "type" => array(
                     "parameters" => array(

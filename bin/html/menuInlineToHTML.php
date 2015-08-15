@@ -60,7 +60,7 @@ body {
           <ul class="nav navbar-nav">
             <li><a href="<?php echo CMS_DEFAULT_URL_BASE;?>">
                     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                    &nbsp;Home
+                    &nbsp;<?php __e('Home'); ?>
                 </a></li>
           </ul>
           <!-- LEFT -->
@@ -81,7 +81,7 @@ body {
                     <input type="hidden" name="command" value="sudo"/>
                     <input type="hidden" name="user" value=""/>
                     <input type="hidden" name="interface" value="goHome"/>
-                    <button type="submit" class="btn btn-danger">Exit superuser</button>
+                    <button type="submit" class="btn btn-danger"><?php __e('Exit superuser'); ?></button>
                 </form>
                 <?php
                 } elseif (driverUser::haveSudoersGroup()) {
@@ -90,7 +90,7 @@ body {
                     <input type="hidden" name="command" value="sudo"/>
                     <input type="hidden" name="user" value="root@localhost"/>
                     <input type="hidden" name="interface" value="goHome"/>
-                    <button type="submit" class="btn btn-link">Get superuser</button>
+                    <button type="submit" class="btn btn-link"><?php __e('Get superuser'); ?></button>
                 </form>
                 <?php
                 }
@@ -100,12 +100,12 @@ body {
                         <input type="hidden" name="command" value="startSession"/>
                         <input type="hidden" name="interface" value="goHome"/>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="user" placeholder="mail">
+                            <input type="text" class="form-control" name="user" placeholder="<?php __e('mail');?>">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="pass" placeholder="password">
+                            <input type="password" class="form-control" name="pass" placeholder="<?php __e('password'); ?>">
                         </div>
-                        <button type="submit" class="btn btn-default">Login</button>
+                        <button type="submit" class="btn btn-default"><?php __e('Login'); ?></button>
                     </form>
                 <?php
                 } else {
@@ -113,7 +113,7 @@ body {
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="command" value="endSession"/>
                     <input type="hidden" name="interface" value="goHome"/>
-                    <button type="submit" class="btn btn-link">Logout</button>
+                    <button type="submit" class="btn btn-link"><?php __e('Logout'); ?></button>
                 </form>
                 <?php
                 }
@@ -122,33 +122,33 @@ body {
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                  &nbsp;Help <span class="caret"></span>
+                  &nbsp;<?php __e('Help'); ?> <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/console">Console</a></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/command">Commands</a></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/formatters">Formatters demo</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/console"><?php __e('Console'); ?></a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/command"><?php __e('Commands'); ?></a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/formatters"><?php __e('Formatters demo'); ?></a></li>
                 <li class="divider"></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/icons">Bootstrap icons</a></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/tabs_panels">Tabs & Panels</a></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/ui_elements">UI Elements</a></li>
-                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/forms">Forms</a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/icons"><?php __e('Bootstrap icons'); ?></a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/tabs_panels"><?php __e('Tabs & Panels'); ?></a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/ui_elements"><?php __e('UI Elements');?></a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>help/forms"><?php __e('Forms'); ?></a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                  &nbsp;Types <span class="caret"></span>
+                  &nbsp;<?php __e('Types'); ?> <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li role="presentation" class="dropdown-header">Visible types</li>
+                <li role="presentation" class="dropdown-header"><?php __e('Visible types'); ?></li>
                 <?php
                     $types = driverCommand::run("getNodeTypeList");
                     foreach($types as $type) {
                         echo '<li><a href="'.CMS_DEFAULT_URL_BASE.'node/type/'.$type.'">'.$type.'</a></li>';
                     }
                 ?>
-                <li role="presentation" class="dropdown-header">Fixed types</li>
+                <li role="presentation" class="dropdown-header"><?php __e('Fixed types');?></li>
                 <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>node/type/user">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         &nbsp;user
@@ -178,9 +178,9 @@ body {
         
         public static function getHelp() {
             return array(
-                "description" => "Transform a menu to HTML inline navigation bar",
+                "description" => __('Transform a menu to HTML inline navigation bar'),
                 "parameters" => array(
-                    "menu" => "Menu to convert."
+                    "menu" => __("Menu to convert.")
                     ),
                 "response" => array(),
                 "type" => array(

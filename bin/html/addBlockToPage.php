@@ -39,7 +39,7 @@ if (!class_exists("commandAddBlockToPage")) {
             $resp = array("ok" => false, "msg" => "");
             $page = driverPages::getPage($params["page"]);
             if ($page === false) {
-                $resp["msg"] = "Page not found";
+                $resp["msg"] = __("Page not found");
             } else {
                 $sql = "insert into `page-blocks` set ";
                 $sql .= "`idpage` = {$page->fields["id"]}, ";
@@ -59,13 +59,13 @@ if (!class_exists("commandAddBlockToPage")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Add a block to a page.", 
+                "description" => __("Add a block to a page."), 
                 "parameters" => array(
-                    'page' => 'Name ID of page.',
-                    'idcol' => 'Column ID where put the block.',
-                    'command' => 'Command to execute.',
-                    'parameters' => 'Parameters of command, it must be a URL encoded string.',
-                    'priority' => 'Order of blocks. Default 0, first.',
+                    'page' => __('Name ID of page.'),
+                    'idcol' => __('Column ID where put the block.'),
+                    'command' => __('Command to execute.'),
+                    'parameters' => __('Parameters of command, it must be a URL encoded string.'),
+                    'priority' => __('Order of blocks. Default 0, first.'),
                 ),
                 "response" => array(),
                 "type" => array(

@@ -84,7 +84,7 @@ class driverCommand extends driverHook {
                 } else {
                     $resp = array(
                         "ok" => false,
-                        "msg" => "You can't execute '{$cmd}'.",
+                        "msg" => sprintf(__("You can't execute '%s'."), $cmd),
                     );
                 }
                 
@@ -93,9 +93,9 @@ class driverCommand extends driverHook {
             }
         }
         if (isset($_POST["interface"]) && $_POST["interface"] == "echoHtml") {
-            echo self::getAlert("Command '{$cmd}' not found");
+            echo self::getAlert(sprintf(__("Command '%s' not found"), $cmd));
         } else {
-            return array("ok" => false, "msg" => "Command '{$cmd}' not found");
+            return array("ok" => false, "msg" => sprintf(__("Command '%s' not found", $cmd)));
         }
     }
     
@@ -129,7 +129,7 @@ EOT;
      */
     public static function getHelp() {
         return array(
-            "description" => "Command base class", 
+            "description" => __("Command base class"), 
             "parameters" => array(), 
             "response" => array(),
             "type" => array(

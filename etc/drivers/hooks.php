@@ -1,6 +1,6 @@
 <?php
 /*
-Base on PhpWsdl - Generate WSDL from PHP
+Based on PhpWsdl - Generate WSDL from PHP
 Copyright (C) 2011  Andreas Zimmermann, wan24.de 
 
 This program is free software; you can redistribute it and/or modify it under 

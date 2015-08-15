@@ -31,7 +31,7 @@ if (!class_exists("commandCfgSetValue")) {
             ), $params);
             $section = driverConfig::getCFG()->getSection($params['section']);
             if ($section == null) {
-                return array('ok' => false, 'msg' => 'Section not found.');
+                return array('ok' => false, 'msg' => __('Section not found.'));
             }
             $section->set($params['key'], $params['value']);
             driverConfig::getCFG()->save();
@@ -39,11 +39,11 @@ if (!class_exists("commandCfgSetValue")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Set, or add, a value of configuration.", 
+                "description" => __("Set, or add, a value of configuration."), 
                 "parameters" => array(
-                    'section' => 'Section to list.',
-                    'key' => 'Configuration key.',
-                    'value' => 'Value to write.',
+                    'section' => __('Section to list.'),
+                    'key' => __('Configuration key.'),
+                    'value' => __('Value to write.'),
                 ), 
                 "response" => array(),
                 "type" => array(

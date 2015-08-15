@@ -49,7 +49,7 @@ if (!class_exists("commandUsageEnd")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Capture final resources consumed", 
+                "description" => __("Capture final resources consumed"), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

@@ -23,21 +23,10 @@
  class driverTools {
 
      /**
+      * Get information about a path, name and extension of the given file.<br>
      * Extraer informacion de una ruta, nombre y extension de un archivo dado.<br/>
-     * Posibilidades de uso (o mal uso) de una funcion de este tipo:
-     * <ul>
-     * <li>Extension sin nombre: .htaccess</li>
-     * <li>Nombre sin extension: name</li>
-     * <li>Nombre simplon: name.jpeg</li>
-     * <li>Nombre complejo: name.surname.gif</li>
-     * <li>Ruta absoluta: /path/to/name.surname.tar.gz</li>
-     * <li>Ruta relativa: ../../path/to/name.surname.tar.gz</li>
-     * <li>BONUS: Cadena vacia para romper la funcion Comillas vacias "</li>
-     * <li>BONUS 2: Cadena malformada para romper la funcion "/\/.path///file/.gif"</li>
-     * <li>BONUS 3: Ruta sin archivo "/path/to/folder/"</li>
-     * </ul>
-     * <a href="http://www.propiedadprivada.com/funcion-php-extraer-ruta-nombre-y-extension-de-un-archivo/746/">Fuente</a>
-     * @param string $path Ruta a analizar
+     * <a href="http://www.propiedadprivada.com/funcion-php-extraer-ruta-nombre-y-extension-de-un-archivo/746/">Source/Fuente</a>
+     * @param string $path Path to explore. Ruta a analizar
      * @return array Extension sin nombre: .htaccess
      * <ul>
      * <li>Array (7)</li>
@@ -50,6 +39,19 @@
      * <li>|    ["name"] = Boolean(0) FALSE</li>
      * <li>|    ["filename"] = String(9) " .htaccess "</li>
      * <li>)
+     * </ul><br>
+     * Posibilidades de uso (o mal uso) de una funcion de este tipo:<br>
+     * <ul>
+     * <li>Extension sin nombre: .htaccess</li>
+     * <li>Nombre sin extension: name</li>
+     * <li>Nombre simplon: name.jpeg</li>
+     * <li>Nombre complejo: name.surname.gif</li>
+     * <li>Ruta absoluta: /path/to/name.surname.tar.gz</li>
+     * <li>Ruta relativa: ../../path/to/name.surname.tar.gz</li>
+     * <li>BONUS: Cadena vacia para romper la funcion Comillas vacias "</li>
+     * <li>BONUS 2: Cadena malformada para romper la funcion "/\/.path///file/.gif"</li>
+     * <li>BONUS 3: Ruta sin archivo "/path/to/folder/"</li>
+     * </ul>
      */
     public static function pathInfo($path) {
         $path = str_replace("\\", "/", $path);
@@ -150,7 +152,7 @@
             if (is_dir($sFilename)) {
                 $directory = opendir($sFilename);
                 if (false === $directory) {
-                    $error = new Exception("Can't open the directory: '$sFilename'.");
+                    $error = new Exception(sprintf(__("Can't open the directory: '%s'."), $sFilename));
                     return $error;
                 }
                 while (($sChild = readdir($directory)) !== false) {
@@ -165,12 +167,12 @@
                 closedir($directory);
                 $result = rmdir($sFilename);
                 if ($result === false) {
-                    $error = new Exception("Can't delete the directory: '$sFilename'.");
+                    $error = new Exception(sprintf(__("Can't delete the directory: '%s'."), $sFilename));
                     return $error;
                 }
             } else {
                 if(!unlink($sFilename)) {
-                    return new Exception("Can't remove the file: '$sFilename'.");
+                    return new Exception(sprintf(__("Can't remove the file: '%s'."), $sFilename));
                 }
             }
             return true;
@@ -270,13 +272,13 @@ if (!function_exists('json_last_error_msg')) {
      * @return string
      */
     function json_last_error_msg() {
-        static $ERRORS = array(
-            JSON_ERROR_NONE => 'No error',
-            JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',
-            JSON_ERROR_STATE_MISMATCH => 'State mismatch (invalid or malformed JSON)',
-            JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded',
-            JSON_ERROR_SYNTAX => 'Syntax error',
-            JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded'
+        $ERRORS = array(
+            JSON_ERROR_NONE => 'No error', // Required that this be how is, without translation.
+            JSON_ERROR_DEPTH => __('Maximum stack depth exceeded'),
+            JSON_ERROR_STATE_MISMATCH => __('State mismatch (invalid or malformed JSON)'),
+            JSON_ERROR_CTRL_CHAR => __('Control character error, possibly incorrectly encoded'),
+            JSON_ERROR_SYNTAX => __('Syntax error'),
+            JSON_ERROR_UTF8 => __('Malformed UTF-8 characters, possibly incorrectly encoded')
         );
 
         $error = json_last_error();
