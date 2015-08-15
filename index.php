@@ -27,18 +27,13 @@ driverConfig::getCFG();
 //Create a translator instance
 include_once "etc/gettext/src/autoloader.php";
 include_once "etc/cldr-to-gettext-plural-rules/src/autoloader.php";
-use Gettext\Translator;
-$t = new Translator();
-//if (is_file('etc/i18n/es.po')) {
-//    $po = Gettext\Extractors\Mo::fromFile('etc/i18n/es.mo');
-//    $t->loadTranslations($po);
-//}
-Translator::initGettextFunctions($t);
 
 include_once("usr/adodb/cmsapi.php");
+include_once("etc/drivers/user.php");
+driverUser::loadTranslations();
+
 include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");
-include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
 
 // Main user interface

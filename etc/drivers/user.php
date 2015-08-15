@@ -23,6 +23,8 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 // TODO: For multidomain session information must be necessary asociate session with domain.
 
+use Gettext\Translator;
+
  class driverUser {
      /**
       * sudoers group ID
@@ -56,22 +58,22 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         $resp = "";
         
         $resp .= __("Owner").":[";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_CREATE, "Create").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_READ, "Read").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_UPDATE, "Update").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_DEL, "Delete");
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_CREATE, __("Create")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_READ, __("Read")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_UPDATE, __("Update")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_OWNER_DEL, __("Delete"));
         $resp .= "] ";
         $resp .= " ".__("Group").":[";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_CREATE, "Create").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_READ, "Read").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_UPDATE, "Update").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_DEL, "Delete");
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_CREATE, __("Create")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_READ, __("Read")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_UPDATE, __("Update")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_GROUP_DEL, __("Delete"));
         $resp .= "] ";
         $resp .= " ".__("All").":[";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_CREATE, "Create").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_READ, "Read").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_UPDATE, "Update").", ";
-        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_DEL, "Delete");
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_CREATE, __("Create")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_READ, __("Read")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_UPDATE, __("Update")).", ";
+        $resp .= self::secFormatString($key & self::PERMISSION_NODE_ALL_DEL, __("Delete"));
         $resp .= "] ";
         return $resp;
     }
@@ -218,34 +220,34 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         
         if (!$html) {
             $resp .= __("Owner").":";
-            $resp .= $key & self::PERMISSION_FILE_OWNER_READ?"Read,":"";
-            $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?"Write,":"";
-            $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?"Execute":"";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_READ?__("Read").",":"";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_WRITE?__("Write").",":"";
+            $resp .= $key & self::PERMISSION_FILE_OWNER_EXECUTE?__("Execute"):"";
 
             $resp .= " ".__("Group").":";
-            $resp .= $key & self::PERMISSION_FILE_GROUP_READ?"Read,":"";
-            $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?"Write,":"";
-            $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?"Execute":"";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_READ?__("Read").",":"";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_WRITE?__("Write").",":"";
+            $resp .= $key & self::PERMISSION_FILE_GROUP_EXECUTE?__("Execute"):"";
 
             $resp .= " ".__("All").":";
-            $resp .= $key & self::PERMISSION_FILE_ALL_READ?"Read,":"";
-            $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?"Write,":"";
-            $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?"Execute":"";
+            $resp .= $key & self::PERMISSION_FILE_ALL_READ?__("Read").",":"";
+            $resp .= $key & self::PERMISSION_FILE_ALL_WRITE?__("Write").",":"";
+            $resp .= $key & self::PERMISSION_FILE_ALL_EXECUTE?__("Execute"):"";
         } else {
             $resp .= __("Owner").":";
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_READ, "Read");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_WRITE, "Write");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_EXECUTE, "Execute");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_READ, __("Read"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_WRITE, __("Write"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_OWNER_EXECUTE, __("Execute"));
 
             $resp .= " ".__("Group").":";
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_READ, "Read");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_WRITE, "Write");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_EXECUTE, "Execute");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_READ, __("Read"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_WRITE, __("Write"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_GROUP_EXECUTE, __("Execute"));
 
             $resp .= " ".__("All").":";
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_READ, "Read");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_WRITE, "Write");
-            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_EXECUTE, "Execute");
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_READ, __("Read"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_WRITE, __("Write"));
+            $resp .= self::secFormatString($key & self::PERMISSION_FILE_ALL_EXECUTE, __("Execute"));
         }
         return $resp;
     }
@@ -314,6 +316,7 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
             $_SESSION["user_groups"] = array("");
             $_SESSION["is_loged"] = 0;
             $_SESSION["started"] = true;
+            self::getLangOfUser();
         }
     }
     
@@ -495,6 +498,83 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
         } else {
             return $q->fields["name"];
         }
+    }
+    
+    /**
+     * Get list of languajes listed by the HTTP/S client.
+     * @return array List of prefered languajes set by browser, or client. 
+     */
+    public static function getLangOfClient() {
+        //_SERVER["HTTP_ACCEPT_LANGUAGE"]	es-ES,es;q=0.8,en;q=0.6
+        $resp = array();
+        if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
+            $langs = explode(";", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+            foreach($langs as $lang) {
+                $lang = explode(",", $lang);
+                foreach ($lang as $sublang) {
+                    $resp[] = str_replace('-', '_', $sublang);
+                }
+            }
+        }
+        $resp[] = 'en';
+        return $resp;
+    }
+    
+    /**
+     * Get list of prefered languajes
+     * @return array List of prefered languajes set by user
+     */
+    public static function getLangOfUser() {
+        if (!isset($_SESSION)) {
+            return array('en');
+        } else if (!isset($_SESSION['lang'])) {
+            // Select languaje of the client
+            $_SESSION['lang'] = self::getLangOfClient();
+        }
+        return $_SESSION['lang'];
+    }
+    
+    public static function loadTranslations() {
+        $t = new Translator();
+        $reqs = self::getLangOfUser();
+        $po = null;
+        // Load core translations
+        foreach($reqs as $req) {
+            if ($req == 'en') {
+                break; // English is the default languaje, it don't need load translations
+            }
+            if (is_file('etc/i18n/'.$req.'.mo')) {
+                $po = Gettext\Extractors\Mo::fromFile('etc/i18n/'.$req.'.mo');
+                break;
+            }
+            if (is_file('etc/i18n/'.$req.'.po')) {
+                $po = Gettext\Extractors\Po::fromFile('etc/i18n/'.$req.'.po');
+                break;
+            }
+        }
+        // Load modules translations
+        $sql = "select `path` from `node_modules`";
+        $q = dbConn::Execute($sql);
+        while (!$q->EOF) {
+            foreach($reqs as $req) {
+                if ($req == 'en') {
+                    break; // English is the default languaje, it don't need load translations
+                }
+                if (is_file($q->fields['path'].'i18n/'.$req.'.mo')) {
+                    $po2 = Gettext\Extractors\Mo::fromFile($q->fields['path'].'i18n/'.$req.'.mo');
+                    $po->mergeWith($po2);
+                    break;
+                }
+                if (is_file($q->fields['path'].'i18n/'.$req.'.po')) {
+                    $po2 = Gettext\Extractors\Po::fromFile($q->fields['path'].'i18n/'.$req.'.po');
+                    $po->mergeWith($po2);
+                    break;
+                }
+            }
+            $q->MoveNext();
+        }
+        $t->loadTranslations($po);
+        Translator::initGettextFunctions($t);
     }
     
     /**
