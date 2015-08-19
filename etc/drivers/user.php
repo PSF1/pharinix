@@ -573,7 +573,7 @@ use Gettext\Translator;
             }
             $q->MoveNext();
         }
-        $t->loadTranslations($po);
+        if ($po != null) $t->loadTranslations($po);
         Translator::initGettextFunctions($t);
     }
     

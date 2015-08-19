@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2015-08-15T17:59:09+02:00\n"
-"PO-Revision-Date: 2015-08-15 18:00+0100\n"
+"PO-Revision-Date: 2015-08-15 18:03+0100\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
 
@@ -38,11 +38,11 @@ msgstr "No se pudo borrar el archivo: '%s'"
 
 #: etc/drivers/tools.php:277
 msgid "Maximum stack depth exceeded"
-msgstr "Alcanzado máxima profundidad de pila"
+msgstr "Alcanzada máxima profundidad de pila"
 
 #: etc/drivers/tools.php:278
 msgid "State mismatch (invalid or malformed JSON)"
-msgstr "Stado de error (JSON invalido o mal formado)"
+msgstr "Estado de error (JSON invalido o mal formado)"
 
 #: etc/drivers/tools.php:279
 msgid "Control character error, possibly incorrectly encoded"
