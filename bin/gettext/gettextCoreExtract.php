@@ -36,7 +36,7 @@ if (!class_exists("commandGettextCoreExtract")) {
                 'etc/', // System tools
                 'usr/execForm/', // Commands console
             );
-            
+            // Extract from source code
             foreach($paths as $path) {
                 $item = new stdClass();
                 $item->path = $path;
@@ -51,6 +51,27 @@ if (!class_exists("commandGettextCoreExtract")) {
                 ));
                 $resp[] = $item;
             }
+            // Extract from node types
+            $nodes = array(
+                'user',
+                'group',
+                'modules',
+            );
+            foreach($nodes as $node) {
+                $item = new stdClass();
+                $item->nodetype = $node;
+                $item->resp = driverCommand::run('gettextNodeTypeExtract', array(
+                    'nodetype' => $node,
+                    'language' => $params['language'],
+                    "projectIdVersion" => 'Pharinix/'.CMS_VERSION,
+                    "reportMsgidBugsTo" => $params['reportMsgidBugsTo'],
+                    "lastTranslator" => $params['lastTranslator'],
+                    "languageTeam" => $params['languageTeam'],
+                    'po' => 'etc/i18n/'.$params['language'].'.po',
+                ));
+                $resp[] = $item;
+            }
+            // 
             return $resp;
         }
 

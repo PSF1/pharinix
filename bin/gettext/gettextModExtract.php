@@ -50,6 +50,8 @@ if (!class_exists("commandGettextModExtract")) {
                 'name' => $params['slugname']
             ));
             
+            $resp = driverCommand::run('gettextModNodeTypeExtract', $params);
+            
             $item = new stdClass();
             $item->path = $path;
             $item->resp = driverCommand::run('gettextExtract', array(
@@ -61,7 +63,9 @@ if (!class_exists("commandGettextModExtract")) {
                         "languageTeam" => $params['languageTeam'],
                         'po' => $path . 'i18n/' . $params['language'] . '.po',
             ));
-            return array('info' => $item);
+            $resp[] = $item;
+            
+            return $resp;
         }
 
         /**

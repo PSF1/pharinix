@@ -20,12 +20,12 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandGettextExtract")) {
-    class commandGettextExtract extends driverCommand {
+if (!class_exists("commandGettextNodeTypeExtract")) {
+    class commandGettextNodeTypeExtract extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                'path' => './',
+                'nodetype' => '',
                 'language' => '',
                 "projectIdVersion" => 'Pharinix/'.CMS_VERSION,
                 "reportMsgidBugsTo" => '',
@@ -38,8 +38,8 @@ if (!class_exists("commandGettextExtract")) {
                 return array('ok' => false, 'msg' => __('PO file is required.'));
             }
             
-            if (!driverTools::str_end('/', $params['path'])) {
-                $params['path'] = $params['path'].'/';
+            if ($params['nodetype'] == '') {
+                return array('ok' => false, 'msg' => __('Node type is required.'));
             }
             
             if (!is_file($params['po'])) {
@@ -55,16 +55,6 @@ if (!class_exists("commandGettextExtract")) {
             }
             $fInfo = driverTools::pathInfo($params['po']);
             if ($fInfo['writable']) {
-                $translations = new Gettext\Translations();
-                // PHP Code
-                $files = self::getFiles($params['path'], '*.php');
-                if (count($files))
-                    $translations = Gettext\Extractors\PhpCode::fromFile($files);
-                // JS Code
-                $files = self::getFiles($params['path'], '*.js');
-                if (count($files))
-                    $translations = Gettext\Extractors\PhpCode::fromFile($files, $translations);
-                
                 $po = Gettext\Extractors\Po::fromFile($params['po']);
                 $po->setHeader('Project-Id-Version', $params['projectIdVersion']);
                 $po->setHeader('Report-Msgid-Bugs-To', $params['reportMsgidBugsTo']);
@@ -72,6 +62,27 @@ if (!class_exists("commandGettextExtract")) {
                 $po->setHeader('Language-Team', $params['languageTeam']);
                 $prev = $po->count();
                 
+                $translations = new Gettext\Translations();
+                // Node type fields
+                $nodedef = driverCommand::run('getNodeTypeDef', array(
+                    'nodetype' => $params['nodetype']
+                ));
+                if ($nodedef['id'] !== false) {
+                    foreach ($nodedef['fields'] as $field) {
+                        // Label
+                        $original = $field['label'];
+                        if ($original !== '') {
+                            $translation = $translations->insert('', $original);
+                            $translation->addReference('NodeType_'.$params['nodetype'], 'field_'.$field['name'].'_label');
+                        }
+                        // Help
+                        $original = $field['help'];
+                        if ($original !== '') {
+                            $translation = $translations->insert('', $original);
+                            $translation->addReference('NodeType_'.$params['nodetype'], 'field_'.$field['name'].'_help');
+                        }
+                    }
+                }
                 $translations->mergeWith($po);
                 
                 Gettext\Generators\Po::toFile($translations, $params['po']);
@@ -85,37 +96,12 @@ if (!class_exists("commandGettextExtract")) {
                 return array('ok' => false, 'msg' => __('PO file is not writable.'));
             }
         }
-
-        /**
-         * Get a list of files in the folder and subfolders.
-         * @param string $path
-         * @param string $pattern File pattern like *.*
-         * @return array
-         */
-        public static function getFiles($path, $pattern) {
-            if (!driverTools::str_end('/', $path)) {
-                $path .= '/';
-            }
-            $resp = array();
-            $ls = driverTools::lsDir($path, $pattern);
-            foreach($ls['files'] as $file) {
-                $resp[] = $file;
-            }
-            $ls = driverTools::lsDir($path, '*');
-            foreach($ls['folders'] as $folder) {
-                $subls = self::getFiles($folder, $pattern);
-                foreach($subls as $file) {
-                    $resp[] = $file;
-                }
-            }
-            return $resp;
-        }
         
         public static function getHelp() {
             return array(
-                "description" => __("Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."), 
+                "description" => __("Scan a node type to find text in labels and help literals."), 
                 "parameters" => array(
-                    'path' => __('Root file path to scan, relative to Pharinix root folder.'),
+                    'nodetype' => __('Node type to explore.'),
                     'language' => __('Language code of the file.'),
                     "projectIdVersion" => __('Translated software version.'),
                     "reportMsgidBugsTo" => __('Contact information to report translation bugs.'),
@@ -129,7 +115,7 @@ if (!class_exists("commandGettextExtract")) {
                 ),
                 "type" => array(
                     "parameters" => array(
-                        'path' => 'string',
+                        'nodetype' => 'string',
                         'language' => 'string',
                         "projectIdVersion" => 'string',
                         "reportMsgidBugsTo" => 'string',
@@ -155,4 +141,4 @@ if (!class_exists("commandGettextExtract")) {
 //        }
     }
 }
-return new commandGettextExtract();
+return new commandGettextNodeTypeExtract();

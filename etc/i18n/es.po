@@ -1,16 +1,174 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Pharinix/1.08.06\n"
+"Report-Msgid-Bugs-To: aaaaa976@gmail.com\n"
 "Last-Translator: Pedro Pelaez\n"
-"Language-Team: \n"
+"Language-Team: Pharinix\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-08-21T18:57:42+02:00\n"
-"PO-Revision-Date: 2015-08-21T18:57:42+02:00\n"
+"POT-Creation-Date: 2015-08-22T01:49:20+02:00\n"
+"PO-Revision-Date: 2015-08-22T01:49:20+02:00\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
+
+#: NodeType_modules:field_path_label
+msgid "Module install path."
+msgstr ""
+
+#: NodeType_modules:field_path_help
+msgid "Path to the installed module."
+msgstr ""
+
+#: NodeType_modules:field_meta_label
+#: bin/html/templateEditor.php:153
+msgid "Meta"
+msgstr ""
+
+#: NodeType_modules:field_meta_help
+msgid "Module meta information."
+msgstr ""
+
+#: NodeType_modules:field_modifier_label
+#: NodeType_group:field_modifier_label
+#: NodeType_user:field_modifier_label
+msgid "Modifier user"
+msgstr ""
+
+#: NodeType_modules:field_modified_label
+#: NodeType_group:field_modified_label
+#: NodeType_user:field_modified_label
+msgid "Modified date"
+msgstr ""
+
+#: NodeType_modules:field_creator_label
+#: NodeType_group:field_creator_label
+#: NodeType_user:field_creator_label
+msgid "User creator"
+msgstr ""
+
+#: NodeType_modules:field_created_label
+#: NodeType_group:field_created_label
+#: NodeType_user:field_created_label
+msgid "Creation date"
+msgstr ""
+
+#: NodeType_modules:field_access_label
+#: NodeType_group:field_access_label
+#: NodeType_user:field_access_label
+msgid "Access"
+msgstr ""
+
+#: NodeType_modules:field_access_help
+#: NodeType_group:field_access_help
+#: NodeType_user:field_access_help
+msgid "Access control flags."
+msgstr ""
+
+#: NodeType_modules:field_group_owner_label
+#: NodeType_group:field_group_owner_label
+#: NodeType_user:field_group_owner_label
+#: etc/drivers/user.php:66
+#: etc/drivers/user.php:227
+#: etc/drivers/user.php:242
+#: bin/html/commandHelp.php:73
+#: bin/html/manHTML.php:69
+#: bin/node_type/getNodeTypeDefHtml.php:132
+#: etc/drivers/user.php:64
+#: etc/drivers/user.php:225
+#: etc/drivers/user.php:240
+msgid "Group"
+msgstr "Grupo"
+
+#: NodeType_modules:field_group_owner_help
+#: NodeType_group:field_group_owner_help
+#: NodeType_user:field_group_owner_help
+msgid "Owner group"
+msgstr ""
+
+#: NodeType_modules:field_user_owner_label
+#: NodeType_group:field_user_owner_label
+#: NodeType_user:field_user_owner_label
+#: etc/drivers/user.php:60
+#: etc/drivers/user.php:222
+#: etc/drivers/user.php:237
+#: bin/html/commandHelp.php:72
+#: bin/html/manHTML.php:68
+#: bin/node_type/getNodeTypeDefHtml.php:131
+#: etc/drivers/user.php:58
+#: etc/drivers/user.php:220
+#: etc/drivers/user.php:235
+msgid "Owner"
+msgstr "Propietario"
+
+#: NodeType_modules:field_user_owner_help
+#: NodeType_group:field_user_owner_help
+#: NodeType_user:field_user_owner_help
+msgid "Owner user"
+msgstr ""
+
+#: NodeType_modules:field_title_label
+#: NodeType_group:field_title_label
+#: NodeType_user:field_title_label
+#: bin/html/templateEditor.php:166
+msgid "Title"
+msgstr ""
+
+#: NodeType_modules:field_title_help
+#: NodeType_group:field_title_help
+#: NodeType_user:field_title_help
+msgid "A title string for this node."
+msgstr ""
+
+#: NodeType_modules:field_version_label
+msgid "Version"
+msgstr ""
+
+#: NodeType_modules:field_version_help
+msgid "Module version"
+msgstr ""
+
+#: NodeType_user:field_groups_label
+msgid "Groups"
+msgstr ""
+
+#: NodeType_user:field_groups_help
+msgid "User groups"
+msgstr ""
+
+#: NodeType_user:field_mail_label
+msgid "Mail"
+msgstr ""
+
+#: NodeType_user:field_mail_help
+#: bin/user/startSession.php:52
+msgid "User email to login."
+msgstr ""
+
+#: NodeType_user:field_pass_label
+#: bin/node_type/formatFieldPassword.php:70
+msgid "Password"
+msgstr ""
+
+#: NodeType_user:field_pass_help
+msgid "Password to access."
+msgstr ""
+
+#: NodeType_user:field_name_label
+msgid "User name"
+msgstr ""
+
+#: NodeType_user:field_name_help
+msgid "It can be any."
+msgstr ""
+
+#: NodeType_user:field_language_label
+msgid "Language"
+msgstr ""
+
+#: NodeType_user:field_language_help
+msgid "Primary user language"
+msgstr ""
 
 #: etc/drivers/command.php:87
 msgid "You can't execute '%s'."
@@ -57,18 +215,6 @@ msgstr "Error de sintaxis"
 msgid "Malformed UTF-8 characters, possibly incorrectly encoded"
 msgstr "Caracteres UTF-8 mal formados, posiblemente incorrectamente codificado"
 
-#: etc/drivers/user.php:60
-#: etc/drivers/user.php:222
-#: etc/drivers/user.php:237
-#: bin/html/commandHelp.php:72
-#: bin/html/manHTML.php:68
-#: bin/node_type/getNodeTypeDefHtml.php:131
-#: etc/drivers/user.php:58
-#: etc/drivers/user.php:220
-#: etc/drivers/user.php:235
-msgid "Owner"
-msgstr "Propietario"
-
 #: etc/drivers/user.php:61
 #: etc/drivers/user.php:67
 #: etc/drivers/user.php:73
@@ -98,18 +244,6 @@ msgstr "Actualizar"
 #: etc/drivers/user.php:76
 msgid "Delete"
 msgstr "Borrar"
-
-#: etc/drivers/user.php:66
-#: etc/drivers/user.php:227
-#: etc/drivers/user.php:242
-#: bin/html/commandHelp.php:73
-#: bin/html/manHTML.php:69
-#: bin/node_type/getNodeTypeDefHtml.php:132
-#: etc/drivers/user.php:64
-#: etc/drivers/user.php:225
-#: etc/drivers/user.php:240
-msgid "Group"
-msgstr "Grupo"
 
 #: etc/drivers/user.php:72
 #: etc/drivers/user.php:232
@@ -525,6 +659,7 @@ msgstr ""
 
 #: bin/modUninstall.php:40
 #: bin/gettext/gettextModExtract.php:41
+#: bin/gettext/gettextModNodeTypeExtract.php:44
 msgid "Module not found."
 msgstr ""
 
@@ -790,11 +925,17 @@ msgstr ""
 msgid "Value to write."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:105
 #: bin/gettext/gettextCoreExtract.php:84
 #: bin/gettext/gettextCoreExtract.php:83
 msgid "Scan Pharinix to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:107
+#: bin/gettext/gettextExtract.php:119
+#: bin/gettext/gettextModExtract.php:101
+#: bin/gettext/gettextModNodeTypeExtract.php:78
+#: bin/gettext/gettextNodeTypeExtract.php:105
 #: bin/gettext/gettextCoreExtract.php:86
 #: bin/gettext/gettextExtract.php:116
 #: bin/gettext/gettextModExtract.php:97
@@ -803,6 +944,11 @@ msgstr ""
 msgid "Language code of the file."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:108
+#: bin/gettext/gettextExtract.php:121
+#: bin/gettext/gettextModExtract.php:102
+#: bin/gettext/gettextModNodeTypeExtract.php:79
+#: bin/gettext/gettextNodeTypeExtract.php:107
 #: bin/gettext/gettextCoreExtract.php:87
 #: bin/gettext/gettextExtract.php:118
 #: bin/gettext/gettextModExtract.php:98
@@ -811,6 +957,11 @@ msgstr ""
 msgid "Contact information to report translation bugs."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:109
+#: bin/gettext/gettextExtract.php:122
+#: bin/gettext/gettextModExtract.php:103
+#: bin/gettext/gettextModNodeTypeExtract.php:80
+#: bin/gettext/gettextNodeTypeExtract.php:108
 #: bin/gettext/gettextCoreExtract.php:88
 #: bin/gettext/gettextExtract.php:119
 #: bin/gettext/gettextModExtract.php:99
@@ -819,12 +970,19 @@ msgstr ""
 msgid "Last translator name and mail."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:110
+#: bin/gettext/gettextExtract.php:123
+#: bin/gettext/gettextModExtract.php:104
+#: bin/gettext/gettextModNodeTypeExtract.php:81
+#: bin/gettext/gettextNodeTypeExtract.php:109
 #: bin/gettext/gettextCoreExtract.php:89
 #: bin/gettext/gettextExtract.php:120
 #: bin/gettext/gettextModExtract.php:100
 msgid "Language team."
 msgstr ""
 
+#: bin/gettext/gettextCoreExtract.php:113
+#: bin/gettext/gettextModExtract.php:107
 #: bin/gettext/gettextCoreExtract.php:92
 #: bin/gettext/gettextModExtract.php:103
 msgid "Information about each folder scan."
@@ -832,41 +990,53 @@ msgstr ""
 
 #: bin/gettext/gettextExtract.php:38
 #: bin/gettext/gettextGetTranslation.php:32
+#: bin/gettext/gettextNodeTypeExtract.php:38
 #: bin/gettext/gettextExtract.php:33
 msgid "PO file is required."
 msgstr ""
 
-#: bin/gettext/gettextExtract.php:82
+#: bin/gettext/gettextExtract.php:85
 #: bin/gettext/gettextGetCoreTranslation.php:49
 #: bin/gettext/gettextGetTranslation.php:47
+#: bin/gettext/gettextNodeTypeExtract.php:96
 #: bin/gettext/gettextSetCoreTranslation.php:57
+#: bin/gettext/gettextExtract.php:82
 #: bin/gettext/gettextGetCoreTranslation.php:47
 #: bin/gettext/gettextExtract.php:81
 #: bin/gettext/gettextExtract.php:68
 msgid "PO file is not writable."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:116
 #: bin/gettext/gettextExtract.php:113
 #: bin/gettext/gettextExtract.php:112
 #: bin/gettext/gettextExtract.php:99
 msgid "Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:118
 #: bin/gettext/gettextExtract.php:115
 #: bin/gettext/gettextExtract.php:114
 #: bin/gettext/gettextExtract.php:101
 msgid "Root file path to scan, relative to Pharinix root folder."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:120
+#: bin/gettext/gettextNodeTypeExtract.php:106
 #: bin/gettext/gettextExtract.php:117
 #: bin/gettext/gettextExtract.php:116
 msgid "Translated software version."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:124
+#: bin/gettext/gettextNodeTypeExtract.php:110
 #: bin/gettext/gettextExtract.php:121
 msgid "PO file where write results."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:127
+#: bin/gettext/gettextModNodeTypeExtract.php:84
+#: bin/gettext/gettextNodeTypeExtract.php:113
 #: bin/gettext/gettextExtract.php:124
 #: bin/gettext/gettextCoreExtract.php:91
 #: bin/gettext/gettextExtract.php:123
@@ -874,6 +1044,9 @@ msgstr ""
 msgid "Number of items before scan."
 msgstr ""
 
+#: bin/gettext/gettextExtract.php:128
+#: bin/gettext/gettextModNodeTypeExtract.php:85
+#: bin/gettext/gettextNodeTypeExtract.php:114
 #: bin/gettext/gettextExtract.php:125
 #: bin/gettext/gettextCoreExtract.php:92
 #: bin/gettext/gettextExtract.php:124
@@ -911,12 +1084,37 @@ msgstr ""
 msgid "PO file to read."
 msgstr ""
 
+#: bin/gettext/gettextModExtract.php:98
 #: bin/gettext/gettextModExtract.php:94
 msgid "Scan a module to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
 msgstr ""
 
+#: bin/gettext/gettextModExtract.php:100
 #: bin/gettext/gettextModExtract.php:96
 msgid "Module slug name."
+msgstr ""
+
+#: bin/gettext/gettextModNodeTypeExtract.php:36
+#: bin/gettext/gettextNodeTypeExtract.php:42
+#: bin/node_type/chmodNode.php:55
+#: bin/node_type/chownNode.php:64
+msgid "Node type is required."
+msgstr ""
+
+#: bin/gettext/gettextModNodeTypeExtract.php:75
+msgid "Scan the module's node types to find text in labels and help literals. This use the meta.json file to select node types to explore."
+msgstr ""
+
+#: bin/gettext/gettextModNodeTypeExtract.php:77
+msgid "Module to explore."
+msgstr ""
+
+#: bin/gettext/gettextNodeTypeExtract.php:102
+msgid "Scan a node type to find text in labels and help literals."
+msgstr ""
+
+#: bin/gettext/gettextNodeTypeExtract.php:104
+msgid "Node type to explore."
 msgstr ""
 
 #: bin/gettext/gettextSetCoreTranslation.php:38
@@ -1295,10 +1493,6 @@ msgstr ""
 msgid "This template is empty."
 msgstr ""
 
-#: bin/html/templateEditor.php:153
-msgid "Meta"
-msgstr ""
-
 #: bin/html/templateEditor.php:156
 msgid "Template name"
 msgstr ""
@@ -1309,10 +1503,6 @@ msgstr ""
 
 #: bin/html/templateEditor.php:164
 msgid "Default title"
-msgstr ""
-
-#: bin/html/templateEditor.php:166
-msgid "Title"
 msgstr ""
 
 #: bin/html/templateEditor.php:172
@@ -1677,11 +1867,6 @@ msgstr ""
 msgid "Bad node type id."
 msgstr ""
 
-#: bin/node_type/chmodNode.php:55
-#: bin/node_type/chownNode.php:64
-msgid "Node type is required."
-msgstr ""
-
 #: bin/node_type/chmodNode.php:98
 #: bin/node_type/chownNode.php:161
 msgid "unknown node or you can't read."
@@ -1918,10 +2103,6 @@ msgstr ""
 
 #: bin/node_type/formatFieldLongtext.php:83
 msgid "Format longtext field to read or write."
-msgstr ""
-
-#: bin/node_type/formatFieldPassword.php:70
-msgid "Password"
 msgstr ""
 
 #: bin/node_type/formatFieldPassword.php:74
@@ -2322,10 +2503,6 @@ msgstr ""
 
 #: bin/user/startSession.php:50
 msgid "Start the user session."
-msgstr ""
-
-#: bin/user/startSession.php:52
-msgid "User email to login."
 msgstr ""
 
 #: bin/user/startSession.php:53
