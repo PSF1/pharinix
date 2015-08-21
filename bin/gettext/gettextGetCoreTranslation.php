@@ -25,16 +25,16 @@ if (!class_exists("commandGettextGetCoreTranslation")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                'languaje' => '',
+                'language' => '',
             ), $params);
             
-            if ($params['languaje'] == '') {
-                return array('ok' => false, 'msg' => __('Languaje is required.'));
+            if ($params['language'] == '') {
+                return array('ok' => false, 'msg' => __('Language is required.'));
             }
             
-            $fInfo = driverTools::pathInfo('etc/i18n/'.$params['languaje'].'.po');
+            $fInfo = driverTools::pathInfo('etc/i18n/'.$params['language'].'.po');
             if ($fInfo['writable']) {
-                $po = Gettext\Extractors\Po::fromFile('etc/i18n/'.$params['languaje'].'.po');
+                $po = Gettext\Extractors\Po::fromFile('etc/i18n/'.$params['language'].'.po');
                 $resp = array('items' => array());
 //                $item = new Gettext\Translation();
                 foreach($po as $item) {
@@ -54,14 +54,14 @@ if (!class_exists("commandGettextGetCoreTranslation")) {
             return array(
                 "description" => __("Return all Pharinix translation items."), 
                 "parameters" => array(
-                    'languaje' => __('Language code.'),
+                    'language' => __('Language code.'),
                 ), 
                 "response" => array(
                     'items' => __('List of items translated.')
                 ),
                 "type" => array(
                     "parameters" => array(
-                        'languaje' => 'string',
+                        'language' => 'string',
                     ), 
                     "response" => array(
                         'items' => 'string'

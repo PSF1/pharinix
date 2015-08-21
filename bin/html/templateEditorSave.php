@@ -73,7 +73,7 @@ if (!class_exists("commandTemplateEditorSave")) {
                 $params["tpl"] = base64_decode($params["tpl"]);
                 $struct = xml_string_to_array($params["tpl"]);
                 $xml = "";
-                // TODO: Change languaje to the actual one.
+                // TODO: Change language to the actual one.
                 $xml .= '<page lang="en" charset="utf-8">'."\n";
                 $xml .= "\t".'<name>'.$params["name"].'</name>'."\n";
                 $xml .= "\t".'<title>'.$params["title"].'</title>'."\n";

@@ -33,14 +33,20 @@ if (!class_exists("commandSetMyLang")) {
             if ($params['lang'] != '') {
                 $_SESSION['lang'] = explode(",", $params['lang']);
             } else {
-                unset($_SESSION['lang']);
-                driverUser::getLangOfUser();
-            }
-            if (isset($_SESSION['lang']) && is_array($_SESSION['lang']) && count($_SESSION['lang']) > 0) {
                 driverCommand::run('updateNode', array(
                     'nodetype' => 'user',
                     'nid' => driverUser::getID(true),
-                    'languaje' => $_SESSION['lang'][0],
+                    'language' => '',
+                ));
+                unset($_SESSION['lang']);
+                driverUser::getLangOfUser();
+            }
+            if ($params['lang'] != '' && isset($_SESSION['lang']) && 
+                    is_array($_SESSION['lang']) && count($_SESSION['lang']) > 0) {
+                driverCommand::run('updateNode', array(
+                    'nodetype' => 'user',
+                    'nid' => driverUser::getID(true),
+                    'language' => $_SESSION['lang'][0],
                 ));
             }
             $resp['lang'] = $_SESSION['lang'];
@@ -58,13 +64,13 @@ if (!class_exists("commandSetMyLang")) {
         
         public static function getHelp() {
             return array(
-                "description" => __("Set the session languaje."), 
+                "description" => __("Set the session language."), 
                 "parameters" => array(
-                    "lang" => __("The languaje code, if is '' then set the client default languajes.")
+                    "lang" => __("The language code, if is '' then set the client default languages.")
                 ), 
                 "response" => array(
                     "ok" => __("TRUE if ok."),
-                    "lang" => __("The session languaje set.")
+                    "lang" => __("The session language set.")
                 ),
                 "type" => array(
                     "parameters" => array(

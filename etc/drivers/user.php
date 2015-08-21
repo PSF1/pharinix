@@ -501,8 +501,8 @@ use Gettext\Translator;
     }
     
     /**
-     * Get list of languajes listed by the HTTP/S client.
-     * @return array List of prefered languajes set by browser, or client. 
+     * Get list of languages listed by the HTTP/S client.
+     * @return array List of prefered languages set by browser, or client. 
      */
     public static function getLangOfClient() {
         //_SERVER["HTTP_ACCEPT_LANGUAGE"]	es-ES,es;q=0.8,en;q=0.6
@@ -521,19 +521,19 @@ use Gettext\Translator;
     }
     
     /**
-     * Get list of prefered languajes
-     * @return array List of prefered languajes set by user
+     * Get list of prefered languages
+     * @return array List of prefered languages set by user
      */
     public static function getLangOfUser() {
         $resp = array();
-        $sql = 'select `languaje` from `node_user` where `id` = '.self::getID(true);
+        $sql = 'select `language` from `node_user` where `id` = '.self::getID(true);
         $q = dbConn::Execute($sql);
-        if (!$q->EOF && $q->fields['languaje'] != '') {
-            $resp[] = $q->fields['languaje'];
+        if (!$q->EOF && $q->fields['language'] != '') {
+            $resp[] = $q->fields['language'];
         } else if (!isset($_SESSION)) {
             $resp[] = 'en';
         } else {
-            // Select languaje of the client
+            // Select language of the client
             $resp = self::getLangOfClient();
         }
         if (isset($_SESSION)) $_SESSION['lang'] = $resp;
@@ -547,7 +547,7 @@ use Gettext\Translator;
         // Load core translations
         foreach($reqs as $req) {
             if ($req == 'en') {
-                break; // English is the default languaje, it don't need load translations
+                break; // English is the default language, it don't need load translations
             }
             if (is_file('etc/i18n/'.$req.'.mo')) {
                 $po = Gettext\Extractors\Mo::fromFile('etc/i18n/'.$req.'.mo');
@@ -564,7 +564,7 @@ use Gettext\Translator;
         while (!$q->EOF) {
             foreach($reqs as $req) {
                 if ($req == 'en') {
-                    break; // English is the default languaje, it don't need load translations
+                    break; // English is the default language, it don't need load translations
                 }
                 if (is_file($q->fields['path'].'i18n/'.$req.'.mo')) {
                     $po2 = Gettext\Extractors\Mo::fromFile($q->fields['path'].'i18n/'.$req.'.mo');

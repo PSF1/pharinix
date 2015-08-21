@@ -25,21 +25,21 @@ if (!class_exists("commandGettextSetCoreTranslation")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                'languaje' => '',
+                'language' => '',
                 'original' => '',
                 'translation' => '',
             ), $params);
             
-            if ($params['languaje'] == '') {
-                return array('ok' => false, 'msg' => __('Languaje is required.'));
+            if ($params['language'] == '') {
+                return array('ok' => false, 'msg' => __('Language is required.'));
             }
             
             if ($params['original'] == '') {
                 return array('ok' => false, 'msg' => __('Original text is required.'));
             }
             
-            $poFile = 'etc/i18n/'.$params['languaje'].'.po';
-            $moFile = 'etc/i18n/'.$params['languaje'].'.mo';
+            $poFile = 'etc/i18n/'.$params['language'].'.po';
+            $moFile = 'etc/i18n/'.$params['language'].'.mo';
             
             $fInfo = driverTools::pathInfo($poFile);
             if ($fInfo['writable']) {
@@ -62,7 +62,7 @@ if (!class_exists("commandGettextSetCoreTranslation")) {
             return array(
                 "description" => __("Save a translation and compile in a MO file."), 
                 "parameters" => array(
-                    'languaje' => __('Language code.'),
+                    'language' => __('Language code.'),
                     'original' => __('Orinignal, english, text.'),
                     'translation' => __('Tranlated text.'),
                 ), 
@@ -71,7 +71,7 @@ if (!class_exists("commandGettextSetCoreTranslation")) {
                 ),
                 "type" => array(
                     "parameters" => array(
-                        'languaje' => 'string',
+                        'language' => 'string',
                         'original' => 'string',
                         'translation' => 'string',
                     ), 

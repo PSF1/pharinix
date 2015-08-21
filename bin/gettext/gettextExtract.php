@@ -117,7 +117,7 @@ if (!class_exists("commandGettextExtract")) {
                     "projectIdVersion" => __('Translated software version.'),
                     "reportMsgidBugsTo" => __('Contact information to report translation bugs.'),
                     "lastTranslator" => __('Last translator name and mail.'),
-                    "languageTeam" => __('Languaje team.'),
+                    "languageTeam" => __('Language team.'),
                     'po' => __('PO file where write results.'),
                 ), 
                 "response" => array(

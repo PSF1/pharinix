@@ -97,7 +97,7 @@ if (!class_exists("commandGettextModExtract")) {
                     'language' => __('Language code of the file.'),
                     'reportMsgidBugsTo' => __('Contact information to report translation bugs.'),
                     'lastTranslator' => __('Last translator name and mail.'),
-                    'languageTeam' => __('Languaje team.'),
+                    'languageTeam' => __('Language team.'),
                 ), 
                 "response" => array(
                     'info' => __('Information about each folder scan.'),
