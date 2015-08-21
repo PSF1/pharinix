@@ -2348,9 +2348,3 @@ msgstr ""
 #: bin/user/sudo.php:67
 msgid "User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."
 msgstr ""
-
-#: bin/gettext/gettextExtract.php:121
-#: bin/gettext/gettextExtract.php:120
-#: bin/gettext/gettextExtract.php:102
-msgid "PO file where  write results."
-msgstr ""
