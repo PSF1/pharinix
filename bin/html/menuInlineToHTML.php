@@ -157,6 +157,10 @@ body {
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
                         &nbsp;group
                     </a></li>
+                <li><a href="<?php echo CMS_DEFAULT_URL_BASE; ?>node/type/modules">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        &nbsp;modules
+                    </a></li>
               </ul>
             </li>
           </ul>
