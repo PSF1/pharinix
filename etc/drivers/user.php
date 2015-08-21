@@ -525,13 +525,19 @@ use Gettext\Translator;
      * @return array List of prefered languajes set by user
      */
     public static function getLangOfUser() {
-        if (!isset($_SESSION)) {
-            return array('en');
-        } else if (!isset($_SESSION['lang'])) {
+        $resp = array();
+        $sql = 'select `languaje` from `node_user` where `id` = '.self::getID(true);
+        $q = dbConn::Execute($sql);
+        if (!$q->EOF && $q->fields['languaje'] != '') {
+            $resp[] = $q->fields['languaje'];
+        } else if (!isset($_SESSION)) {
+            $resp[] = 'en';
+        } else {
             // Select languaje of the client
-            $_SESSION['lang'] = self::getLangOfClient();
+            $resp = self::getLangOfClient();
         }
-        return $_SESSION['lang'];
+        if (isset($_SESSION)) $_SESSION['lang'] = $resp;
+        return $resp;
     }
     
     public static function loadTranslations() {

@@ -36,6 +36,13 @@ if (!class_exists("commandSetMyLang")) {
                 unset($_SESSION['lang']);
                 driverUser::getLangOfUser();
             }
+            if (isset($_SESSION['lang']) && is_array($_SESSION['lang']) && count($_SESSION['lang']) > 0) {
+                driverCommand::run('updateNode', array(
+                    'nodetype' => 'user',
+                    'nid' => driverUser::getID(true),
+                    'languaje' => $_SESSION['lang'][0],
+                ));
+            }
             $resp['lang'] = $_SESSION['lang'];
             return $resp;
         }
