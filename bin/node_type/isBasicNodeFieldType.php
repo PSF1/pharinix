@@ -59,6 +59,7 @@ if (!class_exists("commandIsBasicFieldType")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Identify a field's node type how basic type or it's a reference to another node type."), 
                 "parameters" => array(
                     "type" => __("The type name to test.")

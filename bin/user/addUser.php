@@ -113,6 +113,7 @@ if (!class_exists("commandAddUser")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new user. All parameters are requires."), 
                 "parameters" => array(
                     "mail" => __("The user mail."),

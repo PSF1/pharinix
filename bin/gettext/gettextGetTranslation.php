@@ -50,6 +50,7 @@ if (!class_exists("commandGettextGetTranslation")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return all translation items."), 
                 "parameters" => array(
                     'po' => __('PO file to read.'),

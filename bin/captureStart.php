@@ -42,6 +42,7 @@ if (!class_exists("commandCaptureStart")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Start a echo buffered capture. The capture methods have control about stack of calls, please execute 'captureEndAll' to ensure that all this buffers are closed."), 
                 "parameters" => array(), 
                 "response" => array(),

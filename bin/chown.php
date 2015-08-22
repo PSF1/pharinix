@@ -99,6 +99,7 @@ if (!class_exists("commandChown")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("To change owner, and/or group, of the command."), 
                 "parameters" => array(
                     "cmd" => __("Command that you need change ownership."),

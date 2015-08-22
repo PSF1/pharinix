@@ -32,6 +32,7 @@ if (!class_exists("commandCfgGetSections")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return a list of sections in configuration."), 
                 "parameters" => array(), 
                 "response" => array(

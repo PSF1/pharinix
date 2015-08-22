@@ -201,6 +201,7 @@ if (!class_exists("commandAddNode")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new node."),
                 "parameters" => array(
                     "any" => __("A parameter for each field of the type."),

@@ -40,6 +40,7 @@ if (!class_exists("commandEchoJSON")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Echo to browser the JSON representation of parameters, try to change the HTTP header to Content-type: application/json."), 
                 "parameters" => array("some" => __("It can receive any amount of parameters.")), 
                 "response" => array(),

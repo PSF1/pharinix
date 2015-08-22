@@ -67,6 +67,7 @@ if (!class_exists("commandGetNodeTypeList")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return a list of node types."), 
                 "parameters" => array(), 
                 "response" => array(

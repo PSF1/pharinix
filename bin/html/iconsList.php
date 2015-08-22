@@ -126,7 +126,8 @@ if (!class_exists("commandIconsList")) {
         
         public static function getHelp() {
             return array(
-                "description" => "Display reference icon's list.", 
+                "package" => 'core',
+                "description" => __("Display reference icon's list."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(

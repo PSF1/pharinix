@@ -104,6 +104,7 @@ if (!class_exists("commandBatch")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end."), 
                 "parameters" => array(
                     "starter" => __("Array of parameters to merge at the start."),

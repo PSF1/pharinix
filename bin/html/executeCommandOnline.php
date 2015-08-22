@@ -91,6 +91,7 @@ if (!class_exists("commandExecuteCommandOnline")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Show a form to define the command to execute."),
                 "parameters" => array("post" => __("Post's parameters encoded as string.")),
                 "response" => array(),

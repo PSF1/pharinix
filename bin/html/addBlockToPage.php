@@ -59,6 +59,7 @@ if (!class_exists("commandAddBlockToPage")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a block to a page."), 
                 "parameters" => array(
                     'page' => __('Name ID of page.'),

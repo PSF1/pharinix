@@ -100,6 +100,7 @@ if (!class_exists("commandDelNode")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Delete a node."),
                 "parameters" => array(
                     "nid" => __("Node ID to erase."),

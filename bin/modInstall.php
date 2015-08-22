@@ -260,6 +260,7 @@ if (!class_exists("commandModInstall")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Install a module."), 
                 "parameters" => array(
                     "path" => __("Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"),

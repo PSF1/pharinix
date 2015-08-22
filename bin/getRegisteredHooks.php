@@ -29,6 +29,7 @@ if (!class_exists("commandGetRegisteredHooks")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Get info about registered hook handlers."), 
                 "parameters" => array(), 
                 "response" => array(

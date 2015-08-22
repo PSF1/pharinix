@@ -99,6 +99,7 @@ if (!class_exists("commandGettextNodeTypeExtract")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Scan a node type to find text in labels and help literals."), 
                 "parameters" => array(
                     'nodetype' => __('Node type to explore.'),

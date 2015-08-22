@@ -192,6 +192,7 @@ if (!class_exists("commandGetNodes")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return list of nodes from a node type. All field's names must be enclosed with '`'"), 
                 "parameters" => array(
                     "nodetype" => __("Node type."),

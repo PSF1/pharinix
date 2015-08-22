@@ -78,6 +78,7 @@ if (!class_exists("commandGetBlocksFromTemplate")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Parse a page template and return her blocks places."),
                 "parameters" => array(
                     "page" => __("XML page to parse")

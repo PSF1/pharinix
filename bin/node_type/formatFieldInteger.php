@@ -77,6 +77,7 @@ if (!class_exists("commandFormatFieldInteger")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Format integer field to read or write."), 
                 "parameters" => array(
                     "fieldname" => __("Field name to the form control."),

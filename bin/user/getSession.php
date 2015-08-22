@@ -42,6 +42,7 @@ if (!class_exists("commandGetSession")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return user session data. Warning! It can display sensible data."), 
                 "parameters" => array(), 
                 "response" => array(

@@ -49,6 +49,7 @@ if (!class_exists("commandAddBooting")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a command, with parameters, to the boot process. This will executed with each user petition."), 
                 "parameters" => array(
                     "cmd" => __("Command to execute"),

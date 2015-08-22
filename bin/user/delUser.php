@@ -76,6 +76,7 @@ if (!class_exists("commandDelUser")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Delete a user by ID or mail."), 
                 "parameters" => array(
                     "uid" => __("The user id."),

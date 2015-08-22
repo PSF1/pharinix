@@ -60,6 +60,7 @@ if (!class_exists("commandGettextSetCoreTranslation")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Save a translation and compile in a MO file."), 
                 "parameters" => array(
                     'language' => __('Language code.'),

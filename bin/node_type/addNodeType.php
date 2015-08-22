@@ -220,6 +220,7 @@ if (!class_exists("commandAddNodeType")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new node type, with a default string field with name 'title'."), 
                 "parameters" => array(
                     "name" => __("Node type name"),

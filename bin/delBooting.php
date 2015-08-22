@@ -38,6 +38,7 @@ if (!class_exists("commandDelBooting")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Delete a command from boot process."), 
                 "parameters" => array(
                     "uid" => __("Reference ID of the boot command."),

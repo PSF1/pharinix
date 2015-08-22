@@ -64,6 +64,7 @@ if (!class_exists("commandSetMyLang")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Set the session language."), 
                 "parameters" => array(
                     "lang" => __("The language code, if is '' then set the client default languages.")

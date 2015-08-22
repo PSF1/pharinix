@@ -79,6 +79,7 @@ if (!class_exists("commandFormatFieldBool")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Format boolean field to read or write."), 
                 "parameters" => array(
                     "fieldname" => __("Field name to the form control."),

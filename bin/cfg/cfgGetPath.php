@@ -40,6 +40,7 @@ if (!class_exists("commandCfgGetPath")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return commands path."), 
                 "parameters" => array(), 
                 "response" => array(

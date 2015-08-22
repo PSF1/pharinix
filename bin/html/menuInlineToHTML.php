@@ -182,6 +182,7 @@ body {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __('Transform a menu to HTML inline navigation bar'),
                 "parameters" => array(
                     "menu" => __("Menu to convert.")

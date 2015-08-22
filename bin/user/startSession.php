@@ -47,6 +47,7 @@ if (!class_exists("commandStartSession")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Start the user session."), 
                 "parameters" => array(
                     "user" => __("User email to login."),

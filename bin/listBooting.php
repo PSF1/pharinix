@@ -50,6 +50,7 @@ if (!class_exists("commandListBooting")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Get a list of commands from boot process."), 
                 "parameters" => array(), 
                 "response" => array(),

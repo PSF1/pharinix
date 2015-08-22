@@ -180,6 +180,7 @@ if (!class_exists("commandPageToHTML")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Transform a page to HTML"),
                 "parameters" => array("page" => __("Page to convert, see 'url_rewrite' table.")),
                 "response" => array(),

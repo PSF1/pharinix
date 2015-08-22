@@ -40,6 +40,7 @@ if (!class_exists("commandCfgDelComment")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Del a comment to configuration."), 
                 "parameters" => array(
                     'section' => __('Section.'),

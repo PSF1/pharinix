@@ -72,6 +72,7 @@ if (!class_exists("commandGettextModNodeTypeExtract")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Scan the module's node types to find text in labels and help literals. This use the meta.json file to select node types to explore."), 
                 "parameters" => array(
                     'slugname' => __('Module to explore.'),

@@ -51,6 +51,7 @@ if (!class_exists("commandTraceToHTML")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Print trace information in HTML format"),
                 "parameters" => array(),
                 "response" => array(),

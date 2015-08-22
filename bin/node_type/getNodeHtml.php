@@ -44,6 +44,7 @@ if (!class_exists("commandGetNodeHtml")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Show node content in HTML."), 
                 "parameters" => array(
                     "type" => __("Node type."),

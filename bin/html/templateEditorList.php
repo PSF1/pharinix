@@ -44,6 +44,7 @@ if (!class_exists("commandTemplateEditorList")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Echo a json list of templates. ['default', ...]}"), 
                 "parameters" => array(), 
                 "response" => array(),

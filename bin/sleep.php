@@ -41,6 +41,7 @@ if (!class_exists("commandSleep")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Sleep some seconds, no more that 30s."), 
                 "parameters" => array(
                     "s" => __("Seconds to sleep, no more that 30."),

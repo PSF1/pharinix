@@ -41,6 +41,7 @@ if (!class_exists("commandGetBaseJS")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Echo base javascript assets with a content-type header of application/javascript."), 
                 "parameters" => array(), 
                 "response" => array(),

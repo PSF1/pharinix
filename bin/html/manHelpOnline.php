@@ -103,6 +103,7 @@ EOT;
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Show a form to get help about a command."),
                 "parameters" => array(),
                 "response" => array(),

@@ -83,6 +83,7 @@ if (!class_exists("commandMan")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Get help about a command how array. Ex. man ('cmd' => 'man'). Get this help."), 
                 "parameters" => array(
                     "cmd" => __("The command to query.")

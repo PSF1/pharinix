@@ -99,6 +99,7 @@ if (!class_exists("commandModInstallFromGitHub")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Install a module from GitHub project, it must be from a tag release ZIP file. (Requires cURL.)"), 
                 "parameters" => array(
                     "path" => __("Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"),

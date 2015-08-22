@@ -48,6 +48,7 @@ if (!class_exists("commandLocalSQLExec")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Do a direct query to the local data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it."), 
                 "parameters" => array(
                     "sql" => __("Query."),

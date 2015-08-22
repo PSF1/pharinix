@@ -59,6 +59,7 @@ if (!class_exists("commandToJSON")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Translate parameters to JSON string."), 
                 "parameters" => array(
                     "some" => __("It can receive any amount of parameters.")

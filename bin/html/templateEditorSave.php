@@ -103,6 +103,7 @@ if (!class_exists("commandTemplateEditorSave")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Save a user template from the template editor."), 
                 "parameters" => array(
                     "tpl" => __("Base 64 encoded HTML definition of the template."),

@@ -62,6 +62,7 @@ if (!class_exists("commandUsageToHTML")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Print resource consume in HTML format"),
                 "parameters" => array(),
                 "response" => array(),

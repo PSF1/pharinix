@@ -40,6 +40,7 @@ if (!class_exists("commandCfgDelKey")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Del a key/value of configuration."), 
                 "parameters" => array(
                     'section' => __('Section.'),

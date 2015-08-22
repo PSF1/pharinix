@@ -40,6 +40,7 @@ if (!class_exists("commandCfgAddComment")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a comment to configuration."), 
                 "parameters" => array(
                     'section' => __('Section.'),

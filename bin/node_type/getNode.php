@@ -52,6 +52,7 @@ if (!class_exists("commandGetNode")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return the node content."), 
                 "parameters" => array(
                     "nodetype" => __("Node type."),

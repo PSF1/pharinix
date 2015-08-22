@@ -80,6 +80,7 @@ if (!class_exists("commandFormatFieldLongtext")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Format longtext field to read or write."), 
                 "parameters" => array(
                     "fieldname" => __("Field name to the form control."),

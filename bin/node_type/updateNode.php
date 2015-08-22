@@ -226,6 +226,7 @@ if (!class_exists("commandUpdateNodes")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Update a node"), 
                 "parameters" => array(
                     "nodetype" => __("Node type of node to update."),

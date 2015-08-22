@@ -39,6 +39,7 @@ if (!class_exists("commandEndSession")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Close the user session."), 
                 "parameters" => array(), 
                 "response" => array(),

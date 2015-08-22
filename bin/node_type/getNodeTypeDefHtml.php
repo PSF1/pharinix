@@ -146,6 +146,7 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Display definition of node type."), 
                 "parameters" => array(
                     "nodetype" => __("Node type name"),

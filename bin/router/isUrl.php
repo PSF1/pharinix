@@ -47,6 +47,7 @@ if (!class_exists("commandIsUrl")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Query the rewrite list and return if the url is rewrited."), 
                 "parameters" => array(
                     "url" => __("The URL to test."), 

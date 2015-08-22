@@ -29,6 +29,7 @@ if (!class_exists("commandNothing")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Nothing to do"), 
                 "parameters" => array(), 
                 "response" => array(),

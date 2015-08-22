@@ -113,6 +113,7 @@ if (!class_exists("commandGettextExtract")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."), 
                 "parameters" => array(
                     'path' => __('Root file path to scan, relative to Pharinix root folder.'),

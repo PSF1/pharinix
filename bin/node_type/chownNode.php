@@ -166,6 +166,7 @@ if (!class_exists("commandChownNode")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("To change owner, and/or group, of the node types or nodes."), 
                 "parameters" => array(
                     "nodetype" => __("Node type that you need change ownership or type of the node to change."),

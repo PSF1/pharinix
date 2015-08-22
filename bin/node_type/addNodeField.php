@@ -189,6 +189,7 @@ if (!class_exists("commandAddNodeField")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new field to a node type. It need update permission over the node type."), 
                 "parameters" => array(
                     "name" => __("Field name"),

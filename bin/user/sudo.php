@@ -62,6 +62,7 @@ if (!class_exists("commandSudo")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Change active user without logout and login. This is the unique method to get root access, super administration. A user can do sudo when it have sudoers group."), 
                 "parameters" => array(
                     "user" => __("User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."),

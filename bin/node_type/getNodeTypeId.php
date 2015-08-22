@@ -52,6 +52,7 @@ if (!class_exists("commandGetNodeTypeID")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Search ID of node type by name"), 
                 "parameters" => array(
                     "name" => __("Node type name to search."),

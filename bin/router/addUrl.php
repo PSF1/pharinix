@@ -49,6 +49,7 @@ if (!class_exists("commandAddUrl")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new URL to the rewrite list."), 
                 "parameters" => array(
                     "url" => __("The new URL, relative at root. Ex. home to http://127.0.0.1/home"), 

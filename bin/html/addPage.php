@@ -81,6 +81,7 @@ if (!class_exists("commandAddPage")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new page."), 
                 "parameters" => array(
                     'name' => __('ID of page.'),

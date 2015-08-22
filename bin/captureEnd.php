@@ -48,6 +48,7 @@ if (!class_exists("commandCaptureEnd")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("If any, capture the actual echo buffer and return."), 
                 "parameters" => array(), 
                 "response" => array(

@@ -42,6 +42,7 @@ if (!class_exists("commandCfgGetKeys")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return a list of keys in a section in configuration."), 
                 "parameters" => array(
                     'section' => __('Section to list.'),

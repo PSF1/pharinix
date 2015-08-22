@@ -59,6 +59,7 @@ if (!class_exists("commandCurlGetFile")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Download a remote file from a HTTP or HTTPS URL. (Requires cURL installed in PHP.)"), 
                 "parameters" => array(
                     "url" => __("URL of the file to download."),

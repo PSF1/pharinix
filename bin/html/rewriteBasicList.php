@@ -46,6 +46,7 @@ if (!class_exists("commandRewriteBasicList")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Echo a list of URLs in the system."), 
                 "parameters" => array(), 
                 "response" => array(),

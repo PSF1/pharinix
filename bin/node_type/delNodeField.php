@@ -78,7 +78,8 @@ if (!class_exists("commandDelNodeField")) {
         
         public static function getHelp() {
             return array(
-                "description" => __("Erase a node field. It need delete permission over the node type."), 
+                "package" => 'core',
+                "description" => __("Erase a node field. It need delete permission over the node type."),
                 "parameters" => array(
                     "nodetype" => __("Node type name"),
                     "name" => __("Node field name to erase")

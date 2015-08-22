@@ -43,6 +43,7 @@ if (!class_exists("commandDelUrl")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Del URL to the rewrite list."), 
                 "parameters" => array(
                     "url" => __("The URL to erase, relative at root. Ex. home to http://127.0.0.1/home"),

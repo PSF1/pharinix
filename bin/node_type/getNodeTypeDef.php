@@ -89,6 +89,7 @@ if (!class_exists("commandGetNodeTypeDef")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Get array definition of node type."), 
                 "parameters" => array(
                     "nodetype" => __("Node type name"),

@@ -53,6 +53,7 @@ if (!class_exists("commandEchoHTML")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Eval, echo, a HTML+PHP code"), 
                 "parameters" => array('html' => __('String to evaluate.')), 
                 "response" => array(),

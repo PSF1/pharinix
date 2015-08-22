@@ -39,6 +39,7 @@ if (!class_exists("commandCfgSetValue")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Set, or add, a value of configuration."), 
                 "parameters" => array(
                     'section' => __('Section to list.'),

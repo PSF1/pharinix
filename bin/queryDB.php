@@ -64,6 +64,7 @@ if (!class_exists("commandQueryDB")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Do a direct query to a data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it."), 
                 "parameters" => array(
                     "host" => __("DB host name."),

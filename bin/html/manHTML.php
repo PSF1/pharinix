@@ -83,6 +83,7 @@ if (!class_exists("commandManHTML")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Echo help about a command how HTML. Ex. manHTML ('cmd' => 'manHTML'), echo this help."), 
                 "parameters" => array(
                     "cmd" => __("The command to query.")

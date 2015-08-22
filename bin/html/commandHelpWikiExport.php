@@ -99,6 +99,7 @@ if (!class_exists("commandCommandHelpWikiExport")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Export commands help to a GitHub Wiki file."), 
                 "parameters" => array(
                     "path" => __("File path where export."),

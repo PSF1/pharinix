@@ -32,6 +32,7 @@ if (!class_exists("commandCfgGetConfigPath")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return configuration file path."), 
                 "parameters" => array(), 
                 "response" => array(

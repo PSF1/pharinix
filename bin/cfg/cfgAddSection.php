@@ -37,6 +37,7 @@ if (!class_exists("commandCfgAddSection")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new section to configuration."), 
                 "parameters" => array(
                     'section' => __('Section name, it must be "[name]".'),

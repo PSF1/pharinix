@@ -37,6 +37,7 @@ if (!class_exists("commandCfgDelSection")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Del a section of configuration, and all her content."), 
                 "parameters" => array(
                     'section' => __('Section.'),

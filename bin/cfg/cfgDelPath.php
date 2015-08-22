@@ -53,6 +53,7 @@ if (!class_exists("commandCfgDelPath")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Delete a commands path."), 
                 "parameters" => array(
                     "path" => __("Path to erase."),

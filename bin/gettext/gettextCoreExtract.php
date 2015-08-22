@@ -102,6 +102,7 @@ if (!class_exists("commandGettextCoreExtract")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Scan Pharinix to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."), 
                 "parameters" => array(
                     'language' => __('Language code of the file.'),

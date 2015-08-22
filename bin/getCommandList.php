@@ -57,6 +57,7 @@ if (!class_exists("commandGetCommandList")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Command's list as array filter by startby parameter."), 
                 "parameters" => array(
                     "startby" => __("Filter by start of command name."),

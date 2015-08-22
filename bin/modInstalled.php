@@ -30,6 +30,7 @@ if (!class_exists("commandModInstalled")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("List installed modules. Only root can read the list from the database."), 
                 "parameters" => array(), 
                 "response" => array(

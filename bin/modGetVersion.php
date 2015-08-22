@@ -38,6 +38,7 @@ if (!class_exists("commandModGetVersion")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Get the version of a module."), 
                 "parameters" => array(
                         "name" => __("Module name."),

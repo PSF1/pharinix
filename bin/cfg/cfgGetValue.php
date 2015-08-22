@@ -44,6 +44,7 @@ if (!class_exists("commandCfgGetValue")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return value of a configuration."), 
                 "parameters" => array(
                     'section' => __('Section to list.'),

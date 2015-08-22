@@ -88,6 +88,7 @@ if (!class_exists("commandCommandHelp")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Display commands help."), 
                 "parameters" => array(), 
                 "response" => array(),

@@ -35,6 +35,7 @@ if (!class_exists("commandRegisterDebug")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return the content of the commandDriver register."), 
                 "parameters" => array(), 
                 "response" => array(

@@ -42,6 +42,7 @@ if (!class_exists("commandExecForm")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Show a form to execute a command."),
                 "parameters" => array(),
                 "response" => array(),

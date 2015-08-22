@@ -116,6 +116,7 @@ if (!class_exists("commandTemplateToArray")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Transform a XML template to HTML, it not build blocks."),
                 "parameters" => array(
                     "template" => __("XML to convert"),

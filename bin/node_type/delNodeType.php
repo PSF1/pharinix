@@ -79,6 +79,7 @@ if (!class_exists("commandDelNodeType")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Erase a node type. Note: This command alter the execution time limit and reset it to the php.ini default value."), 
                 "parameters" => array(
                     "name" => __("Node type to erase.")

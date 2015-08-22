@@ -42,6 +42,7 @@ if (!class_exists("commandTrace")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new trace message"), 
                 "parameters" => array(
                     "command" => __("Executed command"), 

@@ -52,6 +52,7 @@ if (!class_exists("commandGettextGetCoreTranslation")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Return all Pharinix translation items."), 
                 "parameters" => array(
                     'language' => __('Language code.'),

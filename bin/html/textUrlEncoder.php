@@ -71,6 +71,7 @@ function decode(fid) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Encode/Decode a string as a URL.<p>The URL Decoder/Encoder is licensed under a Creative Commons Attribution-ShareAlike 2.0 License, http://creativecommons.org/licenses/by-sa/2.0/, by Eric Meyer, http://meyerweb.com/eric/tools/dencoder/."), 
                 "parameters" => array(), 
                 "response" => array(),

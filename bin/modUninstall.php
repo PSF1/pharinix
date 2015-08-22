@@ -138,6 +138,7 @@ if (!class_exists("commandModUninstal")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Remove a module."), 
                 "parameters" => array(
                     "name" => __("Slugname of the module to uninstall."),

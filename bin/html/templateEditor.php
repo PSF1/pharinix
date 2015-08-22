@@ -222,6 +222,7 @@ if (!class_exists("commandTemplateEditor")) {
         
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Show template grid editor."), 
                 "parameters" => array(), 
                 "response" => array(),

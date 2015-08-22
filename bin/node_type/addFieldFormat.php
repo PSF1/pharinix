@@ -63,6 +63,7 @@ if (!class_exists("commandAddFieldFormat")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("Add a new field formatter."), 
                 "parameters" => array(
                     "cmd" => __("Command that can format the field."),

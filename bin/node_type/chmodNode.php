@@ -104,6 +104,7 @@ if (!class_exists("commandChmodNode")) {
 
         public static function getHelp() {
             return array(
+                "package" => 'core',
                 "description" => __("To change permission of node type or node that is owned by you."), 
                 "parameters" => array(
                     "nodetype" => __("Node type that you need change permission."),
