@@ -18,7 +18,7 @@ this program; if not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Pharinix
- * Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
+ * Pharinix Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
  * This program is free software; you can redistribute it and/or
