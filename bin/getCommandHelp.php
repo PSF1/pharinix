@@ -25,32 +25,50 @@ if (!class_exists("commandGetCommandHelp")) {
 
         public static function runMe(&$params, $debug = true) {
             $resp = array("help" => array());
-            $paths = driverCommand::getPaths();
-            foreach ($paths as $path) {
-                $resp["help"][$path] = array();
-                $cmds = driverTools::lsDir($path, "*.php");
-                foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($path, "", $cmd);
-                    $cmd = str_replace(".php", "", $cmd);
-                    $resp["help"][$path][$cmd] = array();
-                    $object = include($path.$cmd.".php");
-                    $hlp = $object->getHelp();
-                    $resp["help"][$path][$cmd]["description"] = $hlp["description"];
-                    if (count($hlp["parameters"]) > 0) {
-                        $resp["help"][$path][$cmd]["parameters"] = array();
-                        foreach ($hlp["parameters"] as $key => $value) {
-                            $resp["help"][$path][$cmd]["parameters"][$key] = $value;
-                        }
+            $list = driverCommand::run('getCommandList');
+            $list = $list['commands'];
+            $hlp = array();
+            foreach ($list as $command) {
+                $man = driverCommand::run('man', array('cmd' => $command));
+                $man = $man['help'];
+                foreach($man as $meta) {
+                    $slugname = $meta['package']['slugname'];
+                    if(!isset($hlp[$slugname])) {
+                        $hlp[$slugname] = new stdClass();
+                        $hlp[$slugname]->package = $meta['package'];
+                        $hlp[$slugname]->commands = array();
                     }
-                    if (count($hlp["response"]) > 0) {
-                        $resp["help"][$path][$cmd]["response"] = array();
-                        foreach ($hlp["response"] as $key => $value) {
-                            $resp["help"][$path][$cmd]["response"][$key] = $value;
-                        }
-                    }
+                    unset($meta['package']);
+                    $hlp[$slugname]->commands[] = $meta;
                 }
             }
-            return $resp;
+            return $hlp;
+//            $paths = driverCommand::getPaths();
+//            foreach ($paths as $path) {
+//                $resp["help"][$path] = array();
+//                $cmds = driverTools::lsDir($path, "*.php");
+//                foreach($cmds["files"] as $cmd) {
+//                    $cmd = str_replace($path, "", $cmd);
+//                    $cmd = str_replace(".php", "", $cmd);
+//                    $resp["help"][$path][$cmd] = array();
+//                    $object = include($path.$cmd.".php");
+//                    $hlp = $object->getHelp();
+//                    $resp["help"][$path][$cmd]["description"] = $hlp["description"];
+//                    if (count($hlp["parameters"]) > 0) {
+//                        $resp["help"][$path][$cmd]["parameters"] = array();
+//                        foreach ($hlp["parameters"] as $key => $value) {
+//                            $resp["help"][$path][$cmd]["parameters"][$key] = $value;
+//                        }
+//                    }
+//                    if (count($hlp["response"]) > 0) {
+//                        $resp["help"][$path][$cmd]["response"] = array();
+//                        foreach ($hlp["response"] as $key => $value) {
+//                            $resp["help"][$path][$cmd]["response"][$key] = $value;
+//                        }
+//                    }
+//                }
+//            }
+//            return $resp;
         }
 
         public static function getAccess($ignore = "") {

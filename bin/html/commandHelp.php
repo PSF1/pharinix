@@ -24,20 +24,32 @@ if (!class_exists("commandCommandHelp")) {
     class commandCommandHelp extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $paths = driverCommand::getPaths();
+            $hlp = driverCommand::run('getCommandHelp');
             echo "<legend>".__("Command's list")."</legend>";
-            foreach ($paths as $path) {
-                echo "<h2>".sprintf(__("Package path '%s'"), $path)."</h2>";
-                $cmds = driverTools::lsDir($path, "*.php");
-                foreach($cmds["files"] as $cmd) {
-                    $cmd = str_replace($path, "", $cmd);
-                    $cmd = str_replace(".php", "", $cmd);
-                    echo "<h3>".sprintf(__("Command '%s'"), $cmd)."</h3>";
-                    $object = include($path.$cmd.".php");
-                    $hlp = $object->getHelp();
-                    echo "<h4>".__("Description")."</h4>";
+            foreach($hlp as $madule => $info) {
+                echo "<h2>".sprintf(__("Module '%s'"), $info->package['name'])."</h2>";
+                echo "<h6>".sprintf(
+                        __("Licence: %s"), 
+                        $info->package['meta']['meta']->licence)."</h6>";
+                echo "<h6>".sprintf(
+                        __("%s version %s, %s"), 
+                        $info->package['slugname'], 
+                        $info->package['version'],
+                        $info->package['meta']['meta']->autor)."</h6>";
+                echo '<p>';
+                echo $info->package['meta']['meta']->description;
+                if (!driverTools::str_end('.', $info->package['meta']['meta']->description)) echo ". ";
+                echo '&nbsp;<a href="'.$info->package['meta']['meta']->website.'" target="_blank">'.__('See more information.').'</a>';
+                echo '</p>';
+                echo '<p>';
+                echo sprintf(__("It add %s command(s)"), count($info->commands)).':';
+                echo '</p>';
+                foreach($info->commands as $command) {
+                    $hlp = $command;
+                    echo "<h3>".$command['command']."</h3>";
+//                    echo "<h4>".__("Description")."</h4>";
                     echo "<p>{$hlp["description"]}</p>";
-                    if (count($hlp["parameters"]) > 0) {
+                    if (isset($hlp["parameters"]) && count($hlp["parameters"]) > 0) {
                         echo "<h4>".__("Parameters")."</h4>";
                         echo "<ul>";
                         foreach ($hlp["parameters"] as $key => $value) {
@@ -51,7 +63,7 @@ if (!class_exists("commandCommandHelp")) {
                         }
                         echo "</ul>";
                     }
-                    if (count($hlp["response"]) > 0) {
+                    if (isset($hlp["response"]) && count($hlp["response"]) > 0) {
                         echo "<h4>".__("Responses")."</h4>";
                         echo "<ul>";
                         foreach ($hlp["response"] as $key => $value) {
@@ -67,11 +79,10 @@ if (!class_exists("commandCommandHelp")) {
                     }
                     // Access data
                     echo "<h4>".__("Permissions")."</h4>";
-                    $acc = $object->getAccessData($path.$cmd.".php");
                     echo "<ul>";
-                    echo "<li><b>".__("Owner")."</b>: ".driverUser::getUserName($acc["owner"])."</li>";
-                    echo "<li><b>".__("Group")."</b>: ".driverUser::getGroupName($acc["group"])."</li>";
-                    echo "<li><b>".__("Flags")."</b>: ".driverUser::secFileToString($acc["flags"], true)."</li>";
+                    echo "<li><b>".__("Owner")."</b>: ".driverUser::getUserName($hlp["owner"])."</li>";
+                    echo "<li><b>".__("Group")."</b>: ".driverUser::getGroupName($hlp["group"])."</li>";
+                    echo "<li><b>".__("Flags")."</b>: ".driverUser::secFileToString($hlp["flags"], true)."</li>";
                     echo "</ul>";
                 }
             }

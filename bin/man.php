@@ -47,6 +47,7 @@ if (!class_exists("commandMan")) {
                         $resp["help"][$cmd] = array();
                         $object = include($path.$cmd.".php");
                         $hlp = $object->getHelp();
+                        $resp["help"][$cmd]["command"] = $cmd;
                         $resp["help"][$cmd]["description"] = $hlp["description"];
                         if (count($hlp["parameters"]) > 0) {
                             $resp["help"][$cmd]["parameters"] = array();
@@ -65,6 +66,29 @@ if (!class_exists("commandMan")) {
                         $resp["help"][$cmd]["owner"] = $acc["owner"];
                         $resp["help"][$cmd]["group"] = $acc["group"];
                         $resp["help"][$cmd]["flags"] = $acc["flags"];
+                        $resp["help"][$cmd]['package'] = array();
+                        if ($hlp['package'] == 'core') {
+                            $resp["help"][$cmd]['package']['slugname'] = 'core';
+                            $resp["help"][$cmd]['package']['name'] = 'Pharinix';
+                            $resp["help"][$cmd]['package']['version'] = CMS_VERSION;
+                            $meta = driverCommand::run('getVersion');
+                            $resp["help"][$cmd]['package']['meta'] = array('meta' => $meta['meta']);
+                        } else {
+                            $mod = driverCommand::run('modGetMeta', array(
+                                'name' => $hlp["package"]
+                            ));
+                            if (count($mod) > 0) {
+                                $resp["help"][$cmd]['package']['slugname'] = $hlp["package"];
+                                $resp["help"][$cmd]['package']['name'] = $mod['meta']->name;
+                                $resp["help"][$cmd]['package']['version'] = $mod['meta']->version;
+                                $resp["help"][$cmd]['package']['meta'] = $mod;
+                            } else {
+                                $resp["help"][$cmd]['package']['slugname'] = $hlp["package"];
+                                $resp["help"][$cmd]['package']['name'] = __('Unknowed');
+                                $resp["help"][$cmd]['package']['version'] = '?.?';
+                                $resp["help"][$cmd]['package']['meta'] = null;
+                            }
+                        }
                         return $resp;
                     }
                 }

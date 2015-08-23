@@ -32,51 +32,56 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                 return;
             }
             try {
-                $paths = driverCommand::getPaths();
+//                $paths = driverCommand::getPaths();
+                $hlp = driverCommand::run('getCommandHelp');
                 ob_start();
                 echo "# Command's list\n\n";
                 $ncmds = 0;
-                foreach($paths as $path) {
-                    echo "## Package path '{$path}'\n\n";
-                    $cmds = driverTools::lsDir($path, "*.php");
-                    foreach($cmds["files"] as $cmd) {
-                        $cmd = str_replace($path, "", $cmd);
-                        $cmd = str_replace(".php", "", $cmd);
-                        echo "### Command `$cmd`\n\n";
-                        ++$ncmds;
-                        $object = include($path.$cmd.".php");
-                        $hlp = $object->getHelp();
-                        echo "Description\n\n";
-                        echo "{$hlp["description"]}\n\n";
-                        if (count($hlp["parameters"]) > 0) {
-                            echo "Parameters\n\n";
+                foreach ($hlp as $madule => $info) {
+                    echo "## " . sprintf(__("Module '%s'"), $info->package['name']) . "\n\n";
+                    echo "###### " . sprintf(
+                            __("Licence: %s"), $info->package['meta']['meta']->licence) . "\n\n";
+                    echo "###### " . sprintf(
+                            __("%s version %s, %s"), $info->package['slugname'], $info->package['version'], str_replace("\n", ', ', $info->package['meta']['meta']->autor)) . "\n\n";
+                    echo $info->package['meta']['meta']->description;
+                    if (!driverTools::str_end('.', $info->package['meta']['meta']->description))
+                        echo ". ";
+                    echo ' [' . __('See more information.') . '](' . $info->package['meta']['meta']->website . ' "' . __('See more information.') . "\")\n\n";
+                    echo "\n";
+                    echo sprintf(__("It add %s command(s)"), count($info->commands)) . ":\n\n";
+                    $ncmds += count($info->commands);
+                    foreach ($info->commands as $command) {
+                        $hlp = $command;
+                        echo "### " . $command['command'] . "\n\n";
+                        echo str_replace('\n', '', $hlp["description"])."\n\n";
+                        if (isset($hlp["parameters"]) && count($hlp["parameters"]) > 0) {
+                            echo "#### " . __("Parameters") . "\n\n";
                             foreach ($hlp["parameters"] as $key => $value) {
-                                $tp = "";
+                                echo "* ";
                                 if (isset($hlp["type"]["parameters"][$key])) {
-                                    $tp = '`'.$hlp["type"]["parameters"][$key].'` / ';
+                                    echo '`'.$hlp["type"]["parameters"][$key] . '` / ';
                                 }
-                                echo "* $tp`$key`: $value\n";
+                                echo "`$key` : $value\n";
                             }
-                            echo "\n\n";
+                            echo "\n";
                         }
-                        if (count($hlp["response"]) > 0) {
-                            echo "Responses\n\n";
+                        if (isset($hlp["response"]) && count($hlp["response"]) > 0) {
+                            echo "#### " . __("Responses") . "\n\n";
                             foreach ($hlp["response"] as $key => $value) {
-                                $tp = "";
+                                echo "* ";
                                 if (isset($hlp["type"]["response"][$key])) {
-                                    $tp = '`'.$hlp["type"]["response"][$key].'` / ';
+                                    echo '`'.$hlp["type"]["response"][$key] . '` / ';
                                 }
-                                echo "* $tp`$key`: $value\n";
+                                echo "`$key` : $value\n";
                             }
-                            echo "\n\n";
+                            echo "\n";
                         }
                         // Access data
-                        echo "Permissions\n\n";
-                        $acc = $object->getAccessData($path.$cmd.".php");
-                        echo "* `Owner`: ".driverUser::getUserName($acc["owner"])."\n";
-                        echo "* `Group`: ".driverUser::getGroupName($acc["group"])."\n";
-                        echo "* `Flags`: ".driverUser::secFileToString($acc["flags"])."\n";
-                        echo "\n\n";
+                        echo "#### " . __("Permissions") . "\n\n";
+                        echo "* `" . __("Owner") . "`: " . driverUser::getUserName($hlp["owner"]) . "\n";
+                        echo "* `" . __("Group") . "`: " . driverUser::getGroupName($hlp["group"]) . "\n";
+                        echo "* `" . __("Flags") . "`: " . driverUser::secFileToString($hlp["flags"]) . "\n";
+                        echo "\n";
                     }
                 }
                 echo "\n\n";

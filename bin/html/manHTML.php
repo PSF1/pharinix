@@ -32,6 +32,7 @@ if (!class_exists("commandManHTML")) {
             $hlp = driverCommand::run("man", $params);
             foreach($hlp["help"] as $cmd => $inf) {
                 echo "<h3>".__("Command")." '".$cmd."'</h3>";
+                echo "<h6>".$inf['package']['name'].' / v.'.$inf['package']['version']."</h6>";
                 echo "<h4>".__("Description")."</h4>";
                 echo "<p>{$inf["description"]}</p>";
                 if (isset($inf["parameters"])) {
