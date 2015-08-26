@@ -28,6 +28,10 @@ if (!class_exists("commandGetBaseJS")) {
             $js = file_get_contents('etc/templates/pharinix/baseJS.js');
             $js = str_replace('{$$CMS_DEFAULT_URL_BASE}', CMS_DEFAULT_URL_BASE, $js);
             echo $js;
+            echo "\n// Translations\n\n";
+            $po = driverUser::getTranslations();
+            if ($po == null) $po = new Gettext\Translations();
+            echo "var PHARINIX_TRANSLATIONS = ".Gettext\Generators\JsonDictionary::toString($po).";";
         }
 
         public static function getAccess($ignore = "") {

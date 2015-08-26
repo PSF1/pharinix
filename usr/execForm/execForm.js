@@ -140,7 +140,7 @@ $(document).ready(function(){
             var cmdHelp = data.help[cmd];
             $("#cmdHelp").html(cmdHelp.description);
             clearParamsTable();
-            addInterfaceToTable("interface", "string", "Required server MIME type interface to use","echoJson");
+            addInterfaceToTable("interface", "string", __("Required server MIME type interface to use"),"echoJson");
             $.each(cmdHelp.type.parameters, function(name, type){
                 if (type != "args") {
                     addParamToTable(name, type, cmdHelp.parameters[name]);
@@ -189,7 +189,10 @@ $(document).ready(function(){
                     break;
             }
             if (resp == '') {
-                resp = '<div class="alert alert-danger">I can\'t get response, please, try with other interface type.</div>';
+                resp = '<div class="alert alert-danger">';
+                resp += __("I can't get response.");
+                resp += " " + __("Please, try with other interface type.");
+                resp += '</div>';
             }
             $("#response").html(resp);
         });

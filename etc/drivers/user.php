@@ -31,6 +31,11 @@ use Gettext\Translator;
       * @var string 
       */
     protected static $sudoersID = null;
+    /**
+     *
+     * @var Gettext\Translations 
+     */
+    protected static $translations = null;
     
 // Nodes -----------------------------------------------------------------------
 /*
@@ -580,7 +585,16 @@ use Gettext\Translator;
             $q->MoveNext();
         }
         if ($po != null) $t->loadTranslations($po);
+        self::$translations = $po;
         Translator::initGettextFunctions($t);
+    }
+    
+    /**
+     * Get loaded translations.
+     * @return Gettext\Translations
+     */
+    public static function getTranslations() {
+        return self::$translations;
     }
     
     /**

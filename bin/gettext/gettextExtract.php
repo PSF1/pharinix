@@ -56,15 +56,6 @@ if (!class_exists("commandGettextExtract")) {
             $fInfo = driverTools::pathInfo($params['po']);
             if ($fInfo['writable']) {
                 $translations = new Gettext\Translations();
-                // PHP Code
-                $files = self::getFiles($params['path'], '*.php');
-                if (count($files))
-                    $translations = Gettext\Extractors\PhpCode::fromFile($files);
-                // JS Code
-                $files = self::getFiles($params['path'], '*.js');
-                if (count($files))
-                    $translations = Gettext\Extractors\PhpCode::fromFile($files, $translations);
-                
                 $po = Gettext\Extractors\Po::fromFile($params['po']);
                 $po->setHeader('Project-Id-Version', $params['projectIdVersion']);
                 $po->setHeader('Report-Msgid-Bugs-To', $params['reportMsgidBugsTo']);
@@ -72,14 +63,29 @@ if (!class_exists("commandGettextExtract")) {
                 $po->setHeader('Language-Team', $params['languageTeam']);
                 $prev = $po->count();
                 
-                $translations->mergeWith($po);
+                // PHP Code
+                $files = self::getFiles($params['path'], '*.php');
+                if (count($files)) {
+                    $translations = Gettext\Extractors\PhpCode::fromFile($files);
+                    $po = Gettext\Extractors\Po::fromFile($params['po']);
+                    $translations->mergeWith($po);
+                    Gettext\Generators\Po::toFile($translations, $params['po']);
+                }
+                // JS Code
+                $files = self::getFiles($params['path'], '*.js');
+                if (count($files)) {
+                    $jstranslations = Gettext\Extractors\JsCode::fromFile($files);
+                    $po = Gettext\Extractors\Po::fromFile($params['po']);
+                    $jstranslations->mergeWith($po);
+                    echo Gettext\Generators\Po::toString($jstranslations);
+                    Gettext\Generators\Po::toFile($jstranslations, $params['po']);
+                }
                 
-                Gettext\Generators\Po::toFile($translations, $params['po']);
-                
+                $po = Gettext\Extractors\Po::fromFile($params['po']);
                 return array(
                     'ok' => true, 
                     'previous' => $prev,
-                    'items' => $translations->count()
+                    'items' => $po->count()
                 );
             } else {
                 return array('ok' => false, 'msg' => __('PO file is not writable.'));
