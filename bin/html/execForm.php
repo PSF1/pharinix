@@ -26,7 +26,7 @@ if (!class_exists("commandExecForm")) {
     class commandExecForm extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            echo file_get_contents("usr/execForm/execForm.html");
+            include ("usr/execForm/execForm.html");
             $reg = &self::getRegister("customscripts");
             $reg .= file_get_contents("usr/execForm/execForm.js");
         }
