@@ -63,22 +63,29 @@ if (!class_exists("commandGettextExtract")) {
                 $po->setHeader('Language-Team', $params['languageTeam']);
                 $prev = $po->count();
                 
-                // PHP Code
-                $files = self::getFiles($params['path'], '*.php');
-                if (count($files)) {
-                    $translations = Gettext\Extractors\PhpCode::fromFile($files);
-                    $po = Gettext\Extractors\Po::fromFile($params['po']);
-                    $translations->mergeWith($po);
-                    Gettext\Generators\Po::toFile($translations, $params['po']);
-                }
-                // JS Code
-                $files = self::getFiles($params['path'], '*.js');
-                if (count($files)) {
-                    $jstranslations = Gettext\Extractors\JsCode::fromFile($files);
-                    $po = Gettext\Extractors\Po::fromFile($params['po']);
-                    $jstranslations->mergeWith($po);
-                    echo Gettext\Generators\Po::toString($jstranslations);
-                    Gettext\Generators\Po::toFile($jstranslations, $params['po']);
+                $filetypes = array(
+                    array('php', '*.php'), 
+                    array('php', '*.html'), 
+                    array('php', '*.htm'),
+                    array('js', '*.js'));
+                foreach($filetypes as $expCmd) {
+                    $files = self::getFiles($params['path'], $expCmd[1]);
+                    if (count($files)) {
+                        $translations = null;
+                        switch ($expCmd[0]) {
+                            case 'php':
+                                $translations = Gettext\Extractors\PhpCode::fromFile($files);
+                                break;
+                            case 'js':
+                                $translations = Gettext\Extractors\JsCode::fromFile($files);
+                                break;
+                        }
+                        if ($translations != null) {
+                            $po = Gettext\Extractors\Po::fromFile($params['po']);
+                            $translations->mergeWith($po);
+                            Gettext\Generators\Po::toFile($translations, $params['po']);
+                        }
+                    }
                 }
                 
                 $po = Gettext\Extractors\Po::fromFile($params['po']);
@@ -120,7 +127,7 @@ if (!class_exists("commandGettextExtract")) {
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __("Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."), 
+                "description" => __("Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP, HTML, HTM and JS files, HTML and HTM files will be explored how a PHP file, please, don't insert JavaScript in it."), 
                 "parameters" => array(
                     'path' => __('Root file path to scan, relative to Pharinix root folder.'),
                     'language' => __('Language code of the file.'),

@@ -28,11 +28,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Remote API</legend>
+        <legend><?php __e('Remote API'); ?></legend>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="cmd">Command</label>
+            <label class="col-md-4 control-label" for="cmd"><?php __e('Command'); ?></label>
             <div class="col-md-5">
                 <select id="cmdList" name="cmdList" class="form-control ">
                 
@@ -44,8 +44,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <table class="table table-condensed" id="paramsTable">
         <thead>
           <tr>
-            <th>Parameter name</th>
-            <th>Value</th>
+            <th><?php __e('Parameter name'); ?></th>
+            <th><?php __e('Value'); ?></th>
           </tr>
         </thead>
         <tbody>
@@ -56,14 +56,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <!-- Button -->
         <div class="form-group">
             <div class="col-md-12">
-                <a id="addRow" class="btn btn-primary" href="#">Add parameter</a>
-                <a id="executeCmd" class="btn btn-primary" href="#response">Execute</a>
+                <a id="addRow" class="btn btn-primary" href="#"><?php __e('Add parameter'); ?></a>
+                <a id="executeCmd" class="btn btn-primary" href="#response"><?php __e('Execute'); ?></a>
             </div>
         </div>
     </fieldset>
 </form>
 
-<legend>Response</legend>
+<legend><?php __e('Response'); ?></legend>
 <div id="response">
     
 </div>
