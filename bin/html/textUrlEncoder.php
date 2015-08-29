@@ -45,8 +45,8 @@ function decode(fid) {
                         <textarea class="form-control" style="width: 100%;" id="dencoder<?php echo $fid;?>"></textarea>
                     </div>
                     <div>
-                        <input type="button" class="btn btn-primary" onclick="decode('<?php echo $fid;?>')" value="Decode">
-                        <input type="button" class="btn btn-primary" onclick="encode('<?php echo $fid;?>')" value="Encode">
+                        <input type="button" class="btn btn-primary" onclick="decode('<?php echo $fid;?>')" value="<?php __e('Decode'); ?>">
+                        <input type="button" class="btn btn-primary" onclick="encode('<?php echo $fid;?>')" value="<?php __e('Encode'); ?>">
                     </div>
                     <div class="help-block">
                         <ul>
