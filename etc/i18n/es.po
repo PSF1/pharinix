@@ -2,266 +2,204 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pharinix/1.08.06\n"
 "Report-Msgid-Bugs-To: aaaaa976@gmail.com\n"
-"Last-Translator: Pedro Pelaez\n"
+"Last-Translator: Pedro Pelaez <aaaaa976@gmail.com>\n"
 "Language-Team: Pharinix\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-08-28T23:32:39+02:00\n"
-"PO-Revision-Date: 2015-08-28T23:32:39+02:00\n"
+"POT-Creation-Date: 2015-08-30T00:52:54+02:00\n"
+"PO-Revision-Date: 2015-08-30 00:54+0100\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
 
 #: NodeType_modules:field_path_label
-#: NodeType_modules:field_path_label
 msgid "Module install path."
-msgstr ""
+msgstr "Ruta de instalación del módulo"
 
-#: NodeType_modules:field_path_help
 #: NodeType_modules:field_path_help
 msgid "Path to the installed module."
-msgstr ""
+msgstr "Ruta al módulo instalado."
 
-#: NodeType_modules:field_meta_label
-#: bin/html/templateEditor.php:153
-#: NodeType_modules:field_meta_label
+#: NodeType_modules:field_meta_label bin/html/templateEditor.php:153
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
-#: NodeType_modules:field_meta_help
-#: bin/modGetMeta.php:51
-#: NodeType_modules:field_meta_help
+#: NodeType_modules:field_meta_help bin/modGetMeta.php:51
 msgid "Module meta information."
-msgstr ""
+msgstr "Meta información del módulo"
 
-#: NodeType_modules:field_modifier_label
-#: NodeType_group:field_modifier_label
+#: NodeType_modules:field_modifier_label NodeType_group:field_modifier_label
 #: NodeType_user:field_modifier_label
-#: NodeType_modules:field_modifier_label
 msgid "Modifier user"
-msgstr ""
+msgstr "Usuario modificador"
 
-#: NodeType_modules:field_modified_label
-#: NodeType_group:field_modified_label
+#: NodeType_modules:field_modified_label NodeType_group:field_modified_label
 #: NodeType_user:field_modified_label
-#: NodeType_modules:field_modified_label
 msgid "Modified date"
-msgstr ""
+msgstr "Fecha de modificación"
 
-#: NodeType_modules:field_creator_label
-#: NodeType_group:field_creator_label
+#: NodeType_modules:field_creator_label NodeType_group:field_creator_label
 #: NodeType_user:field_creator_label
-#: NodeType_modules:field_creator_label
 msgid "User creator"
-msgstr ""
+msgstr "Usuario creador"
 
-#: NodeType_modules:field_created_label
-#: NodeType_group:field_created_label
+#: NodeType_modules:field_created_label NodeType_group:field_created_label
 #: NodeType_user:field_created_label
-#: NodeType_modules:field_created_label
 msgid "Creation date"
-msgstr ""
+msgstr "Fecha de creación"
 
-#: NodeType_modules:field_access_label
-#: NodeType_group:field_access_label
+#: NodeType_modules:field_access_label NodeType_group:field_access_label
 #: NodeType_user:field_access_label
-#: NodeType_modules:field_access_label
 msgid "Access"
-msgstr ""
+msgstr "Acceso"
 
-#: NodeType_modules:field_access_help
-#: NodeType_group:field_access_help
+#: NodeType_modules:field_access_help NodeType_group:field_access_help
 #: NodeType_user:field_access_help
-#: NodeType_modules:field_access_help
 msgid "Access control flags."
-msgstr ""
+msgstr "Banderas de control de acceso"
 
 #: NodeType_modules:field_group_owner_label
 #: NodeType_group:field_group_owner_label
-#: NodeType_user:field_group_owner_label
-#: etc/drivers/user.php:71
-#: etc/drivers/user.php:232
-#: etc/drivers/user.php:247
-#: bin/html/commandHelp.php:84
-#: bin/html/commandHelpWikiExport.php:82
-#: bin/html/manHTML.php:70
-#: bin/node_type/getNodeTypeDefHtml.php:132
-#: NodeType_modules:field_group_owner_label
-#: etc/drivers/user.php:66
-#: etc/drivers/user.php:227
-#: etc/drivers/user.php:242
-#: bin/html/commandHelp.php:73
-#: bin/html/manHTML.php:69
-#: etc/drivers/user.php:64
-#: etc/drivers/user.php:225
-#: etc/drivers/user.php:240
+#: NodeType_user:field_group_owner_label etc/drivers/user.php:71
+#: etc/drivers/user.php:232 etc/drivers/user.php:247
+#: bin/html/commandHelp.php:84 bin/html/commandHelpWikiExport.php:82
+#: bin/html/manHTML.php:70 bin/node_type/getNodeTypeDefHtml.php:132
+#: etc/drivers/user.php:66 etc/drivers/user.php:227 etc/drivers/user.php:242
+#: bin/html/commandHelp.php:73 bin/html/manHTML.php:69 etc/drivers/user.php:64
+#: etc/drivers/user.php:225 etc/drivers/user.php:240
 msgid "Group"
 msgstr "Grupo"
 
 #: NodeType_modules:field_group_owner_help
-#: NodeType_group:field_group_owner_help
-#: NodeType_user:field_group_owner_help
-#: NodeType_modules:field_group_owner_help
+#: NodeType_group:field_group_owner_help NodeType_user:field_group_owner_help
 msgid "Owner group"
-msgstr ""
+msgstr "Grupo propietario"
 
 #: NodeType_modules:field_user_owner_label
-#: NodeType_group:field_user_owner_label
-#: NodeType_user:field_user_owner_label
-#: etc/drivers/user.php:65
-#: etc/drivers/user.php:227
-#: etc/drivers/user.php:242
-#: bin/html/commandHelp.php:83
-#: bin/html/commandHelpWikiExport.php:81
-#: bin/html/manHTML.php:69
-#: bin/node_type/getNodeTypeDefHtml.php:131
-#: NodeType_modules:field_user_owner_label
-#: etc/drivers/user.php:60
-#: etc/drivers/user.php:222
-#: etc/drivers/user.php:237
-#: bin/html/commandHelp.php:72
-#: bin/html/manHTML.php:68
-#: etc/drivers/user.php:58
-#: etc/drivers/user.php:220
-#: etc/drivers/user.php:235
+#: NodeType_group:field_user_owner_label NodeType_user:field_user_owner_label
+#: etc/drivers/user.php:65 etc/drivers/user.php:227 etc/drivers/user.php:242
+#: bin/html/commandHelp.php:83 bin/html/commandHelpWikiExport.php:81
+#: bin/html/manHTML.php:69 bin/node_type/getNodeTypeDefHtml.php:131
+#: etc/drivers/user.php:60 etc/drivers/user.php:222 etc/drivers/user.php:237
+#: bin/html/commandHelp.php:72 bin/html/manHTML.php:68 etc/drivers/user.php:58
+#: etc/drivers/user.php:220 etc/drivers/user.php:235
 msgid "Owner"
 msgstr "Propietario"
 
-#: NodeType_modules:field_user_owner_help
-#: NodeType_group:field_user_owner_help
+#: NodeType_modules:field_user_owner_help NodeType_group:field_user_owner_help
 #: NodeType_user:field_user_owner_help
-#: NodeType_modules:field_user_owner_help
 msgid "Owner user"
-msgstr ""
+msgstr "Usuario propietario"
 
-#: NodeType_modules:field_title_label
-#: NodeType_group:field_title_label
-#: NodeType_user:field_title_label
-#: bin/html/templateEditor.php:166
-#: NodeType_modules:field_title_label
+#: NodeType_modules:field_title_label NodeType_group:field_title_label
+#: NodeType_user:field_title_label bin/html/templateEditor.php:166
 msgid "Title"
-msgstr ""
+msgstr "Titulo"
 
-#: NodeType_modules:field_title_help
-#: NodeType_group:field_title_help
+#: NodeType_modules:field_title_help NodeType_group:field_title_help
 #: NodeType_user:field_title_help
-#: NodeType_modules:field_title_help
 msgid "A title string for this node."
-msgstr ""
+msgstr "Una cadena de titulo para este nodo."
 
-#: NodeType_modules:field_version_label
 #: NodeType_modules:field_version_label
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: NodeType_modules:field_version_help
-#: NodeType_modules:field_version_help
 msgid "Module version"
-msgstr ""
+msgstr "Versión del módulo"
 
 #: NodeType_user:field_groups_label
 msgid "Groups"
-msgstr ""
+msgstr "Grupos"
 
 #: NodeType_user:field_groups_help
 msgid "User groups"
-msgstr ""
+msgstr "Grupos del usuario"
 
 #: NodeType_user:field_mail_label
 msgid "Mail"
-msgstr ""
+msgstr "Correo electrónico"
 
-#: NodeType_user:field_mail_help
-#: bin/user/startSession.php:53
+#: NodeType_user:field_mail_help bin/user/startSession.php:53
 #: bin/user/startSession.php:52
 msgid "User email to login."
-msgstr ""
+msgstr "Correo del usuario para iniciar sesión"
 
-#: NodeType_user:field_pass_label
-#: bin/node_type/formatFieldPassword.php:70
+#: NodeType_user:field_pass_label bin/node_type/formatFieldPassword.php:70
 msgid "Password"
-msgstr ""
+msgstr "Clave"
 
 #: NodeType_user:field_pass_help
 msgid "Password to access."
-msgstr ""
+msgstr "Clave para acceder"
 
 #: NodeType_user:field_name_label
 msgid "User name"
-msgstr ""
+msgstr "Nombre de usuario"
 
 #: NodeType_user:field_name_help
 msgid "It can be any."
-msgstr ""
+msgstr "Puede ser cualquiera."
 
 #: NodeType_user:field_language_label
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: NodeType_user:field_language_help
 msgid "Primary user language"
-msgstr ""
+msgstr "Idioma principal del usuario"
 
 #: usr/execForm/execForm.js:143
 msgid "Required server MIME type interface to use"
-msgstr ""
+msgstr "Interface MIME del servidor requerida para usarse"
 
 #: usr/execForm/execForm.js:193
 msgid "I can't get response."
-msgstr ""
+msgstr "No obtuve respuesta."
 
 #: usr/execForm/execForm.js:194
 msgid "Please, try with other interface type."
-msgstr ""
+msgstr "Por favor, pruebe con otro tipo de interface."
 
 #: usr/execForm/execForm.html:31
 msgid "Remote API"
-msgstr ""
+msgstr "API remota"
 
-#: usr/execForm/execForm.html:35
-#: bin/html/executeCommandOnline.php:39
-#: bin/html/manHelpOnline.php:38
-#: bin/html/manHTML.php:34
+#: usr/execForm/execForm.html:35 bin/html/executeCommandOnline.php:39
+#: bin/html/manHelpOnline.php:38 bin/html/manHTML.php:34
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 #: usr/execForm/execForm.html:47
 msgid "Parameter name"
-msgstr ""
+msgstr "Nombre de parámetro"
 
-#: usr/execForm/execForm.html:48
-#: bin/html/traceToHTML.php:71
+#: usr/execForm/execForm.html:48 bin/html/traceToHTML.php:71
 #: bin/html/traceToHTML.php:70
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: usr/execForm/execForm.html:59
 msgid "Add parameter"
-msgstr ""
+msgstr "Añadir parámetro"
 
-#: usr/execForm/execForm.html:60
-#: etc/drivers/user.php:230
-#: etc/drivers/user.php:235
-#: etc/drivers/user.php:240
-#: etc/drivers/user.php:245
-#: etc/drivers/user.php:250
-#: etc/drivers/user.php:255
-#: bin/html/executeCommandOnline.php:59
-#: etc/drivers/user.php:225
+#: usr/execForm/execForm.html:60 etc/drivers/user.php:230
+#: etc/drivers/user.php:235 etc/drivers/user.php:240 etc/drivers/user.php:245
+#: etc/drivers/user.php:250 etc/drivers/user.php:255
+#: bin/html/executeCommandOnline.php:59 etc/drivers/user.php:225
 msgid "Execute"
 msgstr "Ejecutar"
 
-#: usr/execForm/execForm.html:66
-#: bin/html/executeCommandOnline.php:76
+#: usr/execForm/execForm.html:66 bin/html/executeCommandOnline.php:76
 msgid "Response"
-msgstr ""
+msgstr "Respuesta"
 
 #: etc/drivers/command.php:87
 msgid "You can't execute '%s'."
 msgstr "No puede ejecutar '%s'."
 
-#: etc/drivers/command.php:96
-#: etc/drivers/command.php:98
+#: etc/drivers/command.php:96 etc/drivers/command.php:98
 msgid "Command '%s' not found"
 msgstr "Comando '%s' no encontrado"
 
@@ -301,67 +239,37 @@ msgstr "Error de sintaxis"
 msgid "Malformed UTF-8 characters, possibly incorrectly encoded"
 msgstr "Caracteres UTF-8 mal formados, posiblemente incorrectamente codificado"
 
-#: etc/drivers/user.php:66
-#: etc/drivers/user.php:72
-#: etc/drivers/user.php:78
-#: etc/drivers/user.php:61
-#: etc/drivers/user.php:67
-#: etc/drivers/user.php:73
+#: etc/drivers/user.php:66 etc/drivers/user.php:72 etc/drivers/user.php:78
+#: etc/drivers/user.php:61 etc/drivers/user.php:67 etc/drivers/user.php:73
 msgid "Create"
 msgstr "Crear"
 
-#: etc/drivers/user.php:67
-#: etc/drivers/user.php:73
-#: etc/drivers/user.php:79
-#: etc/drivers/user.php:228
-#: etc/drivers/user.php:233
-#: etc/drivers/user.php:238
-#: etc/drivers/user.php:243
-#: etc/drivers/user.php:248
-#: etc/drivers/user.php:253
-#: etc/drivers/user.php:62
-#: etc/drivers/user.php:68
-#: etc/drivers/user.php:74
+#: etc/drivers/user.php:67 etc/drivers/user.php:73 etc/drivers/user.php:79
+#: etc/drivers/user.php:228 etc/drivers/user.php:233 etc/drivers/user.php:238
+#: etc/drivers/user.php:243 etc/drivers/user.php:248 etc/drivers/user.php:253
+#: etc/drivers/user.php:62 etc/drivers/user.php:68 etc/drivers/user.php:74
 #: etc/drivers/user.php:223
 msgid "Read"
 msgstr "Leer"
 
-#: etc/drivers/user.php:68
-#: etc/drivers/user.php:74
-#: etc/drivers/user.php:80
-#: etc/drivers/user.php:63
-#: etc/drivers/user.php:69
-#: etc/drivers/user.php:75
+#: etc/drivers/user.php:68 etc/drivers/user.php:74 etc/drivers/user.php:80
+#: etc/drivers/user.php:63 etc/drivers/user.php:69 etc/drivers/user.php:75
 msgid "Update"
 msgstr "Actualizar"
 
-#: etc/drivers/user.php:69
-#: etc/drivers/user.php:75
-#: etc/drivers/user.php:81
-#: etc/drivers/user.php:64
-#: etc/drivers/user.php:70
-#: etc/drivers/user.php:76
+#: etc/drivers/user.php:69 etc/drivers/user.php:75 etc/drivers/user.php:81
+#: etc/drivers/user.php:64 etc/drivers/user.php:70 etc/drivers/user.php:76
 msgid "Delete"
 msgstr "Borrar"
 
-#: etc/drivers/user.php:77
-#: etc/drivers/user.php:237
-#: etc/drivers/user.php:252
-#: etc/drivers/user.php:72
-#: etc/drivers/user.php:232
-#: etc/drivers/user.php:247
-#: etc/drivers/user.php:70
-#: etc/drivers/user.php:230
-#: etc/drivers/user.php:245
+#: etc/drivers/user.php:77 etc/drivers/user.php:237 etc/drivers/user.php:252
+#: etc/drivers/user.php:72 etc/drivers/user.php:232 etc/drivers/user.php:247
+#: etc/drivers/user.php:70 etc/drivers/user.php:230 etc/drivers/user.php:245
 msgid "All"
 msgstr "Todos"
 
-#: etc/drivers/user.php:229
-#: etc/drivers/user.php:234
-#: etc/drivers/user.php:239
-#: etc/drivers/user.php:244
-#: etc/drivers/user.php:249
-#: etc/drivers/user.php:254
+#: etc/drivers/user.php:229 etc/drivers/user.php:234 etc/drivers/user.php:239
+#: etc/drivers/user.php:244 etc/drivers/user.php:249 etc/drivers/user.php:254
 #: etc/drivers/user.php:224
 msgid "Write"
 msgstr "Escribir"
@@ -370,962 +278,773 @@ msgstr "Escribir"
 msgid "'cmd' parameter is required."
 msgstr "Se requiere el parametro 'cmd'"
 
-#: bin/addBooting.php:53
-#: bin/addBooting.php:52
+#: bin/addBooting.php:53 bin/addBooting.php:52
 msgid "Add a command, with parameters, to the boot process. This will executed with each user petition."
 msgstr "Añade un comando, con parametros, al proceso de arranque. Será ejecutado con cada petición."
 
-#: bin/addBooting.php:55
-#: bin/html/executeCommandOnline.php:42
+#: bin/addBooting.php:55 bin/html/executeCommandOnline.php:42
 #: bin/addBooting.php:54
 msgid "Command to execute"
 msgstr "Comando a ejecutar"
 
-#: bin/addBooting.php:56
-#: bin/addBooting.php:55
+#: bin/addBooting.php:56 bin/addBooting.php:55
 msgid "Post string to put in the command."
-msgstr ""
+msgstr "Cadena POST a añadir al comando."
 
-#: bin/addBooting.php:57
-#: bin/addBooting.php:56
+#: bin/addBooting.php:57 bin/addBooting.php:56
 msgid "Priority of execution."
-msgstr ""
+msgstr "Prioridad de ejecución."
 
-#: bin/addBooting.php:60
-#: bin/addBooting.php:59
-msgid "Unique ID to we can delete the boot command."
-msgstr ""
+#: bin/addBooting.php:60 bin/addBooting.php:59
+msgid "Unique ID, with that we can delete the boot command later."
+msgstr "ID única, con ella podremos borrar el comando de arranque más tarde."
 
 #: bin/batch.php:56
 msgid "Meta '%s' is unknowed."
-msgstr ""
+msgstr "Meta '%s' desconocida."
 
-#: bin/batch.php:108
-#: bin/batch.php:107
+#: bin/batch.php:108 bin/batch.php:107
 msgid "Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end."
-msgstr ""
+msgstr "Ejecuta una serie de comandos. La salida de un comando será los parámetros de entrada del siguiente comando. Siempre llama a captureEndAll al final."
 
-#: bin/batch.php:110
-#: bin/batch.php:109
+#: bin/batch.php:110 bin/batch.php:109
 msgid "Array of parameters to merge at the start."
-msgstr ""
+msgstr "Lista de parametro a mezclar al principio."
 
-#: bin/batch.php:111
-#: bin/batch.php:110
+#: bin/batch.php:111 bin/batch.php:110
 msgid "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and passed how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output."
-msgstr ""
+msgstr "Lista de comandos y parámetros por defecto. Estos parametros, si hay alguno, serán mezclados con la salida del comando anterior, con prioridad de este, y pasados como parámetros combinados. Ej: [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. Si pasas como comando '#clean' entonces batch limpia la salida mezclada."
 
-#: bin/batch.php:112
-#: bin/batch.php:111
+#: bin/batch.php:112 bin/batch.php:111
 msgid "If is empty or not define the output will out in response, else will be passed how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response."
-msgstr ""
+msgstr "Si es vacío o no está definido la salida saldrá en la respuesta, sino será pasada como parametros al comando en este parámetro. Ej: 'echoed' => 'echoJson' mostrará al navegador una representación en json de la respuesta."
 
-#: bin/batch.php:115
-#: bin/batch.php:114
+#: bin/batch.php:115 bin/batch.php:114
 msgid "The final response of the batch."
-msgstr ""
+msgstr "La respuesta final de batch."
 
-#: bin/batch.php:116
-#: bin/batch.php:115
+#: bin/batch.php:116 bin/batch.php:115
 msgid "If error is set to FALSE, else will be unset."
-msgstr ""
+msgstr "Si hubo errores será FALSE, sino no estará definido."
 
-#: bin/batch.php:117
-#: bin/batch.php:116
+#: bin/batch.php:117 bin/batch.php:116
 msgid "If error is set to the error message, else will be unset. "
-msgstr ""
+msgstr "Si hubo errores será el mensaje de error, sino no estará definido."
 
-#: bin/batch.php:118
-#: bin/batch.php:117
+#: bin/batch.php:118 bin/batch.php:117
 msgid "If error is set to a string with the command and her input parameters, else will be unset."
-msgstr ""
+msgstr "Si hubo errores esta definido como cadena con el comando y sus parámetros de entrada, sino no estará definido."
 
-#: bin/captureEnd.php:52
-#: bin/captureEnd.php:51
+#: bin/captureEnd.php:52 bin/captureEnd.php:51
 msgid "If any, capture the actual echo buffer and return."
-msgstr ""
+msgstr "Su alguno, captura el buffer de salida al navegador actual y lo devuelve."
 
-#: bin/captureEnd.php:55
-#: bin/captureEnd.php:54
+#: bin/captureEnd.php:55 bin/captureEnd.php:54
 msgid "The string captured."
-msgstr ""
+msgstr "La cadena capturada."
 
-#: bin/captureEndAll.php:48
-#: bin/captureEndAll.php:47
+#: bin/captureEndAll.php:48 bin/captureEndAll.php:47
 msgid "Ensure that all the echo buffer are close ignoring her contents."
-msgstr ""
+msgstr "Se asegura que todos los buffers de salida están cerrados ignorando su contenido."
 
-#: bin/captureStart.php:46
-#: bin/captureStart.php:45
+#: bin/captureStart.php:46 bin/captureStart.php:45
 msgid "Start a echo buffered capture. The capture methods have control about stack of calls, please execute 'captureEndAll' to ensure that all this buffers are closed."
-msgstr ""
+msgstr "Comienda la captura un buffer de salida. El motodo de captura tiene control sobre la pila de llamadas, por favor, ejecuta 'captureEndAll' para asegurar que todos los buffers quedan cerrados."
 
-#: bin/chmod.php:55
-#: bin/chmod.php:54
+#: bin/chmod.php:55 bin/chmod.php:54
 msgid "To change permission of command that is owned by you. To execute commands only Execution is considered."
-msgstr ""
+msgstr "Cambiar permisos de los comandos de los que eres propietario. Para ejecutar comandos solo se tiene en cuenta el permiso Ejecución."
 
-#: bin/chmod.php:57
-#: bin/chmod.php:56
+#: bin/chmod.php:57 bin/chmod.php:56
 msgid "Command that you need change permission."
-msgstr ""
+msgstr "Comando al que necesitas cambiar los permisos."
 
-#: bin/chmod.php:58
-#: bin/node_type/chmodNode.php:112
-#: bin/chmod.php:57
+#: bin/chmod.php:58 bin/node_type/chmodNode.php:112 bin/chmod.php:57
 #: bin/node_type/chmodNode.php:111
 msgid "Integer with the new permissions."
-msgstr ""
+msgstr "Entero con los nuevos permisos."
 
-#: bin/chmod.php:61
-#: bin/chown.php:110
-#: bin/node_type/chmodNode.php:115
-#: bin/node_type/chownNode.php:178
-#: bin/chmod.php:60
-#: bin/chown.php:109
-#: bin/node_type/chmodNode.php:114
-#: bin/node_type/chownNode.php:177
+#: bin/chmod.php:61 bin/chown.php:110 bin/node_type/chmodNode.php:115
+#: bin/node_type/chownNode.php:178 bin/chmod.php:60 bin/chown.php:109
+#: bin/node_type/chmodNode.php:114 bin/node_type/chownNode.php:177
 msgid "TRUE if changed."
-msgstr ""
+msgstr "TRUE si ha cambiado."
 
-#: bin/chown.php:41
-#: bin/chown.php:49
-#: bin/node_type/chownNode.php:71
+#: bin/chown.php:41 bin/chown.php:49 bin/node_type/chownNode.php:71
 #: bin/node_type/chownNode.php:79
 msgid "Bad user id."
-msgstr ""
+msgstr "ID de usuario incorrecta."
 
-#: bin/chown.php:59
-#: bin/chown.php:67
-#: bin/node_type/chownNode.php:89
+#: bin/chown.php:59 bin/chown.php:67 bin/node_type/chownNode.php:89
 #: bin/node_type/chownNode.php:97
 msgid "Bad group id."
-msgstr ""
+msgstr "ID de grupo incorrecta."
 
-#: bin/chown.php:93
-#: bin/node_type/chmodNode.php:72
-#: bin/node_type/chmodNode.php:95
-#: bin/node_type/chownNode.php:126
+#: bin/chown.php:93 bin/node_type/chmodNode.php:72
+#: bin/node_type/chmodNode.php:95 bin/node_type/chownNode.php:126
 #: bin/node_type/chownNode.php:158
 msgid "You need ownership."
-msgstr ""
+msgstr "Necesitas ser propietario."
 
-#: bin/chown.php:103
-#: bin/chown.php:102
+#: bin/chown.php:103 bin/chown.php:102
 msgid "To change owner, and/or group, of the command."
-msgstr ""
+msgstr "Para cambiar el propietario, y/o el grupo, del comando."
 
-#: bin/chown.php:105
-#: bin/chown.php:104
+#: bin/chown.php:105 bin/chown.php:104
 msgid "Command that you need change ownership."
-msgstr ""
+msgstr "Comando al que necesitas cambiar de propietario."
 
-#: bin/chown.php:106
-#: bin/chown.php:105
+#: bin/chown.php:106 bin/chown.php:105
 msgid "Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero."
-msgstr ""
+msgstr "Correo de usuario o ID del nuevo usuario propietario. Si es null, o si no se pasa, el comando no lo cambia, para seleccionar a root debes pasarlo como 0, cero."
 
-#: bin/chown.php:107
-#: bin/chown.php:106
+#: bin/chown.php:107 bin/chown.php:106
 msgid "Title or ID of the group. If it's null, or it is not set, command don't change it, to set  to root you must value how 0, zero."
-msgstr ""
+msgstr "Titulo o ID del grupo. Si es null, o se pasa, el comando no lo cambia, para seleccionar a root debes pasarlo como 0, cero."
 
 #: bin/curlGetFile.php:32
 msgid "URL is required."
-msgstr ""
+msgstr "Se requiere la URL."
 
 #: bin/curlGetFile.php:56
 msgid "cURL not installed."
-msgstr ""
+msgstr "cURL no está instalado."
 
-#: bin/curlGetFile.php:63
-#: bin/curlGetFile.php:62
+#: bin/curlGetFile.php:63 bin/curlGetFile.php:62
 msgid "Download a remote file from a HTTP or HTTPS URL. (Requires cURL installed in PHP.)"
-msgstr ""
+msgstr "Descarga un archivo remoto desde una URL HTTP o HTTPS. (Requiere cURL instalado en PHP.)"
 
-#: bin/curlGetFile.php:65
-#: bin/curlGetFile.php:64
+#: bin/curlGetFile.php:65 bin/curlGetFile.php:64
 msgid "URL of the file to download."
-msgstr ""
+msgstr "URL del archivo a descargar."
 
-#: bin/curlGetFile.php:68
-#: bin/curlGetFile.php:67
+#: bin/curlGetFile.php:68 bin/curlGetFile.php:67
 msgid "TRUE if the download is OK."
-msgstr ""
+msgstr "TRUE si la descarga fue bien."
 
-#: bin/curlGetFile.php:69
-#: bin/curlGetFile.php:68
+#: bin/curlGetFile.php:69 bin/curlGetFile.php:68
 msgid "If download error this contains the error message."
-msgstr ""
+msgstr "Si hubo un error este contiene el mensaje de error."
 
-#: bin/curlGetFile.php:70
-#: bin/curlGetFile.php:69
+#: bin/curlGetFile.php:70 bin/curlGetFile.php:69
 msgid "If download ok, contains the downloaded file path. Please remove the temporal file when finish with it."
-msgstr ""
+msgstr "Si la descarga fue bien, contiene la ruta al archivo descargado. Por favor, borre el archivo temporal cuando termine con él."
 
-#: bin/delBooting.php:42
-#: bin/delBooting.php:41
+#: bin/delBooting.php:42 bin/delBooting.php:41
 msgid "Delete a command from boot process."
-msgstr ""
+msgstr "Borra un comando del proceso de arranque."
 
-#: bin/delBooting.php:44
-#: bin/delBooting.php:43
+#: bin/delBooting.php:44 bin/delBooting.php:43
 msgid "Reference ID of the boot command."
-msgstr ""
+msgstr "ID de referencia del comando de arranque."
 
-#: bin/echoJson.php:44
-#: bin/echoJson.php:43
+#: bin/echoJson.php:44 bin/echoJson.php:43
 msgid "Echo to browser the JSON representation of parameters, try to change the HTTP header to Content-type: application/json."
-msgstr ""
+msgstr "Muestra al navegador la representación JSON de los parámetros, intenta cambiar la cabecera HTTP al tipo de contenido application/json."
 
-#: bin/echoJson.php:45
-#: bin/echoText.php:44
-#: bin/toJson.php:65
-#: bin/echoJson.php:44
-#: bin/echoText.php:43
-#: bin/toJson.php:64
+#: bin/echoJson.php:45 bin/echoText.php:44 bin/toJson.php:65
+#: bin/echoJson.php:44 bin/echoText.php:43 bin/toJson.php:64
 msgid "It can receive any amount of parameters."
 msgstr "Puede recibir cualquier cantidad de parametros."
 
-#: bin/echoText.php:43
-#: bin/echoText.php:42
+#: bin/echoText.php:43 bin/echoText.php:42
 msgid "Echo to browser the print_r() representation of parameters, try to change the HTTP header to Content-type: text/plain."
-msgstr ""
+msgstr "Muestra al navegador la representación print_r() de los parámetros, intenta cambiar la cabecera HTTP al tipo de contenido text/plain."
 
-#: bin/getBlocksFromTemplate.php:82
-#: bin/getBlocksFromTemplate.php:81
+#: bin/getBlocksFromTemplate.php:82 bin/getBlocksFromTemplate.php:81
 msgid "Parse a page template and return her blocks places."
-msgstr ""
+msgstr "Interpreta una plantilla de página y devuelve sus espacios de bloques."
 
-#: bin/getBlocksFromTemplate.php:84
-#: bin/getBlocksFromTemplate.php:83
+#: bin/getBlocksFromTemplate.php:84 bin/getBlocksFromTemplate.php:83
 msgid "XML page to parse"
-msgstr ""
+msgstr "Página XML a interpretar"
 
-#: bin/getBlocksFromTemplate.php:87
-#: bin/getBlocksFromTemplate.php:86
+#: bin/getBlocksFromTemplate.php:87 bin/getBlocksFromTemplate.php:86
 msgid "Array of blocks places."
-msgstr ""
+msgstr "Lista de espacios de bloques."
 
-#: bin/getCommandHelp.php:86
-#: bin/getCommandHelp.php:67
+#: bin/getCommandHelp.php:86 bin/getCommandHelp.php:67
 msgid "Command's help as array."
-msgstr ""
+msgstr "Lista de ayudas de comandos."
 
-#: bin/getCommandHelp.php:88
-#: bin/getCommandHelp.php:69
+#: bin/getCommandHelp.php:88 bin/getCommandHelp.php:69
 msgid "Help grouped by bin path. array('bin/html' => array...)"
-msgstr ""
+msgstr "Ayuda agrupada por rutas bin. array('bin/html' => array...)"
 
-#: bin/getCommandList.php:61
-#: bin/getCommandList.php:60
+#: bin/getCommandList.php:61 bin/getCommandList.php:60
 msgid "Command's list as array filter by startby parameter."
-msgstr ""
+msgstr "Lista de comandos como array filtrados por el parámetro startby."
 
-#: bin/getCommandList.php:63
-#: bin/getCommandList.php:62
+#: bin/getCommandList.php:63 bin/getCommandList.php:62
 msgid "Filter by start of command name."
-msgstr ""
+msgstr "Filtrar por el comienzo del nombre de comando."
 
-#: bin/getCommandList.php:66
-#: bin/getCommandList.php:65
+#: bin/getCommandList.php:66 bin/getCommandList.php:65
 msgid "Result list"
-msgstr ""
+msgstr "Lista de resultados"
 
-#: bin/getRegisteredHooks.php:33
-#: bin/getRegisteredHooks.php:32
+#: bin/getRegisteredHooks.php:33 bin/getRegisteredHooks.php:32
 msgid "Get info about registered hook handlers."
-msgstr ""
+msgstr "Obtener información sobre los manejadores de hook registrados."
 
-#: bin/getRegisteredHooks.php:36
-#: bin/getRegisteredHooks.php:35
+#: bin/getRegisteredHooks.php:36 bin/getRegisteredHooks.php:35
 msgid "Hooks list."
-msgstr ""
+msgstr "Listado de Hooks."
 
 #: bin/getVersion.php:33
 msgid "Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it's the perfect backend to your application."
-msgstr ""
+msgstr "Framework ligero con funciones muy interesantes. Modelo de datos con seguridad parecida a unix, configurable por si mismo, reescritura de URL y mapeo, etc... Es el backend perfecto para tu aplicación."
 
-#: bin/getVersion.php:50
-#: bin/getVersion.php:41
+#: bin/getVersion.php:50 bin/getVersion.php:41
 msgid "Return Pharinix version."
-msgstr ""
+msgstr "Devuelve la versión de Pharinix."
 
-#: bin/getVersion.php:53
-#: bin/getVersion.php:44
+#: bin/getVersion.php:53 bin/getVersion.php:44
 msgid "Pharinix version."
-msgstr ""
+msgstr "Versión de Pharinix."
 
 #: bin/getVersion.php:54
 msgid "Meta data information."
-msgstr ""
+msgstr "Información de meta datos."
 
-#: bin/goHome.php:33
-#: bin/goHome.php:32
+#: bin/goHome.php:33 bin/goHome.php:32
 msgid "Redirect the browser to home."
-msgstr ""
+msgstr "Redirecciona el navegador al inicio."
 
 #: bin/goTo.php:36
 msgid "Redirect the browser to a 'local' URL."
-msgstr ""
+msgstr "Redirecciona el navegador a una URL 'local'."
 
 #: bin/goTo.php:38
 msgid "The URL path to go to. Ex. 'help/console' to go to the console."
-msgstr ""
+msgstr "La ruta URL a la que ir. Ej. 'help/console' para ir a la consola."
 
-#: bin/listBooting.php:54
-#: bin/listBooting.php:53
+#: bin/listBooting.php:54 bin/listBooting.php:53
 msgid "Get a list of commands from boot process."
-msgstr ""
+msgstr "Obtener la lista de comandos del proceso de arranque."
 
-#: bin/localSQLExec.php:38
-#: bin/queryDB.php:45
-#: bin/queryDB.php:54
+#: bin/localSQLExec.php:38 bin/queryDB.php:45 bin/queryDB.php:54
 msgid "Connection error."
-msgstr ""
+msgstr "Error de conexión."
 
-#: bin/localSQLExec.php:52
-#: bin/localSQLExec.php:51
+#: bin/localSQLExec.php:52 bin/localSQLExec.php:51
 msgid "Do a direct query to the local data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it."
-msgstr ""
+msgstr "Hace una consultar diractamente a la base de datos local. IMPORTANE: Este comando es muy peligroso !! Protegelo con unos permisos restrictivos, solo root debe ejecutarlo."
 
-#: bin/localSQLExec.php:54
-#: bin/queryDB.php:74
-#: bin/localSQLExec.php:53
+#: bin/localSQLExec.php:54 bin/queryDB.php:74 bin/localSQLExec.php:53
 #: bin/queryDB.php:73
 msgid "Query."
-msgstr ""
+msgstr "Consulta."
 
-#: bin/localSQLExec.php:57
-#: bin/queryDB.php:77
-#: bin/localSQLExec.php:56
+#: bin/localSQLExec.php:57 bin/queryDB.php:77 bin/localSQLExec.php:56
 #: bin/queryDB.php:76
 msgid "Array with results."
-msgstr ""
+msgstr "Array con los resultados."
 
 #: bin/man.php:34
 msgid "Command '%s' not found."
-msgstr ""
+msgstr "Comando '%s' no encontrado."
 
 #: bin/man.php:87
 msgid "Unknowed"
-msgstr ""
+msgstr "Desconocido"
 
-#: bin/man.php:111
-#: bin/man.php:86
+#: bin/man.php:111 bin/man.php:86
 msgid "Get help about a command how array. Ex. man ('cmd' => 'man'). Get this help."
-msgstr ""
+msgstr "Obtiene ayuda sobre un comando como array. Ej. man('cmd' => 'man'). Obtiene esta ayuda."
 
-#: bin/man.php:113
-#: bin/whereis.php:60
-#: bin/html/manHTML.php:90
-#: bin/man.php:88
+#: bin/man.php:113 bin/whereis.php:60 bin/html/manHTML.php:90 bin/man.php:88
 #: bin/html/manHTML.php:88
 msgid "The command to query."
-msgstr ""
+msgstr "El comando a consultar."
 
-#: bin/man.php:116
-#: bin/man.php:91
+#: bin/man.php:116 bin/man.php:91
 msgid "The help array."
-msgstr ""
+msgstr "El array de ayuda."
 
 #: bin/modGetMeta.php:46
 msgid "Get meta data from a module."
-msgstr ""
+msgstr "Obtiene los meta datos de un módulo."
 
-#: bin/modGetMeta.php:48
-#: bin/modGetPath.php:44
-#: bin/modGetVersion.php:44
-#: bin/modGetPath.php:43
-#: bin/modGetVersion.php:43
+#: bin/modGetMeta.php:48 bin/modGetPath.php:44 bin/modGetVersion.php:44
+#: bin/modGetPath.php:43 bin/modGetVersion.php:43
 msgid "Module name."
-msgstr ""
+msgstr "Nombre del módulo."
 
-#: bin/modGetPath.php:42
-#: bin/modGetPath.php:41
+#: bin/modGetPath.php:42 bin/modGetPath.php:41
 msgid "Get the instalation path of a module."
-msgstr ""
+msgstr "Obtiene la ruta de instalación de un módulo."
 
-#: bin/modGetPath.php:47
-#: bin/modGetPath.php:46
+#: bin/modGetPath.php:47 bin/modGetPath.php:46
 msgid "Module path."
-msgstr ""
+msgstr "Ruta del módulo."
 
-#: bin/modGetVersion.php:42
-#: bin/modGetVersion.php:41
+#: bin/modGetVersion.php:42 bin/modGetVersion.php:41
 msgid "Get the version of a module."
-msgstr ""
+msgstr "Obtiene la versión de un módulo."
 
-#: bin/modGetVersion.php:47
-#: bin/modGetVersion.php:46
+#: bin/modGetVersion.php:47 bin/modGetVersion.php:46
 msgid "Module version."
-msgstr ""
+msgstr "Versiòn del módulo."
 
 #: bin/modInstall.php:33
 msgid "Module zip file not found."
-msgstr ""
+msgstr "Archivo zip del módulo no encontrado."
 
 #: bin/modInstall.php:36
 msgid "Install path not found."
-msgstr ""
+msgstr "Ruta de instalación no encontrada."
 
 #: bin/modInstall.php:43
 msgid "Install path is in use."
-msgstr ""
+msgstr "La ruta de instalación está en uso."
 
 #: bin/modInstall.php:70
 msgid "Module '%s' is installed with version '%s'."
-msgstr ""
+msgstr "Instalado módulo '%s' con la versión '%s'."
 
-#: bin/modInstall.php:81
-#: bin/modInstall.php:99
+#: bin/modInstall.php:81 bin/modInstall.php:99
 msgid "This module requires '%s' version '%s' and you have version '%s'."
-msgstr ""
+msgstr "Este módulo requiere '%s' versión '%s' y tienes la versión '%s'."
 
 #: bin/modInstall.php:92
 msgid "This module requires '%s' version '%s' and you don't have it."
-msgstr ""
+msgstr "Este módulo requiere '%s' versiòn '%s' y no lo tienes."
 
 #: bin/modInstall.php:256
 msgid "Meta file not found at '%s'. Have the package the correct structure?."
-msgstr ""
+msgstr "Meta archivo no encontrado en '%s'. ¿El paquete tiene la estructura correcta?."
 
-#: bin/modInstall.php:264
-#: bin/modInstall.php:263
+#: bin/modInstall.php:264 bin/modInstall.php:263
 msgid "Install a module."
-msgstr ""
+msgstr "Instala un módulo."
 
-#: bin/modInstall.php:266
-#: bin/modInstallFromGitHub.php:105
-#: bin/modInstall.php:265
-#: bin/modInstallFromGitHub.php:104
+#: bin/modInstall.php:266 bin/modInstallFromGitHub.php:105
+#: bin/modInstall.php:265 bin/modInstallFromGitHub.php:104
 msgid "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"
-msgstr ""
+msgstr "Ruta opcional donde instalar el módulo, relativa al directorio raíz de Pharinix. Si no se define la ruta por defecto es 'usr/'"
 
-#: bin/modInstall.php:267
-#: bin/modInstall.php:266
+#: bin/modInstall.php:267 bin/modInstall.php:266
 msgid "Path to the ZIP file with the new module."
-msgstr ""
+msgstr "Ruta al archivo ZIP con el nuevo módulo."
 
-#: bin/modInstall.php:270
-#: bin/modInstallFromGitHub.php:109
-#: bin/modInstall.php:269
-#: bin/modInstallFromGitHub.php:108
+#: bin/modInstall.php:270 bin/modInstallFromGitHub.php:109
+#: bin/modInstall.php:269 bin/modInstallFromGitHub.php:108
 msgid "TRUE if the installation is OK."
-msgstr ""
+msgstr "TRUE si la instalación tuvo exito."
 
-#: bin/modInstall.php:271
-#: bin/modInstallFromGitHub.php:110
-#: bin/modInstall.php:270
-#: bin/modInstallFromGitHub.php:109
+#: bin/modInstall.php:271 bin/modInstallFromGitHub.php:110
+#: bin/modInstall.php:270 bin/modInstallFromGitHub.php:109
 msgid "If install error this contains the error message."
-msgstr ""
+msgstr "Si hubo errores de instalación contiene el mensaje de error."
 
-#: bin/modInstall.php:272
-#: bin/modInstallFromGitHub.php:111
-#: bin/modInstall.php:271
-#: bin/modInstallFromGitHub.php:110
+#: bin/modInstall.php:272 bin/modInstallFromGitHub.php:111
+#: bin/modInstall.php:271 bin/modInstallFromGitHub.php:110
 msgid "If install ok contains the install path."
-msgstr ""
+msgstr "Si la intalación fue bien contiene la ruta de instalación."
 
-#: bin/modInstalled.php:34
-#: bin/modInstalled.php:33
+#: bin/modInstalled.php:34 bin/modInstalled.php:33
 msgid "List installed modules. Only root can read the list from the database."
-msgstr ""
+msgstr "Lista los módulos instalados. Solo root puede leer la lista desde la base de datos."
 
-#: bin/modInstalled.php:37
-#: bin/modInstalled.php:36
+#: bin/modInstalled.php:37 bin/modInstalled.php:36
 msgid "List of modules."
-msgstr ""
+msgstr "Lista de módulos."
 
 #: bin/modInstallFromGitHub.php:71
 msgid "Wrong git zip structure, meta file not found."
-msgstr ""
+msgstr "Estructura zip de git erronea, meta archivo no encontrado."
 
 #: bin/modInstallFromGitHub.php:75
 msgid "Wrong git zip structure."
-msgstr ""
+msgstr "Estructura zip de git erronea."
 
-#: bin/modInstallFromGitHub.php:103
-#: bin/modInstallFromGitHub.php:102
+#: bin/modInstallFromGitHub.php:103 bin/modInstallFromGitHub.php:102
 msgid "Install a module from GitHub project, it must be from a tag release ZIP file. (Requires cURL.)"
-msgstr ""
+msgstr "Instala un módulo desde un proyecto GitHub, debe ser a partir del archivo ZIP de un tag release. (Requiere cURL.)"
 
-#: bin/modInstallFromGitHub.php:106
-#: bin/modInstallFromGitHub.php:105
+#: bin/modInstallFromGitHub.php:106 bin/modInstallFromGitHub.php:105
 msgid "URL of the module's GitHub ZIP file."
-msgstr ""
+msgstr "URL del archivo ZIP de GitHub del módulo­."
 
 #: bin/modUninstall.php:32
 msgid "Module name is required."
-msgstr ""
+msgstr "Se requiere el nombre del módulo."
 
-#: bin/modUninstall.php:40
-#: bin/gettext/gettextModExtract.php:41
+#: bin/modUninstall.php:40 bin/gettext/gettextModExtract.php:41
 #: bin/gettext/gettextModNodeTypeExtract.php:44
 msgid "Module not found."
-msgstr ""
+msgstr "Módulo no encontrado."
 
 #: bin/modUninstall.php:43
 msgid "Module name is not unique."
-msgstr ""
+msgstr "El nombre del módulo no es unico."
 
-#: bin/modUninstall.php:142
-#: bin/modUninstall.php:141
+#: bin/modUninstall.php:142 bin/modUninstall.php:141
 msgid "Remove a module."
-msgstr ""
+msgstr "Borrar un módulo."
 
-#: bin/modUninstall.php:144
-#: bin/modUninstall.php:143
+#: bin/modUninstall.php:144 bin/modUninstall.php:143
 msgid "Slugname of the module to uninstall."
-msgstr ""
+msgstr "Slugname del módulo a desinstalar."
 
-#: bin/modUninstall.php:147
-#: bin/modUninstall.php:146
+#: bin/modUninstall.php:147 bin/modUninstall.php:146
 msgid "TRUE if the uninstallation is OK."
-msgstr ""
+msgstr "TRUE si la desinstalación tuvo exito."
 
-#: bin/modUninstall.php:148
-#: bin/modUninstall.php:147
+#: bin/modUninstall.php:148 bin/modUninstall.php:147
 msgid "If uninstall error this contains the error message."
-msgstr ""
+msgstr "Si la desinstalación falló contiene el mensaje de error."
 
-#: bin/newID.php:42
-#: bin/newID.php:41
+#: bin/newID.php:42 bin/newID.php:41
 msgid "Return a new unique ID as string."
-msgstr ""
+msgstr "Devuelve la nueva cadena de ID única."
 
-#: bin/newID.php:44
-#: bin/newID.php:43
+#: bin/newID.php:44 bin/newID.php:43
 msgid "The new unique ID string."
-msgstr ""
+msgstr "La nueva cadena de ID única."
 
 #: bin/nothing.php:27
 msgid "I do nothing..."
 msgstr "No hago nada..."
 
-#: bin/nothing.php:33
-#: bin/nothing.php:32
+#: bin/nothing.php:33 bin/nothing.php:32
 msgid "Nothing to do"
 msgstr "No hacer nada"
 
-#: bin/queryDB.php:68
-#: bin/queryDB.php:67
+#: bin/queryDB.php:68 bin/queryDB.php:67
 msgid "Do a direct query to a data base. IMPORTANT: This command is so dangerous !! Protect it with restrictive permissions, only root must execute it."
-msgstr ""
+msgstr "Hace una consulta directa a una base de datos. IMPORTANTE: Este comando es muy peligroso !! Protege este comando con permisos restrictivos, solo root debería ejecutarlo."
 
-#: bin/queryDB.php:70
-#: bin/queryDB.php:69
+#: bin/queryDB.php:70 bin/queryDB.php:69
 msgid "DB host name."
-msgstr ""
+msgstr "Nombre del servidor"
 
-#: bin/queryDB.php:71
-#: bin/queryDB.php:70
+#: bin/queryDB.php:71 bin/queryDB.php:70
 msgid "Database name."
-msgstr ""
+msgstr "Nombre de la base de datos."
 
-#: bin/queryDB.php:72
-#: bin/queryDB.php:71
+#: bin/queryDB.php:72 bin/queryDB.php:71
 msgid "Username."
-msgstr ""
+msgstr "Nombre de usuario."
 
-#: bin/queryDB.php:73
-#: bin/queryDB.php:72
+#: bin/queryDB.php:73 bin/queryDB.php:72
 msgid "Password."
-msgstr ""
+msgstr "Clave."
 
-#: bin/registerDebug.php:39
-#: bin/registerDebug.php:38
+#: bin/registerDebug.php:39 bin/registerDebug.php:38
 msgid "Return the content of the commandDriver register."
-msgstr ""
+msgstr "Devuelve el contenido del registro del controlador de comandos."
 
-#: bin/registerDebug.php:42
-#: bin/registerDebug.php:41
+#: bin/registerDebug.php:42 bin/registerDebug.php:41
 msgid "The commandDriver register array."
-msgstr ""
+msgstr "Arrat del registro del controlador de comandos."
 
-#: bin/sleep.php:45
-#: bin/sleep.php:44
+#: bin/sleep.php:45 bin/sleep.php:44
 msgid "Sleep some seconds, no more that 30s."
-msgstr ""
+msgstr "Duerme algunos segundos, no más de 30s."
 
-#: bin/sleep.php:47
-#: bin/sleep.php:46
+#: bin/sleep.php:47 bin/sleep.php:46
 msgid "Seconds to sleep, no more that 30."
-msgstr ""
+msgstr "Segundos a dormir, no más de 30."
 
-#: bin/timeLimit.php:40
-#: bin/timeLimit.php:39
+#: bin/timeLimit.php:40 bin/timeLimit.php:39
 msgid "Change the PHP execution time limit. WARNING: Handle with care, a bad use of time limit can halt the server."
-msgstr ""
+msgstr "Cambia el limite de tiempo de ejecución de PHP. PELIGRO: Manejar con cuidado, un mal de uso del limite de tiempo puede bloquear el servidor."
 
-#: bin/timeLimit.php:42
-#: bin/timeLimit.php:41
+#: bin/timeLimit.php:42 bin/timeLimit.php:41
 msgid "Seconds of new execution time limit. If is upper of 7200s, or is 0, the limit is set to 7200s."
-msgstr ""
+msgstr "Segundos del nuevo limite de tiempo de ejecución. Si es superior a 7200s, o es 0, el limite se marcará en 7200s."
 
-#: bin/toJson.php:63
-#: bin/toJson.php:62
+#: bin/toJson.php:63 bin/toJson.php:62
 msgid "Translate parameters to JSON string."
 msgstr "Traduce sus parametros a una cadena JSON."
 
-#: bin/toJson.php:68
-#: bin/toJson.php:67
+#: bin/toJson.php:68 bin/toJson.php:67
 msgid "The json string."
 msgstr "La cadena JSON."
 
-#: bin/trace.php:46
-#: bin/trace.php:45
+#: bin/trace.php:46 bin/trace.php:45
 msgid "Add a new trace message"
-msgstr ""
+msgstr "Añade un nuevo mensaje de traza."
 
-#: bin/trace.php:48
-#: bin/trace.php:47
+#: bin/trace.php:48 bin/trace.php:47
 msgid "Executed command"
-msgstr ""
+msgstr "Executa un comando"
 
-#: bin/trace.php:49
-#: bin/trace.php:48
+#: bin/trace.php:49 bin/trace.php:48
 msgid "Array of original parameters"
-msgstr ""
+msgstr "Array de parámetros originales"
 
-#: bin/trace.php:50
-#: bin/trace.php:49
+#: bin/trace.php:50 bin/trace.php:49
 msgid "Array of responses"
-msgstr ""
+msgstr "Array de respuestas"
 
-#: bin/usageEnd.php:53
-#: bin/usageEnd.php:52
+#: bin/usageEnd.php:53 bin/usageEnd.php:52
 msgid "Capture final resources consumed"
-msgstr ""
+msgstr "Captura los recursos consumidos al final"
 
 #: bin/whereis.php:43
 msgid "Command not found."
-msgstr ""
+msgstr "Comando no encontrado."
 
 #: bin/whereis.php:58
 msgid "Get path where a command is."
-msgstr ""
+msgstr "Obtiene la ruta donde se encuentra el comando."
 
 #: bin/whereis.php:63
 msgid "The command's path."
-msgstr ""
+msgstr "La ruta del comando."
 
-#: bin/cfg/cfgAddComment.php:33
-#: bin/cfg/cfgAddPath.php:38
-#: bin/cfg/cfgDelComment.php:33
-#: bin/cfg/cfgDelKey.php:33
-#: bin/cfg/cfgDelPath.php:35
-#: bin/cfg/cfgDelSection.php:32
-#: bin/cfg/cfgGetKeys.php:32
-#: bin/cfg/cfgGetPath.php:29
-#: bin/cfg/cfgGetValue.php:33
-#: bin/cfg/cfgSetValue.php:34
+#: bin/cfg/cfgAddComment.php:33 bin/cfg/cfgAddPath.php:38
+#: bin/cfg/cfgDelComment.php:33 bin/cfg/cfgDelKey.php:33
+#: bin/cfg/cfgDelPath.php:35 bin/cfg/cfgDelSection.php:32
+#: bin/cfg/cfgGetKeys.php:32 bin/cfg/cfgGetPath.php:29
+#: bin/cfg/cfgGetValue.php:33 bin/cfg/cfgSetValue.php:34
 msgid "Section not found."
-msgstr ""
+msgstr "Secciòn no encontrada."
 
-#: bin/cfg/cfgAddComment.php:44
-#: bin/cfg/cfgAddComment.php:43
+#: bin/cfg/cfgAddComment.php:44 bin/cfg/cfgAddComment.php:43
 msgid "Add a comment to configuration."
-msgstr ""
+msgstr "Añade un comentario en la configuración."
 
-#: bin/cfg/cfgAddComment.php:46
-#: bin/cfg/cfgDelComment.php:46
-#: bin/cfg/cfgDelKey.php:46
-#: bin/cfg/cfgDelSection.php:43
-#: bin/cfg/cfgAddComment.php:45
-#: bin/cfg/cfgDelComment.php:45
-#: bin/cfg/cfgDelKey.php:45
-#: bin/cfg/cfgDelSection.php:42
+#: bin/cfg/cfgAddComment.php:46 bin/cfg/cfgDelComment.php:46
+#: bin/cfg/cfgDelKey.php:46 bin/cfg/cfgDelSection.php:43
+#: bin/cfg/cfgAddComment.php:45 bin/cfg/cfgDelComment.php:45
+#: bin/cfg/cfgDelKey.php:45 bin/cfg/cfgDelSection.php:42
 msgid "Section."
-msgstr ""
+msgstr "Sección."
 
-#: bin/cfg/cfgAddComment.php:47
-#: bin/cfg/cfgAddComment.php:46
+#: bin/cfg/cfgAddComment.php:47 bin/cfg/cfgAddComment.php:46
 msgid "Configuration comment."
-msgstr ""
+msgstr "Comentario de configuración."
 
-#: bin/cfg/cfgAddPath.php:31
-#: bin/cfg/cfgDelPath.php:31
+#: bin/cfg/cfgAddPath.php:31 bin/cfg/cfgDelPath.php:31
 msgid "Path required."
-msgstr ""
+msgstr "Ruta requerida."
 
 #: bin/cfg/cfgAddPath.php:34
 msgid "Path not found."
-msgstr ""
+msgstr "Ruta no encontrada."
 
 #: bin/cfg/cfgAddPath.php:44
 msgid "Path included."
-msgstr ""
+msgstr "Ruta incluida."
 
-#: bin/cfg/cfgAddPath.php:59
-#: bin/cfg/cfgAddPath.php:58
+#: bin/cfg/cfgAddPath.php:59 bin/cfg/cfgAddPath.php:58
 msgid "Add a new command path."
-msgstr ""
+msgstr "Añade una nueva ruta de comandos."
 
-#: bin/cfg/cfgAddPath.php:61
-#: bin/cfg/cfgAddPath.php:60
+#: bin/cfg/cfgAddPath.php:61 bin/cfg/cfgAddPath.php:60
 msgid "New path to add."
-msgstr ""
+msgstr "Nueva ruta a añadir."
 
-#: bin/cfg/cfgAddPath.php:64
-#: bin/cfg/cfgDelPath.php:62
-#: bin/cfg/cfgGetPath.php:47
-#: bin/cfg/cfgAddPath.php:63
-#: bin/cfg/cfgDelPath.php:61
-#: bin/cfg/cfgGetPath.php:46
+#: bin/cfg/cfgAddPath.php:64 bin/cfg/cfgDelPath.php:62
+#: bin/cfg/cfgGetPath.php:47 bin/cfg/cfgAddPath.php:63
+#: bin/cfg/cfgDelPath.php:61 bin/cfg/cfgGetPath.php:46
 msgid "Value of commands path."
-msgstr ""
+msgstr "Valor de la ruta de comandos."
 
 #: bin/cfg/cfgAddSection.php:32
 msgid "Section found."
-msgstr ""
+msgstr "Sección encontrada."
 
-#: bin/cfg/cfgAddSection.php:41
-#: bin/cfg/cfgAddSection.php:40
+#: bin/cfg/cfgAddSection.php:41 bin/cfg/cfgAddSection.php:40
 msgid "Add a new section to configuration."
-msgstr ""
+msgstr "Añade una nueva sección a la configuración."
 
-#: bin/cfg/cfgAddSection.php:43
-#: bin/cfg/cfgAddSection.php:42
+#: bin/cfg/cfgAddSection.php:43 bin/cfg/cfgAddSection.php:42
 msgid "Section name, it must be \"[name]\"."
-msgstr ""
+msgstr "Nombre de sección, debe ser \"[nombre]\"."
 
-#: bin/cfg/cfgDelComment.php:44
-#: bin/cfg/cfgDelComment.php:43
+#: bin/cfg/cfgDelComment.php:44 bin/cfg/cfgDelComment.php:43
 msgid "Del a comment to configuration."
-msgstr ""
+msgstr "Borra un comentario de configuración."
 
-#: bin/cfg/cfgDelComment.php:47
-#: bin/cfg/cfgDelComment.php:46
+#: bin/cfg/cfgDelComment.php:47 bin/cfg/cfgDelComment.php:46
 msgid "Configuration comment to delete."
-msgstr ""
+msgstr "Comentario de configuración a borrar."
 
-#: bin/cfg/cfgDelKey.php:44
-#: bin/cfg/cfgDelKey.php:43
+#: bin/cfg/cfgDelKey.php:44 bin/cfg/cfgDelKey.php:43
 msgid "Del a key/value of configuration."
-msgstr ""
+msgstr "Borrar una clave/valor de configuración."
 
-#: bin/cfg/cfgDelKey.php:47
-#: bin/cfg/cfgDelKey.php:46
+#: bin/cfg/cfgDelKey.php:47 bin/cfg/cfgDelKey.php:46
 msgid "Configuration key to delete."
-msgstr ""
+msgstr "Clave de configuración a borrar."
 
-#: bin/cfg/cfgDelPath.php:57
-#: bin/cfg/cfgDelPath.php:56
+#: bin/cfg/cfgDelPath.php:57 bin/cfg/cfgDelPath.php:56
 msgid "Delete a commands path."
-msgstr ""
+msgstr "Borrar una ruta de comandos."
 
-#: bin/cfg/cfgDelPath.php:59
-#: bin/cfg/cfgDelPath.php:58
+#: bin/cfg/cfgDelPath.php:59 bin/cfg/cfgDelPath.php:58
 msgid "Path to erase."
-msgstr ""
+msgstr "Ruta a borrar."
 
-#: bin/cfg/cfgDelSection.php:41
-#: bin/cfg/cfgDelSection.php:40
+#: bin/cfg/cfgDelSection.php:41 bin/cfg/cfgDelSection.php:40
 msgid "Del a section of configuration, and all her content."
-msgstr ""
+msgstr "Borra una sección de configuración, y todo su contenido."
 
-#: bin/cfg/cfgGetConfigPath.php:36
-#: bin/cfg/cfgGetConfigPath.php:35
+#: bin/cfg/cfgGetConfigPath.php:36 bin/cfg/cfgGetConfigPath.php:35
 msgid "Return configuration file path."
-msgstr ""
+msgstr "Devuelve la ruta del archivo de configuración."
 
-#: bin/cfg/cfgGetConfigPath.php:39
-#: bin/cfg/cfgGetConfigPath.php:38
+#: bin/cfg/cfgGetConfigPath.php:39 bin/cfg/cfgGetConfigPath.php:38
 msgid "Configuration file path."
-msgstr ""
+msgstr "Ruta de archivo de configuración."
 
-#: bin/cfg/cfgGetKeys.php:46
-#: bin/cfg/cfgGetKeys.php:45
+#: bin/cfg/cfgGetKeys.php:46 bin/cfg/cfgGetKeys.php:45
 msgid "Return a list of keys in a section in configuration."
-msgstr ""
+msgstr "Devuelve una lista de claves en la sección de configuración."
 
-#: bin/cfg/cfgGetKeys.php:48
-#: bin/cfg/cfgGetValue.php:50
-#: bin/cfg/cfgSetValue.php:45
-#: bin/cfg/cfgGetKeys.php:47
-#: bin/cfg/cfgGetValue.php:49
-#: bin/cfg/cfgSetValue.php:44
+#: bin/cfg/cfgGetKeys.php:48 bin/cfg/cfgGetValue.php:50
+#: bin/cfg/cfgSetValue.php:45 bin/cfg/cfgGetKeys.php:47
+#: bin/cfg/cfgGetValue.php:49 bin/cfg/cfgSetValue.php:44
 msgid "Section to list."
-msgstr ""
+msgstr "Sección a listar."
 
-#: bin/cfg/cfgGetPath.php:33
-#: bin/cfg/cfgGetValue.php:37
+#: bin/cfg/cfgGetPath.php:33 bin/cfg/cfgGetValue.php:37
 msgid "Key not found."
-msgstr ""
+msgstr "Clave no encontrada."
 
-#: bin/cfg/cfgGetPath.php:44
-#: bin/cfg/cfgGetPath.php:43
+#: bin/cfg/cfgGetPath.php:44 bin/cfg/cfgGetPath.php:43
 msgid "Return commands path."
-msgstr ""
+msgstr "Devuelve la ruta de comandos."
 
-#: bin/cfg/cfgGetSections.php:36
-#: bin/cfg/cfgGetSections.php:35
+#: bin/cfg/cfgGetSections.php:36 bin/cfg/cfgGetSections.php:35
 msgid "Return a list of sections in configuration."
-msgstr ""
+msgstr "Devuelve una lista de secciones en la configuración."
 
-#: bin/cfg/cfgGetSections.php:39
-#: bin/cfg/cfgGetSections.php:38
+#: bin/cfg/cfgGetSections.php:39 bin/cfg/cfgGetSections.php:38
 msgid "Array of section names."
-msgstr ""
+msgstr "Arraay de nombres de sección."
 
-#: bin/cfg/cfgGetValue.php:48
-#: bin/cfg/cfgGetValue.php:47
+#: bin/cfg/cfgGetValue.php:48 bin/cfg/cfgGetValue.php:47
 msgid "Return value of a configuration."
-msgstr ""
+msgstr "Devuelve el valor de una configuración."
 
-#: bin/cfg/cfgGetValue.php:51
-#: bin/cfg/cfgGetValue.php:50
+#: bin/cfg/cfgGetValue.php:51 bin/cfg/cfgGetValue.php:50
 msgid "Key to read."
-msgstr ""
+msgstr "Clave a leer."
 
-#: bin/cfg/cfgGetValue.php:54
-#: bin/cfg/cfgGetValue.php:53
+#: bin/cfg/cfgGetValue.php:54 bin/cfg/cfgGetValue.php:53
 msgid "Value of configuration."
-msgstr ""
+msgstr "Valor de configuración."
 
-#: bin/cfg/cfgSetValue.php:43
-#: bin/cfg/cfgSetValue.php:42
+#: bin/cfg/cfgSetValue.php:43 bin/cfg/cfgSetValue.php:42
 msgid "Set, or add, a value of configuration."
-msgstr ""
+msgstr "Modifica, o añade, un valor de configuración."
 
-#: bin/cfg/cfgSetValue.php:46
-#: bin/cfg/cfgSetValue.php:45
+#: bin/cfg/cfgSetValue.php:46 bin/cfg/cfgSetValue.php:45
 msgid "Configuration key."
-msgstr ""
+msgstr "Clave de configuración."
 
-#: bin/cfg/cfgSetValue.php:47
-#: bin/cfg/cfgSetValue.php:46
+#: bin/cfg/cfgSetValue.php:47 bin/cfg/cfgSetValue.php:46
 msgid "Value to write."
-msgstr ""
+msgstr "Valor a escribir."
 
 #: bin/gettext/gettextCoreExtract.php:106
 #: bin/gettext/gettextCoreExtract.php:105
-#: bin/gettext/gettextCoreExtract.php:84
-#: bin/gettext/gettextCoreExtract.php:83
+#: bin/gettext/gettextCoreExtract.php:84 bin/gettext/gettextCoreExtract.php:83
 msgid "Scan Pharinix to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
-msgstr ""
+msgstr "Escanea Pharinix para encontrar texto en funciones gettext: __(), __e(), n__(), n__e(), p__(), p__e(). Esto explora todos los archivos PHP y JS."
 
-#: bin/gettext/gettextCoreExtract.php:108
-#: bin/gettext/gettextExtract.php:133
+#: bin/gettext/gettextCoreExtract.php:108 bin/gettext/gettextExtract.php:133
 #: bin/gettext/gettextModExtract.php:102
 #: bin/gettext/gettextModNodeTypeExtract.php:79
 #: bin/gettext/gettextNodeTypeExtract.php:106
-#: bin/gettext/gettextCoreExtract.php:107
-#: bin/gettext/gettextExtract.php:119
+#: bin/gettext/gettextCoreExtract.php:107 bin/gettext/gettextExtract.php:119
 #: bin/gettext/gettextModExtract.php:101
 #: bin/gettext/gettextModNodeTypeExtract.php:78
 #: bin/gettext/gettextNodeTypeExtract.php:105
-#: bin/gettext/gettextCoreExtract.php:86
-#: bin/gettext/gettextExtract.php:116
-#: bin/gettext/gettextModExtract.php:97
-#: bin/gettext/gettextCoreExtract.php:85
+#: bin/gettext/gettextCoreExtract.php:86 bin/gettext/gettextExtract.php:116
+#: bin/gettext/gettextModExtract.php:97 bin/gettext/gettextCoreExtract.php:85
 #: bin/gettext/gettextExtract.php:115
 msgid "Language code of the file."
-msgstr ""
+msgstr "Código de idioma del archivo."
 
-#: bin/gettext/gettextCoreExtract.php:109
-#: bin/gettext/gettextExtract.php:135
+#: bin/gettext/gettextCoreExtract.php:109 bin/gettext/gettextExtract.php:135
 #: bin/gettext/gettextModExtract.php:103
 #: bin/gettext/gettextModNodeTypeExtract.php:80
 #: bin/gettext/gettextNodeTypeExtract.php:108
-#: bin/gettext/gettextCoreExtract.php:108
-#: bin/gettext/gettextExtract.php:121
+#: bin/gettext/gettextCoreExtract.php:108 bin/gettext/gettextExtract.php:121
 #: bin/gettext/gettextModExtract.php:102
 #: bin/gettext/gettextModNodeTypeExtract.php:79
 #: bin/gettext/gettextNodeTypeExtract.php:107
-#: bin/gettext/gettextCoreExtract.php:87
-#: bin/gettext/gettextExtract.php:118
-#: bin/gettext/gettextModExtract.php:98
-#: bin/gettext/gettextCoreExtract.php:86
+#: bin/gettext/gettextCoreExtract.php:87 bin/gettext/gettextExtract.php:118
+#: bin/gettext/gettextModExtract.php:98 bin/gettext/gettextCoreExtract.php:86
 #: bin/gettext/gettextExtract.php:117
 msgid "Contact information to report translation bugs."
-msgstr ""
+msgstr "Información de contacto donde reportar fallos de traducción."
 
-#: bin/gettext/gettextCoreExtract.php:110
-#: bin/gettext/gettextExtract.php:136
+#: bin/gettext/gettextCoreExtract.php:110 bin/gettext/gettextExtract.php:136
 #: bin/gettext/gettextModExtract.php:104
 #: bin/gettext/gettextModNodeTypeExtract.php:81
 #: bin/gettext/gettextNodeTypeExtract.php:109
-#: bin/gettext/gettextCoreExtract.php:109
-#: bin/gettext/gettextExtract.php:122
+#: bin/gettext/gettextCoreExtract.php:109 bin/gettext/gettextExtract.php:122
 #: bin/gettext/gettextModExtract.php:103
 #: bin/gettext/gettextModNodeTypeExtract.php:80
 #: bin/gettext/gettextNodeTypeExtract.php:108
-#: bin/gettext/gettextCoreExtract.php:88
-#: bin/gettext/gettextExtract.php:119
-#: bin/gettext/gettextModExtract.php:99
-#: bin/gettext/gettextCoreExtract.php:87
+#: bin/gettext/gettextCoreExtract.php:88 bin/gettext/gettextExtract.php:119
+#: bin/gettext/gettextModExtract.php:99 bin/gettext/gettextCoreExtract.php:87
 #: bin/gettext/gettextExtract.php:118
 msgid "Last translator name and mail."
-msgstr ""
+msgstr "Nombre y correo del último traductor."
 
-#: bin/gettext/gettextCoreExtract.php:111
-#: bin/gettext/gettextExtract.php:137
+#: bin/gettext/gettextCoreExtract.php:111 bin/gettext/gettextExtract.php:137
 #: bin/gettext/gettextModExtract.php:105
 #: bin/gettext/gettextModNodeTypeExtract.php:82
 #: bin/gettext/gettextNodeTypeExtract.php:110
-#: bin/gettext/gettextCoreExtract.php:110
-#: bin/gettext/gettextExtract.php:123
+#: bin/gettext/gettextCoreExtract.php:110 bin/gettext/gettextExtract.php:123
 #: bin/gettext/gettextModExtract.php:104
 #: bin/gettext/gettextModNodeTypeExtract.php:81
 #: bin/gettext/gettextNodeTypeExtract.php:109
-#: bin/gettext/gettextCoreExtract.php:89
-#: bin/gettext/gettextExtract.php:120
+#: bin/gettext/gettextCoreExtract.php:89 bin/gettext/gettextExtract.php:120
 #: bin/gettext/gettextModExtract.php:100
 msgid "Language team."
-msgstr ""
+msgstr "Equipo de idioma."
 
 #: bin/gettext/gettextCoreExtract.php:114
 #: bin/gettext/gettextModExtract.php:108
 #: bin/gettext/gettextCoreExtract.php:113
-#: bin/gettext/gettextModExtract.php:107
-#: bin/gettext/gettextCoreExtract.php:92
+#: bin/gettext/gettextModExtract.php:107 bin/gettext/gettextCoreExtract.php:92
 #: bin/gettext/gettextModExtract.php:103
 msgid "Information about each folder scan."
-msgstr ""
+msgstr "Información sobre cada directorio escaneado."
 
-#: bin/gettext/gettextExtract.php:38
-#: bin/gettext/gettextGetTranslation.php:32
-#: bin/gettext/gettextNodeTypeExtract.php:38
-#: bin/gettext/gettextExtract.php:33
+#: bin/gettext/gettextExtract.php:38 bin/gettext/gettextGetTranslation.php:32
+#: bin/gettext/gettextNodeTypeExtract.php:38 bin/gettext/gettextExtract.php:33
 msgid "PO file is required."
-msgstr ""
+msgstr "Archivo PO requerido."
 
 #: bin/gettext/gettextExtract.php:98
 #: bin/gettext/gettextGetCoreTranslation.php:49
 #: bin/gettext/gettextGetTranslation.php:47
 #: bin/gettext/gettextNodeTypeExtract.php:96
 #: bin/gettext/gettextSetCoreTranslation.php:57
-#: bin/gettext/gettextExtract.php:85
-#: bin/gettext/gettextExtract.php:82
+#: bin/gettext/gettextExtract.php:85 bin/gettext/gettextExtract.php:82
 #: bin/gettext/gettextGetCoreTranslation.php:47
-#: bin/gettext/gettextExtract.php:81
-#: bin/gettext/gettextExtract.php:68
+#: bin/gettext/gettextExtract.php:81 bin/gettext/gettextExtract.php:68
 msgid "PO file is not writable."
-msgstr ""
+msgstr "No se puede escribir archivo PO."
 
 #: bin/gettext/gettextExtract.php:130
 msgid "Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP, HTML, HTM and JS files, HTML and HTM files will be explored how a PHP file, please, don't insert JavaScript in it."
-msgstr ""
+msgstr "Escanea un directorio para encontrar texto en funciones gettext: __(), __e(), n__(), n__e(), p__(), p__e(). Esto explora todos los archivos PHP, HTML, HTM y JS, los archivos HTML y HTM serán explorados como archivos PHP, por favor, no inserte JavaScript en él."
 
-#: bin/gettext/gettextExtract.php:132
-#: bin/gettext/gettextExtract.php:118
-#: bin/gettext/gettextExtract.php:115
-#: bin/gettext/gettextExtract.php:114
+#: bin/gettext/gettextExtract.php:132 bin/gettext/gettextExtract.php:118
+#: bin/gettext/gettextExtract.php:115 bin/gettext/gettextExtract.php:114
 #: bin/gettext/gettextExtract.php:101
 msgid "Root file path to scan, relative to Pharinix root folder."
-msgstr ""
+msgstr "Ruta raíz de archivo a escanear, relativa al directorio raíz de Pharinix."
 
 #: bin/gettext/gettextExtract.php:134
 #: bin/gettext/gettextNodeTypeExtract.php:107
 #: bin/gettext/gettextExtract.php:120
 #: bin/gettext/gettextNodeTypeExtract.php:106
-#: bin/gettext/gettextExtract.php:117
-#: bin/gettext/gettextExtract.php:116
+#: bin/gettext/gettextExtract.php:117 bin/gettext/gettextExtract.php:116
 msgid "Translated software version."
-msgstr ""
+msgstr "Versión de software traducida."
 
 #: bin/gettext/gettextExtract.php:138
 #: bin/gettext/gettextNodeTypeExtract.php:111
@@ -1333,7 +1052,7 @@ msgstr ""
 #: bin/gettext/gettextNodeTypeExtract.php:110
 #: bin/gettext/gettextExtract.php:121
 msgid "PO file where write results."
-msgstr ""
+msgstr "Archivo PO donde escribir resultados."
 
 #: bin/gettext/gettextExtract.php:141
 #: bin/gettext/gettextModNodeTypeExtract.php:85
@@ -1341,12 +1060,10 @@ msgstr ""
 #: bin/gettext/gettextExtract.php:127
 #: bin/gettext/gettextModNodeTypeExtract.php:84
 #: bin/gettext/gettextNodeTypeExtract.php:113
-#: bin/gettext/gettextExtract.php:124
-#: bin/gettext/gettextCoreExtract.php:91
-#: bin/gettext/gettextExtract.php:123
-#: bin/gettext/gettextExtract.php:105
+#: bin/gettext/gettextExtract.php:124 bin/gettext/gettextCoreExtract.php:91
+#: bin/gettext/gettextExtract.php:123 bin/gettext/gettextExtract.php:105
 msgid "Number of items before scan."
-msgstr ""
+msgstr "Número de elementos antes del escaneado."
 
 #: bin/gettext/gettextExtract.php:142
 #: bin/gettext/gettextModNodeTypeExtract.php:86
@@ -1354,23 +1071,21 @@ msgstr ""
 #: bin/gettext/gettextExtract.php:128
 #: bin/gettext/gettextModNodeTypeExtract.php:85
 #: bin/gettext/gettextNodeTypeExtract.php:114
-#: bin/gettext/gettextExtract.php:125
-#: bin/gettext/gettextCoreExtract.php:92
-#: bin/gettext/gettextExtract.php:124
-#: bin/gettext/gettextExtract.php:106
+#: bin/gettext/gettextExtract.php:125 bin/gettext/gettextCoreExtract.php:92
+#: bin/gettext/gettextExtract.php:124 bin/gettext/gettextExtract.php:106
 msgid "Number of items after scan."
-msgstr ""
+msgstr "Número de elementos despues del escaneado."
 
 #: bin/gettext/gettextGetCoreTranslation.php:32
 #: bin/gettext/gettextSetCoreTranslation.php:34
 msgid "Language is required."
-msgstr ""
+msgstr "Idioma es requerido."
 
 #: bin/gettext/gettextGetCoreTranslation.php:56
 #: bin/gettext/gettextGetCoreTranslation.php:55
 #: bin/gettext/gettextGetCoreTranslation.php:53
 msgid "Return all Pharinix translation items."
-msgstr ""
+msgstr "Devuelve todos los elementos de traducción de Pharinix."
 
 #: bin/gettext/gettextGetCoreTranslation.php:58
 #: bin/gettext/gettextSetCoreTranslation.php:66
@@ -1378,7 +1093,7 @@ msgstr ""
 #: bin/gettext/gettextSetCoreTranslation.php:65
 #: bin/gettext/gettextGetCoreTranslation.php:55
 msgid "Language code."
-msgstr ""
+msgstr "Código de idioma."
 
 #: bin/gettext/gettextGetCoreTranslation.php:61
 #: bin/gettext/gettextGetTranslation.php:59
@@ -1386,1013 +1101,879 @@ msgstr ""
 #: bin/gettext/gettextGetTranslation.php:58
 #: bin/gettext/gettextGetCoreTranslation.php:58
 msgid "List of items translated."
-msgstr ""
+msgstr "Lista de elementos traducidos."
 
 #: bin/gettext/gettextGetTranslation.php:54
 #: bin/gettext/gettextGetTranslation.php:53
 msgid "Return all translation items."
-msgstr ""
+msgstr "Devuelve todos los elementos de traducción."
 
 #: bin/gettext/gettextGetTranslation.php:56
 #: bin/gettext/gettextGetTranslation.php:55
 msgid "PO file to read."
-msgstr ""
+msgstr "Archivo PO a leer."
 
-#: bin/gettext/gettextModExtract.php:99
-#: bin/gettext/gettextModExtract.php:98
+#: bin/gettext/gettextModExtract.php:99 bin/gettext/gettextModExtract.php:98
 #: bin/gettext/gettextModExtract.php:94
 msgid "Scan a module to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
-msgstr ""
+msgstr "Escanea un módulo para encontrar texto en funciones gettext: __(), __e(), n__(), n__e(), p__(), p__e(). Esto explora todos los archivos PHP y JS."
 
-#: bin/gettext/gettextModExtract.php:101
-#: bin/gettext/gettextModExtract.php:100
+#: bin/gettext/gettextModExtract.php:101 bin/gettext/gettextModExtract.php:100
 #: bin/gettext/gettextModExtract.php:96
 msgid "Module slug name."
-msgstr ""
+msgstr "Slugname de módulo."
 
 #: bin/gettext/gettextModNodeTypeExtract.php:36
-#: bin/gettext/gettextNodeTypeExtract.php:42
-#: bin/node_type/chmodNode.php:55
+#: bin/gettext/gettextNodeTypeExtract.php:42 bin/node_type/chmodNode.php:55
 #: bin/node_type/chownNode.php:64
 msgid "Node type is required."
-msgstr ""
+msgstr "Tipo de nodo requerido."
 
 #: bin/gettext/gettextModNodeTypeExtract.php:76
 #: bin/gettext/gettextModNodeTypeExtract.php:75
 msgid "Scan the module's node types to find text in labels and help literals. This use the meta.json file to select node types to explore."
-msgstr ""
+msgstr "Escanea un tipo de nodo de módulo para encontrar texto en literales de etiquetas y ayuda. Esto usa el archivo meta.json para seleccionar los tipos de nodo a explorar."
 
 #: bin/gettext/gettextModNodeTypeExtract.php:78
 #: bin/gettext/gettextModNodeTypeExtract.php:77
 msgid "Module to explore."
-msgstr ""
+msgstr "Módulo a explorar."
 
 #: bin/gettext/gettextNodeTypeExtract.php:103
 #: bin/gettext/gettextNodeTypeExtract.php:102
 msgid "Scan a node type to find text in labels and help literals."
-msgstr ""
+msgstr "Escanea un tipo de nodo para encontrar texto en literales de etiquetas y ayuda."
 
 #: bin/gettext/gettextNodeTypeExtract.php:105
 #: bin/gettext/gettextNodeTypeExtract.php:104
 msgid "Node type to explore."
-msgstr ""
+msgstr "Explora un tipo de nodo."
 
 #: bin/gettext/gettextSetCoreTranslation.php:38
 msgid "Original text is required."
-msgstr ""
+msgstr "Texto original es requerido."
 
 #: bin/gettext/gettextSetCoreTranslation.php:53
 msgid "Original text not found."
-msgstr ""
+msgstr "Texto original no encontrado."
 
 #: bin/gettext/gettextSetCoreTranslation.php:64
 #: bin/gettext/gettextSetCoreTranslation.php:63
 msgid "Save a translation and compile in a MO file."
-msgstr ""
+msgstr "Guarda una traducción y compila en un archivo MO."
 
 #: bin/gettext/gettextSetCoreTranslation.php:67
 #: bin/gettext/gettextSetCoreTranslation.php:66
 msgid "Orinignal, english, text."
-msgstr ""
+msgstr "Texto, inglés, original."
 
 #: bin/gettext/gettextSetCoreTranslation.php:68
 #: bin/gettext/gettextSetCoreTranslation.php:67
 msgid "Tranlated text."
-msgstr ""
+msgstr "Texto traducido."
 
-#: bin/gettext/gettextSetCoreTranslation.php:71
-#: bin/user/setMyLang.php:73
-#: bin/gettext/gettextSetCoreTranslation.php:70
-#: bin/user/setMyLang.php:72
+#: bin/gettext/gettextSetCoreTranslation.php:71 bin/user/setMyLang.php:73
+#: bin/gettext/gettextSetCoreTranslation.php:70 bin/user/setMyLang.php:72
 msgid "TRUE if ok."
-msgstr ""
+msgstr "TRUE si fue bien."
 
 #: bin/html/addBlockToPage.php:42
 msgid "Page not found"
-msgstr ""
+msgstr "Página no encontrada."
 
-#: bin/html/addBlockToPage.php:63
-#: bin/html/addBlockToPage.php:62
+#: bin/html/addBlockToPage.php:63 bin/html/addBlockToPage.php:62
 msgid "Add a block to a page."
-msgstr ""
+msgstr "Añade un bloque a una página."
 
-#: bin/html/addBlockToPage.php:65
-#: bin/html/addBlockToPage.php:64
+#: bin/html/addBlockToPage.php:65 bin/html/addBlockToPage.php:64
 msgid "Name ID of page."
-msgstr ""
+msgstr "Nombre de página."
 
-#: bin/html/addBlockToPage.php:66
-#: bin/html/addBlockToPage.php:65
+#: bin/html/addBlockToPage.php:66 bin/html/addBlockToPage.php:65
 msgid "Column ID where put the block."
-msgstr ""
+msgstr "ID de columna donde poner el bloque."
 
-#: bin/html/addBlockToPage.php:67
-#: bin/html/addBlockToPage.php:66
+#: bin/html/addBlockToPage.php:67 bin/html/addBlockToPage.php:66
 msgid "Command to execute."
-msgstr ""
+msgstr "Comando a ejecutar."
 
-#: bin/html/addBlockToPage.php:68
-#: bin/html/addBlockToPage.php:67
+#: bin/html/addBlockToPage.php:68 bin/html/addBlockToPage.php:67
 msgid "Parameters of command, it must be a URL encoded string."
-msgstr ""
+msgstr "Parámetros de comando, debe ser una cadena codificada como URL."
 
-#: bin/html/addBlockToPage.php:69
-#: bin/html/addBlockToPage.php:68
+#: bin/html/addBlockToPage.php:69 bin/html/addBlockToPage.php:68
 msgid "Order of blocks. Default 0, first."
-msgstr ""
+msgstr "Orden de bloques. Por defecto 0, el primero."
 
-#: bin/html/addPage.php:44
-#: bin/html/pageToHTML.php:165
+#: bin/html/addPage.php:44 bin/html/pageToHTML.php:165
 msgid "Page template '%s' not found."
-msgstr ""
+msgstr "Plantilla de página '%s' no encontrada."
 
 #: bin/html/addPage.php:48
 msgid "Page need a unique name."
-msgstr ""
+msgstr "La página necesita un nombre único."
 
 #: bin/html/addPage.php:54
 msgid "Page name just exist."
-msgstr ""
+msgstr "El nombre de página ya existe."
 
-#: bin/html/addPage.php:85
-#: bin/html/addPage.php:84
+#: bin/html/addPage.php:85 bin/html/addPage.php:84
 msgid "Add a new page."
-msgstr ""
+msgstr "Añade una nueva página."
 
-#: bin/html/addPage.php:87
-#: bin/html/delPage.php:56
-#: bin/html/addPage.php:86
+#: bin/html/addPage.php:87 bin/html/delPage.php:56 bin/html/addPage.php:86
 #: bin/html/delPage.php:55
 msgid "ID of page."
-msgstr ""
+msgstr "ID de página."
 
-#: bin/html/addPage.php:88
-#: bin/html/addPage.php:87
+#: bin/html/addPage.php:88 bin/html/addPage.php:87
 msgid "Optional, path to the XML template file."
-msgstr ""
+msgstr "Opcional, ruta del archivo XML de plantilla."
 
-#: bin/html/addPage.php:89
-#: bin/html/addPage.php:88
+#: bin/html/addPage.php:89 bin/html/addPage.php:88
 msgid "Page title."
-msgstr ""
+msgstr "Titulo de página."
 
-#: bin/html/addPage.php:90
-#: bin/html/addPage.php:89
+#: bin/html/addPage.php:90 bin/html/addPage.php:89
 msgid "Page description."
-msgstr ""
+msgstr "Descripción de página."
 
-#: bin/html/addPage.php:91
-#: bin/html/addPage.php:90
+#: bin/html/addPage.php:91 bin/html/addPage.php:90
 msgid "Page meta key words."
-msgstr ""
+msgstr "Meta palabras clave de página."
 
-#: bin/html/addPage.php:92
-#: bin/html/addPage.php:91
+#: bin/html/addPage.php:92 bin/html/addPage.php:91
 msgid "Optional page URL."
-msgstr ""
+msgstr "URL de página opcional."
 
 #: bin/html/commandHelp.php:28
 msgid "Command's list"
-msgstr ""
+msgstr "Lista de comandos."
 
-#: bin/html/commandHelp.php:30
-#: bin/html/commandHelpWikiExport.php:41
+#: bin/html/commandHelp.php:30 bin/html/commandHelpWikiExport.php:41
 msgid "Module '%s'"
-msgstr ""
+msgstr "Módulo '%s'"
 
-#: bin/html/commandHelp.php:32
-#: bin/html/commandHelpWikiExport.php:43
+#: bin/html/commandHelp.php:32 bin/html/commandHelpWikiExport.php:43
 msgid "Licence: %s"
-msgstr ""
+msgstr "Licencia: '%s'"
 
-#: bin/html/commandHelp.php:35
-#: bin/html/commandHelpWikiExport.php:45
+#: bin/html/commandHelp.php:35 bin/html/commandHelpWikiExport.php:45
 msgid "%s version %s, %s"
-msgstr ""
+msgstr "%s versión %s, %s"
 
-#: bin/html/commandHelp.php:42
-#: bin/html/commandHelpWikiExport.php:49
+#: bin/html/commandHelp.php:42 bin/html/commandHelpWikiExport.php:49
 msgid "See more information."
-msgstr ""
+msgstr "Ver más información."
 
-#: bin/html/commandHelp.php:45
-#: bin/html/commandHelpWikiExport.php:51
+#: bin/html/commandHelp.php:45 bin/html/commandHelpWikiExport.php:51
 msgid "It add %s command(s)"
-msgstr ""
+msgstr "Añade %s comando(s)"
 
-#: bin/html/commandHelp.php:53
-#: bin/html/commandHelpWikiExport.php:58
-#: bin/html/manHTML.php:39
-#: bin/html/commandHelp.php:41
-#: bin/html/manHTML.php:38
+#: bin/html/commandHelp.php:53 bin/html/commandHelpWikiExport.php:58
+#: bin/html/manHTML.php:39 bin/html/commandHelp.php:41 bin/html/manHTML.php:38
 msgid "Parameters"
-msgstr ""
+msgstr "Parámetros"
 
-#: bin/html/commandHelp.php:67
-#: bin/html/commandHelpWikiExport.php:69
-#: bin/html/manHTML.php:53
-#: bin/html/commandHelp.php:55
-#: bin/html/manHTML.php:52
+#: bin/html/commandHelp.php:67 bin/html/commandHelpWikiExport.php:69
+#: bin/html/manHTML.php:53 bin/html/commandHelp.php:55 bin/html/manHTML.php:52
 msgid "Responses"
-msgstr ""
+msgstr "Respuestas"
 
-#: bin/html/commandHelp.php:81
-#: bin/html/commandHelpWikiExport.php:80
-#: bin/html/manHTML.php:67
-#: bin/html/commandHelp.php:69
-#: bin/html/manHTML.php:66
+#: bin/html/commandHelp.php:81 bin/html/commandHelpWikiExport.php:80
+#: bin/html/manHTML.php:67 bin/html/commandHelp.php:69 bin/html/manHTML.php:66
 msgid "Permissions"
-msgstr ""
+msgstr "Permisos"
 
-#: bin/html/commandHelp.php:85
-#: bin/html/commandHelpWikiExport.php:83
-#: bin/html/manHTML.php:71
-#: bin/node_type/getNodeTypeDefHtml.php:133
-#: bin/html/commandHelp.php:74
-#: bin/html/manHTML.php:70
+#: bin/html/commandHelp.php:85 bin/html/commandHelpWikiExport.php:83
+#: bin/html/manHTML.php:71 bin/node_type/getNodeTypeDefHtml.php:133
+#: bin/html/commandHelp.php:74 bin/html/manHTML.php:70
 msgid "Flags"
-msgstr ""
+msgstr "Banderas"
 
-#: bin/html/commandHelp.php:103
-#: bin/html/commandHelp.php:91
+#: bin/html/commandHelp.php:103 bin/html/commandHelp.php:91
 msgid "Display commands help."
-msgstr ""
+msgstr "Muestra la ayuda del comando."
 
 #: bin/html/commandHelpWikiExport.php:108
 #: bin/html/commandHelpWikiExport.php:102
 msgid "Export commands help to a GitHub Wiki file."
-msgstr ""
+msgstr "Exporta la ayuda de los comandos a un archivo Wiki de GitHub."
 
 #: bin/html/commandHelpWikiExport.php:110
 #: bin/html/commandHelpWikiExport.php:104
 msgid "File path where export."
-msgstr ""
+msgstr "Ruta de archivo donde exportar."
 
-#: bin/html/delPage.php:54
-#: bin/html/delPage.php:53
+#: bin/html/delPage.php:54 bin/html/delPage.php:53
 msgid "Del a page."
-msgstr ""
+msgstr "Borrar una página."
 
-#: bin/html/echoHTML.php:57
-#: bin/html/echoHTML.php:56
+#: bin/html/echoHTML.php:57 bin/html/echoHTML.php:56
 msgid "Eval, echo, a HTML+PHP code"
-msgstr ""
+msgstr "Evalua, muestra, código HTML+PHP."
 
-#: bin/html/echoHTML.php:58
-#: bin/html/echoHTML.php:57
+#: bin/html/echoHTML.php:58 bin/html/echoHTML.php:57
 msgid "String to evaluate."
-msgstr ""
+msgstr "Cadena a evaluar."
 
-#: bin/html/execForm.php:46
-#: bin/html/execForm.php:45
+#: bin/html/execForm.php:46 bin/html/execForm.php:45
 msgid "Show a form to execute a command."
-msgstr ""
+msgstr "Muestra un formulario para ejecutar un comando."
 
 #: bin/html/executeCommandOnline.php:34
 msgid "Direct command"
-msgstr ""
+msgstr "Comando directo"
 
 #: bin/html/executeCommandOnline.php:48
 msgid "POST's parameters"
-msgstr ""
+msgstr "Parámetros POST."
 
-#: bin/html/executeCommandOnline.php:51
-#: bin/html/executeCommandOnline.php:96
+#: bin/html/executeCommandOnline.php:51 bin/html/executeCommandOnline.php:96
 #: bin/html/executeCommandOnline.php:95
 msgid "Post's parameters encoded as string."
-msgstr ""
+msgstr "Parámetros POST codificados como cadena."
 
 #: bin/html/executeCommandOnline.php:63
 msgid "Command's help"
-msgstr ""
+msgstr "Ayuda de comando"
 
 #: bin/html/executeCommandOnline.php:69
 msgid "Executed"
-msgstr ""
+msgstr "Ejecutado"
 
-#: bin/html/executeCommandOnline.php:95
-#: bin/html/executeCommandOnline.php:94
+#: bin/html/executeCommandOnline.php:95 bin/html/executeCommandOnline.php:94
 msgid "Show a form to define the command to execute."
-msgstr ""
+msgstr "Muestra un formulario para definir el comando a ejecutar."
 
-#: bin/html/getBaseJS.php:49
-#: bin/html/getBaseJS.php:44
+#: bin/html/getBaseJS.php:49 bin/html/getBaseJS.php:44
 msgid "Echo base javascript assets with a content-type header of application/javascript."
-msgstr ""
+msgstr "Muestra recursos base de javascript con una cabecera de tipo de contenido application/javascript."
 
 #: bin/html/iconsList.php:130
 msgid "Display reference icon's list."
-msgstr ""
+msgstr "Muestra una lista de iconos de referencia."
 
 #: bin/html/manHelpOnline.php:34
 msgid "Command help"
-msgstr ""
+msgstr "Ayuda de comando"
 
-#: bin/html/manHelpOnline.php:55
-#: bin/html/menuInlineToHTML.php:125
+#: bin/html/manHelpOnline.php:55 bin/html/menuInlineToHTML.php:125
 #: bin/node_type/getNodeTypeDefHtml.php:47
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
-#: bin/html/manHelpOnline.php:107
-#: bin/html/manHelpOnline.php:106
+#: bin/html/manHelpOnline.php:107 bin/html/manHelpOnline.php:106
 msgid "Show a form to get help about a command."
-msgstr ""
+msgstr "Muestra un formulario para obtener ayuda sobre un comando."
 
-#: bin/html/manHTML.php:36
-#: bin/html/commandHelp.php:38
-#: bin/html/manHTML.php:35
+#: bin/html/manHTML.php:36 bin/html/commandHelp.php:38 bin/html/manHTML.php:35
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
-#: bin/html/manHTML.php:88
-#: bin/html/manHTML.php:86
+#: bin/html/manHTML.php:88 bin/html/manHTML.php:86
 msgid "Echo help about a command how HTML. Ex. manHTML ('cmd' => 'manHTML'), echo this help."
-msgstr ""
+msgstr "Muestra ayuda sobre un comando como HTML. Ej. manHTML('cmd' => 'manHTML'), muestra esta ayuda."
 
 #: bin/html/menuInlineToHTML.php:63
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: bin/html/menuInlineToHTML.php:84
 msgid "Exit superuser"
-msgstr ""
+msgstr "Salir de superusuario"
 
 #: bin/html/menuInlineToHTML.php:93
 msgid "Get superuser"
-msgstr ""
+msgstr "Obtener superusuario"
 
 #: bin/html/menuInlineToHTML.php:103
 msgid "mail"
-msgstr ""
+msgstr "correo"
 
 #: bin/html/menuInlineToHTML.php:106
 msgid "password"
-msgstr ""
+msgstr "clave"
 
 #: bin/html/menuInlineToHTML.php:108
 msgid "Login"
-msgstr ""
+msgstr "Entrar"
 
 #: bin/html/menuInlineToHTML.php:116
 msgid "Logout"
-msgstr ""
+msgstr "Salir"
 
 #: bin/html/menuInlineToHTML.php:128
 msgid "Console"
-msgstr ""
+msgstr "Consola"
 
 #: bin/html/menuInlineToHTML.php:129
 msgid "Commands"
-msgstr ""
+msgstr "Comandos"
 
 #: bin/html/menuInlineToHTML.php:130
 msgid "Formatters demo"
-msgstr ""
+msgstr "Demo de formateadores"
 
 #: bin/html/menuInlineToHTML.php:132
 msgid "Bootstrap icons"
-msgstr ""
+msgstr "Iconos Bootstrap"
 
 #: bin/html/menuInlineToHTML.php:133
 msgid "Tabs & Panels"
-msgstr ""
+msgstr "Pestañas y paneles"
 
 #: bin/html/menuInlineToHTML.php:134
 msgid "UI Elements"
-msgstr ""
+msgstr "Elementos de IU"
 
 #: bin/html/menuInlineToHTML.php:135
 msgid "Forms"
-msgstr ""
+msgstr "Formularios"
 
 #: bin/html/menuInlineToHTML.php:141
 msgid "Types"
-msgstr ""
+msgstr "Tipos"
 
 #: bin/html/menuInlineToHTML.php:144
 msgid "Visible types"
-msgstr ""
+msgstr "Tipos visibles"
 
 #: bin/html/menuInlineToHTML.php:151
 msgid "Fixed types"
-msgstr ""
+msgstr "Tipos fijos"
 
-#: bin/html/menuInlineToHTML.php:186
-#: bin/html/menuInlineToHTML.php:185
+#: bin/html/menuInlineToHTML.php:186 bin/html/menuInlineToHTML.php:185
 #: bin/html/menuInlineToHTML.php:181
 msgid "Transform a menu to HTML inline navigation bar"
-msgstr ""
+msgstr "Transforma un menú a una barra de nevegación HTML en linea"
 
-#: bin/html/menuInlineToHTML.php:188
-#: bin/html/menuInlineToHTML.php:187
+#: bin/html/menuInlineToHTML.php:188 bin/html/menuInlineToHTML.php:187
 #: bin/html/menuInlineToHTML.php:183
 msgid "Menu to convert."
-msgstr ""
+msgstr "Menú a convertir"
 
 #: bin/html/pageToHTML.php:54
 msgid "row ID"
-msgstr ""
+msgstr "ID de fila"
 
 #: bin/html/pageToHTML.php:62
 msgid "Col ID"
-msgstr ""
+msgstr "ID de columna"
 
 #: bin/html/pageToHTML.php:168
 msgid "Page '%s' not found."
-msgstr ""
+msgstr "Página '%s' no contrada."
 
-#: bin/html/pageToHTML.php:184
-#: bin/html/pageToHTML.php:183
+#: bin/html/pageToHTML.php:184 bin/html/pageToHTML.php:183
 msgid "Transform a page to HTML"
-msgstr ""
+msgstr "Transforma una página a HTML"
 
-#: bin/html/pageToHTML.php:185
-#: bin/html/pageToHTML.php:184
+#: bin/html/pageToHTML.php:185 bin/html/pageToHTML.php:184
 msgid "Page to convert, see 'url_rewrite' table."
-msgstr ""
+msgstr "Página a convertir, ver tabla 'url_rewrite'."
 
-#: bin/html/phpInfo.php:42
-#: bin/html/phpInfo.php:41
+#: bin/html/phpInfo.php:42 bin/html/phpInfo.php:41
 msgid "Display phpInfo() response."
-msgstr ""
+msgstr "Muestra la respuesta de phpInfo()."
 
-#: bin/html/rewriteBasicList.php:50
-#: bin/html/rewriteBasicList.php:49
+#: bin/html/rewriteBasicList.php:50 bin/html/rewriteBasicList.php:49
 msgid "Echo a list of URLs in the system."
-msgstr ""
+msgstr "Muestra un listado de URLs de sistema."
 
 #: bin/html/templateEditor.php:38
 msgid "Template editor"
-msgstr ""
+msgstr "Editor de plantilla"
 
 #: bin/html/templateEditor.php:43
 msgid "With this editor you can define the page distribution, In it you can define spaces to put one or more blocks, with help of commands. If you like a footer, you only need define her ID to 'footer', to define duplicate contents can put the some ID to two or more columns. If not ID is defined the column not can get blocks on it."
-msgstr ""
+msgstr "Con este editor puedes definir la distribución de página, en él puedes definir espacios para poner uno o mas bloques, con ayuda de comandos. Si quieres un pie de página, solo necesitas definir su ID a 'footer', para contenido duplicado puede poner el mismo ID a dos o mas columnas. Si no se define una ID la columna no podrá contener bloques."
 
 #: bin/html/templateEditor.php:44
 msgid "To start creating the template press any of the numeric buttons."
-msgstr ""
+msgstr "Para empezar a crear una plantilla pulse cualquier botón numerico."
 
 #: bin/html/templateEditor.php:77
 msgid "Edit Source Code"
-msgstr ""
+msgstr "Editar código fuente"
 
 #: bin/html/templateEditor.php:77
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: bin/html/templateEditor.php:77
 msgid "Desktop"
-msgstr ""
+msgstr "Escritorio"
 
 #: bin/html/templateEditor.php:77
 msgid "Tablet"
-msgstr ""
+msgstr "Tablet"
 
 #: bin/html/templateEditor.php:77
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #: bin/html/templateEditor.php:77
 msgid "Toggle Dropdown"
-msgstr ""
+msgstr "Cambiar desplegable"
 
 #: bin/html/templateEditor.php:77
 msgid "Reset Grid"
-msgstr ""
+msgstr "Reiniciar rejilla"
 
 #: bin/html/templateEditor.php:77
 msgid "Reset"
-msgstr ""
+msgstr "Reiniciar"
 
 #: bin/html/templateEditor.php:104
 msgid "This template need a name."
-msgstr ""
+msgstr "Esta plantilla necesita un nombre."
 
 #: bin/html/templateEditor.php:110
 msgid "This template is empty."
-msgstr ""
+msgstr "Esta plantilla está vacía."
 
 #: bin/html/templateEditor.php:156
 msgid "Template name"
-msgstr ""
+msgstr "Nombre de plantilla"
 
 #: bin/html/templateEditor.php:158
 msgid "name"
-msgstr ""
+msgstr "nombre"
 
 #: bin/html/templateEditor.php:164
 msgid "Default title"
-msgstr ""
+msgstr "Titulo por defecto"
 
 #: bin/html/templateEditor.php:172
 msgid "Head includes"
-msgstr ""
+msgstr "Cabeceras incluidas"
 
 #: bin/html/templateEditor.php:175
 msgid "The default values are required, You don't must change this if you don't know how."
-msgstr ""
+msgstr "El valor por defecto es requerido, No debes cambiarlo si no sabes como."
 
 #: bin/html/templateEditor.php:183
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
-#: bin/html/templateEditor.php:193
-#: bin/html/templateEditor.php:197
+#: bin/html/templateEditor.php:193 bin/html/templateEditor.php:197
 msgid "Load template"
-msgstr ""
+msgstr "Cargar plantilla"
 
 #: bin/html/templateEditor.php:207
 msgid "Load"
-msgstr ""
+msgstr "Cargar"
 
 #: bin/html/templateEditor.php:208
 msgid "Changes will be loosed."
-msgstr ""
+msgstr "Se perderán los cambios"
 
-#: bin/html/templateEditor.php:226
-#: bin/html/templateEditor.php:225
+#: bin/html/templateEditor.php:226 bin/html/templateEditor.php:225
 msgid "Show template grid editor."
-msgstr ""
+msgstr "Mostrar rejilla de edición de plantilla"
 
-#: bin/html/templateEditorList.php:48
-#: bin/html/templateEditorList.php:47
+#: bin/html/templateEditorList.php:48 bin/html/templateEditorList.php:47
 msgid "Echo a json list of templates. ['default', ...]}"
-msgstr ""
+msgstr "Muestra una lista json de plantillas. ['default', ...]}"
 
 #: bin/html/templateEditorSave.php:30
 msgid "Name or tpl is empty."
-msgstr ""
+msgstr "Nombre o tpl está vacío."
 
-#: bin/html/templateEditorSave.php:107
-#: bin/html/templateEditorSave.php:106
+#: bin/html/templateEditorSave.php:107 bin/html/templateEditorSave.php:106
 msgid "Save a user template from the template editor."
-msgstr ""
+msgstr "Guarda una plantilla de usuario desde el editor de plantillas."
 
-#: bin/html/templateEditorSave.php:109
-#: bin/html/templateEditorSave.php:108
+#: bin/html/templateEditorSave.php:109 bin/html/templateEditorSave.php:108
 msgid "Base 64 encoded HTML definition of the template."
-msgstr ""
+msgstr "HTML de definición de plantilla codificada en base 64."
 
-#: bin/html/templateEditorSave.php:110
-#: bin/html/templateEditorSave.php:109
+#: bin/html/templateEditorSave.php:110 bin/html/templateEditorSave.php:109
 msgid "Template name, It must be a compatible file name."
-msgstr ""
+msgstr "Nombre de plantilla, debe ser un nombre de archivo compatible."
 
-#: bin/html/templateEditorSave.php:111
-#: bin/html/templateEditorSave.php:110
+#: bin/html/templateEditorSave.php:111 bin/html/templateEditorSave.php:110
 msgid "Template default title."
-msgstr ""
+msgstr "Titulo por defecto de plantilla."
 
-#: bin/html/templateEditorSave.php:112
-#: bin/html/templateEditorSave.php:111
+#: bin/html/templateEditorSave.php:112 bin/html/templateEditorSave.php:111
 msgid "Base 64 encoded meta information to add to the HTML head area."
-msgstr ""
+msgstr "Meta información codificada en base 64 a añadir a la cabecera HTML."
 
-#: bin/html/templateEditorSave.php:115
-#: bin/html/templateEditorSave.php:114
+#: bin/html/templateEditorSave.php:115 bin/html/templateEditorSave.php:114
 msgid "TRUE if is ok."
-msgstr ""
+msgstr "TRUE si fue bien."
 
-#: bin/html/templateEditorSave.php:116
-#: bin/html/templateEditorSave.php:115
+#: bin/html/templateEditorSave.php:116 bin/html/templateEditorSave.php:115
 msgid "In case of error the error message."
-msgstr ""
+msgstr "En caso de error el mensaje de error."
 
-#: bin/html/templateToArray.php:120
-#: bin/html/templateToArray.php:119
+#: bin/html/templateToArray.php:120 bin/html/templateToArray.php:119
 msgid "Transform a XML template to HTML, it not build blocks."
-msgstr ""
+msgstr "Transforma una plantilla XML a HTML, no construye bloques."
 
-#: bin/html/templateToArray.php:122
-#: bin/html/templateToArray.php:121
+#: bin/html/templateToArray.php:122 bin/html/templateToArray.php:121
 msgid "XML to convert"
-msgstr ""
+msgstr "XML a convertir"
 
-#: bin/html/templateToArray.php:125
-#: bin/html/templateToArray.php:124
+#: bin/html/templateToArray.php:125 bin/html/templateToArray.php:124
 msgid "Template name."
-msgstr ""
+msgstr "Nombre de plantilla."
 
-#: bin/html/templateToArray.php:126
-#: bin/html/templateToArray.php:125
+#: bin/html/templateToArray.php:126 bin/html/templateToArray.php:125
 msgid "Default page title."
-msgstr ""
+msgstr "Titulo de página por defecto."
 
-#: bin/html/templateToArray.php:127
-#: bin/html/templateToArray.php:126
+#: bin/html/templateToArray.php:127 bin/html/templateToArray.php:126
 msgid "Head content"
-msgstr ""
+msgstr "Contenido de cabecera"
 
-#: bin/html/templateToArray.php:128
-#: bin/html/templateToArray.php:127
+#: bin/html/templateToArray.php:128 bin/html/templateToArray.php:127
 msgid "Body structure in HTML, it's parsed to template editor."
-msgstr ""
+msgstr "Estructura del cuerpo HTML, es interpretada para el editor de plantilla."
 
 #: bin/html/textUrlEncoder.php:43
 msgid "URL Decoder/Encoder"
-msgstr ""
+msgstr "Codificador/Decodificador de URL"
+
+#: bin/html/textUrlEncoder.php:48
+msgid "Decode"
+msgstr "Decodificar"
+
+#: bin/html/textUrlEncoder.php:49
+msgid "Encode"
+msgstr "Codificar"
 
 #: bin/html/textUrlEncoder.php:53
 msgid "Input a string of text and encode or decode it as you like."
-msgstr ""
+msgstr "Introduzca una cadena de texto y codifique o decodifique como quiera."
 
 #: bin/html/textUrlEncoder.php:56
 msgid "The URL Decoder/Encoder is licensed under a Creative Commons %s License."
-msgstr ""
+msgstr "El codificador/decodificador de URL está bajo licencia Creative Commons %s."
 
 #: bin/html/textUrlEncoder.php:56
 msgid "Attribution-ShareAlike 2.0"
-msgstr ""
+msgstr "Attribution-ShareAlike 2.0"
 
-#: bin/html/textUrlEncoder.php:75
-#: bin/html/textUrlEncoder.php:74
+#: bin/html/textUrlEncoder.php:75 bin/html/textUrlEncoder.php:74
 msgid "Encode/Decode a string as a URL.<p>The URL Decoder/Encoder is licensed under a Creative Commons Attribution-ShareAlike 2.0 License, http://creativecommons.org/licenses/by-sa/2.0/, by Eric Meyer, http://meyerweb.com/eric/tools/dencoder/."
-msgstr ""
+msgstr "Codifica/Decodifica una cadena como URL. <p>El codificador/decodificador de URL está licenciado bajo licencia Creative Commons Attribution-ShareAlike 2.0, http://creativecommons.org/licenses/by-sa/2.0/, por Eric Meyer, http://meyerweb.com/eric/tools/dencoder/."
 
 #: bin/html/traceToHTML.php:39
 msgid "Trace information"
-msgstr ""
+msgstr "Información de traza"
 
-#: bin/html/traceToHTML.php:55
-#: bin/html/traceToHTML.php:54
+#: bin/html/traceToHTML.php:55 bin/html/traceToHTML.php:54
 msgid "Print trace information in HTML format"
-msgstr ""
+msgstr "Imprimi información de traza en formato HTML."
 
-#: bin/html/traceToHTML.php:70
-#: bin/html/traceToHTML.php:69
+#: bin/html/traceToHTML.php:70 bin/html/traceToHTML.php:69
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
 #: bin/html/usageToHTML.php:38
 msgid "Resources used by Pharinix"
-msgstr ""
+msgstr "Recursos usados como Pharinix"
 
 #: bin/html/usageToHTML.php:42
 msgid "Memory"
-msgstr ""
+msgstr "Memoria"
 
 #: bin/html/usageToHTML.php:43
 msgid "Time"
-msgstr ""
+msgstr "Tiempo"
 
-#: bin/html/usageToHTML.php:66
-#: bin/html/usageToHTML.php:65
+#: bin/html/usageToHTML.php:66 bin/html/usageToHTML.php:65
 msgid "Print resource consume in HTML format"
-msgstr ""
+msgstr "Imprimir recursos consumidos en formato HTML"
 
 #: bin/node_type/addFieldFormat.php:37
 msgid "'cmd' is required."
-msgstr ""
+msgstr "'cmd' es requerido."
 
 #: bin/node_type/addFieldFormat.php:40
 msgid "'type' is required."
-msgstr ""
+msgstr "'type' es requerido."
 
 #: bin/node_type/addFieldFormat.php:43
 msgid "This formatter can't do nothing."
-msgstr ""
+msgstr "Este formateador no puede hacer nada."
 
 #: bin/node_type/addFieldFormat.php:58
 msgid "Duplicated formatter."
-msgstr ""
+msgstr "Formateador duplicado."
 
-#: bin/node_type/addFieldFormat.php:67
-#: bin/node_type/addFieldFormat.php:66
+#: bin/node_type/addFieldFormat.php:67 bin/node_type/addFieldFormat.php:66
 msgid "Add a new field formatter."
-msgstr ""
+msgstr "Añade un nuevo formateador de campo."
 
-#: bin/node_type/addFieldFormat.php:69
-#: bin/node_type/addFieldFormat.php:68
+#: bin/node_type/addFieldFormat.php:69 bin/node_type/addFieldFormat.php:68
 msgid "Command that can format the field."
-msgstr ""
+msgstr "Comando que puede formatear el campo."
 
-#: bin/node_type/addFieldFormat.php:70
-#: bin/node_type/addFieldFormat.php:69
+#: bin/node_type/addFieldFormat.php:70 bin/node_type/addFieldFormat.php:69
 msgid "Basic type to format."
-msgstr ""
+msgstr "Tipo básico a formatear."
 
-#: bin/node_type/addFieldFormat.php:71
-#: bin/node_type/addFieldFormat.php:70
+#: bin/node_type/addFieldFormat.php:71 bin/node_type/addFieldFormat.php:70
 msgid "Can format field to read only."
-msgstr ""
+msgstr "Puede formatear campos en solo lectura."
 
-#: bin/node_type/addFieldFormat.php:72
-#: bin/node_type/addFieldFormat.php:71
+#: bin/node_type/addFieldFormat.php:72 bin/node_type/addFieldFormat.php:71
 msgid "Can format field to read & write."
-msgstr ""
+msgstr "Puede formatear campos en lectura y escritura."
 
-#: bin/node_type/addFieldFormat.php:73
-#: bin/node_type/addFieldFormat.php:72
+#: bin/node_type/addFieldFormat.php:73 bin/node_type/addFieldFormat.php:72
 msgid "This formatter is the default formatter to this type."
-msgstr ""
+msgstr "Este formateador es el formateador por defecto para este tipo."
 
-#: bin/node_type/addNode.php:38
-#: bin/node_type/delNode.php:39
+#: bin/node_type/addNode.php:38 bin/node_type/delNode.php:39
 #: bin/node_type/updateNode.php:39
 msgid "Node type required"
-msgstr ""
+msgstr "Tipo de nodo requerido"
 
-#: bin/node_type/addNode.php:60
-#: bin/node_type/updateNode.php:86
+#: bin/node_type/addNode.php:60 bin/node_type/updateNode.php:86
 msgid "Unknowed node type '%s'"
-msgstr ""
+msgstr "Tipo de nodo '%s' desconocido"
 
-#: bin/node_type/addNode.php:80
-#: bin/node_type/updateNode.php:111
+#: bin/node_type/addNode.php:80 bin/node_type/updateNode.php:111
 msgid "Missing node field required."
-msgstr ""
+msgstr "Campo de nodo perdido es requerido."
 
-#: bin/node_type/addNode.php:100
-#: bin/node_type/updateNode.php:131
+#: bin/node_type/addNode.php:100 bin/node_type/updateNode.php:131
 msgid "Field '%s' are not fields of '%s' node type."
-msgstr ""
+msgstr "Campo '%s' no pertenece a los campos de tipo de nodo '%s'."
 
-#: bin/node_type/addNode.php:120
-#: bin/node_type/updateNode.php:151
+#: bin/node_type/addNode.php:120 bin/node_type/updateNode.php:151
 msgid "Duplicate keys."
-msgstr ""
+msgstr "Claves duplicadas."
 
 #: bin/node_type/addNode.php:178
 msgid "You can't add nodes."
-msgstr ""
+msgstr "No puede añadir nodos."
 
-#: bin/node_type/addNode.php:205
-#: bin/node_type/addNode.php:204
+#: bin/node_type/addNode.php:205 bin/node_type/addNode.php:204
 msgid "Add a new node."
-msgstr ""
+msgstr "Añade un nuevo nodo."
 
-#: bin/node_type/addNode.php:207
-#: bin/node_type/updateNode.php:234
-#: bin/node_type/addNode.php:206
-#: bin/node_type/updateNode.php:233
+#: bin/node_type/addNode.php:207 bin/node_type/updateNode.php:234
+#: bin/node_type/addNode.php:206 bin/node_type/updateNode.php:233
 msgid "A parameter for each field of the type."
-msgstr ""
+msgstr "Un parámetro por cada campo del tipo."
 
-#: bin/node_type/addNode.php:208
-#: bin/node_type/delNode.php:107
-#: bin/node_type/addNode.php:207
-#: bin/node_type/delNode.php:106
+#: bin/node_type/addNode.php:208 bin/node_type/delNode.php:107
+#: bin/node_type/addNode.php:207 bin/node_type/delNode.php:106
 msgid "Node type is from."
-msgstr ""
+msgstr "Origen del tipo de nodo."
 
-#: bin/node_type/addNode.php:211
-#: bin/node_type/addNode.php:210
+#: bin/node_type/addNode.php:211 bin/node_type/addNode.php:210
 msgid "True/False node added"
-msgstr ""
+msgstr "Nodo añadido True/False."
 
-#: bin/node_type/addNode.php:212
-#: bin/node_type/addNodeField.php:210
-#: bin/node_type/addNodeType.php:232
-#: bin/node_type/delNode.php:111
-#: bin/node_type/updateNode.php:238
-#: bin/node_type/addNode.php:211
-#: bin/node_type/addNodeField.php:209
-#: bin/node_type/addNodeType.php:231
-#: bin/node_type/delNode.php:110
-#: bin/node_type/updateNode.php:237
+#: bin/node_type/addNode.php:212 bin/node_type/addNodeField.php:210
+#: bin/node_type/addNodeType.php:232 bin/node_type/delNode.php:111
+#: bin/node_type/updateNode.php:238 bin/node_type/addNode.php:211
+#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeType.php:231
+#: bin/node_type/delNode.php:110 bin/node_type/updateNode.php:237
 msgid "If error, it's a message about error"
-msgstr ""
+msgstr "Si hubo error, es el mensaje acerca del error"
 
-#: bin/node_type/addNode.php:213
-#: bin/node_type/addNode.php:212
+#: bin/node_type/addNode.php:213 bin/node_type/addNode.php:212
 msgid "ID of new node"
-msgstr ""
+msgstr "ID del nuevo nodo"
 
 #: bin/node_type/addNodeField.php:70
 msgid "Field name is required. "
-msgstr ""
+msgstr "Nombre de campo requerido."
 
 #: bin/node_type/addNodeField.php:73
 msgid "Field type is required. "
-msgstr ""
+msgstr "Tipo de campo es requerido."
 
 #: bin/node_type/addNodeField.php:76
 msgid "Node type is required. "
-msgstr ""
+msgstr "Tipo de nodo es requerido."
 
 #: bin/node_type/addNodeField.php:101
 msgid "Node field sub type '%s' don't exist."
-msgstr ""
+msgstr "Subtipo de campo de nodo '%s' no existe."
 
 #: bin/node_type/addNodeField.php:172
 msgid "Node field name '%s' already exist."
-msgstr ""
+msgstr "Nombre de campo de nodo '%s' ya existe."
 
 #: bin/node_type/addNodeField.php:176
 msgid "You can't add fields to '%s'."
-msgstr ""
+msgstr "No puedes añadir campos a '%s'."
 
 #: bin/node_type/addNodeField.php:180
 msgid "Node type '%s' don't exist."
-msgstr ""
+msgstr "Tipo de nodo '%s' no existe."
 
-#: bin/node_type/addNodeField.php:193
-#: bin/node_type/addNodeField.php:192
+#: bin/node_type/addNodeField.php:193 bin/node_type/addNodeField.php:192
 msgid "Add a new field to a node type. It need update permission over the node type."
-msgstr ""
+msgstr "Añade un nuevo campo a un tipo de nodo. Se necesita permido de actualización sobre el tipo de nodo."
 
-#: bin/node_type/addNodeField.php:195
-#: bin/node_type/addNodeField.php:194
+#: bin/node_type/addNodeField.php:195 bin/node_type/addNodeField.php:194
 msgid "Field name"
-msgstr ""
+msgstr "Nombre de campo"
 
-#: bin/node_type/addNodeField.php:196
-#: bin/node_type/addNodeField.php:195
+#: bin/node_type/addNodeField.php:196 bin/node_type/addNodeField.php:195
 msgid "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type"
-msgstr ""
+msgstr "Tipo de campo: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec o otro tipo de nodo"
 
-#: bin/node_type/addNodeField.php:197
-#: bin/node_type/addNodeField.php:196
+#: bin/node_type/addNodeField.php:197 bin/node_type/addNodeField.php:196
 msgid "Any other record can have some value. This functionality is not using database implementation."
-msgstr ""
+msgstr "Cualquier otro registro puede tener el mismo valor. Esta funcionalidad no está usando implementación de base de datos."
 
-#: bin/node_type/addNodeField.php:198
-#: bin/node_type/addNodeField.php:197
+#: bin/node_type/addNodeField.php:198 bin/node_type/addNodeField.php:197
 msgid "Field length if need it"
-msgstr ""
+msgstr "Longitud de campo si lo necesita"
 
-#: bin/node_type/addNodeField.php:199
-#: bin/node_type/addNodeField.php:198
+#: bin/node_type/addNodeField.php:199 bin/node_type/addNodeField.php:198
 msgid "True/false Required field"
-msgstr ""
+msgstr "True/False Campo requerido"
 
-#: bin/node_type/addNodeField.php:200
-#: bin/node_type/addNodeField.php:199
+#: bin/node_type/addNodeField.php:200 bin/node_type/addNodeField.php:199
 msgid "True/false Not writable field"
-msgstr ""
+msgstr "True/False Campo no escribible"
 
-#: bin/node_type/addNodeField.php:201
-#: bin/node_type/addNodeField.php:200
+#: bin/node_type/addNodeField.php:201 bin/node_type/addNodeField.php:200
 msgid "True/false System field"
-msgstr ""
+msgstr "True/False Campo de sistema"
 
-#: bin/node_type/addNodeField.php:202
-#: bin/node_type/addNodeField.php:201
+#: bin/node_type/addNodeField.php:202 bin/node_type/addNodeField.php:201
 msgid "True/false multivalue field, only applicable on relations with other node types."
-msgstr ""
+msgstr "True/False Campo multivalor, solo se aplica sobre relaciones con otros tipos de nodo."
 
-#: bin/node_type/addNodeField.php:203
-#: bin/node_type/addNodeType.php:226
-#: bin/node_type/delNodeField.php:84
-#: bin/node_type/getNodeTypeDef.php:95
+#: bin/node_type/addNodeField.php:203 bin/node_type/addNodeType.php:226
+#: bin/node_type/delNodeField.php:84 bin/node_type/getNodeTypeDef.php:95
 #: bin/node_type/getNodeTypeDef.php:99
-#: bin/node_type/getNodeTypeDefHtml.php:152
-#: bin/node_type/addNodeField.php:202
-#: bin/node_type/addNodeType.php:225
-#: bin/node_type/delNodeField.php:83
-#: bin/node_type/getNodeTypeDef.php:94
-#: bin/node_type/getNodeTypeDef.php:98
+#: bin/node_type/getNodeTypeDefHtml.php:152 bin/node_type/addNodeField.php:202
+#: bin/node_type/addNodeType.php:225 bin/node_type/delNodeField.php:83
+#: bin/node_type/getNodeTypeDef.php:94 bin/node_type/getNodeTypeDef.php:98
 #: bin/node_type/getNodeTypeDefHtml.php:151
 msgid "Node type name"
-msgstr ""
+msgstr "Nombre del tipo de nodo"
 
-#: bin/node_type/addNodeField.php:204
-#: bin/node_type/addNodeField.php:203
+#: bin/node_type/addNodeField.php:204 bin/node_type/addNodeField.php:203
 msgid "Default value"
-msgstr ""
+msgstr "Valor por defecto"
 
-#: bin/node_type/addNodeField.php:205
-#: bin/node_type/addNodeField.php:204
+#: bin/node_type/addNodeField.php:205 bin/node_type/addNodeField.php:204
 msgid "Label to show"
-msgstr ""
+msgstr "Etiqueta a mostrar"
 
-#: bin/node_type/addNodeField.php:206
-#: bin/node_type/addNodeField.php:205
+#: bin/node_type/addNodeField.php:206 bin/node_type/addNodeField.php:205
 msgid "Help about field"
-msgstr ""
+msgstr "Ayuda sobre el campo"
 
-#: bin/node_type/addNodeField.php:209
-#: bin/node_type/addNodeType.php:231
-#: bin/node_type/addNodeField.php:208
-#: bin/node_type/addNodeType.php:230
+#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeType.php:231
+#: bin/node_type/addNodeField.php:208 bin/node_type/addNodeType.php:230
 msgid "True/False field added"
-msgstr ""
+msgstr "True/False Campo añadido"
 
 #: bin/node_type/addNodeType.php:56
 msgid "Node type name is a protected name."
-msgstr ""
+msgstr "Nombre de tipo de nodo es un nombre protegido."
 
 #: bin/node_type/addNodeType.php:59
 msgid "Node type name is required."
-msgstr ""
+msgstr "Nombre de tipo de nodo requerido."
 
-#: bin/node_type/addNodeType.php:224
-#: bin/node_type/addNodeType.php:223
+#: bin/node_type/addNodeType.php:224 bin/node_type/addNodeType.php:223
 msgid "Add a new node type, with a default string field with name 'title'."
-msgstr ""
+msgstr "Añade un nuevo tipo de nodo, con un campo de texto con nombre 'title' por defecto."
 
-#: bin/node_type/addNodeType.php:227
-#: bin/node_type/addNodeType.php:226
+#: bin/node_type/addNodeType.php:227 bin/node_type/addNodeType.php:226
 msgid "True/false System field. Optional, default false."
-msgstr ""
+msgstr "True/False Campo del sistema. Opcional, por defecto false."
 
-#: bin/node_type/addNodeType.php:228
-#: bin/node_type/addNodeType.php:227
+#: bin/node_type/addNodeType.php:228 bin/node_type/addNodeType.php:227
 msgid "Name of the field used how label to list nodes. Optional, default 'title'."
-msgstr ""
+msgstr "Nombre del campo usado como etiqueta al listar nodos. Opcional, por defecto 'title'."
 
-#: bin/node_type/addNodeType.php:233
-#: bin/node_type/addNodeType.php:232
+#: bin/node_type/addNodeType.php:233 bin/node_type/addNodeType.php:232
 msgid "ID of new node type"
-msgstr ""
+msgstr "ID del nuevo tipo de nodo"
 
-#: bin/node_type/chmodNode.php:41
-#: bin/node_type/chmodNode.php:50
-#: bin/node_type/chownNode.php:50
-#: bin/node_type/chownNode.php:59
+#: bin/node_type/chmodNode.php:41 bin/node_type/chmodNode.php:50
+#: bin/node_type/chownNode.php:50 bin/node_type/chownNode.php:59
 msgid "Bad node type id."
-msgstr ""
+msgstr "Mala ID de tipo de nodo."
 
-#: bin/node_type/chmodNode.php:98
-#: bin/node_type/chownNode.php:161
+#: bin/node_type/chmodNode.php:98 bin/node_type/chownNode.php:161
 msgid "unknown node or you can't read."
-msgstr ""
+msgstr "Nodo desconocido o no puedes leerlo."
 
-#: bin/node_type/chmodNode.php:108
-#: bin/node_type/chmodNode.php:107
+#: bin/node_type/chmodNode.php:108 bin/node_type/chmodNode.php:107
 msgid "To change permission of node type or node that is owned by you."
-msgstr ""
+msgstr "Para cambiar permisos de tipo de nodo o de nodo del que eres propietario."
 
-#: bin/node_type/chmodNode.php:110
-#: bin/node_type/chmodNode.php:109
+#: bin/node_type/chmodNode.php:110 bin/node_type/chmodNode.php:109
 msgid "Node type that you need change permission."
-msgstr ""
+msgstr "Tipo de nodo al que necesitas cambiar permisos."
 
-#: bin/node_type/chmodNode.php:111
-#: bin/node_type/chownNode.php:173
-#: bin/node_type/chmodNode.php:110
-#: bin/node_type/chownNode.php:172
+#: bin/node_type/chmodNode.php:111 bin/node_type/chownNode.php:173
+#: bin/node_type/chmodNode.php:110 bin/node_type/chownNode.php:172
 msgid "Node ID of the node that you need change. Optional, if it's set try change a node, else try change a node type."
-msgstr ""
+msgstr "ID del nodo que necesitas cambiar. Opcional, Si está definido intenta cambiar un nodo, sino intenta cambiar un tipo de nodo."
 
-#: bin/node_type/chownNode.php:170
-#: bin/node_type/chownNode.php:169
+#: bin/node_type/chownNode.php:170 bin/node_type/chownNode.php:169
 msgid "To change owner, and/or group, of the node types or nodes."
-msgstr ""
+msgstr "Para cambiar propietario, y/o grupo, del tipo de nodo o nodo."
 
-#: bin/node_type/chownNode.php:172
-#: bin/node_type/chownNode.php:171
+#: bin/node_type/chownNode.php:172 bin/node_type/chownNode.php:171
 msgid "Node type that you need change ownership or type of the node to change."
-msgstr ""
+msgstr "Tipo de nodo al que necesitas cambiar el propietario o tipo del nodo a cambiar."
 
-#: bin/node_type/chownNode.php:174
-#: bin/node_type/chownNode.php:173
+#: bin/node_type/chownNode.php:174 bin/node_type/chownNode.php:173
 msgid "Mail of the user or ID of the new owner. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero."
-msgstr ""
+msgstr "Correo del usuario o ID del nuevo propietario. Si es null, o si no se define, el comando no lo cambia, para asignar a root debe pasar el valor 0, cero."
 
-#: bin/node_type/chownNode.php:175
-#: bin/node_type/chownNode.php:174
+#: bin/node_type/chownNode.php:175 bin/node_type/chownNode.php:174
 msgid "Title or ID of the group. If it's null, or it is not set, command don't change it, to set to root you must value how 0, zero."
-msgstr ""
+msgstr "Titulo o ID del grupo. Si es null, o si no se especifica, el comando no lo cambia, para indicar root debes pasar el valor 0, cero."
 
-#: bin/node_type/delNode.php:41
-#: bin/node_type/updateNode.php:61
+#: bin/node_type/delNode.php:41 bin/node_type/updateNode.php:61
 msgid "Node ID required"
-msgstr ""
+msgstr "ID de nodo es requerido."
 
 #: bin/node_type/delNode.php:83
 msgid "You can't delete nodes."
-msgstr ""
+msgstr "No puedes borrar nodos."
 
-#: bin/node_type/delNode.php:104
-#: bin/node_type/delNode.php:103
+#: bin/node_type/delNode.php:104 bin/node_type/delNode.php:103
 msgid "Delete a node."
-msgstr ""
+msgstr "Borra un nodo."
 
-#: bin/node_type/delNode.php:106
-#: bin/node_type/delNode.php:105
+#: bin/node_type/delNode.php:106 bin/node_type/delNode.php:105
 msgid "Node ID to erase."
-msgstr ""
+msgstr "ID del nodo a borrar."
 
-#: bin/node_type/delNode.php:110
-#: bin/node_type/delNode.php:109
+#: bin/node_type/delNode.php:110 bin/node_type/delNode.php:109
 msgid "True/False node erased"
-msgstr ""
+msgstr "True/False nodo borrado"
 
-#: bin/node_type/delNodeField.php:82
-#: bin/node_type/delNodeField.php:81
+#: bin/node_type/delNodeField.php:82 bin/node_type/delNodeField.php:81
 msgid "Erase a node field. It need delete permission over the node type."
-msgstr ""
+msgstr "Borra un campo de nodo. Necesita permiso de borrado sobre el tipo de nodo."
 
-#: bin/node_type/delNodeField.php:85
-#: bin/node_type/delNodeField.php:84
+#: bin/node_type/delNodeField.php:85 bin/node_type/delNodeField.php:84
 msgid "Node field name to erase"
-msgstr ""
+msgstr "Nombre del campo de nodo a borrar"
 
-#: bin/node_type/delNodeType.php:83
-#: bin/node_type/delNodeType.php:82
+#: bin/node_type/delNodeType.php:83 bin/node_type/delNodeType.php:82
 msgid "Erase a node type. Note: This command alter the execution time limit and reset it to the php.ini default value."
-msgstr ""
+msgstr "Borra un tipo de nodo. Nota: Este comando altera el limite de ejecución y lo reinicia al valor por defecto de php.ini."
 
-#: bin/node_type/delNodeType.php:85
-#: bin/node_type/delNodeType.php:84
+#: bin/node_type/delNodeType.php:85 bin/node_type/delNodeType.php:84
 msgid "Node type to erase."
-msgstr ""
+msgstr "Tipo de nodo a borrar."
 
-#: bin/node_type/formatFieldBool.php:43
-#: bin/node_type/formatFieldDate.php:44
+#: bin/node_type/formatFieldBool.php:43 bin/node_type/formatFieldDate.php:44
 #: bin/node_type/formatFieldDouble.php:43
 #: bin/node_type/formatFieldHtmltext.php:44
 #: bin/node_type/formatFieldInteger.php:43
@@ -2400,22 +1981,19 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:44
 #: bin/node_type/formatFieldString.php:43
 msgid "Object of call must be read or write."
-msgstr ""
+msgstr "El objetivo de la llamada debe ser lectura o escritura."
 
-#: bin/node_type/formatFieldBool.php:83
-#: bin/node_type/formatFieldBool.php:82
+#: bin/node_type/formatFieldBool.php:83 bin/node_type/formatFieldBool.php:82
 msgid "Format boolean field to read or write."
-msgstr ""
+msgstr "Formatea campo booleano como lectura o escritura."
 
-#: bin/node_type/formatFieldBool.php:85
-#: bin/node_type/formatFieldDate.php:103
+#: bin/node_type/formatFieldBool.php:85 bin/node_type/formatFieldDate.php:103
 #: bin/node_type/formatFieldDouble.php:83
 #: bin/node_type/formatFieldHtmltext.php:90
 #: bin/node_type/formatFieldInteger.php:83
 #: bin/node_type/formatFieldLongtext.php:86
 #: bin/node_type/formatFieldPassword.php:202
-#: bin/node_type/formatFieldString.php:87
-#: bin/node_type/formatFieldBool.php:84
+#: bin/node_type/formatFieldString.php:87 bin/node_type/formatFieldBool.php:84
 #: bin/node_type/formatFieldDate.php:102
 #: bin/node_type/formatFieldDouble.php:82
 #: bin/node_type/formatFieldHtmltext.php:89
@@ -2424,17 +2002,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:201
 #: bin/node_type/formatFieldString.php:86
 msgid "Field name to the form control."
-msgstr ""
+msgstr "Nombre de campo del control de formulario."
 
-#: bin/node_type/formatFieldBool.php:86
-#: bin/node_type/formatFieldDate.php:104
+#: bin/node_type/formatFieldBool.php:86 bin/node_type/formatFieldDate.php:104
 #: bin/node_type/formatFieldDouble.php:84
 #: bin/node_type/formatFieldHtmltext.php:91
 #: bin/node_type/formatFieldInteger.php:84
 #: bin/node_type/formatFieldLongtext.php:87
 #: bin/node_type/formatFieldPassword.php:203
-#: bin/node_type/formatFieldString.php:88
-#: bin/node_type/formatFieldBool.php:85
+#: bin/node_type/formatFieldString.php:88 bin/node_type/formatFieldBool.php:85
 #: bin/node_type/formatFieldDate.php:103
 #: bin/node_type/formatFieldDouble.php:83
 #: bin/node_type/formatFieldHtmltext.php:90
@@ -2443,17 +2019,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:202
 #: bin/node_type/formatFieldString.php:87
 msgid "Caller need a read form."
-msgstr ""
+msgstr "El llamador necesita un formulario de lectura."
 
-#: bin/node_type/formatFieldBool.php:87
-#: bin/node_type/formatFieldDate.php:105
+#: bin/node_type/formatFieldBool.php:87 bin/node_type/formatFieldDate.php:105
 #: bin/node_type/formatFieldDouble.php:85
 #: bin/node_type/formatFieldHtmltext.php:92
 #: bin/node_type/formatFieldInteger.php:85
 #: bin/node_type/formatFieldLongtext.php:88
 #: bin/node_type/formatFieldPassword.php:204
-#: bin/node_type/formatFieldString.php:89
-#: bin/node_type/formatFieldBool.php:86
+#: bin/node_type/formatFieldString.php:89 bin/node_type/formatFieldBool.php:86
 #: bin/node_type/formatFieldDate.php:104
 #: bin/node_type/formatFieldDouble.php:84
 #: bin/node_type/formatFieldHtmltext.php:91
@@ -2462,17 +2036,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:203
 #: bin/node_type/formatFieldString.php:88
 msgid "Caller need a write form."
-msgstr ""
+msgstr "El llamador necesita un formulario de escritura."
 
-#: bin/node_type/formatFieldBool.php:88
-#: bin/node_type/formatFieldDate.php:106
+#: bin/node_type/formatFieldBool.php:88 bin/node_type/formatFieldDate.php:106
 #: bin/node_type/formatFieldDouble.php:86
 #: bin/node_type/formatFieldHtmltext.php:93
 #: bin/node_type/formatFieldInteger.php:86
 #: bin/node_type/formatFieldLongtext.php:89
 #: bin/node_type/formatFieldPassword.php:205
-#: bin/node_type/formatFieldString.php:90
-#: bin/node_type/formatFieldBool.php:87
+#: bin/node_type/formatFieldString.php:90 bin/node_type/formatFieldBool.php:87
 #: bin/node_type/formatFieldDate.php:105
 #: bin/node_type/formatFieldDouble.php:85
 #: bin/node_type/formatFieldHtmltext.php:92
@@ -2481,17 +2053,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:204
 #: bin/node_type/formatFieldString.php:89
 msgid "Field value."
-msgstr ""
+msgstr "Valor de campo."
 
-#: bin/node_type/formatFieldBool.php:89
-#: bin/node_type/formatFieldDate.php:107
+#: bin/node_type/formatFieldBool.php:89 bin/node_type/formatFieldDate.php:107
 #: bin/node_type/formatFieldDouble.php:87
 #: bin/node_type/formatFieldHtmltext.php:94
 #: bin/node_type/formatFieldInteger.php:87
 #: bin/node_type/formatFieldLongtext.php:90
 #: bin/node_type/formatFieldPassword.php:206
-#: bin/node_type/formatFieldString.php:91
-#: bin/node_type/formatFieldBool.php:88
+#: bin/node_type/formatFieldString.php:91 bin/node_type/formatFieldBool.php:88
 #: bin/node_type/formatFieldDate.php:106
 #: bin/node_type/formatFieldDouble.php:86
 #: bin/node_type/formatFieldHtmltext.php:93
@@ -2500,17 +2070,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:205
 #: bin/node_type/formatFieldString.php:90
 msgid "Field max length."
-msgstr ""
+msgstr "Longitud máxima de campo."
 
-#: bin/node_type/formatFieldBool.php:90
-#: bin/node_type/formatFieldDate.php:108
+#: bin/node_type/formatFieldBool.php:90 bin/node_type/formatFieldDate.php:108
 #: bin/node_type/formatFieldDouble.php:88
 #: bin/node_type/formatFieldHtmltext.php:95
 #: bin/node_type/formatFieldInteger.php:88
 #: bin/node_type/formatFieldLongtext.php:91
 #: bin/node_type/formatFieldPassword.php:207
-#: bin/node_type/formatFieldString.php:92
-#: bin/node_type/formatFieldBool.php:89
+#: bin/node_type/formatFieldString.php:92 bin/node_type/formatFieldBool.php:89
 #: bin/node_type/formatFieldDate.php:107
 #: bin/node_type/formatFieldDouble.php:87
 #: bin/node_type/formatFieldHtmltext.php:94
@@ -2519,17 +2087,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:206
 #: bin/node_type/formatFieldString.php:91
 msgid "Is a required field."
-msgstr ""
+msgstr "Es un campo requerido."
 
-#: bin/node_type/formatFieldBool.php:91
-#: bin/node_type/formatFieldDate.php:109
+#: bin/node_type/formatFieldBool.php:91 bin/node_type/formatFieldDate.php:109
 #: bin/node_type/formatFieldDouble.php:89
 #: bin/node_type/formatFieldHtmltext.php:96
 #: bin/node_type/formatFieldInteger.php:89
 #: bin/node_type/formatFieldLongtext.php:92
 #: bin/node_type/formatFieldPassword.php:208
-#: bin/node_type/formatFieldString.php:93
-#: bin/node_type/formatFieldBool.php:90
+#: bin/node_type/formatFieldString.php:93 bin/node_type/formatFieldBool.php:90
 #: bin/node_type/formatFieldDate.php:108
 #: bin/node_type/formatFieldDouble.php:88
 #: bin/node_type/formatFieldHtmltext.php:95
@@ -2538,17 +2104,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:207
 #: bin/node_type/formatFieldString.php:92
 msgid "Is a read only field."
-msgstr ""
+msgstr "Es un campo de solo lectura."
 
-#: bin/node_type/formatFieldBool.php:92
-#: bin/node_type/formatFieldDate.php:110
+#: bin/node_type/formatFieldBool.php:92 bin/node_type/formatFieldDate.php:110
 #: bin/node_type/formatFieldDouble.php:90
 #: bin/node_type/formatFieldHtmltext.php:97
 #: bin/node_type/formatFieldInteger.php:90
 #: bin/node_type/formatFieldLongtext.php:93
 #: bin/node_type/formatFieldPassword.php:209
-#: bin/node_type/formatFieldString.php:94
-#: bin/node_type/formatFieldBool.php:91
+#: bin/node_type/formatFieldString.php:94 bin/node_type/formatFieldBool.php:91
 #: bin/node_type/formatFieldDate.php:109
 #: bin/node_type/formatFieldDouble.php:89
 #: bin/node_type/formatFieldHtmltext.php:96
@@ -2557,17 +2121,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:208
 #: bin/node_type/formatFieldString.php:93
 msgid "Is a system field, it isn't allow write."
-msgstr ""
+msgstr "Es un campo de sistema, no permite escritura."
 
-#: bin/node_type/formatFieldBool.php:93
-#: bin/node_type/formatFieldDate.php:111
+#: bin/node_type/formatFieldBool.php:93 bin/node_type/formatFieldDate.php:111
 #: bin/node_type/formatFieldDouble.php:91
 #: bin/node_type/formatFieldHtmltext.php:98
 #: bin/node_type/formatFieldInteger.php:91
 #: bin/node_type/formatFieldLongtext.php:94
 #: bin/node_type/formatFieldPassword.php:210
-#: bin/node_type/formatFieldString.php:95
-#: bin/node_type/formatFieldBool.php:92
+#: bin/node_type/formatFieldString.php:95 bin/node_type/formatFieldBool.php:92
 #: bin/node_type/formatFieldDate.php:110
 #: bin/node_type/formatFieldDouble.php:90
 #: bin/node_type/formatFieldHtmltext.php:97
@@ -2576,17 +2138,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:209
 #: bin/node_type/formatFieldString.php:94
 msgid "Is a multi valued field."
-msgstr ""
+msgstr "Es un campo multivalor."
 
-#: bin/node_type/formatFieldBool.php:94
-#: bin/node_type/formatFieldDate.php:112
+#: bin/node_type/formatFieldBool.php:94 bin/node_type/formatFieldDate.php:112
 #: bin/node_type/formatFieldDouble.php:92
 #: bin/node_type/formatFieldHtmltext.php:99
 #: bin/node_type/formatFieldInteger.php:92
 #: bin/node_type/formatFieldLongtext.php:95
 #: bin/node_type/formatFieldPassword.php:211
-#: bin/node_type/formatFieldString.php:96
-#: bin/node_type/formatFieldBool.php:93
+#: bin/node_type/formatFieldString.php:96 bin/node_type/formatFieldBool.php:93
 #: bin/node_type/formatFieldDate.php:111
 #: bin/node_type/formatFieldDouble.php:91
 #: bin/node_type/formatFieldHtmltext.php:98
@@ -2595,17 +2155,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:210
 #: bin/node_type/formatFieldString.php:95
 msgid "Default value."
-msgstr ""
+msgstr "Valor por defecto."
 
-#: bin/node_type/formatFieldBool.php:95
-#: bin/node_type/formatFieldDate.php:113
+#: bin/node_type/formatFieldBool.php:95 bin/node_type/formatFieldDate.php:113
 #: bin/node_type/formatFieldDouble.php:93
 #: bin/node_type/formatFieldHtmltext.php:100
 #: bin/node_type/formatFieldInteger.php:93
 #: bin/node_type/formatFieldLongtext.php:96
 #: bin/node_type/formatFieldPassword.php:212
-#: bin/node_type/formatFieldString.php:97
-#: bin/node_type/formatFieldBool.php:94
+#: bin/node_type/formatFieldString.php:97 bin/node_type/formatFieldBool.php:94
 #: bin/node_type/formatFieldDate.php:112
 #: bin/node_type/formatFieldDouble.php:92
 #: bin/node_type/formatFieldHtmltext.php:99
@@ -2614,17 +2172,15 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:211
 #: bin/node_type/formatFieldString.php:96
 msgid "Label."
-msgstr ""
+msgstr "Etiqueta."
 
-#: bin/node_type/formatFieldBool.php:96
-#: bin/node_type/formatFieldDate.php:114
+#: bin/node_type/formatFieldBool.php:96 bin/node_type/formatFieldDate.php:114
 #: bin/node_type/formatFieldDouble.php:94
 #: bin/node_type/formatFieldHtmltext.php:101
 #: bin/node_type/formatFieldInteger.php:94
 #: bin/node_type/formatFieldLongtext.php:97
 #: bin/node_type/formatFieldPassword.php:213
-#: bin/node_type/formatFieldString.php:98
-#: bin/node_type/formatFieldBool.php:95
+#: bin/node_type/formatFieldString.php:98 bin/node_type/formatFieldBool.php:95
 #: bin/node_type/formatFieldDate.php:113
 #: bin/node_type/formatFieldDouble.php:93
 #: bin/node_type/formatFieldHtmltext.php:100
@@ -2633,545 +2189,468 @@ msgstr ""
 #: bin/node_type/formatFieldPassword.php:212
 #: bin/node_type/formatFieldString.php:97
 msgid "Help to write forms."
-msgstr ""
+msgstr "Ayuda a escribir formularios."
 
-#: bin/node_type/formatFieldDate.php:101
-#: bin/node_type/formatFieldDate.php:100
+#: bin/node_type/formatFieldDate.php:101 bin/node_type/formatFieldDate.php:100
 msgid "Format datetime field to read or write how date."
-msgstr ""
+msgstr "Formatea un campo datetime a leer o escribir como fecha."
 
 #: bin/node_type/formatFieldDouble.php:81
 #: bin/node_type/formatFieldDouble.php:80
 msgid "Format decimal field to read or write."
-msgstr ""
+msgstr "Formatea un campo decimal para leer o escribir."
 
 #: bin/node_type/formatFieldHtmltext.php:88
 #: bin/node_type/formatFieldHtmltext.php:87
 msgid "Format HTML text field to read or write."
-msgstr ""
+msgstr "Formatea un campo de texto HTML para leer o escribir."
 
 #: bin/node_type/formatFieldInteger.php:81
 #: bin/node_type/formatFieldInteger.php:80
 msgid "Format integer field to read or write."
-msgstr ""
+msgstr "Formatea un campo entero para lectura o escritura."
 
 #: bin/node_type/formatFieldLongtext.php:84
 #: bin/node_type/formatFieldLongtext.php:83
 msgid "Format longtext field to read or write."
-msgstr ""
+msgstr "Formatea un campo de texto largo para lectura o escritura."
 
 #: bin/node_type/formatFieldPassword.php:74
 msgid "Enter Password..."
-msgstr ""
+msgstr "Introduzca clave..."
 
 #: bin/node_type/formatFieldPassword.php:200
 #: bin/node_type/formatFieldPassword.php:199
 msgid "Format password field to read or write."
-msgstr ""
+msgstr "Formatea un campo de clave para lectura o escritura."
 
 #: bin/node_type/formatFieldString.php:85
 #: bin/node_type/formatFieldString.php:84
 msgid "Format string field to read or write."
-msgstr ""
+msgstr "Formatea un campo de cadena para lectura o escritura."
 
-#: bin/node_type/getNode.php:56
-#: bin/node_type/getNode.php:55
+#: bin/node_type/getNode.php:56 bin/node_type/getNode.php:55
 msgid "Return the node content."
-msgstr ""
+msgstr "Devuelve el contenido del nodo."
 
-#: bin/node_type/getNode.php:58
-#: bin/node_type/getNodeHtml.php:50
-#: bin/node_type/getNodes.php:198
-#: bin/node_type/getNode.php:57
-#: bin/node_type/getNodeHtml.php:49
-#: bin/node_type/getNodes.php:197
+#: bin/node_type/getNode.php:58 bin/node_type/getNodeHtml.php:50
+#: bin/node_type/getNodes.php:198 bin/node_type/getNode.php:57
+#: bin/node_type/getNodeHtml.php:49 bin/node_type/getNodes.php:197
 msgid "Node type."
-msgstr ""
+msgstr "Tipo de nodo."
 
-#: bin/node_type/getNode.php:59
-#: bin/node_type/getNodeHtml.php:51
-#: bin/node_type/getNode.php:58
-#: bin/node_type/getNodeHtml.php:50
+#: bin/node_type/getNode.php:59 bin/node_type/getNodeHtml.php:51
+#: bin/node_type/getNode.php:58 bin/node_type/getNodeHtml.php:50
 msgid "Node ID."
-msgstr ""
+msgstr "ID de nodo."
 
-#: bin/node_type/getNode.php:62
-#: bin/node_type/getNode.php:61
+#: bin/node_type/getNode.php:62 bin/node_type/getNode.php:61
 msgid "Array with node content indexed by field name."
-msgstr ""
+msgstr "Array con el contenido del nodo indexado por el nombre de campo."
 
-#: bin/node_type/getNodeHtml.php:48
-#: bin/node_type/getNodeHtml.php:47
+#: bin/node_type/getNodeHtml.php:48 bin/node_type/getNodeHtml.php:47
 msgid "Show node content in HTML."
-msgstr ""
+msgstr "Muestra el contenido del nodo como HTML."
 
 #: bin/node_type/getNodes.php:149
 msgid "Node type '%s' not found."
-msgstr ""
+msgstr "Tipo de nodo '%s' no encontrado."
 
-#: bin/node_type/getNodes.php:196
-#: bin/node_type/getNodes.php:195
+#: bin/node_type/getNodes.php:196 bin/node_type/getNodes.php:195
 msgid "Return list of nodes from a node type. All field's names must be enclosed with '`'"
-msgstr ""
+msgstr "Devuelve una lista de nodos de un tipo de nodo. Todos los nombres de campo deben encerrarse con '´'"
 
-#: bin/node_type/getNodes.php:199
-#: bin/node_type/getNodes.php:198
+#: bin/node_type/getNodes.php:199 bin/node_type/getNodes.php:198
 msgid "Bool, If true then return number, in a 'amount' field, of nodes but without node data."
-msgstr ""
+msgstr "Booleano, Si true entonces devuelve un número, en un campo 'amount', de nodos pero sin datos del nodo."
 
-#: bin/node_type/getNodes.php:200
-#: bin/node_type/getNodes.php:199
+#: bin/node_type/getNodes.php:200 bin/node_type/getNodes.php:199
 msgid "Comma separated string list. Optional, default '*'."
-msgstr ""
+msgstr "Lista de cadenas separadas por comas. Opcional, por defecto '*'."
 
-#: bin/node_type/getNodes.php:201
-#: bin/node_type/getNodes.php:200
+#: bin/node_type/getNodes.php:201 bin/node_type/getNodes.php:200
 msgid "Where condition."
-msgstr ""
+msgstr "Condicion where."
 
-#: bin/node_type/getNodes.php:202
-#: bin/node_type/getNodes.php:201
+#: bin/node_type/getNodes.php:202 bin/node_type/getNodes.php:201
 msgid "Order by fields."
-msgstr ""
+msgstr "Campos ordenados por."
 
-#: bin/node_type/getNodes.php:203
-#: bin/node_type/getNodes.php:202
+#: bin/node_type/getNodes.php:203 bin/node_type/getNodes.php:202
 msgid "Group by fields."
-msgstr ""
+msgstr "Campos agrupados por."
 
-#: bin/node_type/getNodes.php:204
-#: bin/node_type/getNodes.php:203
+#: bin/node_type/getNodes.php:204 bin/node_type/getNodes.php:203
 msgid "Index of first node to return. Optional, default 0."
-msgstr ""
+msgstr "Indice del primer nodo a devolver. Opcional, por defecto 0."
 
-#: bin/node_type/getNodes.php:205
-#: bin/node_type/getNodes.php:204
+#: bin/node_type/getNodes.php:205 bin/node_type/getNodes.php:204
 msgid "Number of nodes to return from the offset. Optional, default 100."
-msgstr ""
+msgstr "Número de nodos a devolver desde el offset. Opcional, por defecto 100."
 
-#: bin/node_type/getNodes.php:208
-#: bin/node_type/getNodes.php:207
+#: bin/node_type/getNodes.php:208 bin/node_type/getNodes.php:207
 msgid "Node array with the ID how index. Multivalued fields will be returned how related ID's array."
-msgstr ""
+msgstr "Array del nodo con la ID como indice. Campos multivalor serán devueltos como array de IDs relacionadas."
 
-#: bin/node_type/getNodeTypeDef.php:93
-#: bin/node_type/getNodeTypeDef.php:92
+#: bin/node_type/getNodeTypeDef.php:93 bin/node_type/getNodeTypeDef.php:92
 msgid "Get array definition of node type."
-msgstr ""
+msgstr "Obtiene array de definición como tipo de nodo."
 
-#: bin/node_type/getNodeTypeDef.php:98
-#: bin/node_type/getNodeTypeDef.php:97
+#: bin/node_type/getNodeTypeDef.php:98 bin/node_type/getNodeTypeDef.php:97
 msgid "Node type ID"
-msgstr ""
+msgstr "ID del tipo de nodo"
 
-#: bin/node_type/getNodeTypeDef.php:100
-#: bin/node_type/getNodeTypeDef.php:99
+#: bin/node_type/getNodeTypeDef.php:100 bin/node_type/getNodeTypeDef.php:99
 msgid "True/false, is a system node type?"
-msgstr ""
+msgstr "True/False, ¿es un tipo de nodo del sistema?"
 
-#: bin/node_type/getNodeTypeDef.php:101
-#: bin/node_type/getNodeTypeDef.php:100
+#: bin/node_type/getNodeTypeDef.php:101 bin/node_type/getNodeTypeDef.php:100
 msgid "Name of field used how label to lists."
-msgstr ""
+msgstr "Nombre del campo usado como etiqueta para listados."
 
-#: bin/node_type/getNodeTypeDef.php:102
-#: bin/node_type/getNodeTypeDef.php:101
+#: bin/node_type/getNodeTypeDef.php:102 bin/node_type/getNodeTypeDef.php:101
 msgid "Array with field's definitions. Each field is a array with this elements: 'name', 'type', 'iskey', 'len', 'required', 'readonly', 'locked', 'default', 'label', 'help', 'multi'."
-msgstr ""
+msgstr "Array con definiciones de campo. Cada campo es un array con estos elementos: 'name', 'type', 'iskey', 'len', 'required', 'readonly', 'locked', 'default', 'label', 'help', 'multi'."
 
-#: bin/node_type/getNodeTypeDef.php:103
-#: bin/node_type/getNodeTypeDef.php:102
+#: bin/node_type/getNodeTypeDef.php:103 bin/node_type/getNodeTypeDef.php:102
 msgid "Creation date."
-msgstr ""
+msgstr "Fecha de creación."
 
-#: bin/node_type/getNodeTypeDef.php:104
-#: bin/node_type/getNodeTypeDef.php:103
+#: bin/node_type/getNodeTypeDef.php:104 bin/node_type/getNodeTypeDef.php:103
 msgid "Creator ID."
-msgstr ""
+msgstr "ID del creador."
 
-#: bin/node_type/getNodeTypeDef.php:105
-#: bin/node_type/getNodeTypeDef.php:104
+#: bin/node_type/getNodeTypeDef.php:105 bin/node_type/getNodeTypeDef.php:104
 msgid "Modification date."
-msgstr ""
+msgstr "Fecha de modificación."
 
-#: bin/node_type/getNodeTypeDef.php:106
-#: bin/node_type/getNodeTypeDef.php:105
+#: bin/node_type/getNodeTypeDef.php:106 bin/node_type/getNodeTypeDef.php:105
 msgid "Modifier ID."
-msgstr ""
+msgstr "ID del modificador."
 
-#: bin/node_type/getNodeTypeDef.php:107
-#: bin/node_type/getNodeTypeDef.php:106
+#: bin/node_type/getNodeTypeDef.php:107 bin/node_type/getNodeTypeDef.php:106
 msgid "ID of owner user."
-msgstr ""
+msgstr "ID del usuario propietario."
 
-#: bin/node_type/getNodeTypeDef.php:108
-#: bin/node_type/getNodeTypeDef.php:107
+#: bin/node_type/getNodeTypeDef.php:108 bin/node_type/getNodeTypeDef.php:107
 msgid "ID of owner group."
-msgstr ""
+msgstr "ID del grupo propietario."
 
-#: bin/node_type/getNodeTypeDef.php:109
-#: bin/node_type/getNodeTypeDef.php:108
+#: bin/node_type/getNodeTypeDef.php:109 bin/node_type/getNodeTypeDef.php:108
 msgid "Access flags. (nodesec)"
-msgstr ""
+msgstr "Banderas de acceso. (nodesec)"
 
 #: bin/node_type/getNodeTypeDefHtml.php:31
 msgid "Node type '%s'"
-msgstr ""
+msgstr "Tipo de nodo '%s'"
 
 #: bin/node_type/getNodeTypeDefHtml.php:32
 msgid "Fields"
-msgstr ""
+msgstr "Campos"
 
 #: bin/node_type/getNodeTypeDefHtml.php:36
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: bin/node_type/getNodeTypeDefHtml.php:37
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: bin/node_type/getNodeTypeDefHtml.php:38
 msgid "Is key"
-msgstr ""
+msgstr "Es clave"
 
 #: bin/node_type/getNodeTypeDefHtml.php:39
 msgid "length"
-msgstr ""
+msgstr "Longitud"
 
 #: bin/node_type/getNodeTypeDefHtml.php:40
 msgid "Required"
-msgstr ""
+msgstr "Requerido"
 
 #: bin/node_type/getNodeTypeDefHtml.php:41
 msgid "Locked"
-msgstr ""
+msgstr "Bloqueado"
 
 #: bin/node_type/getNodeTypeDefHtml.php:42
 msgid "Read only"
-msgstr ""
+msgstr "Solo lectura"
 
 #: bin/node_type/getNodeTypeDefHtml.php:43
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: bin/node_type/getNodeTypeDefHtml.php:44
 msgid "Multivalued"
-msgstr ""
+msgstr "Multivalor"
 
 #: bin/node_type/getNodeTypeDefHtml.php:45
 msgid "Default"
-msgstr ""
+msgstr "Por defecto"
 
 #: bin/node_type/getNodeTypeDefHtml.php:46
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: bin/node_type/getNodeTypeDefHtml.php:113
 msgid "This is a system node type."
-msgstr ""
+msgstr "Este es un tipo de nodo de sistema."
 
 #: bin/node_type/getNodeTypeDefHtml.php:116
 msgid "Created by '%s' in %s, modified by '%s' in %s."
-msgstr ""
+msgstr "Creado por '%s' el %s, modificado por '%s' el %s."
 
 #: bin/node_type/getNodeTypeDefHtml.php:126
 msgid "Contains %s record/s."
-msgstr ""
+msgstr "contiene %s registros/s."
 
 #: bin/node_type/getNodeTypeDefHtml.php:129
 msgid "Permisions"
-msgstr ""
+msgstr "Permisos"
 
 #: bin/node_type/getNodeTypeDefHtml.php:150
 #: bin/node_type/getNodeTypeDefHtml.php:149
 msgid "Display definition of node type."
-msgstr ""
+msgstr "Muestra la definición de un tipo de nodo."
 
-#: bin/node_type/getNodeTypeId.php:56
-#: bin/node_type/getNodeTypeId.php:55
+#: bin/node_type/getNodeTypeId.php:56 bin/node_type/getNodeTypeId.php:55
 msgid "Search ID of node type by name"
-msgstr ""
+msgstr "Busca el ID de tipo de nodo por nombre"
 
-#: bin/node_type/getNodeTypeId.php:58
-#: bin/node_type/getNodeTypeId.php:57
+#: bin/node_type/getNodeTypeId.php:58 bin/node_type/getNodeTypeId.php:57
 msgid "Node type name to search."
-msgstr ""
+msgstr "Nombre del tipo de nod a buscar."
 
-#: bin/node_type/getNodeTypeId.php:61
-#: bin/node_type/getNodeTypeId.php:60
+#: bin/node_type/getNodeTypeId.php:61 bin/node_type/getNodeTypeId.php:60
 msgid "ID of the node type. False if not found."
-msgstr ""
+msgstr "ID del tipo de nodo. False si no encontrado."
 
-#: bin/node_type/getNodeTypeList.php:71
-#: bin/node_type/getNodeTypeList.php:70
+#: bin/node_type/getNodeTypeList.php:71 bin/node_type/getNodeTypeList.php:70
 msgid "Return a list of node types."
-msgstr ""
+msgstr "Devuelve una lista de tipos de nodos."
 
-#: bin/node_type/getNodeTypeList.php:74
-#: bin/node_type/getNodeTypeList.php:73
+#: bin/node_type/getNodeTypeList.php:74 bin/node_type/getNodeTypeList.php:73
 msgid "Array with node type names."
-msgstr ""
+msgstr "Array con nombres de tipos de nodos."
 
 #: bin/node_type/isBasicNodeFieldType.php:63
 #: bin/node_type/isBasicNodeFieldType.php:62
 msgid "Identify a field's node type how basic type or it's a reference to another node type."
-msgstr ""
+msgstr "Identifica un campo de tipo de nodo como tipo básico o si es una referencia a otro tipo de nodo."
 
 #: bin/node_type/isBasicNodeFieldType.php:65
 #: bin/node_type/isBasicNodeFieldType.php:64
 msgid "The type name to test."
-msgstr ""
+msgstr "El tipo de nodo a probar."
 
 #: bin/node_type/isBasicNodeFieldType.php:68
 #: bin/node_type/isBasicNodeFieldType.php:67
 msgid "True/False is a basic type"
-msgstr ""
+msgstr "True/False es un tipo básico"
 
 #: bin/node_type/updateNode.php:78
 msgid "Unknowed node ID"
-msgstr ""
+msgstr "ID de nodo desconocido"
 
 #: bin/node_type/updateNode.php:203
 msgid "You can't update nodes."
-msgstr ""
+msgstr "No puedes modificar nodos."
 
-#: bin/node_type/updateNode.php:230
-#: bin/node_type/updateNode.php:229
+#: bin/node_type/updateNode.php:230 bin/node_type/updateNode.php:229
 msgid "Update a node"
-msgstr ""
+msgstr "Modifica un nodo"
 
-#: bin/node_type/updateNode.php:232
-#: bin/node_type/updateNode.php:231
+#: bin/node_type/updateNode.php:232 bin/node_type/updateNode.php:231
 msgid "Node type of node to update."
-msgstr ""
+msgstr "Tipo de nodo del nodo a modificar."
 
-#: bin/node_type/updateNode.php:233
-#: bin/node_type/updateNode.php:232
+#: bin/node_type/updateNode.php:233 bin/node_type/updateNode.php:232
 msgid "ID of node."
-msgstr ""
+msgstr "ID de nodo."
 
-#: bin/node_type/updateNode.php:237
-#: bin/node_type/updateNode.php:236
+#: bin/node_type/updateNode.php:237 bin/node_type/updateNode.php:236
 msgid "True/False node updated"
-msgstr ""
+msgstr "True/False nodo modificado"
 
 #: bin/router/addUrl.php:29
 msgid "URL or CMD is empty."
-msgstr ""
+msgstr "URL o CMD está vacío."
 
 #: bin/router/addUrl.php:34
 msgid "URL just existe."
-msgstr ""
+msgstr "URL ya existe."
 
-#: bin/router/addUrl.php:53
-#: bin/router/addUrl.php:52
+#: bin/router/addUrl.php:53 bin/router/addUrl.php:52
 msgid "Add a new URL to the rewrite list."
-msgstr ""
+msgstr "Añade una nueva URL a la lista rewrite."
 
-#: bin/router/addUrl.php:55
-#: bin/router/addUrl.php:54
+#: bin/router/addUrl.php:55 bin/router/addUrl.php:54
 msgid "The new URL, relative at root. Ex. home to http://127.0.0.1/home"
-msgstr ""
+msgstr "La nueva URL, relativa a la raíz. Ej. home para http://127.0.0.1/home"
 
-#: bin/router/addUrl.php:56
-#: bin/router/addUrl.php:55
+#: bin/router/addUrl.php:56 bin/router/addUrl.php:55
 msgid "POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home"
-msgstr ""
+msgstr "Cadena codificada como POST con el comando y los parámetros. Ej. command=pageToHTML&page=home"
 
-#: bin/router/addUrl.php:58
-#: bin/router/addUrl.php:57
+#: bin/router/addUrl.php:58 bin/router/addUrl.php:57
 msgid "TRUE if new URL added."
-msgstr ""
+msgstr "TRUE si se añadió la nueva URL."
 
-#: bin/router/addUrl.php:59
-#: bin/router/addUrl.php:58
+#: bin/router/addUrl.php:59 bin/router/addUrl.php:58
 msgid "If FALSE contain the error message."
-msgstr ""
+msgstr "Si FALSE contiene el mensaje de error."
 
-#: bin/router/delUrl.php:47
-#: bin/router/delUrl.php:46
+#: bin/router/delUrl.php:47 bin/router/delUrl.php:46
 msgid "Del URL to the rewrite list."
-msgstr ""
+msgstr "Borra URL de la lista rewrite."
 
-#: bin/router/delUrl.php:49
-#: bin/router/delUrl.php:48
+#: bin/router/delUrl.php:49 bin/router/delUrl.php:48
 msgid "The URL to erase, relative at root. Ex. home to http://127.0.0.1/home"
-msgstr ""
+msgstr "La URL a borrar, relativa a la raíz. Ej. home para http://127.0.0.1/home"
 
-#: bin/router/getRWUrls.php:49
-#: bin/router/getRWUrls.php:48
+#: bin/router/getRWUrls.php:49 bin/router/getRWUrls.php:48
 msgid "Return a complete list of URL rewrites."
-msgstr ""
+msgstr "Devuelve una lista completa de URLs reescritas."
 
-#: bin/router/getRWUrls.php:51
-#: bin/router/getRWUrls.php:50
+#: bin/router/getRWUrls.php:51 bin/router/getRWUrls.php:50
 msgid "List of URLs"
-msgstr ""
+msgstr "Lista de URLs"
 
-#: bin/router/isUrl.php:51
-#: bin/router/isUrl.php:50
+#: bin/router/isUrl.php:51 bin/router/isUrl.php:50
 msgid "Query the rewrite list and return if the url is rewrited."
-msgstr ""
+msgstr "Consulta la lista de reescritura y devuelve si la url está reescrita."
 
-#: bin/router/isUrl.php:53
-#: bin/router/isUrl.php:52
+#: bin/router/isUrl.php:53 bin/router/isUrl.php:52
 msgid "The URL to test."
-msgstr ""
+msgstr "La URL a probar."
 
-#: bin/router/isUrl.php:56
-#: bin/router/isUrl.php:55
+#: bin/router/isUrl.php:56 bin/router/isUrl.php:55
 msgid "TRUE if the URL exist."
-msgstr ""
+msgstr "TRUE si la URL existe."
 
 #: bin/user/addUser.php:39
 msgid "User name required. "
-msgstr ""
+msgstr "Nombre de usuario requerido."
 
 #: bin/user/addUser.php:42
 msgid "User mail required. "
-msgstr ""
+msgstr "Correo de usuario requerido."
 
 #: bin/user/addUser.php:46
 msgid "'root@localhost' is in use. "
-msgstr ""
+msgstr "'root@localhost' está en uso."
 
 #: bin/user/addUser.php:49
 msgid "User title required. "
-msgstr ""
+msgstr "Titulo de usuario requerido."
 
 #: bin/user/addUser.php:52
 msgid "User password required. "
-msgstr ""
+msgstr "Clave de usuario requerida."
 
 #: bin/user/addUser.php:100
 msgid "Mail or group in use."
-msgstr ""
+msgstr "Correo o grupo está en uso."
 
-#: bin/user/addUser.php:117
-#: bin/user/addUser.php:116
+#: bin/user/addUser.php:117 bin/user/addUser.php:116
 msgid "Add a new user. All parameters are requires."
-msgstr ""
+msgstr "Añade un nuevo usuario. Todos los parámetros son requeridos."
 
-#: bin/user/addUser.php:119
-#: bin/user/delUser.php:83
-#: bin/user/addUser.php:118
+#: bin/user/addUser.php:119 bin/user/delUser.php:83 bin/user/addUser.php:118
 #: bin/user/delUser.php:82
 msgid "The user mail."
-msgstr ""
+msgstr "El correo de usuario."
 
-#: bin/user/addUser.php:120
-#: bin/user/addUser.php:119
+#: bin/user/addUser.php:120 bin/user/addUser.php:119
 msgid "The password in plain text."
-msgstr ""
+msgstr "La clave en texto plano."
 
-#: bin/user/addUser.php:121
-#: bin/user/addUser.php:120
+#: bin/user/addUser.php:121 bin/user/addUser.php:120
 msgid "User name or nick, used how default group name too."
-msgstr ""
+msgstr "Nombre de usuario o nick, usado tambien como grupo por defecto."
 
-#: bin/user/addUser.php:122
-#: bin/user/addUser.php:121
+#: bin/user/addUser.php:122 bin/user/addUser.php:121
 msgid "User complete name."
-msgstr ""
+msgstr "Nombre completo de usuario."
 
-#: bin/user/addUser.php:125
-#: bin/user/addUser.php:124
+#: bin/user/addUser.php:125 bin/user/addUser.php:124
 msgid "TRUE if the user is added."
-msgstr ""
+msgstr "TRUE si el usuario se añadió."
 
-#: bin/user/addUser.php:126
-#: bin/user/addUser.php:125
+#: bin/user/addUser.php:126 bin/user/addUser.php:125
 msgid "If ok is FALSE contains the error message."
-msgstr ""
+msgstr "Si ok es FALSE contiene el mensaje de error."
 
-#: bin/user/addUser.php:127
-#: bin/user/addUser.php:126
+#: bin/user/addUser.php:127 bin/user/addUser.php:126
 msgid "If ok is TRUE contains the new user ID."
-msgstr ""
+msgstr "Si ok es TRUE contiene la nueva ID de usuario."
 
-#: bin/user/delUser.php:80
-#: bin/user/delUser.php:79
+#: bin/user/delUser.php:80 bin/user/delUser.php:79
 msgid "Delete a user by ID or mail."
-msgstr ""
+msgstr "Borrar un usuario por su ID o correo."
 
-#: bin/user/delUser.php:82
-#: bin/user/delUser.php:81
+#: bin/user/delUser.php:82 bin/user/delUser.php:81
 msgid "The user id."
-msgstr ""
+msgstr "El id de usuario."
 
-#: bin/user/endSession.php:43
-#: bin/user/endSession.php:42
+#: bin/user/endSession.php:43 bin/user/endSession.php:42
 msgid "Close the user session."
-msgstr ""
+msgstr "Cerrar la sesión de usuario."
 
-#: bin/user/getSession.php:46
-#: bin/user/getSession.php:45
+#: bin/user/getSession.php:46 bin/user/getSession.php:45
 msgid "Return user session data. Warning! It can display sensible data."
-msgstr ""
+msgstr "Devuelve datos de sesión de usuario. Peligro! Puede contener información sensible."
 
-#: bin/user/getSession.php:49
-#: bin/user/getSession.php:48
+#: bin/user/getSession.php:49 bin/user/getSession.php:48
 msgid "Session array"
-msgstr ""
+msgstr "Array de sesión"
 
-#: bin/user/setMyLang.php:68
-#: bin/user/setMyLang.php:67
+#: bin/user/setMyLang.php:68 bin/user/setMyLang.php:67
 msgid "Set the session language."
-msgstr ""
+msgstr "Configura el idioma de sesión."
 
-#: bin/user/setMyLang.php:70
-#: bin/user/setMyLang.php:69
+#: bin/user/setMyLang.php:70 bin/user/setMyLang.php:69
 msgid "The language code, if is '' then set the client default languages."
-msgstr ""
+msgstr "El código de idioma, si es '' entonces configura el idioma por defecto del cliente."
 
-#: bin/user/setMyLang.php:74
-#: bin/user/setMyLang.php:73
+#: bin/user/setMyLang.php:74 bin/user/setMyLang.php:73
 msgid "The session language set."
-msgstr ""
+msgstr "Configura el idioma de sesión."
 
-#: bin/user/startSession.php:51
-#: bin/user/startSession.php:50
+#: bin/user/startSession.php:51 bin/user/startSession.php:50
 msgid "Start the user session."
-msgstr ""
+msgstr "Inicia una sesión de usuario."
 
-#: bin/user/startSession.php:54
-#: bin/user/startSession.php:53
+#: bin/user/startSession.php:54 bin/user/startSession.php:53
 msgid "User password to login."
-msgstr ""
+msgstr "Clave de usuario para entrar."
 
-#: bin/user/startSession.php:57
-#: bin/user/sudo.php:71
-#: bin/user/startSession.php:56
-#: bin/user/sudo.php:70
+#: bin/user/startSession.php:57 bin/user/sudo.php:71
+#: bin/user/startSession.php:56 bin/user/sudo.php:70
 msgid "TRUE if session started."
-msgstr ""
+msgstr "TRUE si la sesión se inició."
 
-#: bin/user/startSession.php:58
-#: bin/user/startSession.php:57
+#: bin/user/startSession.php:58 bin/user/startSession.php:57
 msgid "Session ID to use how auth_token."
-msgstr ""
+msgstr "ID de sesión a usar como auth_token."
 
-#: bin/user/sudo.php:66
-#: bin/user/sudo.php:65
+#: bin/user/sudo.php:66 bin/user/sudo.php:65
 msgid "Change active user without logout and login. This is the unique method to get root access, super administration. A user can do sudo when it have sudoers group."
-msgstr ""
+msgstr "Cambia el usuario activo sin salir y entrar. Este es el único metodo para obtener acceso como root, super adminitración. Un usuario puede hacer sudo cuando tiene el grupo sudoers."
 
-#: bin/user/sudo.php:68
-#: bin/user/sudo.php:67
+#: bin/user/sudo.php:68 bin/user/sudo.php:67
 msgid "User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."
-msgstr ""
+msgstr "Correo del usuario a suplantar. Root es 'root@localhost'. Si este parámetro está vacío entonces salimos de sudo."
 
-#: bin/gettext/gettextExtract.php:116
-#: bin/gettext/gettextExtract.php:113
-#: bin/gettext/gettextExtract.php:112
-#: bin/gettext/gettextExtract.php:99
+#: bin/gettext/gettextExtract.php:116 bin/gettext/gettextExtract.php:113
+#: bin/gettext/gettextExtract.php:112 bin/gettext/gettextExtract.php:99
 msgid "Scan a folder to find text in gettext functions: __(), __e(), n__(), n__e(), p__(), p__e(). This explore all PHP and JS files."
-msgstr ""
+msgstr "Escanea un directorio para encontrar texto en funciones gettext: __(), __e(), n__(), n__e(), p__(), p__e(). Esto explora archivos PHP y JS."
 
 #: bin/html/commandHelp.php:30
 msgid "Package path '%s'"
-msgstr ""
+msgstr "Ruta del paquete '%s'"
 
 #: bin/html/commandHelp.php:35
 msgid "Command '%s'"
-msgstr ""
+msgstr "Comando '%s' no encontrado"
