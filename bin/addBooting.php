@@ -57,7 +57,7 @@ if (!class_exists("commandAddBooting")) {
                     "priority" => __("Priority of execution."),
                 ), 
                 "response" => array(
-                    "uid" => __("Unique ID to we can delete the boot command.")
+                    "uid" => __("Unique ID, with that we can delete the boot command later.")
                 ),
                 "type" => array(
                     "parameters" => array(
