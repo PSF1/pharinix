@@ -44,7 +44,7 @@ class driverLPMonitor {
         }
         $resp = new stdClass();
         $resp->label = $label;
-        $resp->id = uniqid('', true);
+        $resp->id = str_replace('.', '', uniqid('', true));
         $resp->startTime = time();
         $resp->step = 0;
         $resp->stepLabel = __('Starting');
