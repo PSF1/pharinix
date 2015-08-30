@@ -50,6 +50,7 @@ class driverLPMonitor {
         $resp->stepLabel = __('Starting');
         $resp->stepsTotal = $stepsTotal; // Cero to show indeterminated progress.
         $resp->percent = 0;
+        $resp->error = false;
         
         file_put_contents(self::$path.$resp->id.'.lpm', json_encode($resp));
         return $resp;
@@ -73,11 +74,13 @@ class driverLPMonitor {
             $resp->stepLabel = __('Unknowed process monitor.');
             $resp->stepsTotal = 0;
             $resp->percent = 0;
+            $resp->error = true;
         } else {
             $json = file_get_contents(self::$path.$id.'.lpm');
             $resp = json_decode($json);
             $resp->step = $step;
             $resp->stepLabel = $stepLabel;
+            $resp->error = false;
             if ($stepTotal >= 0) $resp->stepTotal = $stepTotal;
             if ($resp->stepsTotal > 0) {
                 $resp->percent = round(($resp->step * 100) / $resp->stepsTotal, 2);
@@ -102,6 +105,7 @@ class driverLPMonitor {
             $resp->stepLabel = __('Unknowed process monitor.');
             $resp->stepsTotal = 0;
             $resp->percent = 0;
+            $resp->error = true;
         } else {
             $json = file_get_contents(self::$path.$id.'.lpm');
             $resp = json_decode($json);
@@ -109,6 +113,27 @@ class driverLPMonitor {
         return $resp;
     }
     
+    public static function setError($id, $val) {
+        if (!is_file(self::$path.$id.'.lpm')) {
+            $resp = new stdClass();
+            $resp->label = __('Unknowed process monitor.');
+            $resp->id = '';
+            $resp->startTime = time();
+            $resp->step = 0;
+            $resp->stepLabel = __('Unknowed process monitor.');
+            $resp->stepsTotal = 0;
+            $resp->percent = 0;
+            $resp->error = true;
+        } else {
+            $json = file_get_contents(self::$path.$id.'.lpm');
+            $resp = json_decode($json);
+            $resp->error = $val;
+            file_put_contents(self::$path.$resp->id.'.lpm', json_encode($resp));
+        }
+        return $resp;
+    }
+
+
     /**
      * Close a monitor
      * @param string $id Monitor ID
