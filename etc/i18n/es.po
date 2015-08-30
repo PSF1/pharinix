@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-08-30T00:52:54+02:00\n"
-"PO-Revision-Date: 2015-08-30 00:54+0100\n"
+"POT-Creation-Date: 2015-08-30T19:12:37+02:00\n"
+"PO-Revision-Date: 2015-08-30 19:19+0100\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
 
@@ -206,6 +206,20 @@ msgstr "Comando '%s' no encontrado"
 #: etc/drivers/command.php:132
 msgid "Command base class"
 msgstr "Clase base de comando"
+
+#: etc/drivers/longProcessMonitor.php:43 bin/lpmonitor/lpStart.php:28
+msgid "Long process"
+msgstr "Proceso largo"
+
+#: etc/drivers/longProcessMonitor.php:50
+msgid "Starting"
+msgstr "Iniciando"
+
+#: etc/drivers/longProcessMonitor.php:69 etc/drivers/longProcessMonitor.php:73
+#: etc/drivers/longProcessMonitor.php:98
+#: etc/drivers/longProcessMonitor.php:102
+msgid "Unknowed process monitor."
+msgstr "Monitor de proceso desconocido."
 
 #: etc/drivers/tools.php:155
 msgid "Can't open the directory: '%s'."
@@ -1688,6 +1702,50 @@ msgstr "Tiempo"
 #: bin/html/usageToHTML.php:66 bin/html/usageToHTML.php:65
 msgid "Print resource consume in HTML format"
 msgstr "Imprimir recursos consumidos en formato HTML"
+
+#: bin/lpmonitor/lpClose.php:38
+msgid "Close a monitor process."
+msgstr "Cerrar un monitor de proceso."
+
+#: bin/lpmonitor/lpClose.php:40 bin/lpmonitor/lpRead.php:40
+msgid "Monitor ID."
+msgstr "ID de monitor."
+
+#: bin/lpmonitor/lpClose.php:43
+msgid "TRUE if exist and it's closed."
+msgstr "TRUE si existe y está cerrado."
+
+#: bin/lpmonitor/lpRead.php:38
+msgid "Read the state of a monitor process."
+msgstr "Leer el estado de un monitor de proceso."
+
+#: bin/lpmonitor/lpRead.php:43
+msgid "Monitor object."
+msgstr "Objecto monitor."
+
+#: bin/lpmonitor/lpReadAll.php:38
+msgid "Read all active monitors process."
+msgstr "Leer todos los monitores de proceso activos."
+
+#: bin/lpmonitor/lpReadAll.php:40
+msgid "Like you state too?"
+msgstr "¿Quieres el estado támbien?"
+
+#: bin/lpmonitor/lpReadAll.php:43
+msgid "List of monitors objects."
+msgstr "Listado de objectos monitores."
+
+#: bin/lpmonitor/lpStart.php:38
+msgid "Start a new monitor process. Monitors are safe mode compatible."
+msgstr "Iniciar un nuevo monitor de proceso. Los monitores son compatibles con el modo seguro."
+
+#: bin/lpmonitor/lpStart.php:40
+msgid "Global process label."
+msgstr "Etique de proceso global."
+
+#: bin/lpmonitor/lpStart.php:43
+msgid "Monitor object. The ID is in the id attribute."
+msgstr "Objeto monitor. La ID está en el atributo id."
 
 #: bin/node_type/addFieldFormat.php:37
 msgid "'cmd' is required."
