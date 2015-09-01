@@ -33,9 +33,6 @@ function loadStates() {
             readInterval = 2000;
             updateState(mon);
             actMons.push(mon);
-            if (mon.step >= mon.stepsTotal) {
-                closeMon(mon.id);
-            }
         });
     })
     setTimeout(loadStates, readInterval);
@@ -58,8 +55,14 @@ function updateState(mon) {
     if (mon.error) {
         barStyle = 'progress-bar-danger';
     }
-    html += '<div class="progress-bar active '+barStyle+' progress-bar-striped" role="progressbar" aria-valuenow="'+mon.percent+'" aria-valuemin="0" aria-valuemax="100" style="width: '+mon.percent+'%">';
-    html += '<span>'+mon.percent+'%</span>';
+    var percent = 100;
+    if (mon.stepsTotal != 0) {
+        percent = mon.percent;
+    }
+    html += '<div class="progress-bar active '+barStyle+' progress-bar-striped" role="progressbar" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100" style="width: '+percent+'%">';
+    if (mon.stepsTotal != 0) {
+        html += '<span>'+mon.percent+'%</span>';
+    }
     html += '</div>';
     html += '</div>';
     $('#lpmviewer').append(html);

@@ -36,8 +36,20 @@ if (!class_exists("commandGettextCoreExtract")) {
                 'etc/', // System tools
                 'usr/execForm/', // Commands console
             );
+            $nodes = array(
+                'user',
+                'group',
+                'modules',
+            );
+            
+            // Long process progress
+            include_once 'etc/drivers/longProcessMonitor.php';
+            $lp = driverLPMonitor::start(count($paths) + count($nodes), __('Extracting Pharinix strings'));
+            $lpStep = 0;
             // Extract from source code
             foreach($paths as $path) {
+                ++$lpStep;
+                driverLPMonitor::update($lp->id, $lpStep, sprintf(__('Reading path %s'), $path));
                 $item = new stdClass();
                 $item->path = $path;
                 $item->resp = driverCommand::run('gettextExtract', array(
@@ -52,12 +64,9 @@ if (!class_exists("commandGettextCoreExtract")) {
                 $resp[] = $item;
             }
             // Extract from node types
-            $nodes = array(
-                'user',
-                'group',
-                'modules',
-            );
             foreach($nodes as $node) {
+                ++$lpStep;
+                driverLPMonitor::update($lp->id, $lpStep, sprintf(__('Reading node %s'), $node));
                 $item = new stdClass();
                 $item->nodetype = $node;
                 $item->resp = driverCommand::run('gettextNodeTypeExtract', array(
@@ -71,6 +80,8 @@ if (!class_exists("commandGettextCoreExtract")) {
                 ));
                 $resp[] = $item;
             }
+            // Closing progressbar
+            driverLPMonitor::close($lp->id);
             // 
             return $resp;
         }
