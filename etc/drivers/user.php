@@ -323,6 +323,9 @@ use Gettext\Translator;
             $_SESSION["started"] = true;
             self::getLangOfUser();
         }
+        // http://stackoverflow.com/questions/898190/jquery-making-simultaneous-ajax-requests-is-it-possible
+        // http://stackoverflow.com/questions/28010156/stalled-and-pending-ajax-requests-by-jquery-in-chrome
+        session_write_close();
     }
     
     /**
@@ -449,6 +452,7 @@ use Gettext\Translator;
      * Close user session
      */
     public static function logOut() {
+        @session_start();
         session_destroy();
         driverUser::sessionStart();
     }
