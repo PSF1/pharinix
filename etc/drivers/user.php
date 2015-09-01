@@ -341,6 +341,7 @@ use Gettext\Translator;
         $sql = "select * from `node_user` where `mail` = '$user' && `pass` = '$pass'";
         $q = dbConn::Execute($sql);
         if (!$q->EOF) {
+            @session_start();
             $_SESSION["is_loged"] = 1;
             $_SESSION["user_id"] = $q->fields["id"];
             $sql = "SELECT * FROM `node_relation_user_groups_group` where `type1` = ".$q->fields["id"];
@@ -350,6 +351,7 @@ use Gettext\Translator;
                 $_SESSION["user_groups"][] = $q->fields["type2"];
                 $q->MoveNext();
             }
+            session_write_close();
         }
     }
     
@@ -359,6 +361,7 @@ use Gettext\Translator;
      * @param integer $userID User ID to get.
      */
     public static function sudo($get = true, $userID = 0) {
+        @session_start();
         if ($get) {
             $usr = $userID;
             $grp = array(0);
@@ -390,6 +393,7 @@ use Gettext\Translator;
             unset($_SESSION["sudo_user_id"]);
             unset($_SESSION["sudo_user_groups"]);
         }
+        session_write_close();
     }
     
     /**
@@ -545,7 +549,11 @@ use Gettext\Translator;
             // Select language of the client
             $resp = self::getLangOfClient();
         }
-        if (isset($_SESSION)) $_SESSION['lang'] = $resp;
+        if (isset($_SESSION)) {
+            @session_start();
+            $_SESSION['lang'] = $resp;
+            session_write_close();
+        }
         return $resp;
     }
     
