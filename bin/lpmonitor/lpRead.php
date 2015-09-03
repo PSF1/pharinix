@@ -28,6 +28,10 @@ if (!class_exists("commandLPRead")) {
                 'id' => '',
             ), $params);
             
+            if (!driverUser::isLoged()) {
+                return array('ok' => false, 'msg' => __('You need login.'));
+            }
+            
             include_once 'etc/drivers/longProcessMonitor.php';
             return array('monitor' => driverLPMonitor::read($params['id']));
         }
@@ -58,9 +62,9 @@ if (!class_exists("commandLPRead")) {
             return parent::getAccess($me);
         }
         
-//        public static function getAccessFlags() {
-//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-//        }
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
     }
 }
 return new commandLPRead();

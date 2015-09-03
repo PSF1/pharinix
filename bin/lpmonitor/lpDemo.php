@@ -28,6 +28,10 @@ if (!class_exists("commandLPDemo")) {
                 'step' => 1,
             ), $params);
             
+            if (!driverUser::isLoged()) {
+                return array('ok' => false, 'msg' => __('You need login.'));
+            }
+            
             include_once 'etc/drivers/longProcessMonitor.php';
             $lp = driverLPMonitor::start(100, __('Demo process'));
             for($i = 0; $i < 100; ++$i) {
@@ -65,9 +69,9 @@ if (!class_exists("commandLPDemo")) {
             return parent::getAccess($me);
         }
         
-//        public static function getAccessFlags() {
-//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-//        }
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
     }
 }
 return new commandLPDemo();

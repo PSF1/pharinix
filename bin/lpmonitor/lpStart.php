@@ -20,6 +20,8 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
+// TODO: A attacker can call this method until full the server disk.
+
 if (!class_exists("commandLPStart")) {
     class commandLPStart extends driverCommand {
 
@@ -28,6 +30,10 @@ if (!class_exists("commandLPStart")) {
                 'label' => __('Long process'),
             ), $params);
             
+            if (!driverUser::isLoged()) {
+                return array('ok' => false, 'msg' => __('You need login.'));
+            }
+            
             include_once 'etc/drivers/longProcessMonitor.php';
             return array('monitor' => driverLPMonitor::start(0, $params['label']));
         }
@@ -35,7 +41,7 @@ if (!class_exists("commandLPStart")) {
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __("Start a new monitor process. Monitors are safe mode compatible."), 
+                "description" => __("Start a new monitor process. Monitors are safe mode compatible.").' '.__('Only login users can call this command.'), 
                 "parameters" => array(
                     'label' => __('Global process label.'),
                 ), 
@@ -58,9 +64,9 @@ if (!class_exists("commandLPStart")) {
             return parent::getAccess($me);
         }
         
-//        public static function getAccessFlags() {
-//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-//        }
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
     }
 }
 return new commandLPStart();

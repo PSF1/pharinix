@@ -48,9 +48,9 @@ if (!class_exists("commandLPViewer")) {
             return parent::getAccess($me);
         }
         
-//        public static function getAccessFlags() {
-//            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
-//        }
+        public static function getAccessFlags() {
+            return driverUser::PERMISSION_FILE_ALL_EXECUTE;
+        }
     }
 }
 return new commandLPViewer();
