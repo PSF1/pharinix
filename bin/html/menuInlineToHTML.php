@@ -81,6 +81,7 @@ body {
                     <input type="hidden" name="command" value="sudo"/>
                     <input type="hidden" name="user" value=""/>
                     <input type="hidden" name="interface" value="goHome"/>
+                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-danger"><?php __e('Exit superuser'); ?></button>
                 </form>
                 <?php
@@ -90,6 +91,7 @@ body {
                     <input type="hidden" name="command" value="sudo"/>
                     <input type="hidden" name="user" value="root@localhost"/>
                     <input type="hidden" name="interface" value="goHome"/>
+                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Get superuser'); ?></button>
                 </form>
                 <?php
@@ -99,6 +101,7 @@ body {
                     <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="command" value="startSession"/>
                         <input type="hidden" name="interface" value="goHome"/>
+                        <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
                         <div class="form-group">
                             <input type="text" class="form-control" name="user" placeholder="<?php __e('mail');?>">
                         </div>
@@ -113,6 +116,7 @@ body {
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="command" value="endSession"/>
                     <input type="hidden" name="interface" value="goHome"/>
+                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Logout'); ?></button>
                 </form>
                 <?php
@@ -168,6 +172,14 @@ body {
       </div><!-- /.container-fluid -->
     </nav>
 </div>
+<script>
+$(document).ready(function(){
+    $('.menuInlineToHTMLReloadURL').each(function(i, item){
+        $(this).val(PHARINIX_CURRENT_PATH);
+    });
+});
+
+</script>
 <?php
         }
 

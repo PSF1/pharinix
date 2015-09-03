@@ -18,6 +18,9 @@
  */
 
 var PHARINIX_ROOT_URL = '{$$CMS_DEFAULT_URL_BASE}';
+var PHARINIX_CURRENT_PATH = location.href.replace(PHARINIX_ROOT_URL, '');
+//PHARINIX_CURRENT_PATH = PHARINIX_CURRENT_PATH.replace(location.hash, '');
+
 $(document).tooltip({
     selector: "[data-toggle=tooltip]",
     container: "body"}
