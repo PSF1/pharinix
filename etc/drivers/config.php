@@ -18,12 +18,29 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-define("CMS_VERSION", "1.09.05");
-@header("author: Pedro Pelaez <aaaaa976@gmail.com>");
-@header("generator: Pharinix/".CMS_VERSION);
-
 class driverConfig {
+    /**
+     * Cached configuration
+     * @var driverConfigIni 
+     */
     public static $cfg = null;
+    
+    /**
+     * Pharinix meta data
+     * @var stdClass
+     */
+    public static $coreMeta = null;
+    
+    /**
+     * Return Pharinix meta data
+     * @return \stdClass
+     */
+    public static function getMeta() {
+        if (self::$coreMeta == null) {
+            self::$coreMeta = json_decode(file_get_contents('etc/meta.json'));
+        }
+        return self::$coreMeta;
+    }
     
     /**
      * Return configuration control
@@ -412,3 +429,8 @@ class driverConfigIniSection {
         }
     }
 }
+
+$meta = driverConfig::getMeta();
+define("CMS_VERSION", $meta->meta->version);
+@header("author: Pedro Pelaez <aaaaa976@gmail.com>");
+@header("generator: Pharinix/".CMS_VERSION);

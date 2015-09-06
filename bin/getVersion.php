@@ -24,15 +24,8 @@ if (!class_exists("commandGetVersion")) {
     class commandGetVersion extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $meta = new stdClass();
-            $meta->name = 'Pharinix';
-            $meta->slugname = 'core';
-            $meta->version = CMS_VERSION;
-            $meta->autor = 'Pharinix Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)';
-            $meta->website = 'https://github.com/PSF1/pharinix';
-            $meta->description = __('Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it\'s the perfect backend to your application.');
-            $meta->licence = 'GNU GENERAL PUBLIC LICENSE Version 2';
-            return array("version" => CMS_VERSION, 'meta' => $meta);
+            $meta = driverConfig::getMeta();
+            return array("version" => CMS_VERSION, 'meta' => $meta->meta);
         }
 
         public static function getAccess($ignore = "") {
