@@ -47,7 +47,12 @@ class userCommandsTest extends PHPUnit_Framework_TestCase {
     }
     
     public static function tearDownAfterClass() {
-        
+        driverUser::sessionStart();
+        driverUser::sudo();
+        driverCommand::run("delUser", array(
+            "mail" => "example@localhost",
+        ));
+        driverUser::logOut();
     }
 
     public function testCreateUser_empty_mail_Fail() {
@@ -106,7 +111,7 @@ class userCommandsTest extends PHPUnit_Framework_TestCase {
         ));
         $this->assertTrue($resp["ok"]);
         // Exist default group?
-        $sql = "SELECT `id` FROM `node_group` where `title` = 'Example'";
+        $sql = "SELECT `id` FROM `node_group` where `title` = 'user'";
         $q = dbConn::Execute($sql);
         $this->assertFalse($q->EOF);
         // Exist the new user?

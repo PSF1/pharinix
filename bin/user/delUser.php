@@ -50,18 +50,18 @@ if (!class_exists("commandDelUser")) {
             ));
             
             // Del default group
-            $grp = driverCommand::run("getNodes", array(
-                "nodetype" => "group",
-                "fields" => "`id`",
-                "where" => "`title` = '".$node[$params["uid"]]["name"]."'",
-            ));
-            if (count($grp) > 0) {
-                $keys = array_keys($grp);
-                driverCommand::run("delNode", array(
-                    "nodetype" => "group",
-                    "nid" => $keys[0],
-                ));
-            }
+//            $grp = driverCommand::run("getNodes", array(
+//                "nodetype" => "group",
+//                "fields" => "`id`",
+//                "where" => "`title` = '".$node[$params["uid"]]["name"]."'",
+//            ));
+//            if (count($grp) > 0) {
+//                $keys = array_keys($grp);
+//                driverCommand::run("delNode", array(
+//                    "nodetype" => "group",
+//                    "nid" => $keys[0],
+//                ));
+//            }
             // Del user node
             driverCommand::run("delNode", array(
                 "nodetype" => "user",

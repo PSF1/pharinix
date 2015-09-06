@@ -36,12 +36,14 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
             "pass" => "testlogin2",
             "name" => "testlogin2",
             "title" => "testlogin2",
+            "group" => "testlogin2",
         ));
         $adduser = driverCommand::run("addUser", array(
             "mail" => "testlogin@localhost",
             "pass" => "testlogin",
             "name" => "testlogin",
             "title" => "testlogin",
+            "group" => "testlogin",
         ));
         $user = driverCommand::run("getNodes", array(
             "nodetype" => "user",
@@ -112,6 +114,9 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         driverUser::sudo();
         driverCommand::run("delUser", array(
             "mail" => "testlogin@localhost",
+        ));
+        driverCommand::run("delUser", array(
+            "mail" => "testlogin2@localhost",
         ));
         driverCommand::run("delNodeType", array("name" => "test"));
         driverUser::logOut();

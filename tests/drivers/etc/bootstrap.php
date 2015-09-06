@@ -51,11 +51,3 @@ if ($q->EOF) {
     $sql = "insert into `node_group` set `title` = 'sudoers'";
     dbConn::Execute($sql);
 }
-
-// Clear test garbage
-// TODO: Find tests that leave garbage in database
-$sql = "delete from `node_group` where `title` = 'testlogin2'";
-dbConn::Execute($sql);
-
-$sql = "delete from `node_user` where `mail` = 'testlogin2@localhost'";
-dbConn::Execute($sql);

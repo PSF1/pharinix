@@ -43,6 +43,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
             "pass" => "testlogin",
             "name" => "testlogin",
             "title" => "testlogin",
+            "group" => "testlogin",
         ));
         driverUser::sudo(false);
     }

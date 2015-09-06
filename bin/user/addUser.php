@@ -29,6 +29,7 @@ if (!class_exists("commandAddUser")) {
                 "pass" => "",
                 "name" => "",
                 "title" => "",
+                "group" => "user",
             ), $params);
             $resp = array(
                 "ok" => false,
@@ -53,23 +54,35 @@ if (!class_exists("commandAddUser")) {
             }
             if ($resp["msg"] == "") {
                 try {
-                    // If dont exist the user name how group
+                    // If dont exist the user group
                     $grp = driverCommand::run("getNodes", array(
                         "nodetype" => "group",
-                        "count" => true,
-                        "where" => "`title` = '{$params["name"]}'",
+                        "count" => false,
+                        "where" => "`title` = '{$params["group"]}'",
                     ));
                     $mail = driverCommand::run("getNodes", array(
                         "nodetype" => "user",
                         "count" => true,
                         "where" => "`mail` = '{$params["mail"]}'",
                     ));
-                    if ($grp[0]["amount"] == 0 && $mail[0]["amount"] == 0) {
+                    if ($mail[0]["amount"] == 0) {
                         // Create group
-                        $gid = driverCommand::run("addNode", array(
-                            "nodetype" => "group",
-                            "title" => $params["name"],
-                        ));
+                        if (count($grp) == 0) {
+                            $gid = driverCommand::run("addNode", array(
+                                "nodetype" => "group",
+                                "title" => $params["name"],
+                            ));
+                        } else {
+                            // Get first group
+                            foreach($grp as $auxid => $auxval) {
+                                $gid = array(
+                                    'ok' => true,
+                                    'msg' => '',
+                                    'nid' => $auxid,
+                                );
+                                break;
+                            }
+                        }
                         if ($gid["ok"]) {
                             // Create user with default group
                             $uid = driverCommand::run("addNode", array(
@@ -97,7 +110,7 @@ if (!class_exists("commandAddUser")) {
                             $resp = $gid;
                         }
                     } else {
-                        $resp["msg"] = __("Mail or group in use.");
+                        $resp["msg"] = __("Mail in use.");
                     }
                 } catch (Exception $exc) {
                     $resp["msg"] = $exc->getMessage();
@@ -118,8 +131,9 @@ if (!class_exists("commandAddUser")) {
                 "parameters" => array(
                     "mail" => __("The user mail."),
                     "pass" => __("The password in plain text."),
-                    "name" => __("User name or nick, used how default group name too."),
+                    "name" => __("User name or nick."),
                     "title" => __("User complete name."),
+                    "group" => __("Default group. It get the value 'user' if not set."),
                 ), 
                 "response" => array(
                     "ok" => __("TRUE if the user is added."),
@@ -132,6 +146,7 @@ if (!class_exists("commandAddUser")) {
                         "pass" => "string",
                         "name" => "string",
                         "title" => "string",
+                        "group" => "string",
                     ), 
                     "response" => array(
                         "ok" => "boolean",

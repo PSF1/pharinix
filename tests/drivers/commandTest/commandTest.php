@@ -38,6 +38,7 @@ class commandTest extends PHPUnit_Framework_TestCase {
             "pass" => "testlogin",
             "name" => "testlogin",
             "title" => "testlogin",
+            "group" => "testlogin",
         ));
         self::$userID = $resp["nid"];
         $resp = driverCommand::run("getNodes", array(
