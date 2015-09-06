@@ -27,7 +27,7 @@ CREATE TABLE `booting` (
   `priority` int(10) unsigned NOT NULL,
   `ref` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=106 DEFAULT CHARSET=latin1;
 CREATE TABLE `node_algo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_owner` int(10) unsigned DEFAULT '0',
@@ -72,10 +72,12 @@ CREATE TABLE `node_group` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5745 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5803 DEFAULT CHARSET=latin1;
 INSERT INTO `node_group` VALUES  (219,0,0,3904,0,NULL,0,NULL,'sudoers'),
  (21,0,0,3904,2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','PSF'),
- (5695,0,0,3904,2,'2015-09-06 11:14:41',0,'2015-09-06 11:14:41','testlogin2');
+ (5795,0,0,3904,23,'2015-09-06 11:42:43',0,'2015-09-06 11:42:43','user'),
+ (5802,0,0,3904,2,'2015-09-06 15:41:19',0,'2015-09-06 15:41:19','Example'),
+ (5801,0,0,3904,23,'2015-09-06 13:22:29',0,'2015-09-06 13:22:29','phpsysinfo');
 CREATE TABLE `node_modules` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `version` varchar(250) DEFAULT '',
@@ -90,8 +92,8 @@ CREATE TABLE `node_modules` (
   `user_owner` int(10) unsigned DEFAULT '0',
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=408 DEFAULT CHARSET=latin1;
-INSERT INTO `node_modules` VALUES  (188,'1.0','{\"meta\":{\"name\":\"phpSysInfo v 3.2.2\",\"slugname\":\"phpsysinfo\",\"version\":\"1.0\",\"autor\":\"Copyright (c), 1999-2008, Uriah Welcome (precision@users.sf.net)\\nCopyright (c), 1999-2009, Michael Cramer (bigmichi1@users.sf.net)\\nCopyright (c), 2007-2008, Audun Larsen (xqus@users.sf.net)\\nCopyright (c), 2007-2015, Erkan Valentin\\nCopyright (c), 2009-2015, Mieczyslaw Nalewaj (namiltd@users.sf.net)\\nCopyright (c), 2010-2012, Damien Roth (iysaak@users.sf.net)\\nPharinix mod Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_phpsysinfo\",\"description\":\"phpSysInfo: a customizable PHP script that displays information about your system nicely\",\"licence\":\"GNU GENERAL PUBLIC LICENSE Version 2, June 1991\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.07.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/phpsysinfo/',23,'2015-08-11 10:43:47',0,'2015-08-11 10:43:47',3904,0,0,'phpsysinfo'),
+) ENGINE=MyISAM AUTO_INCREMENT=478 DEFAULT CHARSET=latin1;
+INSERT INTO `node_modules` VALUES  (477,'1.5','{\"meta\":{\"name\":\"phpSysInfo v 3.2.2\",\"slugname\":\"phpsysinfo\",\"version\":\"1.5\",\"autor\":\"Copyright (c), 1999-2008, Uriah Welcome (precision@users.sf.net)\\nCopyright (c), 1999-2009, Michael Cramer (bigmichi1@users.sf.net)\\nCopyright (c), 2007-2008, Audun Larsen (xqus@users.sf.net)\\nCopyright (c), 2007-2015, Erkan Valentin\\nCopyright (c), 2009-2015, Mieczyslaw Nalewaj (namiltd@users.sf.net)\\nCopyright (c), 2010-2012, Damien Roth (iysaak@users.sf.net)\\nPharinix mod Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_phpsysinfo\",\"description\":\"phpSysInfo: a customizable PHP script that displays information about your system nicely\",\"licence\":\"GNU GENERAL PUBLIC LICENSE Version 2, June 1991\"},\"configuration\":{\"[phpsysinfo]\":{\"default_group\":\"\'phpsysinfo\'\"}},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{\"psihost\":{\"url\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":true,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Host\",\"help\":\"Pharinix host\'s url with phpSysInfo installed.\"},\"user\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"User\",\"help\":\"User name that can call commands.\"},\"pass\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Password\",\"help\":\"User password that can call commands.\"}}},\"sql\":{},\"install\":[{\"addNode\":{\"nodetype\":\"group\",\"title\":\"phpsysinfo\"}},{\"delNodeField\":{\"nodetype\":\"psihost\",\"name\":\"title\"}}],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\",\"raphael_js\":\"2.1.4\"},\"platforms\":[\"win\",\"linux\"]}','usr/phpsysinfo/',23,'2015-09-06 13:22:29',0,'2015-09-06 13:22:29',3904,0,0,'phpsysinfo'),
  (208,'2.1.4','{\"meta\":{\"name\":\"Rapha\\u00ebl - JavaScript Vector Library\",\"slugname\":\"raphael_js\",\"version\":\"2.1.4\",\"autor\":\"Copyright \\u00a9 2008-2012 Dmitry Baranovskiy (http:\\/\\/raphaeljs.com), Copyright \\u00a9 2008-2012 Sencha Labs (http:\\/\\/sencha.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_raphael\",\"description\":\"Small JavaScript library that should simplify your work with vector graphics on the web.\",\"licence\":\"MIT License\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.07.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/raphael_js/',23,'2015-08-12 12:26:59',0,'2015-08-12 12:26:59',3904,0,0,'raphael_js');
 CREATE TABLE `node_notes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -135,6 +137,22 @@ CREATE TABLE `node_otracosa` (
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE `node_psihost` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pass` varchar(250) DEFAULT '',
+  `user` varchar(250) DEFAULT '',
+  `url` varchar(250) DEFAULT '',
+  `modifier` int(10) unsigned DEFAULT '0',
+  `modified` datetime DEFAULT NULL,
+  `creator` int(10) unsigned DEFAULT '0',
+  `created` datetime DEFAULT NULL,
+  `access` int(11) DEFAULT '3904',
+  `group_owner` int(10) unsigned DEFAULT '0',
+  `user_owner` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+INSERT INTO `node_psihost` VALUES  (2,'','','http://inicial.cloudapp.net/',23,'2015-09-06 13:32:02',0,'2015-09-06 13:32:02',3904,0,0),
+ (3,'','','http://wrong.example.com/',23,'2015-09-06 14:28:26',0,'2015-09-06 14:28:26',3904,0,0);
 CREATE TABLE `node_relation_user_groups_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type1` int(10) unsigned NOT NULL,
@@ -142,11 +160,14 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM AUTO_INCREMENT=6612 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7040 DEFAULT CHARSET=latin1;
 INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
  (21,23,21),
  (6558,5695,5695),
- (5849,5044,5044);
+ (5849,5044,5044),
+ (6612,5745,5745),
+ (6666,5795,0),
+ (6719,5844,0);
 CREATE TABLE `node_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -160,14 +181,15 @@ CREATE TABLE `node_type` (
   `group_owner` int(10) unsigned NOT NULL,
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20043 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20881 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18:38:55',0,'0','title',0,0,3904),
  (555,'user','2015-03-21 18:56:43',0,'2015-08-21 18:06:12',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-04-17 17:14:16',0,'1','title',0,0,3904),
  (8180,'otracosa','2015-04-11 17:59:42',0,'2015-04-11 17:59:42',0,'0','title',0,0,3904),
  (8935,'nuevo','2015-04-17 17:03:39',0,'2015-04-17 17:03:39',0,'0','title',0,0,3904),
  (11772,'notes','2015-05-02 09:44:01',0,'2015-05-13 23:48:54',0,'0','title',0,0,15),
- (16471,'modules','2015-08-05 16:54:35',0,'2015-08-05 23:56:30',0,'1','title',0,0,3904);
+ (16471,'modules','2015-08-05 16:54:35',0,'2015-08-05 23:56:30',0,'1','title',0,0,3904),
+ (20880,'psihost','2015-09-06 13:22:29',0,'2015-09-06 13:22:29',0,'0','title',0,0,3904);
 CREATE TABLE `node_type_field` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -183,7 +205,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=181116 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=188847 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','1','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','1','1',556,'0','User creator','','0','0'),
@@ -257,7 +279,17 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (148177,'title','string',250,'1','0','0',16471,'','Title','A title string for this node.','0','0'),
  (112562,'note','longtext',0,'1','0','0',11772,'','Note','A long text','0','0'),
  (148187,'version','string',250,'1','0','1',16471,'','Version','Module version','0','0'),
- (161493,'language','string',10,'0','0','1',555,'','Language','Primary user language','0','0');
+ (161493,'language','string',10,'0','0','1',555,'','Language','Primary user language','0','0'),
+ (188846,'pass','string',250,'0','0','0',20880,'','Password','User password that can call commands.','0','0'),
+ (188845,'user','string',250,'0','0','0',20880,'','User','User name that can call commands.','0','0'),
+ (188844,'url','string',250,'1','0','0',20880,'','Host','Pharinix host\'s url with phpSysInfo installed.','0','0'),
+ (188843,'modifier','user',0,'0','1','1',20880,'0','Modifier user','','0','0'),
+ (188842,'modified','datetime',0,'0','1','1',20880,'','Modified date','','0','0'),
+ (188841,'creator','user',0,'0','1','1',20880,'0','User creator','','0','0'),
+ (188840,'created','datetime',0,'0','1','1',20880,'','Creation date','','0','0'),
+ (188839,'access','nodesec',0,'0','0','1',20880,'3904','Access','Access control flags.','0','0'),
+ (188838,'group_owner','group',0,'0','0','1',20880,'0','Group','Owner group','0','0'),
+ (188837,'user_owner','user',0,'0','0','1',20880,'0','Owner','Owner user','0','0');
 CREATE TABLE `node_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `language` varchar(10) DEFAULT NULL,
@@ -274,10 +306,9 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5745 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6131 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (2,'',0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
- (23,'en',0,23,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',23,'2015-09-01 23:31:05',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez'),
- (5695,NULL,0,5695,3904,0,'testlogin2@localhost','124653cf9d6a29a3d4b5f264b1105dec','testlogin2',2,'2015-09-06 11:14:41',0,'2015-09-06 11:14:41','testlogin2');
+ (23,'en',0,23,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',23,'2015-09-01 23:31:05',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez');
 CREATE TABLE `page-blocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpage` int(10) unsigned NOT NULL,
@@ -286,7 +317,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86674 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=90376 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','execForm','',1),
  (10,0,'footCopy','echoHTML','html=%3Ch4%3EPharinix%20Copyright%20%C2%A9%20%3C%3Fphp%20echo%20date(%22Y%22)%3B%20%3F%3E%20Pedro%20Pelaez%3C%2Fh4%3E%0A%3Ch5%3EGNU%20Software%3C%2Fh5%3E',0),
  (69332,69246,'colLeft','textUrlEncoder','',10),
@@ -399,6 +430,18 @@ INSERT INTO `page-blocks` VALUES  (47435,46837,'htmltext_write','formatFieldHtml
  (63805,63721,'content','getNodeHtml','nodetype=user&node=3894',0),
  (63806,63722,'content','getNodeHtml','nodetype=group&node=3895',0),
  (63807,63723,'content','getNodeHtml','nodetype=user&node=3895',0),
+ (90369,90282,'content','getNodeHtml','nodetype=group&node=5802',0),
+ (90364,90277,'content','getNodeHtml','nodetype=psihost&node=3',0),
+ (90360,90273,'content','getNodeTypeDefHtml','nodetype=psihost',0),
+ (88315,88228,'content','getNodeHtml','nodetype=group&node=5799',0),
+ (90358,90271,'content','getNodeHtml','nodetype=group&node=5800',0),
+ (87792,87705,'content','getNodeHtml','nodetype=group&node=5796',0),
+ (87740,87653,'content','getNodeHtml','nodetype=user&node=5844',0),
+ (87794,87707,'content','getNodeHtml','nodetype=group&node=5797',0),
+ (87233,87146,'content','getNodeHtml','nodetype=user&node=5795',0),
+ (87232,87145,'content','getNodeHtml','nodetype=group&node=5795',0),
+ (86675,86588,'content','getNodeHtml','nodetype=user&node=5745',0),
+ (86674,86587,'content','getNodeHtml','nodetype=group&node=5745',0),
  (86117,86030,'content','getNodeHtml','nodetype=user&node=5695',0),
  (86116,86029,'content','getNodeHtml','nodetype=group&node=5695',0),
  (78394,78307,'content','getNodeHtml','nodetype=user&node=5044',0),
@@ -407,11 +450,14 @@ INSERT INTO `page-blocks` VALUES  (47435,46837,'htmltext_write','formatFieldHtml
  (77835,77748,'content','getNodeHtml','nodetype=group&node=4994',0),
  (74488,74402,'content','getNodeHtml','nodetype=modules&node=208',0),
  (74489,1,'colRight','psiBlock','',10),
- (73374,73288,'content','getNodeHtml','nodetype=modules&node=188',0),
+ (90359,90272,'content','getNodeHtml','nodetype=modules&node=477',0),
  (71043,70957,'content','getNodeHtml','nodetype=modules&node=76',0),
  (69878,69792,'content','getNodeTypeDefHtml','nodetype=modules',0),
  (69881,69795,'content','getNodeHtml','nodetype=modules&node=4',0),
- (69882,69796,'content','getNodeHtml','nodetype=modules&node=5',0);
+ (69882,69796,'content','getNodeHtml','nodetype=modules&node=5',0),
+ (90361,90274,'content','getNodeHtml','nodetype=group&node=5801',0),
+ (90363,90276,'content','getNodeHtml','nodetype=psihost&node=2',0),
+ (87805,87718,'content','getNodeHtml','nodetype=group&node=5798',0);
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -420,7 +466,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86587 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=90289 DEFAULT CHARSET=latin1;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -457,9 +503,12 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xm
  (9913,'node_type_group_16','etc/templates/pages/default.xml','Node 16','',''),
  (9923,'node_type_group_21','etc/templates/pages/default.xml','Node 21','',''),
  (9924,'node_type_user_23','etc/templates/pages/default.xml','Node 23','',''),
+ (87145,'node_type_group_5795','etc/templates/pages/default.xml','Node 5795','',''),
+ (87146,'node_type_user_5795','etc/templates/pages/default.xml','Node 5795','',''),
  (86030,'node_type_user_5695','etc/templates/pages/default.xml','Node 5695','',''),
  (86029,'node_type_group_5695','etc/templates/pages/default.xml','Node 5695','',''),
  (67049,'node_type_group_4060','etc/templates/pages/default.xml','Node 4060','',''),
+ (87707,'node_type_group_5797','etc/templates/pages/default.xml','Node 5797','',''),
  (47385,'help/forms','etc/templates/pages/default.xml','Forms','',''),
  (47384,'help/ui','etc/templates/pages/default.xml','UI Elements','',''),
  (46837,'help/formatters','etc/templates/pages/formatter.xml','Formatters gallery','',''),
@@ -482,6 +531,7 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xm
  (52298,'node_type_notes_5','etc/templates/pages/default.xml','Node 5','',''),
  (70957,'node_type_modules_76','etc/templates/pages/default.xml','Node 76','',''),
  (63720,'node_type_group_3894','etc/templates/pages/default.xml','Node 3894','',''),
+ (88228,'node_type_group_5799','etc/templates/pages/default.xml','Node 5799','',''),
  (69796,'node_type_modules_5','etc/templates/pages/default.xml','Node 5','',''),
  (69795,'node_type_modules_4','etc/templates/pages/default.xml','Node 4','',''),
  (69792,'node_type_modules','etc/templates/pages/default.xml','modules node type','',''),
@@ -489,9 +539,20 @@ INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xm
  (77749,'node_type_user_4994','etc/templates/pages/default.xml','Node 4994','',''),
  (77748,'node_type_group_4994','etc/templates/pages/default.xml','Node 4994','',''),
  (74402,'node_type_modules_208','etc/templates/pages/default.xml','Node 208','',''),
- (73288,'node_type_modules_188','etc/templates/pages/default.xml','Node 188','',''),
+ (90272,'node_type_modules_477','etc/templates/pages/default.xml','Node 477','',''),
+ (86587,'node_type_group_5745','etc/templates/pages/default.xml','Node 5745','',''),
+ (86588,'node_type_user_5745','etc/templates/pages/default.xml','Node 5745','',''),
  (78306,'node_type_group_5044','etc/templates/pages/default.xml','Node 5044','',''),
- (78307,'node_type_user_5044','etc/templates/pages/default.xml','Node 5044','','');
+ (78307,'node_type_user_5044','etc/templates/pages/default.xml','Node 5044','',''),
+ (87718,'node_type_group_5798','etc/templates/pages/default.xml','Node 5798','',''),
+ (87705,'node_type_group_5796','etc/templates/pages/default.xml','Node 5796','',''),
+ (87653,'node_type_user_5844','etc/templates/pages/default.xml','Node 5844','',''),
+ (90282,'node_type_group_5802','etc/templates/pages/default.xml','Node 5802','',''),
+ (90277,'node_type_psihost_3','etc/templates/pages/default.xml','Node 3','',''),
+ (90273,'node_type_psihost','etc/templates/pages/default.xml','psihost node type','',''),
+ (90271,'node_type_group_5800','etc/templates/pages/default.xml','Node 5800','',''),
+ (90274,'node_type_group_5801','etc/templates/pages/default.xml','Node 5801','',''),
+ (90276,'node_type_psihost_2','etc/templates/pages/default.xml','Node 2','','');
 CREATE TABLE `url_rewrite` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `url` longtext,
@@ -500,7 +561,7 @@ CREATE TABLE `url_rewrite` (
   `priority` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=52481 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=52488 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r',0),
  (3,'help/command','command=pageToHTML&page=help/command','r',0),
  (13,'template/editor','command=pageToHTML&page=template/editor','r',0),
