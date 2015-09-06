@@ -25,6 +25,12 @@ if (!class_exists("commandModInstalled")) {
 
         public static function runMe(&$params, $debug = true) {
             $resp = driverCommand::run('getNodes', array('nodetype' => 'modules'));
+            // Parse meta field
+            foreach($resp as $id => $data) {
+                if (isset($data['meta'])) {
+                    $resp[$id]['meta'] = json_decode($resp[$id]['meta']);
+                }
+            }
             return array('modules' => $resp);
         }
 
