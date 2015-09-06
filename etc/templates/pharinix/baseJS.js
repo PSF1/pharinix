@@ -36,10 +36,24 @@ $(document).tooltip({
  * @returns {undefined}
  */
 function apiCall(postData, onSuccess, onFail, onStart, onEnd) {
+    remoteApiCall(PHARINIX_ROOT_URL, postData, onSuccess, onFail, onStart, onEnd);
+}
+
+/**
+ * Load data from a remote Pharinix API
+ * @param string URL URL to query
+ * @param object postData POST parameters. ex. { command: 'nothing', }
+ * @param function onSuccess (response body) Success callback function
+ * @param function onFail (status number, status text, response body) Fail callback function
+ * @param function onStart Start callback function
+ * @param function onEnd End callback function
+ * @returns {undefined}
+ */
+function remoteApiCall(url, postData, onSuccess, onFail, onStart, onEnd) {
     if (onStart) onStart();
     $.ajax({
         type: "POST",
-        url: PHARINIX_ROOT_URL,
+        url: url,
         data: postData,
         success: function (data) {
             if (onSuccess) onSuccess(data);
