@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Pharinix/1.08.06\n"
+"Project-Id-Version: Pharinix/1.09.05\n"
 "Report-Msgid-Bugs-To: aaaaa976@gmail.com\n"
 "Last-Translator: Pedro Pelaez <aaaaa976@gmail.com>\n"
 "Language-Team: Pharinix\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-09-01T23:59:17+02:00\n"
-"PO-Revision-Date: 2015-09-02 00:02+0100\n"
+"POT-Creation-Date: 2015-09-06T12:07:15+02:00\n"
+"PO-Revision-Date: 2015-09-06 12:09+0100\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
 
@@ -212,14 +212,20 @@ msgstr "Comando '%s' no encontrado"
 msgid "Command base class"
 msgstr "Clase base de comando"
 
+#: etc/drivers/longProcessMonitor.php:48 bin/lpmonitor/lpStart.php:30
 #: etc/drivers/longProcessMonitor.php:43 bin/lpmonitor/lpStart.php:28
 msgid "Long process"
 msgstr "Proceso largo"
 
-#: etc/drivers/longProcessMonitor.php:50
+#: etc/drivers/longProcessMonitor.php:55 etc/drivers/longProcessMonitor.php:50
 msgid "Starting"
 msgstr "Iniciando"
 
+#: etc/drivers/longProcessMonitor.php:75 etc/drivers/longProcessMonitor.php:79
+#: etc/drivers/longProcessMonitor.php:106
+#: etc/drivers/longProcessMonitor.php:110
+#: etc/drivers/longProcessMonitor.php:124
+#: etc/drivers/longProcessMonitor.php:128
 #: etc/drivers/longProcessMonitor.php:70 etc/drivers/longProcessMonitor.php:74
 #: etc/drivers/longProcessMonitor.php:101
 #: etc/drivers/longProcessMonitor.php:105
@@ -515,19 +521,15 @@ msgstr "Obtener información sobre los manejadores de hook registrados."
 msgid "Hooks list."
 msgstr "Listado de Hooks."
 
-#: bin/getVersion.php:33
-msgid "Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it's the perfect backend to your application."
-msgstr "Framework ligero con funciones muy interesantes. Modelo de datos con seguridad parecida a unix, configurable por si mismo, reescritura de URL y mapeo, etc... Es el backend perfecto para tu aplicación."
-
-#: bin/getVersion.php:50 bin/getVersion.php:41
+#: bin/getVersion.php:43 bin/getVersion.php:50 bin/getVersion.php:41
 msgid "Return Pharinix version."
 msgstr "Devuelve la versión de Pharinix."
 
-#: bin/getVersion.php:53 bin/getVersion.php:44
+#: bin/getVersion.php:46 bin/getVersion.php:53 bin/getVersion.php:44
 msgid "Pharinix version."
 msgstr "Versión de Pharinix."
 
-#: bin/getVersion.php:54
+#: bin/getVersion.php:47 bin/getVersion.php:54
 msgid "Meta data information."
 msgstr "Información de meta datos."
 
@@ -1400,8 +1402,8 @@ msgstr "Muestra una lista de iconos de referencia."
 msgid "Command help"
 msgstr "Ayuda de comando"
 
-#: bin/html/manHelpOnline.php:55 bin/html/menuInlineToHTML.php:125
-#: bin/node_type/getNodeTypeDefHtml.php:47
+#: bin/html/manHelpOnline.php:55 bin/html/menuInlineToHTML.php:129
+#: bin/node_type/getNodeTypeDefHtml.php:47 bin/html/menuInlineToHTML.php:125
 msgid "Help"
 msgstr "Ayuda"
 
@@ -1421,77 +1423,77 @@ msgstr "Muestra ayuda sobre un comando como HTML. Ej. manHTML('cmd' => 'manHTML'
 msgid "Home"
 msgstr "Inicio"
 
-#: bin/html/menuInlineToHTML.php:84
+#: bin/html/menuInlineToHTML.php:85 bin/html/menuInlineToHTML.php:84
 msgid "Exit superuser"
 msgstr "Salir de superusuario"
 
-#: bin/html/menuInlineToHTML.php:93
+#: bin/html/menuInlineToHTML.php:95 bin/html/menuInlineToHTML.php:93
 msgid "Get superuser"
 msgstr "Obtener superusuario"
 
-#: bin/html/menuInlineToHTML.php:103
+#: bin/html/menuInlineToHTML.php:106 bin/html/menuInlineToHTML.php:103
 msgid "mail"
 msgstr "correo"
 
-#: bin/html/menuInlineToHTML.php:106
+#: bin/html/menuInlineToHTML.php:109 bin/html/menuInlineToHTML.php:106
 msgid "password"
 msgstr "clave"
 
-#: bin/html/menuInlineToHTML.php:108
+#: bin/html/menuInlineToHTML.php:111 bin/html/menuInlineToHTML.php:108
 msgid "Login"
 msgstr "Entrar"
 
-#: bin/html/menuInlineToHTML.php:116
+#: bin/html/menuInlineToHTML.php:120 bin/html/menuInlineToHTML.php:116
 msgid "Logout"
 msgstr "Salir"
 
-#: bin/html/menuInlineToHTML.php:128
+#: bin/html/menuInlineToHTML.php:132 bin/html/menuInlineToHTML.php:128
 msgid "Console"
 msgstr "Consola"
 
-#: bin/html/menuInlineToHTML.php:129
+#: bin/html/menuInlineToHTML.php:133 bin/html/menuInlineToHTML.php:129
 msgid "Commands"
 msgstr "Comandos"
 
-#: bin/html/menuInlineToHTML.php:130
+#: bin/html/menuInlineToHTML.php:134 bin/html/menuInlineToHTML.php:130
 msgid "Formatters demo"
 msgstr "Demo de formateadores"
 
-#: bin/html/menuInlineToHTML.php:132
+#: bin/html/menuInlineToHTML.php:136 bin/html/menuInlineToHTML.php:132
 msgid "Bootstrap icons"
 msgstr "Iconos Bootstrap"
 
-#: bin/html/menuInlineToHTML.php:133
+#: bin/html/menuInlineToHTML.php:137 bin/html/menuInlineToHTML.php:133
 msgid "Tabs & Panels"
 msgstr "Pestañas y paneles"
 
-#: bin/html/menuInlineToHTML.php:134
+#: bin/html/menuInlineToHTML.php:138 bin/html/menuInlineToHTML.php:134
 msgid "UI Elements"
 msgstr "Elementos de IU"
 
-#: bin/html/menuInlineToHTML.php:135
+#: bin/html/menuInlineToHTML.php:139 bin/html/menuInlineToHTML.php:135
 msgid "Forms"
 msgstr "Formularios"
 
-#: bin/html/menuInlineToHTML.php:141
+#: bin/html/menuInlineToHTML.php:145 bin/html/menuInlineToHTML.php:141
 msgid "Types"
 msgstr "Tipos"
 
-#: bin/html/menuInlineToHTML.php:144
+#: bin/html/menuInlineToHTML.php:148 bin/html/menuInlineToHTML.php:144
 msgid "Visible types"
 msgstr "Tipos visibles"
 
-#: bin/html/menuInlineToHTML.php:151
+#: bin/html/menuInlineToHTML.php:155 bin/html/menuInlineToHTML.php:151
 msgid "Fixed types"
 msgstr "Tipos fijos"
 
-#: bin/html/menuInlineToHTML.php:186 bin/html/menuInlineToHTML.php:185
-#: bin/html/menuInlineToHTML.php:181
+#: bin/html/menuInlineToHTML.php:198 bin/html/menuInlineToHTML.php:186
+#: bin/html/menuInlineToHTML.php:185 bin/html/menuInlineToHTML.php:181
 msgid "Transform a menu to HTML inline navigation bar"
 msgstr "Transforma un menú a una barra de nevegación HTML en linea"
 
-#: bin/html/menuInlineToHTML.php:188 bin/html/menuInlineToHTML.php:187
-#: bin/html/menuInlineToHTML.php:183
+#: bin/html/menuInlineToHTML.php:200 bin/html/menuInlineToHTML.php:188
+#: bin/html/menuInlineToHTML.php:187 bin/html/menuInlineToHTML.php:183
 msgid "Menu to convert."
 msgstr "Menú a convertir"
 
@@ -1731,67 +1733,78 @@ msgstr "Tiempo"
 msgid "Print resource consume in HTML format"
 msgstr "Imprimir recursos consumidos en formato HTML"
 
-#: bin/lpmonitor/lpClose.php:38
+#: bin/lpmonitor/lpClose.php:32 bin/lpmonitor/lpDemo.php:32
+#: bin/lpmonitor/lpRead.php:32 bin/lpmonitor/lpReadAll.php:32
+#: bin/lpmonitor/lpStart.php:34
+msgid "You need login."
+msgstr "Necesitas sesión iniciada."
+
+#: bin/lpmonitor/lpClose.php:42 bin/lpmonitor/lpClose.php:38
 msgid "Close a monitor process."
 msgstr "Cerrar un monitor de proceso."
 
+#: bin/lpmonitor/lpClose.php:44 bin/lpmonitor/lpRead.php:44
 #: bin/lpmonitor/lpClose.php:40 bin/lpmonitor/lpRead.php:40
 msgid "Monitor ID."
 msgstr "ID de monitor."
 
-#: bin/lpmonitor/lpClose.php:43
+#: bin/lpmonitor/lpClose.php:47 bin/lpmonitor/lpClose.php:43
 msgid "TRUE if exist and it's closed."
 msgstr "TRUE si existe y está cerrado."
 
-#: bin/lpmonitor/lpDemo.php:32
+#: bin/lpmonitor/lpDemo.php:36 bin/lpmonitor/lpDemo.php:32
 msgid "Demo process"
 msgstr "Proceso demo"
 
-#: bin/lpmonitor/lpDemo.php:35
+#: bin/lpmonitor/lpDemo.php:39 bin/lpmonitor/lpDemo.php:35
 msgid "Step %s"
 msgstr "Paso %s"
 
-#: bin/lpmonitor/lpDemo.php:37
+#: bin/lpmonitor/lpDemo.php:41 bin/lpmonitor/lpDemo.php:37
 msgid "I'm sleeping 10 seconds"
 msgstr "Estoy dumiendo 10 segundos"
 
-#: bin/lpmonitor/lpDemo.php:49
+#: bin/lpmonitor/lpDemo.php:53 bin/lpmonitor/lpDemo.php:49
 msgid "Start a long time process to allow see Monitor alive."
 msgstr "Inicia un proceso de larga duración para permitir ver Monitor en vivo."
 
-#: bin/lpmonitor/lpDemo.php:51
+#: bin/lpmonitor/lpDemo.php:55 bin/lpmonitor/lpDemo.php:51
 msgid "Sleep seconds in each step. This demo have 100 steps."
 msgstr "Segundos dormido en cada paso. Esta demo tiene 100 pasos."
 
-#: bin/lpmonitor/lpRead.php:38
+#: bin/lpmonitor/lpRead.php:42 bin/lpmonitor/lpRead.php:38
 msgid "Read the state of a monitor process."
 msgstr "Leer el estado de un monitor de proceso."
 
-#: bin/lpmonitor/lpRead.php:43
+#: bin/lpmonitor/lpRead.php:47 bin/lpmonitor/lpRead.php:43
 msgid "Monitor object."
 msgstr "Objecto monitor."
 
-#: bin/lpmonitor/lpReadAll.php:38
+#: bin/lpmonitor/lpReadAll.php:42 bin/lpmonitor/lpReadAll.php:38
 msgid "Read all active monitors process."
 msgstr "Leer todos los monitores de proceso activos."
 
-#: bin/lpmonitor/lpReadAll.php:40
+#: bin/lpmonitor/lpReadAll.php:44 bin/lpmonitor/lpReadAll.php:40
 msgid "Like you state too?"
 msgstr "¿Quieres el estado támbien?"
 
-#: bin/lpmonitor/lpReadAll.php:43
+#: bin/lpmonitor/lpReadAll.php:47 bin/lpmonitor/lpReadAll.php:43
 msgid "List of monitors objects."
 msgstr "Listado de objectos monitores."
 
-#: bin/lpmonitor/lpStart.php:38
+#: bin/lpmonitor/lpStart.php:44 bin/lpmonitor/lpStart.php:38
 msgid "Start a new monitor process. Monitors are safe mode compatible."
 msgstr "Iniciar un nuevo monitor de proceso. Los monitores son compatibles con el modo seguro."
 
-#: bin/lpmonitor/lpStart.php:40
+#: bin/lpmonitor/lpStart.php:44
+msgid "Only login users can call this command."
+msgstr "Solo usuarios con sesión iniciada pueden usar este comando."
+
+#: bin/lpmonitor/lpStart.php:46 bin/lpmonitor/lpStart.php:40
 msgid "Global process label."
 msgstr "Etique de proceso global."
 
-#: bin/lpmonitor/lpStart.php:43
+#: bin/lpmonitor/lpStart.php:49 bin/lpmonitor/lpStart.php:43
 msgid "Monitor object. The ID is in the id attribute."
 msgstr "Objeto monitor. La ID está en el atributo id."
 
@@ -2638,60 +2651,64 @@ msgstr "La URL a probar."
 msgid "TRUE if the URL exist."
 msgstr "TRUE si la URL existe."
 
-#: bin/user/addUser.php:39
+#: bin/user/addUser.php:40 bin/user/addUser.php:39
 msgid "User name required. "
 msgstr "Nombre de usuario requerido."
 
-#: bin/user/addUser.php:42
+#: bin/user/addUser.php:43 bin/user/addUser.php:42
 msgid "User mail required. "
 msgstr "Correo de usuario requerido."
 
-#: bin/user/addUser.php:46
+#: bin/user/addUser.php:47 bin/user/addUser.php:46
 msgid "'root@localhost' is in use. "
 msgstr "'root@localhost' está en uso."
 
-#: bin/user/addUser.php:49
+#: bin/user/addUser.php:50 bin/user/addUser.php:49
 msgid "User title required. "
 msgstr "Titulo de usuario requerido."
 
-#: bin/user/addUser.php:52
+#: bin/user/addUser.php:53 bin/user/addUser.php:52
 msgid "User password required. "
 msgstr "Clave de usuario requerida."
 
-#: bin/user/addUser.php:100
-msgid "Mail or group in use."
-msgstr "Correo o grupo está en uso."
+#: bin/user/addUser.php:113
+msgid "Mail in use."
+msgstr "Correo en uso."
 
-#: bin/user/addUser.php:117 bin/user/addUser.php:116
+#: bin/user/addUser.php:130 bin/user/addUser.php:117 bin/user/addUser.php:116
 msgid "Add a new user. All parameters are requires."
 msgstr "Añade un nuevo usuario. Todos los parámetros son requeridos."
 
-#: bin/user/addUser.php:119 bin/user/delUser.php:83 bin/user/addUser.php:118
-#: bin/user/delUser.php:82
+#: bin/user/addUser.php:132 bin/user/delUser.php:83 bin/user/addUser.php:119
+#: bin/user/addUser.php:118 bin/user/delUser.php:82
 msgid "The user mail."
 msgstr "El correo de usuario."
 
-#: bin/user/addUser.php:120 bin/user/addUser.php:119
+#: bin/user/addUser.php:133 bin/user/addUser.php:120 bin/user/addUser.php:119
 msgid "The password in plain text."
 msgstr "La clave en texto plano."
 
-#: bin/user/addUser.php:121 bin/user/addUser.php:120
-msgid "User name or nick, used how default group name too."
-msgstr "Nombre de usuario o nick, usado tambien como grupo por defecto."
+#: bin/user/addUser.php:134
+msgid "User name or nick."
+msgstr "Nombre de usuario o nickname."
 
-#: bin/user/addUser.php:122 bin/user/addUser.php:121
+#: bin/user/addUser.php:135 bin/user/addUser.php:122 bin/user/addUser.php:121
 msgid "User complete name."
 msgstr "Nombre completo de usuario."
 
-#: bin/user/addUser.php:125 bin/user/addUser.php:124
+#: bin/user/addUser.php:136
+msgid "Default group. It get the value 'user' if not set."
+msgstr "Grupo por defecto. Obtiene el valor 'user' si no se especifica."
+
+#: bin/user/addUser.php:139 bin/user/addUser.php:125 bin/user/addUser.php:124
 msgid "TRUE if the user is added."
 msgstr "TRUE si el usuario se añadió."
 
-#: bin/user/addUser.php:126 bin/user/addUser.php:125
+#: bin/user/addUser.php:140 bin/user/addUser.php:126 bin/user/addUser.php:125
 msgid "If ok is FALSE contains the error message."
 msgstr "Si ok es FALSE contiene el mensaje de error."
 
-#: bin/user/addUser.php:127 bin/user/addUser.php:126
+#: bin/user/addUser.php:141 bin/user/addUser.php:127 bin/user/addUser.php:126
 msgid "If ok is TRUE contains the new user ID."
 msgstr "Si ok es TRUE contiene la nueva ID de usuario."
 
@@ -2751,6 +2768,18 @@ msgstr "Cambia el usuario activo sin salir y entrar. Este es el único metodo pa
 #: bin/user/sudo.php:68 bin/user/sudo.php:67
 msgid "User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."
 msgstr "Correo del usuario a suplantar. Root es 'root@localhost'. Si este parámetro está vacío entonces salimos de sudo."
+
+#: bin/getVersion.php:33
+msgid "Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it's the perfect backend to your application."
+msgstr "Framework ligero con funciones muy interesantes. Modelo de datos con seguridad parecida a unix, configurable por si mismo, reescritura de URL y mapeo, etc... Es el backend perfecto para tu aplicación."
+
+#: bin/user/addUser.php:100
+msgid "Mail or group in use."
+msgstr "Correo o grupo está en uso."
+
+#: bin/user/addUser.php:121 bin/user/addUser.php:120
+msgid "User name or nick, used how default group name too."
+msgstr "Nombre de usuario o nick, usado tambien como grupo por defecto."
 
 #: bin/gettext/gettextExtract.php:116 bin/gettext/gettextExtract.php:113
 #: bin/gettext/gettextExtract.php:112 bin/gettext/gettextExtract.php:99

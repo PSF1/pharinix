@@ -49,12 +49,17 @@ if (!class_exists("commandModInstall")) {
             if (!is_dir('var/tmp/')) mkdir('var/tmp/');
             mkdir($tmpFolder);
             $fZip->extractTo($tmpFolder);
+            // Long process monitor
+            $lp = driverLPMonitor::start(9, __('Installing module'));
+            $lpStep = 0;
             // Get meta data
             if (is_file($tmpFolder.'meta.json')) {
+                driverLPMonitor::update($lp->id, ++$lpStep, __('Unpacking the module'));
                 $jsonMeta = file_get_contents($tmpFolder.'meta.json');
                 driverTools::fileRemove($tmpFolder);
                 $meta = json_decode($jsonMeta);
                 if (json_last_error() != 0) {
+                    self::closeMonitor($lp);
                     return array("ok" => false, "msg" => json_last_error_msg());
                 }
                 $installPath = $params['path'].$meta->meta->slugname.'/';
@@ -65,17 +70,20 @@ if (!class_exists("commandModInstall")) {
                 ));
                 if (count($mods) > 0) {
                     $ids = array_keys($mods);
+                    self::closeMonitor($lp);
                     return array(
                         "ok" => false, 
                         "msg" => sprintf(__("Module '%s' is installed with version '%s'."), $meta->meta->slugname, $mods[$ids[0]]['version'])
                         );
                 }
                 // Verify requirements
+                driverLPMonitor::update($lp->id, ++$lpStep, __('Verify requirements'));
                 foreach($meta->requirements as $need => $version) {
                     if ($need == 'pharinix') {
                         $ver = driverCommand::run('getVersion');
                         $ver = $ver['version'];
                         if(!driverTools::versionIsGreaterOrEqual($version, $ver)) {
+                            self::closeMonitor($lp);
                             return array(
                                 "ok" => false, 
                                 "msg" => sprintf(__("This module requires '%s' version '%s' and you have version '%s'."), $need, $version, $ver)
@@ -87,6 +95,7 @@ if (!class_exists("commandModInstall")) {
                             'where' => "`title` = '$need'",
                         ));
                         if (count($ver) == 0) {
+                            self::closeMonitor($lp);
                             return array(
                                 "ok" => false, 
                                 "msg" => sprintf(__("This module requires '%s' version '%s' and you don't have it."), $need, $version)
@@ -94,6 +103,7 @@ if (!class_exists("commandModInstall")) {
                         } else {
                             $ids = array_keys($ver);
                             if(!driverTools::versionIsGreaterOrEqual($version, $ver[$ids[0]]['version'])) {
+                                self::closeMonitor($lp);
                                 return array(
                                     "ok" => false, 
                                     "msg" => sprintf(__("This module requires '%s' version '%s' and you have version '%s'."), $need, $version, $ver)
@@ -103,9 +113,11 @@ if (!class_exists("commandModInstall")) {
                     }
                 }
                 // Copy module to final path
+                driverLPMonitor::update($lp->id, ++$lpStep, __('Copy module to final path'));
                 $fZip->extractTo($installPath);
                 // Apply configuration
                 if (isset($meta->configuration)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __('Apply configuration'));
                     foreach($meta->configuration as $group => $values) {
                         switch ($group) { // System configuration can't be changed by modules meta
                             case '[core]':
@@ -121,18 +133,24 @@ if (!class_exists("commandModInstall")) {
                         }
                     }
                     driverConfig::getCFG()->save();
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
                 // Install command's paths
                 if (isset($meta->bin_paths)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __("Install command's paths"));
                     foreach($meta->bin_paths as $cpath) {
                         driverCommand::run('cfgAddPath', array(
                             'path' => $installPath.$cpath
                         ));
                     }
                     driverCommand::refreshPaths();
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
                 // Install booting
                 if (isset($meta->booting)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __('Install booting commands'));
                     $narr = array();
                     foreach($meta->booting as $bootObj) {
                         $cmd = '';
@@ -160,6 +178,8 @@ if (!class_exists("commandModInstall")) {
                         $narr[] = $bootObj;
                     }
                     $meta->booting = $narr;
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
                 // Install meta to modules table
                 driverCommand::run('addNode', array(
@@ -171,6 +191,7 @@ if (!class_exists("commandModInstall")) {
                 ));
                 // Install node types
                 if (isset($meta->nodetypes)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __('Install node types'));
                     foreach($meta->nodetypes as $nodetype => $def) {
                         $nodetype = strtolower($nodetype);
                         // Find especial field names like __removetitle
@@ -225,17 +246,23 @@ if (!class_exists("commandModInstall")) {
                             }
                         }
                     }
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
                 // Run SQL queries
                 if (isset($meta->sql)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __('Runing SQL queries'));
                     if (isset($meta->sql->install)) {
                         foreach ($meta->sql->install as $sql) {
                             dbConn::Execute($sql);
                         }
                     }
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
                 // Execute install commands
                 if (isset($meta->install)) {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __('Executing install commands'));
                     foreach($meta->install as $bootObj) {
                         $pars = array();
                         foreach($bootObj as $key => $value) {
@@ -246,11 +273,15 @@ if (!class_exists("commandModInstall")) {
                         }
                         driverCommand::run($cmd, $pars);
                     }
+                } else {
+                    driverLPMonitor::update($lp->id, ++$lpStep, __(''));
                 }
 
+                self::closeMonitor($lp);
                 return array("ok" => true, "path" => $installPath);
             } else {
                 driverTools::fileRemove($tmpFolder);
+                self::closeMonitor($lp);
                 return array(
                     "ok" => false, 
                     "msg" => sprintf(__("Meta file not found at '%s'. Have the package the correct structure?."), $tmpFolder.'meta.json')
@@ -258,6 +289,11 @@ if (!class_exists("commandModInstall")) {
             }
         }
 
+        public static function closeMonitor($lp) {
+            // Closing progressbar
+            driverLPMonitor::close($lp->id);
+        }
+        
         public static function getHelp() {
             return array(
                 "package" => 'core',

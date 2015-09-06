@@ -35,6 +35,7 @@ driverUser::loadTranslations();
 include_once("etc/drivers/tools.php");
 include_once("etc/drivers/command.php");
 include_once("etc/drivers/urlRewrite.php");
+include_once 'etc/drivers/longProcessMonitor.php';
 
 // Main user interface
 $output = array(); // Global output tree
