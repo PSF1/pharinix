@@ -66,10 +66,10 @@ class driverLPMonitor {
      * @param string $id Monitor ID
      * @param integer $step New step
      * @param string $stepLabel Label about the new step
-     * @param integer $stepTotal New total steps. Optional, if not defined don't change.
+     * @param integer $stepsTotal New total steps. Optional, if not defined don't change.
      * @return \stdClass Monitor object.
      */
-    public static function update($id, $step, $stepLabel, $stepTotal = -1) {
+    public static function update($id, $step, $stepLabel, $stepsTotal = -1) {
         if (!is_file(self::getPath().$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
@@ -86,7 +86,7 @@ class driverLPMonitor {
             $resp->step = $step;
             $resp->stepLabel = $stepLabel;
             $resp->error = false;
-            if ($stepTotal >= 0) $resp->stepTotal = $stepTotal;
+            if ($stepsTotal >= 0) $resp->stepTotal = $stepsTotal;
             if ($resp->stepsTotal > 0) {
                 $resp->percent = round(($resp->step * 100) / $resp->stepsTotal, 2);
             }
