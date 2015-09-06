@@ -44,9 +44,18 @@ include_once("etc/drivers/command.php");
 include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
 
+// Create sudoers default group
 $sql = "SELECT * FROM `node_group` where `title` = 'sudoers'";
 $q = dbConn::Execute($sql);
 if ($q->EOF) {
     $sql = "insert into `node_group` set `title` = 'sudoers'";
     dbConn::Execute($sql);
 }
+
+// Clear test garbage
+// TODO: Find tests that leave garbage in database
+$sql = "delete from `node_group` where `title` = 'testlogin2'";
+dbConn::Execute($sql);
+
+$sql = "delete from `node_user` where `mail` = 'testlogin2@localhost'";
+dbConn::Execute($sql);

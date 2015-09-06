@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-define("CMS_VERSION", "1.08.06");
+define("CMS_VERSION", "1.09.05");
 @header("author: Pedro Pelaez <aaaaa976@gmail.com>");
 @header("generator: Pharinix/".CMS_VERSION);
 
