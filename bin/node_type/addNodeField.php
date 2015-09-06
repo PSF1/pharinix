@@ -77,6 +77,9 @@ if (!class_exists("commandAddNodeField")) {
             }
             if ($resp["msg"] != "") return $resp;
 
+            $params['label'] = str_replace("'", "\'", $params['label']);
+            $params['help'] = str_replace("'", "\'", $params['help']);
+            
             // Verify node type
             $typeDef = driverCommand::run("getNodeTypeDef", array(
                 "nodetype" => $params["node_type"],
