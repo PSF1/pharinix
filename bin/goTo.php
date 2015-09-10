@@ -25,22 +25,34 @@ if (!class_exists("commandGoTo")) {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
-                'path' => ''
+                'gtpath' => '',
+                'cmd' => ''
             ), $params);
-            header("Location: ".CMS_DEFAULT_URL_BASE.$params['path']);
+            header("Location: ".CMS_DEFAULT_URL_BASE.$params['gtpath']);
+            
+            if ($params['cmd'] != '') {
+                $cmd = $params['cmd'];
+                unset($params['cmd']);
+                unset($params['gtpath']);
+                driverCommand::run($cmd, $params);
+            }
         }
 
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __("Redirect the browser to a 'local' URL."), 
+                "description" => __("Execute a command and redirect the browser to a 'local' URL."), 
                 "parameters" => array(
-                    'path' => __("The URL path to go to. Ex. 'help/console' to go to the console."),
+                    'gtpath' => __("The URL path to go to. Ex. 'help/console' to go to the console."),
+                    'cmd' => __("A optional command to execute before go to the URL."),
+                    'any' => __("Any number of parameters to pass to the command."),
                 ), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
-                        'path' => 'string'
+                        'gtpath' => 'string',
+                        'cmd' => 'string',
+                        'any' => 'args'
                     ), 
                     "response" => array(),
                 )

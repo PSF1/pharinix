@@ -78,20 +78,22 @@ body {
                 if (driverUser::isSudoed()) {
                     ?>
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="command" value="sudo"/>
+                    <input type="hidden" name="cmd" value="sudo"/>
                     <input type="hidden" name="user" value=""/>
-                    <input type="hidden" name="interface" value="goHome"/>
-                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
+                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="interface" value="nothing"/>
+                    <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-danger"><?php __e('Exit superuser'); ?></button>
                 </form>
                 <?php
                 } elseif (driverUser::haveSudoersGroup()) {
                     ?>
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="command" value="sudo"/>
+                    <input type="hidden" name="cmd" value="sudo"/>
                     <input type="hidden" name="user" value="root@localhost"/>
-                    <input type="hidden" name="interface" value="goHome"/>
-                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
+                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="interface" value="nothing"/>
+                    <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Get superuser'); ?></button>
                 </form>
                 <?php
@@ -99,9 +101,10 @@ body {
                 if (!driverUser::isLoged()) {
                     ?>
                     <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
-                        <input type="hidden" name="command" value="startSession"/>
-                        <input type="hidden" name="interface" value="goHome"/>
-                        <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
+                        <input type="hidden" name="cmd" value="startSession"/>
+                        <input type="hidden" name="command" value="goto"/>
+                        <input type="hidden" name="interface" value="nothing"/>
+                        <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                         <div class="form-group">
                             <input type="text" class="form-control" name="user" placeholder="<?php __e('mail');?>">
                         </div>
@@ -114,9 +117,10 @@ body {
                 } else {
                     ?>
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
-                    <input type="hidden" name="command" value="endSession"/>
-                    <input type="hidden" name="interface" value="goHome"/>
-                    <input type="hidden" name="path" class="menuInlineToHTMLReloadURL" value=""/>
+                    <input type="hidden" name="cmd" value="endSession"/>
+                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="interface" value="nothing"/>
+                    <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Logout'); ?></button>
                 </form>
                 <?php
