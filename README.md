@@ -6,9 +6,9 @@ Travis CI state: [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch
 
 Live Pharinix:
 
-Live demo <http://inicial.cloudapp.net/> in Microsoft Azure <http://azure.microsoft.com/en-us/>
+PHP 5.3 Live demo <http://inicial.cloudapp.net/> in Microsoft Azure <http://azure.microsoft.com/en-us/>
 
-(Old version): <http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
+PHP 5.4 Live demo <http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
 
 Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
