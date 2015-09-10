@@ -80,7 +80,7 @@ body {
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="cmd" value="sudo"/>
                     <input type="hidden" name="user" value=""/>
-                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="command" value="goTo"/>
                     <input type="hidden" name="interface" value="nothing"/>
                     <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-danger"><?php __e('Exit superuser'); ?></button>
@@ -91,7 +91,7 @@ body {
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="cmd" value="sudo"/>
                     <input type="hidden" name="user" value="root@localhost"/>
-                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="command" value="goTo"/>
                     <input type="hidden" name="interface" value="nothing"/>
                     <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Get superuser'); ?></button>
@@ -102,7 +102,7 @@ body {
                     ?>
                     <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="cmd" value="startSession"/>
-                        <input type="hidden" name="command" value="goto"/>
+                        <input type="hidden" name="command" value="goTo"/>
                         <input type="hidden" name="interface" value="nothing"/>
                         <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                         <div class="form-group">
@@ -118,7 +118,7 @@ body {
                     ?>
                 <form class="navbar-form navbar-left" role="form" action="<?php echo CMS_DEFAULT_URL_BASE;?>" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="cmd" value="endSession"/>
-                    <input type="hidden" name="command" value="goto"/>
+                    <input type="hidden" name="command" value="goTo"/>
                     <input type="hidden" name="interface" value="nothing"/>
                     <input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>
                     <button type="submit" class="btn btn-link"><?php __e('Logout'); ?></button>
