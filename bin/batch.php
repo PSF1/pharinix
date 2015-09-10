@@ -33,11 +33,11 @@ if (!class_exists("commandBatch")) {
             $lastCommand = "";
             $echoed = $params["echoed"];
             try {
+                $cnt = 0; // Executed commands counter
                 if (!is_array($params["commands"])) {
                     throw new Exception(__('Parameter \'commands\' must be a array.'));
                 }
                 $output = is_array($params["starter"])?$params["starter"]:array();
-                $cnt = 0; // Executed commands counter
                 foreach($params["commands"] as $line) {
                     $cmd = null;
                     $params = null;
