@@ -141,7 +141,11 @@ $(document).ready(function(){
             var cmdHelp = data.help[cmd];
             $("#cmdHelp").html(cmdHelp.description);
             clearParamsTable();
-            addInterfaceToTable("interface", "string", __("Required server MIME type interface to use"),"echoJson");
+            var defInterface = "echoJson";
+            if (cmdHelp.echo) {
+                defInterface = "echoHtml";
+            }
+            addInterfaceToTable("interface", "string", __("Required server MIME type interface to use"),defInterface);
             $.each(cmdHelp.type.parameters, function(name, type){
                 if (type != "args") {
                     addParamToTable(name, type, cmdHelp.parameters[name]);
