@@ -107,6 +107,7 @@ function addInterfaceToTable(name, type, help, defValue) {
     html += '<option value="echoHtml" '+(defValue=='echoHtml'?"selected":"")+'>HTML</option>';
     html += '<option value="echoText" '+(defValue=='echoText'?"selected":"")+'>Text</option>';
     html += '<option value="echoJson" '+(defValue=='echoJson'?"selected":"")+'>JSON</option>';
+    html += '<option value="echoSimpleXML" '+(defValue=='echoSimpleXML'?"selected":"")+'>Simple XML</option>';
 //    html += '<option value="echoXml" '+(defValue=='echoXml'?"selected":"")+'>XML</option>';
     html += '</select>';
     html += "</td>";
@@ -167,6 +168,9 @@ $(document).ready(function(){
         }
         var dataType = "json";
         switch(query.interface) {
+            case "echoSimpleXML":
+                dataType = null;
+                break;
             case "echoJson":
                 dataType = null;
             default:
@@ -184,8 +188,10 @@ $(document).ready(function(){
                 case "echoText":
                     resp = "<pre>" + resp + "</pre>";
                     break;
-                case "echoXml":
-                    resp = "<pre>" + resp + "</pre>";
+                case "echoSimpleXML":
+                    var raw = (new XMLSerializer().serializeToString(resp));
+                    raw = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    resp = "<pre>" + raw + "</pre>";
                     break;
             }
             if (resp == '') {
