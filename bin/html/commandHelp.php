@@ -49,6 +49,8 @@ if (!class_exists("commandCommandHelp")) {
                     echo "<h3>".$command['command']."</h3>";
 //                    echo "<h4>".__("Description")."</h4>";
                     echo "<p>{$hlp["description"]}</p>";
+                    echo ($hlp["echo"]?'<h6>('.__('Do a direct output to the client.').')</h6>':'');
+                    echo ($hlp["interface"]?'<h6>('.__('Designed to be a comunication interface.').')</h6>':'');
                     if (isset($hlp["parameters"]) && count($hlp["parameters"]) > 0) {
                         echo "<h4>".__("Parameters")."</h4>";
                         echo "<ul>";
@@ -106,7 +108,8 @@ if (!class_exists("commandCommandHelp")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

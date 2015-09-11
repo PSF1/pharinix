@@ -54,6 +54,8 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                         $hlp = $command;
                         echo "### " . $command['command'] . "\n\n";
                         echo str_replace('\n', '', $hlp["description"])."\n\n";
+                        echo ($hlp["echo"]?'###### ('.__('Do a direct output to the client.').')':'');
+                        echo ($hlp["interface"]?'###### ('.__('Designed to be a comunication interface.').')':'');
                         if (isset($hlp["parameters"]) && count($hlp["parameters"]) > 0) {
                             echo "#### " . __("Parameters") . "\n\n";
                             foreach ($hlp["parameters"] as $key => $value) {
@@ -115,7 +117,8 @@ if (!class_exists("commandCommandHelpWikiExport")) {
                         "path" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

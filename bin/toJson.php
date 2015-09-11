@@ -74,7 +74,8 @@ if (!class_exists("commandToJSON")) {
                     "response" => array(
                         "json" => "string"
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

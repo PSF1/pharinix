@@ -123,7 +123,8 @@ if (!class_exists("commandChmodNode")) {
                     "response" => array(
                         "ok" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

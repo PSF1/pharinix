@@ -157,7 +157,8 @@ if (!class_exists("commandGetNodeTypeDefHtml")) {
                         "nodetype" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

@@ -247,7 +247,8 @@ if (!class_exists("commandUpdateNodes")) {
                         "ok" => "boolean",
                         "msg" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

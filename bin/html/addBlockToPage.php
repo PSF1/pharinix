@@ -78,7 +78,8 @@ if (!class_exists("commandAddBlockToPage")) {
                         'priority' => 'integer',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

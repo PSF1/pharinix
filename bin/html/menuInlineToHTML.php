@@ -209,7 +209,8 @@ $(document).ready(function(){
                         "menu" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

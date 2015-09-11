@@ -110,7 +110,8 @@ EOT;
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

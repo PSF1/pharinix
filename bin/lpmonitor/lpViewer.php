@@ -39,7 +39,8 @@ if (!class_exists("commandLPViewer")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
         

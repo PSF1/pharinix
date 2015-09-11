@@ -231,7 +231,8 @@ if (!class_exists("commandAddNodeField")) {
                         "ok" => "boolean",
                         "msg" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

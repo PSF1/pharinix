@@ -52,7 +52,8 @@ if (!class_exists("commandGetVersion")) {
                         "version" => "string",
                         "meta" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -49,7 +49,9 @@ if (!class_exists("commandEchoJSON")) {
                         "some" => "args"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true,
+                "interface" => true
             );
         }
     }

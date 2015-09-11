@@ -74,7 +74,8 @@ if (!class_exists("commandIsBasicFieldType")) {
                     "response" => array(
                         "basic" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

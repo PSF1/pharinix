@@ -79,7 +79,8 @@ if (!class_exists("commandGettextSetCoreTranslation")) {
                     "response" => array(
                         'ok' => 'boolean'
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

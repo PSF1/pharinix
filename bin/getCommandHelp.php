@@ -91,7 +91,8 @@ if (!class_exists("commandGetCommandHelp")) {
                     "response" => array(
                         "help" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

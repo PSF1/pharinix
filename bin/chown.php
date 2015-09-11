@@ -118,7 +118,8 @@ if (!class_exists("commandChown")) {
                     "response" => array(
                         "ok" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

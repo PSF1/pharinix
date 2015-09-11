@@ -54,7 +54,8 @@ if (!class_exists("commandDelUrl")) {
                         "url" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

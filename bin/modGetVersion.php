@@ -53,7 +53,8 @@ if (!class_exists("commandModGetVersion")) {
                     "response" => array(
                         "ver" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

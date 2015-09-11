@@ -57,7 +57,8 @@ if (!class_exists("commandGetNodeHtml")) {
                         "node" => "integer",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

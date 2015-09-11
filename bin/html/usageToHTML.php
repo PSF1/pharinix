@@ -69,7 +69,8 @@ if (!class_exists("commandUsageToHTML")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

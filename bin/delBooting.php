@@ -49,7 +49,8 @@ if (!class_exists("commandDelBooting")) {
                         "uid" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

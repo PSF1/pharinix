@@ -100,7 +100,8 @@ if (!class_exists("commandExecuteCommandOnline")) {
                         "post" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

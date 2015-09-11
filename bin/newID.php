@@ -47,7 +47,8 @@ if (!class_exists("commandNewID")) {
                     "response" => array(
                         "id" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

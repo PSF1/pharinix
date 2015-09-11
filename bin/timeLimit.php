@@ -47,7 +47,8 @@ if (!class_exists("commandTimeLimit")) {
                         "s" => "integer",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

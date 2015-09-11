@@ -57,7 +57,8 @@ if (!class_exists("commandCfgGetKeys")) {
                     "response" => array(
                         "keys" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

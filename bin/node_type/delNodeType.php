@@ -90,7 +90,8 @@ if (!class_exists("commandDelNodeType")) {
                         "name" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

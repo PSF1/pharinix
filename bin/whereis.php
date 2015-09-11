@@ -69,7 +69,8 @@ if (!class_exists("commandWhereis")) {
                     "response" => array(
                         'path' => "array."
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

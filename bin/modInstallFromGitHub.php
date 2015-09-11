@@ -120,7 +120,8 @@ if (!class_exists("commandModInstallFromGitHub")) {
                         "msg" => "string",
                         "path" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

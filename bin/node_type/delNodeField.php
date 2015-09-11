@@ -91,7 +91,8 @@ if (!class_exists("commandDelNodeField")) {
                         "name" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

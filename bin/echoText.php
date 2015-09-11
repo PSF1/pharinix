@@ -48,7 +48,9 @@ if (!class_exists("commandEchoText")) {
                         "some" => "args"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true,
+                "interface" => true
             );
         }
     }

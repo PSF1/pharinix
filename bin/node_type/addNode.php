@@ -222,7 +222,8 @@ if (!class_exists("commandAddNode")) {
                         "msg" => "string",
                         "nid" => "integer",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
 

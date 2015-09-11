@@ -65,7 +65,8 @@ if (!class_exists("commandGettextGetTranslation")) {
                     "response" => array(
                         'items' => 'string'
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

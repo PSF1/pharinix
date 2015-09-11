@@ -43,7 +43,8 @@ if (!class_exists("commandCfgGetSections")) {
                     "response" => array(
                         "sections" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

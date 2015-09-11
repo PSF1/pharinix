@@ -67,7 +67,8 @@ if (!class_exists("commandGetNodeTypeID")) {
                     "response" => array(
                         "id" => "integer"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

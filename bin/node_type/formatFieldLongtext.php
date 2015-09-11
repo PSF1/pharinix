@@ -113,7 +113,8 @@ if (!class_exists("commandFormatFieldLongtext")) {
                         "help" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
         

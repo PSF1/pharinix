@@ -53,7 +53,8 @@ if (!class_exists("commandRewriteBasicList")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

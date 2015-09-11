@@ -49,6 +49,8 @@ if (!class_exists("commandMan")) {
                         $hlp = $object->getHelp();
                         $resp["help"][$cmd]["command"] = $cmd;
                         $resp["help"][$cmd]["description"] = $hlp["description"];
+                        $resp["help"][$cmd]["echo"] = (isset($hlp["echo"]) && $hlp["echo"] === true);
+                        $resp["help"][$cmd]["interface"] = (isset($hlp["interface"]) && $hlp["interface"] === true);
                         if (count($hlp["parameters"]) > 0) {
                             $resp["help"][$cmd]["parameters"] = array();
                             foreach ($hlp["parameters"] as $key => $value) {
@@ -122,7 +124,8 @@ if (!class_exists("commandMan")) {
                     "response" => array(
                         'help' => "array."
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

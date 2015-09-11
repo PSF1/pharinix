@@ -78,7 +78,8 @@ if (!class_exists("commandCurlGetFile")) {
                         "msg" => "string",
                         "path" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

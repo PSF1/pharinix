@@ -45,7 +45,8 @@ if (!class_exists("commandPhpInfo")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

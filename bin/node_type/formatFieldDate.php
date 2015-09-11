@@ -130,7 +130,8 @@ EOT;
                         "help" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
         

@@ -126,7 +126,8 @@ if (!class_exists("commandGetNodeTypeDef")) {
                             "group_owner" => "integer",
                             "access" => "integer",
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

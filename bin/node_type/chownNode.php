@@ -187,7 +187,8 @@ if (!class_exists("commandChownNode")) {
                     "response" => array(
                         "ok" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

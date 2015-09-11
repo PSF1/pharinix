@@ -49,7 +49,8 @@ if (!class_exists("commandCaptureStart")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

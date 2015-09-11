@@ -133,7 +133,8 @@ if (!class_exists("commandIconsList")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

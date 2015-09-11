@@ -43,7 +43,8 @@ if (!class_exists("commandCfgGetConfigPath")) {
                     "response" => array(
                         "path" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

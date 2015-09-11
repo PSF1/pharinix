@@ -128,7 +128,8 @@ if (!class_exists("commandGettextNodeTypeExtract")) {
                         'previous' => 'string',
                         'items' => 'string'
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

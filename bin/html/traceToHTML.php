@@ -58,7 +58,8 @@ if (!class_exists("commandTraceToHTML")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

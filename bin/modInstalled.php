@@ -47,7 +47,8 @@ if (!class_exists("commandModInstalled")) {
                     "response" => array(
                         "modules" => "array",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

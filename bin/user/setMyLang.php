@@ -81,7 +81,8 @@ if (!class_exists("commandSetMyLang")) {
                         "ok" => "boolean",
                         "lang" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

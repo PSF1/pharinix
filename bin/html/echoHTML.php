@@ -62,7 +62,8 @@ if (!class_exists("commandEchoHTML")) {
                         'html' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

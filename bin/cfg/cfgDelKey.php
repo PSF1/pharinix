@@ -53,7 +53,8 @@ if (!class_exists("commandCfgDelKey")) {
                         'key' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

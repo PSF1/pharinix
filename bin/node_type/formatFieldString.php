@@ -114,7 +114,8 @@ if (!class_exists("commandFormatFieldString")) {
                         "help" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
         

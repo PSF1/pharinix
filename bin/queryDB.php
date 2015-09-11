@@ -87,7 +87,8 @@ if (!class_exists("commandQueryDB")) {
                     "response" => array(
                         "recordset" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

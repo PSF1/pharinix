@@ -66,7 +66,8 @@ if (!class_exists("commandStartSession")) {
                         "ok" => "boolean",
                         "id" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

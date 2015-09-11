@@ -61,7 +61,8 @@ if (!class_exists("commandCfgGetValue")) {
                     "response" => array(
                         "value" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

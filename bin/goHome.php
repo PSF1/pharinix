@@ -36,7 +36,8 @@ if (!class_exists("commandGoHome")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
         

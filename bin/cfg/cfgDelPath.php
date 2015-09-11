@@ -68,7 +68,8 @@ if (!class_exists("commandCfgDelPath")) {
                     "response" => array(
                         "path" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

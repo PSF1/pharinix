@@ -59,7 +59,8 @@ if (!class_exists("commandCaptureEnd")) {
                     "response" => array(
                         "buffer" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

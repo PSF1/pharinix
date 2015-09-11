@@ -53,7 +53,8 @@ if (!class_exists("commandCfgAddComment")) {
                         'comment' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

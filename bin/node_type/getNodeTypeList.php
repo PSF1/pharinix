@@ -78,7 +78,8 @@ if (!class_exists("commandGetNodeTypeList")) {
                     "response" => array(
                         "types" => "array",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

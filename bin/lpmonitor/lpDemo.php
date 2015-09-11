@@ -60,7 +60,8 @@ if (!class_exists("commandLPDemo")) {
                         'step' => 'integer',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
         

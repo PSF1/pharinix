@@ -243,7 +243,8 @@ if (!class_exists("commandAddNodeType")) {
                         "msg" => "string",
                         "nid" => "integer",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

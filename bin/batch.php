@@ -132,7 +132,8 @@ if (!class_exists("commandBatch")) {
                         "msg" => "string",
                         "error" => "string",
                     ),
-                )
+                ),
+                "echo" => true
             );
         }
     }

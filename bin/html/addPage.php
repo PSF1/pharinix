@@ -102,7 +102,8 @@ if (!class_exists("commandAddPage")) {
                         'url' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

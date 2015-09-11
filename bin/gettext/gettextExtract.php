@@ -155,7 +155,8 @@ if (!class_exists("commandGettextExtract")) {
                         'previous' => 'string',
                         'items' => 'string'
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

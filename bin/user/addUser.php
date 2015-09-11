@@ -153,7 +153,8 @@ if (!class_exists("commandAddUser")) {
                         "msg" => "string",
                         "nid" => "integer",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

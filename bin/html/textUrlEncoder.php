@@ -78,7 +78,8 @@ function decode(fid) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

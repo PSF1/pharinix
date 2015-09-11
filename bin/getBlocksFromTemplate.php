@@ -93,7 +93,8 @@ if (!class_exists("commandGetBlocksFromTemplate")) {
                     "response" => array(
                         "blocks" => "array"
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
 

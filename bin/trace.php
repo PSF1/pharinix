@@ -57,7 +57,8 @@ if (!class_exists("commandTrace")) {
                         "return" => "array"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

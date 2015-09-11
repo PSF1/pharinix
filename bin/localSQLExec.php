@@ -63,7 +63,8 @@ if (!class_exists("commandLocalSQLExec")) {
                     "response" => array(
                         "recordset" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

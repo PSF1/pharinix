@@ -317,7 +317,8 @@ if (!class_exists("commandModInstall")) {
                         "msg" => "string",
                         "path" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

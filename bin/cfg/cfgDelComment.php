@@ -53,7 +53,8 @@ if (!class_exists("commandCfgDelComment")) {
                         'comment' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

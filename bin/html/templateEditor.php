@@ -229,7 +229,8 @@ if (!class_exists("commandTemplateEditor")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

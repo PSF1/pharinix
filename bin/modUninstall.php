@@ -155,7 +155,8 @@ if (!class_exists("commandModUninstal")) {
                         "ok" => "booelan",
                         "msg" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

@@ -89,7 +89,8 @@ if (!class_exists("commandDelUser")) {
                         "mail" => "string",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

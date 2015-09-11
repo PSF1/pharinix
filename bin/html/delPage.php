@@ -61,7 +61,8 @@ if (!class_exists("commandDelPage")) {
                         'name' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

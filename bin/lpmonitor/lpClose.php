@@ -53,7 +53,8 @@ if (!class_exists("commandLPClose")) {
                     "response" => array(
                         'ok' => 'boolean',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

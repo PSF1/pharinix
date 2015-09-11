@@ -54,7 +54,8 @@ if (!class_exists("commandCfgSetValue")) {
                         'value' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

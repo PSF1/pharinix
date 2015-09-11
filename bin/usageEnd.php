@@ -56,7 +56,8 @@ if (!class_exists("commandUsageEnd")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

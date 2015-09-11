@@ -57,7 +57,8 @@ if (!class_exists("commandListBooting")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

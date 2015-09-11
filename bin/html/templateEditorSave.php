@@ -126,7 +126,8 @@ if (!class_exists("commandTemplateEditorSave")) {
                         "ok" => "boolean",
                         "msg" => "string",
                     ),
-                )
+                ),
+                "echo" => true
             );
         }
     }

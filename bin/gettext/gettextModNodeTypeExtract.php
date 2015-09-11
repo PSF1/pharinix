@@ -97,7 +97,8 @@ if (!class_exists("commandGettextModNodeTypeExtract")) {
                         'previous' => 'string',
                         'items' => 'string'
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

@@ -48,7 +48,8 @@ if (!class_exists("commandCfgDelSection")) {
                         'section' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

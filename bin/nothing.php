@@ -36,7 +36,9 @@ if (!class_exists("commandNothing")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false,
+                "interface" => true
             );
         }
         

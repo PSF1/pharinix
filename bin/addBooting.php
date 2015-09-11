@@ -68,7 +68,8 @@ if (!class_exists("commandAddBooting")) {
                     "response" => array(
                         "uid" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -52,7 +52,8 @@ if (!class_exists("commandSleep")) {
                         "s" => "integer",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -95,7 +95,8 @@ if (!class_exists("commandManHTML")) {
                         "cmd" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

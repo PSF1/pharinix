@@ -134,7 +134,8 @@ if (!class_exists("commandGettextCoreExtract")) {
                     "response" => array(
                         'info' => 'array',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

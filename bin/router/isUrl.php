@@ -62,7 +62,8 @@ if (!class_exists("commandIsUrl")) {
                     "response" => array(
                         "ok" => "boolean", 
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

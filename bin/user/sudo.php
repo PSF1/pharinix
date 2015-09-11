@@ -77,7 +77,8 @@ if (!class_exists("commandSudo")) {
                     "response" => array(
                         "ok" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

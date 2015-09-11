@@ -55,7 +55,8 @@ if (!class_exists("commandLPStart")) {
                     "response" => array(
                         'monitor' => 'object',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

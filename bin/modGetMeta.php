@@ -57,7 +57,8 @@ if (!class_exists("commandModGetMeta")) {
                     "response" => array(
                         "meta" => "array",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

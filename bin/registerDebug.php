@@ -46,7 +46,8 @@ if (!class_exists("commandRegisterDebug")) {
                     "response" => array(
                         "val" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -118,7 +118,8 @@ if (!class_exists("commandGettextModExtract")) {
                     "response" => array(
                         'info' => 'array',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

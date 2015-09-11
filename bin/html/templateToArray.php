@@ -137,7 +137,8 @@ if (!class_exists("commandTemplateToArray")) {
                         "head" => "string",
                         "body" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
 

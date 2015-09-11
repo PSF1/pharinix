@@ -55,7 +55,8 @@ if (!class_exists("commandGoTo")) {
                         'any' => 'args'
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
         

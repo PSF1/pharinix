@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2015-09-06T12:07:15+02:00\n"
-"PO-Revision-Date: 2015-09-06 12:09+0100\n"
+"POT-Creation-Date: 2015-09-11T16:51:21+02:00\n"
+"PO-Revision-Date: 2015-09-11 16:56+0100\n"
 "Language: es\n"
 "X-Generator: Poedit 1.7.6\n"
 
@@ -329,39 +329,43 @@ msgstr "Prioridad de ejecución."
 msgid "Unique ID, with that we can delete the boot command later."
 msgstr "ID única, con ella podremos borrar el comando de arranque más tarde."
 
-#: bin/batch.php:56
+#: bin/batch.php:38
+msgid "Parameter 'commands' must be a array."
+msgstr "El parametro 'commands' debe ser un array."
+
+#: bin/batch.php:59 bin/batch.php:56
 msgid "Meta '%s' is unknowed."
 msgstr "Meta '%s' desconocida."
 
-#: bin/batch.php:108 bin/batch.php:107
+#: bin/batch.php:111 bin/batch.php:108 bin/batch.php:107
 msgid "Execute a serial of commands. The output of a command will be the input parameters of the next command. Always call to captureEndAll at the end."
 msgstr "Ejecuta una serie de comandos. La salida de un comando será los parámetros de entrada del siguiente comando. Siempre llama a captureEndAll al final."
 
-#: bin/batch.php:110 bin/batch.php:109
+#: bin/batch.php:113 bin/batch.php:110 bin/batch.php:109
 msgid "Array of parameters to merge at the start."
 msgstr "Lista de parametro a mezclar al principio."
 
-#: bin/batch.php:111 bin/batch.php:110
+#: bin/batch.php:114 bin/batch.php:111 bin/batch.php:110
 msgid "Array of commands and default parameters. This parameters, if any, will be merged with de output of previous command, with priority to this, and passed how combined parameters. Ex, [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. If you pass how command '#clean' then batch clear the merged output."
 msgstr "Lista de comandos y parámetros por defecto. Estos parametros, si hay alguno, serán mezclados con la salida del comando anterior, con prioridad de este, y pasados como parámetros combinados. Ej: [['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ['nothing' => 'ignoredparam1=A&ignoredparam2=B'], ...]. Si pasas como comando '#clean' entonces batch limpia la salida mezclada."
 
-#: bin/batch.php:112 bin/batch.php:111
+#: bin/batch.php:115 bin/batch.php:112 bin/batch.php:111
 msgid "If is empty or not define the output will out in response, else will be passed how parameters to the command in this parameter. Ex: 'echoed' => 'echoJson' will echo to the browser a json representation of the response."
 msgstr "Si es vacío o no está definido la salida saldrá en la respuesta, sino será pasada como parametros al comando en este parámetro. Ej: 'echoed' => 'echoJson' mostrará al navegador una representación en json de la respuesta."
 
-#: bin/batch.php:115 bin/batch.php:114
+#: bin/batch.php:118 bin/batch.php:115 bin/batch.php:114
 msgid "The final response of the batch."
 msgstr "La respuesta final de batch."
 
-#: bin/batch.php:116 bin/batch.php:115
+#: bin/batch.php:119 bin/batch.php:116 bin/batch.php:115
 msgid "If error is set to FALSE, else will be unset."
 msgstr "Si hubo errores será FALSE, sino no estará definido."
 
-#: bin/batch.php:117 bin/batch.php:116
+#: bin/batch.php:120 bin/batch.php:117 bin/batch.php:116
 msgid "If error is set to the error message, else will be unset. "
 msgstr "Si hubo errores será el mensaje de error, sino no estará definido."
 
-#: bin/batch.php:118 bin/batch.php:117
+#: bin/batch.php:121 bin/batch.php:118 bin/batch.php:117
 msgid "If error is set to a string with the command and her input parameters, else will be unset."
 msgstr "Si hubo errores esta definido como cadena con el comando y sus parámetros de entrada, sino no estará definido."
 
@@ -537,13 +541,21 @@ msgstr "Información de meta datos."
 msgid "Redirect the browser to home."
 msgstr "Redirecciona el navegador al inicio."
 
-#: bin/goTo.php:36
-msgid "Redirect the browser to a 'local' URL."
-msgstr "Redirecciona el navegador a una URL 'local'."
+#: bin/goTo.php:44
+msgid "Execute a command and redirect the browser to a 'local' URL."
+msgstr "Ejecuta un comando y redirecciona el navegador a una URL 'local'."
 
-#: bin/goTo.php:38
+#: bin/goTo.php:46 bin/goTo.php:38
 msgid "The URL path to go to. Ex. 'help/console' to go to the console."
 msgstr "La ruta URL a la que ir. Ej. 'help/console' para ir a la consola."
+
+#: bin/goTo.php:47
+msgid "A optional command to execute before go to the URL."
+msgstr "Un comando opcional para ejecutarlo antes de ir a la URL."
+
+#: bin/goTo.php:48
+msgid "Any number of parameters to pass to the command."
+msgstr "Cualquier cantidad de parametros a pasar al comando."
 
 #: bin/listBooting.php:54 bin/listBooting.php:53
 msgid "Get a list of commands from boot process."
@@ -625,55 +637,100 @@ msgstr "Ruta de instalación no encontrada."
 msgid "Install path is in use."
 msgstr "La ruta de instalación está en uso."
 
-#: bin/modInstall.php:70
+#: bin/modInstall.php:53
+msgid "Installing module"
+msgstr "Instalando módulo"
+
+#: bin/modInstall.php:57
+msgid "Unpacking the module"
+msgstr "Desempaquetando el módulo"
+
+#: bin/modInstall.php:76 bin/modInstall.php:70
 msgid "Module '%s' is installed with version '%s'."
 msgstr "Instalado módulo '%s' con la versión '%s'."
 
-#: bin/modInstall.php:81 bin/modInstall.php:99
+#: bin/modInstall.php:80
+msgid "Verify requirements"
+msgstr "Verificando requisitos"
+
+#: bin/modInstall.php:89 bin/modInstall.php:109 bin/modInstall.php:81
+#: bin/modInstall.php:99
 msgid "This module requires '%s' version '%s' and you have version '%s'."
 msgstr "Este módulo requiere '%s' versión '%s' y tienes la versión '%s'."
 
-#: bin/modInstall.php:92
+#: bin/modInstall.php:101 bin/modInstall.php:92
 msgid "This module requires '%s' version '%s' and you don't have it."
 msgstr "Este módulo requiere '%s' versiòn '%s' y no lo tienes."
 
-#: bin/modInstall.php:256
+#: bin/modInstall.php:116
+msgid "Copy module to final path"
+msgstr "Copia el módulo a la ruta final"
+
+#: bin/modInstall.php:120
+msgid "Apply configuration"
+msgstr "Aplicando configuración"
+
+#: bin/modInstall.php:141
+msgid "Install command's paths"
+msgstr "Instala rutas de comandos"
+
+#: bin/modInstall.php:153
+msgid "Install booting commands"
+msgstr "Instala comandos de arranque"
+
+#: bin/modInstall.php:194
+msgid "Install node types"
+msgstr "Instala tipos de nodos"
+
+#: bin/modInstall.php:254
+msgid "Runing SQL queries"
+msgstr "Ejecutando consultas SQL"
+
+#: bin/modInstall.php:265
+msgid "Executing install commands"
+msgstr "Ejecutando comandos de instalación"
+
+#: bin/modInstall.php:287 bin/modInstall.php:256
 msgid "Meta file not found at '%s'. Have the package the correct structure?."
 msgstr "Meta archivo no encontrado en '%s'. ¿El paquete tiene la estructura correcta?."
 
-#: bin/modInstall.php:264 bin/modInstall.php:263
+#: bin/modInstall.php:300 bin/modInstall.php:264 bin/modInstall.php:263
 msgid "Install a module."
 msgstr "Instala un módulo."
 
-#: bin/modInstall.php:266 bin/modInstallFromGitHub.php:105
-#: bin/modInstall.php:265 bin/modInstallFromGitHub.php:104
+#: bin/modInstall.php:302 bin/modInstallFromGitHub.php:105
+#: bin/modInstall.php:266 bin/modInstall.php:265
+#: bin/modInstallFromGitHub.php:104
 msgid "Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"
 msgstr "Ruta opcional donde instalar el módulo, relativa al directorio raíz de Pharinix. Si no se define la ruta por defecto es 'usr/'"
 
-#: bin/modInstall.php:267 bin/modInstall.php:266
+#: bin/modInstall.php:303 bin/modInstall.php:267 bin/modInstall.php:266
 msgid "Path to the ZIP file with the new module."
 msgstr "Ruta al archivo ZIP con el nuevo módulo."
 
-#: bin/modInstall.php:270 bin/modInstallFromGitHub.php:109
-#: bin/modInstall.php:269 bin/modInstallFromGitHub.php:108
+#: bin/modInstall.php:306 bin/modInstallFromGitHub.php:109
+#: bin/modInstall.php:270 bin/modInstall.php:269
+#: bin/modInstallFromGitHub.php:108
 msgid "TRUE if the installation is OK."
 msgstr "TRUE si la instalación tuvo exito."
 
-#: bin/modInstall.php:271 bin/modInstallFromGitHub.php:110
-#: bin/modInstall.php:270 bin/modInstallFromGitHub.php:109
+#: bin/modInstall.php:307 bin/modInstallFromGitHub.php:110
+#: bin/modInstall.php:271 bin/modInstall.php:270
+#: bin/modInstallFromGitHub.php:109
 msgid "If install error this contains the error message."
 msgstr "Si hubo errores de instalación contiene el mensaje de error."
 
-#: bin/modInstall.php:272 bin/modInstallFromGitHub.php:111
-#: bin/modInstall.php:271 bin/modInstallFromGitHub.php:110
+#: bin/modInstall.php:308 bin/modInstallFromGitHub.php:111
+#: bin/modInstall.php:272 bin/modInstall.php:271
+#: bin/modInstallFromGitHub.php:110
 msgid "If install ok contains the install path."
 msgstr "Si la intalación fue bien contiene la ruta de instalación."
 
-#: bin/modInstalled.php:34 bin/modInstalled.php:33
+#: bin/modInstalled.php:40 bin/modInstalled.php:34 bin/modInstalled.php:33
 msgid "List installed modules. Only root can read the list from the database."
 msgstr "Lista los módulos instalados. Solo root puede leer la lista desde la base de datos."
 
-#: bin/modInstalled.php:37 bin/modInstalled.php:36
+#: bin/modInstalled.php:43 bin/modInstalled.php:37 bin/modInstalled.php:36
 msgid "List of modules."
 msgstr "Lista de módulos."
 
@@ -1402,8 +1459,9 @@ msgstr "Muestra una lista de iconos de referencia."
 msgid "Command help"
 msgstr "Ayuda de comando"
 
-#: bin/html/manHelpOnline.php:55 bin/html/menuInlineToHTML.php:129
-#: bin/node_type/getNodeTypeDefHtml.php:47 bin/html/menuInlineToHTML.php:125
+#: bin/html/manHelpOnline.php:55 bin/html/menuInlineToHTML.php:133
+#: bin/node_type/getNodeTypeDefHtml.php:47 bin/html/menuInlineToHTML.php:129
+#: bin/html/menuInlineToHTML.php:125
 msgid "Help"
 msgstr "Ayuda"
 
@@ -1423,77 +1481,95 @@ msgstr "Muestra ayuda sobre un comando como HTML. Ej. manHTML('cmd' => 'manHTML'
 msgid "Home"
 msgstr "Inicio"
 
-#: bin/html/menuInlineToHTML.php:85 bin/html/menuInlineToHTML.php:84
+#: bin/html/menuInlineToHTML.php:86 bin/html/menuInlineToHTML.php:85
+#: bin/html/menuInlineToHTML.php:84
 msgid "Exit superuser"
 msgstr "Salir de superusuario"
 
-#: bin/html/menuInlineToHTML.php:95 bin/html/menuInlineToHTML.php:93
+#: bin/html/menuInlineToHTML.php:97 bin/html/menuInlineToHTML.php:95
+#: bin/html/menuInlineToHTML.php:93
 msgid "Get superuser"
 msgstr "Obtener superusuario"
 
-#: bin/html/menuInlineToHTML.php:106 bin/html/menuInlineToHTML.php:103
+#: bin/html/menuInlineToHTML.php:109 bin/html/menuInlineToHTML.php:106
+#: bin/html/menuInlineToHTML.php:103
 msgid "mail"
 msgstr "correo"
 
-#: bin/html/menuInlineToHTML.php:109 bin/html/menuInlineToHTML.php:106
+#: bin/html/menuInlineToHTML.php:112 bin/html/menuInlineToHTML.php:109
+#: bin/html/menuInlineToHTML.php:106
 msgid "password"
 msgstr "clave"
 
-#: bin/html/menuInlineToHTML.php:111 bin/html/menuInlineToHTML.php:108
+#: bin/html/menuInlineToHTML.php:114 bin/html/menuInlineToHTML.php:111
+#: bin/html/menuInlineToHTML.php:108
 msgid "Login"
 msgstr "Entrar"
 
-#: bin/html/menuInlineToHTML.php:120 bin/html/menuInlineToHTML.php:116
+#: bin/html/menuInlineToHTML.php:124 bin/html/menuInlineToHTML.php:120
+#: bin/html/menuInlineToHTML.php:116
 msgid "Logout"
 msgstr "Salir"
 
-#: bin/html/menuInlineToHTML.php:132 bin/html/menuInlineToHTML.php:128
+#: bin/html/menuInlineToHTML.php:136 bin/html/menuInlineToHTML.php:132
+#: bin/html/menuInlineToHTML.php:128
 msgid "Console"
 msgstr "Consola"
 
-#: bin/html/menuInlineToHTML.php:133 bin/html/menuInlineToHTML.php:129
+#: bin/html/menuInlineToHTML.php:137 bin/html/menuInlineToHTML.php:133
+#: bin/html/menuInlineToHTML.php:129
 msgid "Commands"
 msgstr "Comandos"
 
-#: bin/html/menuInlineToHTML.php:134 bin/html/menuInlineToHTML.php:130
+#: bin/html/menuInlineToHTML.php:138 bin/html/menuInlineToHTML.php:134
+#: bin/html/menuInlineToHTML.php:130
 msgid "Formatters demo"
 msgstr "Demo de formateadores"
 
-#: bin/html/menuInlineToHTML.php:136 bin/html/menuInlineToHTML.php:132
+#: bin/html/menuInlineToHTML.php:140 bin/html/menuInlineToHTML.php:136
+#: bin/html/menuInlineToHTML.php:132
 msgid "Bootstrap icons"
 msgstr "Iconos Bootstrap"
 
-#: bin/html/menuInlineToHTML.php:137 bin/html/menuInlineToHTML.php:133
+#: bin/html/menuInlineToHTML.php:141 bin/html/menuInlineToHTML.php:137
+#: bin/html/menuInlineToHTML.php:133
 msgid "Tabs & Panels"
 msgstr "Pestañas y paneles"
 
-#: bin/html/menuInlineToHTML.php:138 bin/html/menuInlineToHTML.php:134
+#: bin/html/menuInlineToHTML.php:142 bin/html/menuInlineToHTML.php:138
+#: bin/html/menuInlineToHTML.php:134
 msgid "UI Elements"
 msgstr "Elementos de IU"
 
-#: bin/html/menuInlineToHTML.php:139 bin/html/menuInlineToHTML.php:135
+#: bin/html/menuInlineToHTML.php:143 bin/html/menuInlineToHTML.php:139
+#: bin/html/menuInlineToHTML.php:135
 msgid "Forms"
 msgstr "Formularios"
 
-#: bin/html/menuInlineToHTML.php:145 bin/html/menuInlineToHTML.php:141
+#: bin/html/menuInlineToHTML.php:149 bin/html/menuInlineToHTML.php:145
+#: bin/html/menuInlineToHTML.php:141
 msgid "Types"
 msgstr "Tipos"
 
-#: bin/html/menuInlineToHTML.php:148 bin/html/menuInlineToHTML.php:144
+#: bin/html/menuInlineToHTML.php:152 bin/html/menuInlineToHTML.php:148
+#: bin/html/menuInlineToHTML.php:144
 msgid "Visible types"
 msgstr "Tipos visibles"
 
-#: bin/html/menuInlineToHTML.php:155 bin/html/menuInlineToHTML.php:151
+#: bin/html/menuInlineToHTML.php:159 bin/html/menuInlineToHTML.php:155
+#: bin/html/menuInlineToHTML.php:151
 msgid "Fixed types"
 msgstr "Tipos fijos"
 
-#: bin/html/menuInlineToHTML.php:198 bin/html/menuInlineToHTML.php:186
-#: bin/html/menuInlineToHTML.php:185 bin/html/menuInlineToHTML.php:181
+#: bin/html/menuInlineToHTML.php:202 bin/html/menuInlineToHTML.php:198
+#: bin/html/menuInlineToHTML.php:186 bin/html/menuInlineToHTML.php:185
+#: bin/html/menuInlineToHTML.php:181
 msgid "Transform a menu to HTML inline navigation bar"
 msgstr "Transforma un menú a una barra de nevegación HTML en linea"
 
-#: bin/html/menuInlineToHTML.php:200 bin/html/menuInlineToHTML.php:188
-#: bin/html/menuInlineToHTML.php:187 bin/html/menuInlineToHTML.php:183
+#: bin/html/menuInlineToHTML.php:204 bin/html/menuInlineToHTML.php:200
+#: bin/html/menuInlineToHTML.php:188 bin/html/menuInlineToHTML.php:187
+#: bin/html/menuInlineToHTML.php:183
 msgid "Menu to convert."
 msgstr "Menú a convertir"
 
@@ -1895,11 +1971,12 @@ msgstr "Origen del tipo de nodo."
 msgid "True/False node added"
 msgstr "Nodo añadido True/False."
 
-#: bin/node_type/addNode.php:212 bin/node_type/addNodeField.php:210
+#: bin/node_type/addNode.php:212 bin/node_type/addNodeField.php:213
 #: bin/node_type/addNodeType.php:232 bin/node_type/delNode.php:111
-#: bin/node_type/updateNode.php:238 bin/node_type/addNode.php:211
-#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeType.php:231
-#: bin/node_type/delNode.php:110 bin/node_type/updateNode.php:237
+#: bin/node_type/updateNode.php:238 bin/node_type/addNodeField.php:210
+#: bin/node_type/addNode.php:211 bin/node_type/addNodeField.php:209
+#: bin/node_type/addNodeType.php:231 bin/node_type/delNode.php:110
+#: bin/node_type/updateNode.php:237
 msgid "If error, it's a message about error"
 msgstr "Si hubo error, es el mensaje acerca del error"
 
@@ -1919,82 +1996,96 @@ msgstr "Tipo de campo es requerido."
 msgid "Node type is required. "
 msgstr "Tipo de nodo es requerido."
 
-#: bin/node_type/addNodeField.php:101
+#: bin/node_type/addNodeField.php:104 bin/node_type/addNodeField.php:101
 msgid "Node field sub type '%s' don't exist."
 msgstr "Subtipo de campo de nodo '%s' no existe."
 
-#: bin/node_type/addNodeField.php:172
+#: bin/node_type/addNodeField.php:175 bin/node_type/addNodeField.php:172
 msgid "Node field name '%s' already exist."
 msgstr "Nombre de campo de nodo '%s' ya existe."
 
-#: bin/node_type/addNodeField.php:176
+#: bin/node_type/addNodeField.php:179 bin/node_type/addNodeField.php:176
 msgid "You can't add fields to '%s'."
 msgstr "No puedes añadir campos a '%s'."
 
-#: bin/node_type/addNodeField.php:180
+#: bin/node_type/addNodeField.php:183 bin/node_type/addNodeField.php:180
 msgid "Node type '%s' don't exist."
 msgstr "Tipo de nodo '%s' no existe."
 
-#: bin/node_type/addNodeField.php:193 bin/node_type/addNodeField.php:192
+#: bin/node_type/addNodeField.php:196 bin/node_type/addNodeField.php:193
+#: bin/node_type/addNodeField.php:192
 msgid "Add a new field to a node type. It need update permission over the node type."
 msgstr "Añade un nuevo campo a un tipo de nodo. Se necesita permido de actualización sobre el tipo de nodo."
 
-#: bin/node_type/addNodeField.php:195 bin/node_type/addNodeField.php:194
+#: bin/node_type/addNodeField.php:198 bin/node_type/addNodeField.php:195
+#: bin/node_type/addNodeField.php:194
 msgid "Field name"
 msgstr "Nombre de campo"
 
-#: bin/node_type/addNodeField.php:196 bin/node_type/addNodeField.php:195
+#: bin/node_type/addNodeField.php:199 bin/node_type/addNodeField.php:196
+#: bin/node_type/addNodeField.php:195
 msgid "Field type: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec or other node type"
 msgstr "Tipo de campo: longtext, bool, datetime, double, integer, string, password, htmltext, nodesec o otro tipo de nodo"
 
-#: bin/node_type/addNodeField.php:197 bin/node_type/addNodeField.php:196
+#: bin/node_type/addNodeField.php:200 bin/node_type/addNodeField.php:197
+#: bin/node_type/addNodeField.php:196
 msgid "Any other record can have some value. This functionality is not using database implementation."
 msgstr "Cualquier otro registro puede tener el mismo valor. Esta funcionalidad no está usando implementación de base de datos."
 
-#: bin/node_type/addNodeField.php:198 bin/node_type/addNodeField.php:197
+#: bin/node_type/addNodeField.php:201 bin/node_type/addNodeField.php:198
+#: bin/node_type/addNodeField.php:197
 msgid "Field length if need it"
 msgstr "Longitud de campo si lo necesita"
 
-#: bin/node_type/addNodeField.php:199 bin/node_type/addNodeField.php:198
+#: bin/node_type/addNodeField.php:202 bin/node_type/addNodeField.php:199
+#: bin/node_type/addNodeField.php:198
 msgid "True/false Required field"
 msgstr "True/False Campo requerido"
 
-#: bin/node_type/addNodeField.php:200 bin/node_type/addNodeField.php:199
+#: bin/node_type/addNodeField.php:203 bin/node_type/addNodeField.php:200
+#: bin/node_type/addNodeField.php:199
 msgid "True/false Not writable field"
 msgstr "True/False Campo no escribible"
 
-#: bin/node_type/addNodeField.php:201 bin/node_type/addNodeField.php:200
+#: bin/node_type/addNodeField.php:204 bin/node_type/addNodeField.php:201
+#: bin/node_type/addNodeField.php:200
 msgid "True/false System field"
 msgstr "True/False Campo de sistema"
 
-#: bin/node_type/addNodeField.php:202 bin/node_type/addNodeField.php:201
+#: bin/node_type/addNodeField.php:205 bin/node_type/addNodeField.php:202
+#: bin/node_type/addNodeField.php:201
 msgid "True/false multivalue field, only applicable on relations with other node types."
 msgstr "True/False Campo multivalor, solo se aplica sobre relaciones con otros tipos de nodo."
 
-#: bin/node_type/addNodeField.php:203 bin/node_type/addNodeType.php:226
+#: bin/node_type/addNodeField.php:206 bin/node_type/addNodeType.php:226
 #: bin/node_type/delNodeField.php:84 bin/node_type/getNodeTypeDef.php:95
 #: bin/node_type/getNodeTypeDef.php:99
-#: bin/node_type/getNodeTypeDefHtml.php:152 bin/node_type/addNodeField.php:202
-#: bin/node_type/addNodeType.php:225 bin/node_type/delNodeField.php:83
-#: bin/node_type/getNodeTypeDef.php:94 bin/node_type/getNodeTypeDef.php:98
+#: bin/node_type/getNodeTypeDefHtml.php:152 bin/node_type/addNodeField.php:203
+#: bin/node_type/addNodeField.php:202 bin/node_type/addNodeType.php:225
+#: bin/node_type/delNodeField.php:83 bin/node_type/getNodeTypeDef.php:94
+#: bin/node_type/getNodeTypeDef.php:98
 #: bin/node_type/getNodeTypeDefHtml.php:151
 msgid "Node type name"
 msgstr "Nombre del tipo de nodo"
 
-#: bin/node_type/addNodeField.php:204 bin/node_type/addNodeField.php:203
+#: bin/node_type/addNodeField.php:207 bin/node_type/addNodeField.php:204
+#: bin/node_type/addNodeField.php:203
 msgid "Default value"
 msgstr "Valor por defecto"
 
-#: bin/node_type/addNodeField.php:205 bin/node_type/addNodeField.php:204
+#: bin/node_type/addNodeField.php:208 bin/node_type/addNodeField.php:205
+#: bin/node_type/addNodeField.php:204
 msgid "Label to show"
 msgstr "Etiqueta a mostrar"
 
-#: bin/node_type/addNodeField.php:206 bin/node_type/addNodeField.php:205
+#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeField.php:206
+#: bin/node_type/addNodeField.php:205
 msgid "Help about field"
 msgstr "Ayuda sobre el campo"
 
-#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeType.php:231
-#: bin/node_type/addNodeField.php:208 bin/node_type/addNodeType.php:230
+#: bin/node_type/addNodeField.php:212 bin/node_type/addNodeType.php:231
+#: bin/node_type/addNodeField.php:209 bin/node_type/addNodeField.php:208
+#: bin/node_type/addNodeType.php:230
 msgid "True/False field added"
 msgstr "True/False Campo añadido"
 
@@ -2768,6 +2859,10 @@ msgstr "Cambia el usuario activo sin salir y entrar. Este es el único metodo pa
 #: bin/user/sudo.php:68 bin/user/sudo.php:67
 msgid "User email to supplant. Root is 'root@localhost'. If this parameter is empty then we exit sudo."
 msgstr "Correo del usuario a suplantar. Root es 'root@localhost'. Si este parámetro está vacío entonces salimos de sudo."
+
+#: bin/goTo.php:36
+msgid "Redirect the browser to a 'local' URL."
+msgstr "Redirecciona el navegador a una URL 'local'."
 
 #: bin/getVersion.php:33
 msgid "Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it's the perfect backend to your application."

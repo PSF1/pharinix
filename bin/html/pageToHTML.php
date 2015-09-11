@@ -189,7 +189,8 @@ if (!class_exists("commandPageToHTML")) {
                         "page" => "string"
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

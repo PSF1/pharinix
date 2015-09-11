@@ -46,7 +46,8 @@ if (!class_exists("commandEndSession")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

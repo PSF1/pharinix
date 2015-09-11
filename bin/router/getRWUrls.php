@@ -54,7 +54,8 @@ if (!class_exists("commandGetRWUrls")) {
                     "response" => array(
                         "list" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

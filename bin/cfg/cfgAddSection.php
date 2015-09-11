@@ -48,7 +48,8 @@ if (!class_exists("commandCfgAddSection")) {
                         'section' => 'string',
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

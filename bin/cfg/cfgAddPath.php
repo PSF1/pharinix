@@ -70,7 +70,8 @@ if (!class_exists("commandCfgAddPath")) {
                     "response" => array(
                         "path" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

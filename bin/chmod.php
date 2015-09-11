@@ -68,7 +68,8 @@ if (!class_exists("commandChmod")) {
                     "response" => array(
                         "ok" => "boolean"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

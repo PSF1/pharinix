@@ -119,7 +119,8 @@ if (!class_exists("commandDelNode")) {
                         "ok" => "boolean",
                         "msg" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
 

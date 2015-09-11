@@ -51,7 +51,8 @@ if (!class_exists("commandCaptureEndAll")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
     }

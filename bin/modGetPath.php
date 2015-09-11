@@ -53,7 +53,8 @@ if (!class_exists("commandModGetPath")) {
                     "response" => array(
                         "path" => "string",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

@@ -66,7 +66,8 @@ if (!class_exists("commandAddUrl")) {
                         "ok" => "boolean", 
                         "msg" => "string"
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

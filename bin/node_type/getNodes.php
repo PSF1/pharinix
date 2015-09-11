@@ -221,7 +221,8 @@ if (!class_exists("commandGetNodes")) {
                     "response" => array(
                         "rs" => "array",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -82,7 +82,8 @@ if (!class_exists("commandAddFieldFormat")) {
                         "isdefault" => "boolean",
                     ), 
                     "response" => array(),
-                )
+                ),
+                "echo" => false
             );
         }
         

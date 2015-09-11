@@ -40,7 +40,8 @@ if (!class_exists("commandGetRegisteredHooks")) {
                     "response" => array(
                         'hooks' => 'array',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

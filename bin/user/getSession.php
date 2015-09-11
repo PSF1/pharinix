@@ -53,7 +53,8 @@ if (!class_exists("commandGetSession")) {
                     "response" => array(
                         "data" => "array"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

@@ -51,7 +51,8 @@ if (!class_exists("commandCfgGetPath")) {
                     "response" => array(
                         "path" => "string"
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

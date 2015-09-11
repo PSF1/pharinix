@@ -69,7 +69,8 @@ if (!class_exists("commandGetNode")) {
                     "response" => array(
                         "node" => "array",
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
     }

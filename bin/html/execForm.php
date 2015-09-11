@@ -49,7 +49,8 @@ if (!class_exists("commandExecForm")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
 

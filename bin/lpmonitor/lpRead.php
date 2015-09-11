@@ -53,7 +53,8 @@ if (!class_exists("commandLPRead")) {
                     "response" => array(
                         'monitor' => 'object',
                     ),
-                )
+                ),
+                "echo" => false
             );
         }
         

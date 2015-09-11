@@ -52,7 +52,8 @@ if (!class_exists("commandGetBaseJS")) {
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(),
-                )
+                ),
+                "echo" => true
             );
         }
     }

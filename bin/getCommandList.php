@@ -72,7 +72,8 @@ if (!class_exists("commandGetCommandList")) {
                     "response" => array(
                         "commands" => "array"
                         ),
-                )
+                ),
+                "echo" => false
             );
         }
     }
