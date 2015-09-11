@@ -35,6 +35,8 @@ if (!class_exists("commandManHTML")) {
                 echo "<h6>".$inf['package']['name'].' / v.'.$inf['package']['version']."</h6>";
                 echo "<h4>".__("Description")."</h4>";
                 echo "<p>{$inf["description"]}</p>";
+                echo ($inf["echo"]?'<h6>('.__('Do a direct output to the client.').')</h6>':'');
+                echo ($inf["interface"]?'<h6>('.__('Designed to be a comunication interface.').')</h6>':'');
                 if (isset($inf["parameters"])) {
                     echo "<h4>".__("Parameters")."</h4>";
                     echo "<ul>";
