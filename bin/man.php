@@ -63,6 +63,25 @@ if (!class_exists("commandMan")) {
                                 $resp["help"][$cmd]["response"][$key] = $value;
                             }
                         }
+                        $resp["help"][$cmd]["hooks"] = array();
+                        $resp["help"][$cmd]["hooks"][] = array(
+                            'name' => 'before'.$cmd.'Hook',
+                            'description' => sprintf(__('Some parameters that %s.'), $cmd),
+                            'parameters' => array("parameters" => $hlp["parameters"])
+                        );
+                        $resp["help"][$cmd]["hooks"][] = array(
+                            'name' => 'after'.$cmd.'Hook',
+                            'description' => sprintf(__('Parameters are some that the response of %s.'), $cmd),
+                            'parameters' => array("response" => $hlp["response"])
+                        );
+                        if (!isset($hlp["hooks"])) {
+                            $hlp["hooks"] = array();
+                        }
+                        if (count($hlp["hooks"]) > 0) {
+                            foreach ($hlp["hooks"] as $key => $value) {
+                                $resp["help"][$cmd]["hooks"][] = $value;
+                            }
+                        }
                         $resp["help"][$cmd]["type"] = $hlp["type"];
                         $acc = $object->getAccessData($path.$cmd.".php");
                         $resp["help"][$cmd]["owner"] = $acc["owner"];

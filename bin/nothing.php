@@ -38,7 +38,17 @@ if (!class_exists("commandNothing")) {
                     "response" => array(),
                 ),
                 "echo" => false,
-                "interface" => true
+                "interface" => true,
+//                "hooks" => array(
+//                        array(
+//                            "name" => "nothingHook",
+//                            "description" => "sadasdaAllow rewrite a HTML alert message.",
+//                            "parameters" => array(
+//                                "alert" => "asdasdResponse to be echoed to the client.",
+//                                "msg" => "asdasdThe message to show."
+//                            )
+//                        )
+//                )
             );
         }
         

@@ -19,5 +19,15 @@
     "platforms":[
         "win",
         "linux"
+    ],
+    "hooks": [
+            {
+                "name": "driverCommandGetAlertHook",
+                "description": "Allow rewrite a HTML alert message.",
+                "parameters": {
+                    "alert": "Response to be echoed to the client.",
+                    "msg": "The message to show."
+                }
+            }
     ]
 }
