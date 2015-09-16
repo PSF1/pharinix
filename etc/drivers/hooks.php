@@ -44,6 +44,89 @@ class driverHook {
      * @var array
      */
     protected static $Config = Array('extensions' => array());
+    protected static $loadingHook = array();
+    protected static $permanent = 'etc/hookHandlers.inc';
+
+    public function __construct() {
+        ob_start('driverHook::fatal_error_handler');
+        
+        $hf = self::getHandlersFile(self::$permanent);
+        foreach($hf as $hl) {
+            if (is_file($hl['file'])) {
+                try {
+                    self::$loadingHook = $hl;
+                    include_once $hl['file'];
+                    self::RegisterHook($hl['hook'], $hl['file'], $hl['handler']);
+                } catch (Exception $ex) {
+                    self::removeHandler($hl['hook'], $hl['file'], $hl['handler']);
+                }
+            }
+        }
+        
+        ob_end_clean(); //'driverHook::fatal_error_handler'
+    }
+    
+    /**
+     * http://stackoverflow.com/a/5192011
+     * 
+     * @param string $buffer
+     * @return string
+     */
+    public static function fatal_error_handler($buffer) {
+        $error = error_get_last();
+        if ($error['type'] == 1) {
+            // type, message, file, line
+            $newBuffer = '<html><header><title>Fatal Error </title></header>
+                    <style>                 
+                    .error_content{                     
+                        background: ghostwhite;
+                        vertical-align: middle;
+                        margin:0 auto;
+                        padding:10px;
+                        width:50%;                              
+                     } 
+                     .error_content label{color: red;font-family: Georgia;font-size: 16pt;font-style: italic;}
+                     .error_content ul li{ background: none repeat scroll 0 0 FloralWhite;                   
+                                border: 1px solid AliceBlue;
+                                display: block;
+                                font-family: monospace;
+                                padding: 2%;
+                                text-align: left;
+                      }
+                    </style>
+                    <body style="text-align: center;">  
+                      <div class="error_content">
+                          <label >Fatal Error </label>
+                          <ul>
+                            <li><b>Line:</b> ' . $error['line'] . '</li>
+                            <li><b>Message:</b> ' . $error['message'] . '</li>
+                            <li><b>File:</b> ' . $error['file'] . '</li>                             
+                          </ul>';
+                if (is_array(self::$loadingHook)) {
+                    $newBuffer .= '<label >Ofender </label>';
+                    $newBuffer .= '<ul>';
+                    foreach(self::$loadingHook as $key => $val) {
+                        $newBuffer .= "<li><b>$key:</b> $val</li>";
+                    }
+                    $newBuffer .= '</ul>';
+                }
+                $newBuffer .= '</div>
+                      </body></html>';
+
+            return $newBuffer;
+        }
+
+        return $buffer;
+    }
+
+    public static function reset() {
+        self::$Config = Array('extensions' => array());
+    }
+    
+    public static function setPermanentFile($file) {
+        self::$permanent = $file;
+    }
+
 
     /**
      * Call a hook function
@@ -85,7 +168,7 @@ class driverHook {
      * self::RegisterHook('InterpretKeywordserviceHook','internal','PhpWsdl::InterpretService');
      * 
      * @param string $hook The hook name.
-     * @param string $name The call name. Module name.
+     * @param string $name The call name. Module name, it's necesary to disallow duplicated handlers.
      * @param mixed $data The hook call data. Function name or static method name.
      */
     public static function RegisterHook($hook, $name, $data) {
@@ -105,6 +188,35 @@ class driverHook {
         self::$Config['extensions'][$hook][$name] = $data;
     }
 
+    /**
+     * Register a permanent handler
+     * @param string $hook Hook to handle.
+     * @param string $file Path relative to pharinix root.
+     * @param string $func Handler function. 
+     * @return boolean TRUE if it's saved.
+     */
+    public static function saveHandler($hook, $file, $func) {
+        $hf = self::getHandlersFile(self::$permanent);
+        foreach($hf as $hl) {
+            if ($hl['file'] == $file && $hl['hook'] == $hook && $hl['handler'] == $func) {
+                return false;
+            }
+        }
+        $hn = array(
+            'file' => $file,
+            'hook' => $hook,
+            'handler' => $func
+        );
+        self::RegisterHook($hook, $file, $func);
+        $hf[] = $hn;
+        $data = '';
+        foreach($hf as $hl) {
+            $data .= "{$hl['hook']};{$hl['file']};{$hl['handler']}\n";
+        }
+        file_put_contents(self::$permanent, $data);
+        return true;
+    }
+    
     /**
      * Unregister a hook
      * 
@@ -127,6 +239,30 @@ class driverHook {
         if (sizeof(self::$Config['extensions'][$hook]) < 1)
             unset(self::$Config['extensions'][$hook]);
     }
+    
+    /**
+     * Unregister a permanent handler
+     * @param string $hook Hook to handle.
+     * @param string $file Path relative to pharinix root.
+     * @param string $func Handler function. 
+     * @return boolean TRUE if it's removed.
+     */
+    public static function removeHandler($hook, $file, $func) {
+        $hf = self::getHandlersFile(self::$permanent);
+        self::UnregisterHook($hook, $file);
+        $ndata = array();
+        foreach($hf as $hl) {
+            if ($hl['file'] != $file || $hl['hook'] != $hook || $hl['handler'] != $func) {
+                $ndata[] = $hl;
+            }
+        }
+        $data = '';
+        foreach($ndata as $hl) {
+            $data .= "{$hl['hook']};{$hl['file']};{$hl['handler']}\n";
+        }
+        file_put_contents(self::$permanent, $data);
+        return true;
+    }
 
     /**
      * Determine if a hook has a registered handler
@@ -138,4 +274,26 @@ class driverHook {
         return isset(self::$Config['extensions'][$hook]);
     }
 
+    /**
+     * Read the permanent handlers.
+     * @param string $file Hook permanent handlers.
+     * @return array ( array('hook' => '', 'file' => '', 'handler' => ''), ... )
+     */
+    public static function getHandlersFile($file) {
+        $resp = array();
+        if (is_file($file)) {
+            $hf = explode("\n", file_get_contents($file));
+            foreach($hf as $hl) {
+                $line = explode(";", $hl);
+                if (count($line) == 3) {
+                    $resp[] = array(
+                        'hook' => $line[0],
+                        'file' => $line[1],
+                        'handler' => $line[2],
+                    );
+                }
+            }
+        }
+        return $resp;
+    }
 }

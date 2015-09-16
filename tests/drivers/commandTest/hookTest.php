@@ -21,6 +21,7 @@
 
 class hookTest extends PHPUnit_Framework_TestCase {
     public static $data;
+    public static $permanent = 'tests/drivers/etc/hookHandlers.inc';
     
     public static function setUpBeforeClass() {
 //        error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
@@ -30,6 +31,8 @@ class hookTest extends PHPUnit_Framework_TestCase {
         }
         include_once 'tests/drivers/etc/bootstrap.php';
         include_once 'tests/drivers/etc/commandTools.php';
+        driverHook::setPermanentFile(self::$permanent);
+        new driverHook();
     }
     
     /**
@@ -37,7 +40,7 @@ class hookTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-
+        driverHook::reset();
     }
 
     /**
@@ -49,7 +52,7 @@ class hookTest extends PHPUnit_Framework_TestCase {
     }
     
     public static function tearDownAfterClass() {
-        
+        @unlink(self::$permanent);
     }
 
     public function dummyHook($params) {
@@ -108,5 +111,28 @@ class hookTest extends PHPUnit_Framework_TestCase {
         
         driverCommand::UnregisterHook('beforemanHook', 'test');
         driverCommand::UnregisterHook('aftermanHook', 'test');
+    }
+    
+    public function testPermanentHook() {
+        driverHook::saveHandler('beforemanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyBeforeManHook');
+        driverHook::saveHandler('aftermanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyAfterManHook');
+        
+        $resp = driverCommand::run('man', array('cmd' => 'nothing'));
+        
+        $this->assertTrue(isset($resp['help']['man']));
+        $this->assertTrue($resp['dummy']);
+        
+        driverHook::removeHandler('beforemanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyBeforeManHook');
+        driverHook::removeHandler('aftermanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyAfterManHook');
+    }
+    
+    public function testAutoPermanentHook() {
+        driverHook::setPermanentFile('tests/drivers/etc/hookHandlersTest.inc');
+        new driverHook();
+        
+        $resp = driverCommand::run('man', array('cmd' => 'nothing'));
+        
+        $this->assertTrue(isset($resp['help']['man']));
+        $this->assertTrue($resp['dummy']);
     }
 }

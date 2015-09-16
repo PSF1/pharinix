@@ -20,7 +20,6 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-include_once 'hooks.php';
 /**
  * Command execution class and base class to commands
  */

@@ -33,6 +33,8 @@ include_once("etc/drivers/user.php");
 driverUser::loadTranslations();
 
 include_once("etc/drivers/tools.php");
+include_once 'etc/drivers/hooks.php';
+new driverHook();
 include_once("etc/drivers/command.php");
 include_once("etc/drivers/urlRewrite.php");
 include_once 'etc/drivers/longProcessMonitor.php';
