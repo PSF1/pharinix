@@ -42,22 +42,23 @@ if (!class_exists("commandEchoSimpleXML")) {
                     if (is_numeric($key)) {
                         $key = $node_name;
                     }
-
-                    $xml .= '<' . $key . '>' . "\n" . self::generate_xml_from_array($value, $node_name) . '</' . $key . '>' . "\n";
+                    $xml .= '<' . $key . '>' . 
+                            self::generate_xml_from_array($value, $node_name) . 
+                            '</' . $key . '>';
                 }
             } else {
-                $xml = htmlspecialchars($array, ENT_QUOTES) . "\n";
+                $xml = '<![CDATA['.str_replace(']]>', ']]>', htmlspecialchars($array, ENT_QUOTES)).']]>';
             }
 
             return $xml;
         }
 
         public static function generate_valid_xml_from_array($array, $node_block = 'nodes', $node_name = 'node') {
-            $xml = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
+            $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
 
-            $xml .= '<' . $node_block . '>' . "\n";
+            $xml .= '<' . $node_block . '>';
             $xml .= self::generate_xml_from_array($array, $node_name);
-            $xml .= '</' . $node_block . '>' . "\n";
+            $xml .= '</' . $node_block . '>';
 
             return $xml;
         }
