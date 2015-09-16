@@ -84,15 +84,15 @@ class hookTest extends PHPUnit_Framework_TestCase {
         driverUser::sudo();
         // We can register a hook handler
         self::$data = null;
-        driverCommand::RegisterHook('aftergetRegisteredHooksHook', 'test', 'hookTest::dummyHook');
-        $resp = driverCommand::run('getRegisteredHooks');
+        driverCommand::RegisterHook('afterhooksGetRegisteredHook', 'test', 'hookTest::dummyHook');
+        $resp = driverCommand::run('hooksGetRegistered');
         
         $this->assertEquals(1, count(self::$data['response']));
         
         // We can unregister it too
         self::$data = null;
-        driverCommand::UnregisterHook('aftergetRegisteredHooksHook', 'test');
-        driverCommand::run('getRegisteredHooks');
+        driverCommand::UnregisterHook('afterhooksGetRegisteredHook', 'test');
+        driverCommand::run('hooksGetRegistered');
         $this->assertNull(self::$data);
         
         driverUser::sudo(false);

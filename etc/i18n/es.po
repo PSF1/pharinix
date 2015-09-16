@@ -517,11 +517,11 @@ msgstr "Filtrar por el comienzo del nombre de comando."
 msgid "Result list"
 msgstr "Lista de resultados"
 
-#: bin/getRegisteredHooks.php:33 bin/getRegisteredHooks.php:32
+#: bin/hooksGetRegistered.php:33 bin/hooksGetRegistered.php:32
 msgid "Get info about registered hook handlers."
 msgstr "Obtener información sobre los manejadores de hook registrados."
 
-#: bin/getRegisteredHooks.php:36 bin/getRegisteredHooks.php:35
+#: bin/hooksGetRegistered.php:36 bin/hooksGetRegistered.php:35
 msgid "Hooks list."
 msgstr "Listado de Hooks."
 

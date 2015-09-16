@@ -20,8 +20,8 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandGetRegisteredHooks")) {
-    class commandGetRegisteredHooks extends driverCommand {
+if (!class_exists("commandHooksGetRegistered")) {
+    class commandHooksGetRegistered extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             return self::$Config['extensions'];
@@ -55,4 +55,4 @@ if (!class_exists("commandGetRegisteredHooks")) {
 //        }
     }
 }
-return new commandGetRegisteredHooks();
+return new commandHooksGetRegistered();
