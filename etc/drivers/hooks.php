@@ -45,24 +45,32 @@ class driverHook {
      */
     protected static $Config = Array('extensions' => array());
     protected static $loadingHook = array();
-    protected static $permanent = 'etc/hookHandlers.inc';
+    protected static $permanent = '';
+    protected static $basePath = '';
 
-    public function __construct() {
+    public function __construct($permanent = 'etc/hookHandlers.inc') {
         ob_start('driverHook::fatal_error_handler');
+        self::$basePath = getcwd().'/';
         
+        self::$permanent = $permanent;
         $hf = self::getHandlersFile(self::$permanent);
-        foreach($hf as $hl) {
+        foreach ($hf as $hl) {
             if (is_file($hl['file'])) {
                 try {
                     self::$loadingHook = $hl;
                     include_once $hl['file'];
                     self::RegisterHook($hl['hook'], $hl['file'], $hl['handler']);
                 } catch (Exception $ex) {
+                    // Take note about ofender handler
+                    $ofe = new driverHook('etc/hookOfenders.inc');
+                    $ofe::saveHandler($hl['hook'], $hl['file'], $hl['handler']);
+                    unset($ofe);
+                    // And remove it
                     self::removeHandler($hl['hook'], $hl['file'], $hl['handler']);
                 }
             }
         }
-        
+
         ob_end_clean(); //'driverHook::fatal_error_handler'
     }
     
@@ -76,7 +84,7 @@ class driverHook {
         $error = error_get_last();
         if ($error['type'] == 1) {
             // type, message, file, line
-            $newBuffer = '<html><header><title>Fatal Error </title></header>
+            $newBuffer = '<html><header><title>'.__('Fatal Error').' </title></header>
                     <style>                 
                     .error_content{                     
                         background: ghostwhite;
@@ -96,19 +104,28 @@ class driverHook {
                     </style>
                     <body style="text-align: center;">  
                       <div class="error_content">
-                          <label >Fatal Error </label>
+                          <label >'.__('Fatal Error').' </label>
                           <ul>
-                            <li><b>Line:</b> ' . $error['line'] . '</li>
-                            <li><b>Message:</b> ' . $error['message'] . '</li>
-                            <li><b>File:</b> ' . $error['file'] . '</li>                             
+                            <li><b>'.__('Line').':</b> ' . $error['line'] . '</li>
+                            <li><b>'.__('Message').':</b> ' . $error['message'] . '</li>
+                            <li><b>'.__('File').':</b> ' . $error['file'] . '</li>                             
                           </ul>';
                 if (is_array(self::$loadingHook)) {
-                    $newBuffer .= '<label >Ofender </label>';
+                    $newBuffer .= '<label >'.__('Ofender').' </label>';
                     $newBuffer .= '<ul>';
                     foreach(self::$loadingHook as $key => $val) {
                         $newBuffer .= "<li><b>$key:</b> $val</li>";
                     }
                     $newBuffer .= '</ul>';
+                    // Remove ofender
+                    driverHook::$permanent = 'etc/hookHandlers.inc';
+                    driverHook::removeHandler(self::$loadingHook['hook'], self::$loadingHook['file'], self::$loadingHook['handler'], false);
+                    // Take note about
+                    driverHook::$permanent = 'etc/hookOfenders.inc';
+                    driverHook::saveHandler(self::$loadingHook['hook'], self::$loadingHook['file'], self::$loadingHook['handler'], false);
+                    // Restore normal permanent list
+                    driverHook::$permanent = 'etc/hookHandlers.inc';
+                    $newBuffer .= '<p>'.__('Ofender hook was removed.').'</p>';
                 }
                 $newBuffer .= '</div>
                       </body></html>';
@@ -124,6 +141,7 @@ class driverHook {
     }
     
     public static function setPermanentFile($file) {
+        self::$basePath = getcwd().'/';
         self::$permanent = $file;
     }
 
@@ -195,8 +213,8 @@ class driverHook {
      * @param string $func Handler function. 
      * @return boolean TRUE if it's saved.
      */
-    public static function saveHandler($hook, $file, $func) {
-        $hf = self::getHandlersFile(self::$permanent);
+    public static function saveHandler($hook, $file, $func, $lazy = true) {
+        $hf = driverHook::getHandlersFile(self::$basePath.driverHook::$permanent);
         foreach($hf as $hl) {
             if ($hl['file'] == $file && $hl['hook'] == $hook && $hl['handler'] == $func) {
                 return false;
@@ -207,13 +225,16 @@ class driverHook {
             'hook' => $hook,
             'handler' => $func
         );
-        self::RegisterHook($hook, $file, $func);
+        if ($lazy) driverHook::RegisterHook($hook, $file, $func);
         $hf[] = $hn;
         $data = '';
         foreach($hf as $hl) {
             $data .= "{$hl['hook']};{$hl['file']};{$hl['handler']}\n";
         }
-        file_put_contents(self::$permanent, $data);
+        //file_put_contents(driverHook::$permanent, $data);
+        $fp = fopen(self::$basePath.driverHook::$permanent , 'wb');
+        fwrite($fp, $data);
+        fclose($fp);
         return true;
     }
     
@@ -247,9 +268,9 @@ class driverHook {
      * @param string $func Handler function. 
      * @return boolean TRUE if it's removed.
      */
-    public static function removeHandler($hook, $file, $func) {
-        $hf = self::getHandlersFile(self::$permanent);
-        self::UnregisterHook($hook, $file);
+    public static function removeHandler($hook, $file, $func, $lazy = true) {
+        $hf = self::getHandlersFile(self::$basePath.self::$permanent);
+        if ($lazy) self::UnregisterHook($hook, $file);
         $ndata = array();
         foreach($hf as $hl) {
             if ($hl['file'] != $file || $hl['hook'] != $hook || $hl['handler'] != $func) {
@@ -260,7 +281,7 @@ class driverHook {
         foreach($ndata as $hl) {
             $data .= "{$hl['hook']};{$hl['file']};{$hl['handler']}\n";
         }
-        file_put_contents(self::$permanent, $data);
+        file_put_contents(self::$basePath.self::$permanent, $data);
         return true;
     }
 

@@ -127,8 +127,7 @@ class hookTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testAutoPermanentHook() {
-        driverHook::setPermanentFile('tests/drivers/etc/hookHandlersTest.inc');
-        new driverHook();
+        new driverHook('tests/drivers/etc/hookHandlersTest.inc');
         
         $resp = driverCommand::run('man', array('cmd' => 'nothing'));
         
