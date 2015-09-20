@@ -1,2 +1,3 @@
-beforemanHook;tests/drivers/commandTest/hookTest.php;hookTest::dummyBeforeManHook
-aftermanHook;tests/drivers/commandTest/hookTest.php;hookTest::dummyAfterManHook
+beforemanHook;tests/drivers/commandTest/driverHookTest.php;hookTest::dummyBeforeManHook
+aftermanHook;tests/drivers/commandTest/driverHookTest.php;hookTest::dummyAfterManHook
+beforenothingHook;tests/drivers/commandTest/driverHookTest.php;hookTest::dummyBeforeNothingHookFail

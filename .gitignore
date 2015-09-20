@@ -1,2 +1,4 @@
 /bin/node_type/addNodeField.sec
 /notas.txt
+/etc/hookHandlers.inc
+/etc/hookOfenders.inc

@@ -172,9 +172,20 @@ class driverHook {
         $len = sizeof($keys);
         while (++$i < $len) {
 //            self::Debug('Call ' . self::$Config['extensions'][$name][$keys[$i]]);
-            if (!call_user_func(self::$Config['extensions'][$name][$keys[$i]], $data)) {
+            try {
+                if (!call_user_func(self::$Config['extensions'][$name][$keys[$i]], $data)) {
 //                self::Debug('Handler stopped hook execution');
-                return false;
+                    return false;
+                }
+            } catch (Exception $exc) {
+                $pm = self::$permanent;
+                // Take note about ofender handler
+                $ofe = new driverHook('etc/hookOfenders.inc');
+                $ofe::saveHandler($name, $keys[$i], self::$Config['extensions'][$name][$keys[$i]]);
+                unset($ofe);
+                // And remove it
+                self::$permanent = $pm;
+                self::removeHandler($name, $keys[$i], self::$Config['extensions'][$name][$keys[$i]]);
             }
         }
         return true;

@@ -66,6 +66,10 @@ class hookTest extends PHPUnit_Framework_TestCase {
     public function dummyAfterManHook($params) {
         $params['response']['dummy'] = true;
     }
+    
+    public function dummyBeforeNothingHookFail($params) {
+        throw new Exception('Test message');
+    }
 
     public function testBeforeHook() {
         // We can register a hook handler
@@ -114,16 +118,16 @@ class hookTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testPermanentHook() {
-        driverHook::saveHandler('beforemanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyBeforeManHook');
-        driverHook::saveHandler('aftermanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyAfterManHook');
+        driverHook::saveHandler('beforemanHook', 'tests/drivers/commandTest/driverHookTest.php', 'hookTest::dummyBeforeManHook');
+        driverHook::saveHandler('aftermanHook', 'tests/drivers/commandTest/driverHookTest.php', 'hookTest::dummyAfterManHook');
         
         $resp = driverCommand::run('man', array('cmd' => 'nothing'));
         
         $this->assertTrue(isset($resp['help']['man']));
         $this->assertTrue($resp['dummy']);
         
-        driverHook::removeHandler('beforemanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyBeforeManHook');
-        driverHook::removeHandler('aftermanHook', 'tests/drivers/commandTest/hookTest.php', 'hookTest::dummyAfterManHook');
+        driverHook::removeHandler('beforemanHook', 'tests/drivers/commandTest/driverHookTest.php', 'hookTest::dummyBeforeManHook');
+        driverHook::removeHandler('aftermanHook', 'tests/drivers/commandTest/driverHookTest.php', 'hookTest::dummyAfterManHook');
     }
     
     public function testAutoPermanentHook() {
@@ -133,5 +137,13 @@ class hookTest extends PHPUnit_Framework_TestCase {
         
         $this->assertTrue(isset($resp['help']['man']));
         $this->assertTrue($resp['dummy']);
+    }
+    
+    public function testAutoPermanentHookFailMethod() {
+        new driverHook('tests/drivers/etc/hookHandlersTest.inc');
+        
+        $this->assertTrue(driverHook::HasHookHandler('beforenothingHook'));
+        $resp = driverCommand::run('nothing');
+        $this->assertNotTrue(driverHook::HasHookHandler('beforenothingHook'));
     }
 }
