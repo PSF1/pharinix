@@ -54,13 +54,13 @@ new driverUrlRewrite();
 
 if (!isset($_POST["interface"])) {
     $interface = "echoHtml";
-    self::CallHook('coreDefaultInterfaceHook', array(
+    driverHook::CallHook('coreDefaultInterfaceHook', array(
         'command' => &$interface,
     ));
     $_POST["interface"] = $interface;
 }
 
-self::CallHook('coreCatchParametersHook', array());
+driverHook::CallHook('coreCatchParametersHook', array());
 // "GET" fusion with "POST"
 foreach ($_GET as $key => $value) {
     $_POST[$key] = $value;
@@ -93,7 +93,7 @@ if ($_POST["interface"] == "1" || $_POST["interface"] == "echoHtml") {
             "params" => $params
         );
     }
-    self::CallHook('coreShowDefaultPageHook', array(
+    driverHook::CallHook('coreShowDefaultPageHook', array(
         'command' => &$cmd,
         'parameters' => &$params,
     ));
@@ -101,7 +101,7 @@ if ($_POST["interface"] == "1" || $_POST["interface"] == "echoHtml") {
 } else {
     if (!isset($_POST["command"])) {
         $com = "nothing";
-        self::CallHook('coreDefaultCommandHook', array(
+        driverHook::CallHook('coreDefaultCommandHook', array(
             'command' => &$com,
         ));
         $_POST["command"] = $com;

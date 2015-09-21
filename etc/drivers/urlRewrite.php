@@ -42,7 +42,7 @@ class driverUrlRewrite {
     public function __construct() {
         if (isset($_GET["rewrite"])) { // Is rewrite context?
             $canceled = false;
-            self::CallHook('urlRewriteHook', array(
+            driverHook::CallHook('urlRewriteHook', array(
                 'url' => &$_GET["rewrite"],
                 'canceled' => &$canceled,
             ));
@@ -63,7 +63,7 @@ class driverUrlRewrite {
             } else {
                 $status = "HTTP/1.0 404 Not Found";
                 $body = '';
-                self::CallHook('urlRewriteNotFoundHook', array(
+                driverHook::CallHook('urlRewriteNotFoundHook', array(
                     'body' => &$body,
                     'status' => &$status,
                 ));
