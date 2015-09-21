@@ -28,6 +28,49 @@
                     "alert": "Response to be echoed to the client.",
                     "msg": "The message to show."
                 }
+            },
+            {
+                "name": "urlRewriteHook",
+                "description": "Before work over a rewrited URL.",
+                "parameters": {
+                    "url": "The URL to rewrite.",
+                    "canceled": "TRUE to stop normal conversion, we need do a replacement."
+                }
+            },
+            {
+                "name": "urlRewriteNotFoundHook",
+                "description": "Response if the rewrited not found.",
+                "parameters": {
+                    "body": "The body to write, default is empty, ''.",
+                    "status": "The status header to return, default is 'HTTP/1.0 404 Not Found'."
+                }
+            },
+            {
+                "name": "coreDefaultInterfaceHook",
+                "description": "If not interface defined by parameters core select echoHtml by default, this Hook allow change that default.",
+                "parameters": {
+                    "command": "Default command to use how interface, default 'echoHtml'."
+                }
+            },
+            {
+                "name": "coreCatchParametersHook",
+                "description": "By default Pharinix will expect parameters in POST format, whit this hook we can translate JSON, XML or any other format to POST. It don't have parameters why use superglobal variables.",
+                "parameters": {}
+            },
+            {
+                "name": "coreShowDefaultPageHook",
+                "description": "Allow change default command to show the default page.",
+                "parameters": {
+                    "command": "The command to execute, default 'pageToHTML'.",
+                    "parameters": "Parameters to the command."
+                }
+            },
+            {
+                "name": "coreDefaultCommandHook",
+                "description": "Default command to execute when interface is not HTML.",
+                "parameters": {
+                    "command": "The command to execute, default 'nothing'."
+                }
             }
     ]
 }
