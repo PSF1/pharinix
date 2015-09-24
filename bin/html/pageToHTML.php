@@ -45,19 +45,22 @@ if (!class_exists("commandPageToHTML")) {
                     foreach ($blk as $key => $rows) {
                         if ($key != '@attributes') {
                             foreach ($rows as $row) {
-                                echo "<div class=\"row\" ";
+                                $auxHook = "<div class=\"row\" ";
                                 foreach ($row['@attributes'] as $name => $attr) {
-                                    echo " $name=\"$attr\"";
+                                    $auxHook .= " $name=\"$attr\"";
                                 }
-                                echo ">";
+                                $auxHook .= ">";
+                                $rowTag = pageToHtmlOpenRow($auxHook, $row['@attributes'], 'div');
                                 if (CMS_DEBUG)
                                     echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
                                 foreach ($row["col"] as $col) {
-                                    echo "<div";
+                                    $auxHook = "<div";
                                     foreach ($col['@attributes'] as $name => $attr) {
-                                        echo " $name=\"$attr\"";
+                                        $auxHook .= " $name=\"$attr\"";
                                     }
-                                    echo ">";
+                                    $auxHook .= ">";
+                                    $colTag = pageToHtmlOpenCol($auxHook, $col['@attributes'], 'div');
+                                    
                                     if (CMS_DEBUG)
                                         echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $col['@attributes']["id"] . "</span></h6>";
                                     // Call command list
@@ -71,12 +74,44 @@ if (!class_exists("commandPageToHTML")) {
                                     if (isset($col['row'])) {
                                         pageToHTMLParseBlock($pageId, $col);
                                     }
-                                    echo "</div>";
+                                    echo "</$colTag>";
                                 }
-                                echo "</div>";
+                                echo "</$rowTag>";
                             }
                         }
                     }
+                }
+                
+                /**
+                 * Open a row block and return her tag type.
+                 * @param string $element
+                 * @param array $attribs
+                 * @param string $tag
+                 */
+                function pageToHtmlOpenRow($element, $attribs, $tag = 'div') {
+                    driverHook::CallHook('pageToHtmlOpenRowHook', array(
+                        'element' => &$element,
+                        'attributes' => &$attribs,
+                        'tag' => &$tag,
+                    ));
+                    echo $element;
+                    return $tag;
+                }
+                
+                /**
+                 * Open a row block and return her tag type.
+                 * @param string $element
+                 * @param array $attribs
+                 * @param string $tag
+                 */
+                function pageToHtmlOpenCol($element, $attribs, $tag = 'div') {
+                    driverHook::CallHook('pageToHtmlOpenColHook', array(
+                        'element' => &$element,
+                        'attributes' => &$attribs,
+                        'tag' => &$tag,
+                    ));
+                    echo $element;
+                    return $tag;
                 }
 
             }
@@ -94,57 +129,101 @@ if (!class_exists("commandPageToHTML")) {
                     foreach ($struct["page"][0]["@attributes"] as $key => $value) {
                         switch ($key) {
                             case "lang":
-                                $htmlLang = ' lang="' . $value . '"';
+                                $htmlLang = $value;
                                 break;
                             case "charset":
-                                $charset = "<meta charset=\"$value\">";
+                                $charset = $value;
                                 break;
                         }
                     }
-                    echo '<!DOCTYPE html>';
-                    echo '<html' . $htmlLang . '>';
-                    echo '<head>';
-                    echo '<meta charset="utf-8">';
-                    echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-                    echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
-                    if ($charset != "")
-                        echo $charset;
-                    if (isset($struct["page"][0]["title"][0])) {
-                        echo '<title>' . $def->fields["title"];
-                        if ($struct["page"][0]["title"][0] != "") {
-                            echo " :: ";
-                            echo $struct["page"][0]["title"][0];
-                        }
-                        echo '</title>';
+                    $auxHook = '<!DOCTYPE html>';
+                    driverHook::CallHook('pageToHtmlTypeHook', array(
+                        'element' => &$auxHook,
+                    ));
+                    echo $auxHook;
+                    
+                    $auxHook =  '<html lang="' . $htmlLang . '">';
+                    driverHook::CallHook('pageToHtmlRootHook', array(
+                        'element' => &$auxHook,
+                        'lang' => &$htmlLang,
+                    ));
+                    echo $auxHook;
+                    
+                    $optionsHook = array();
+                    $auxHook = '<head>';
+                    $auxHook .= '<meta charset="utf-8">'."\n";
+                    $auxHook .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">'."\n";
+                    $auxHook .= '<meta name="viewport" content="width=device-width, initial-scale=1">'."\n";
+                    if ($charset != "") {
+                        $auxHook .= "<meta charset=\"$charset\">"."\n";
+                        $optionsHook['charset'] = $charset;
                     }
+                    if (isset($struct["page"][0]["title"][0])) {
+                        $auxHook .= '<title>' . $def->fields["title"];
+                        $optionsHook['pagetitle'] = $def->fields["title"];
+                        if ($struct["page"][0]["title"][0] != "") {
+                            $auxHook .= " :: ";
+                            $auxHook .= $struct["page"][0]["title"][0];
+                            $optionsHook['generalTitle'] = $struct["page"][0]["title"][0];
+                        }
+                        $auxHook .= '</title>'."\n";
+                    }
+                    $optionsHook['metas'] = array();
                     foreach ($struct["page"][0]["head"][0] as $tag => $attr) {
                         foreach ($attr as $value) {
                             if ($tag != "#comment" && isset($value['@attributes']) && count($value['@attributes']) > 0) {
-                                echo "<$tag";
+                                $auxHook .= "<$tag";
+                                $auxTag = array($tag => array());
                                 foreach ($value['@attributes'] as $name => $val) {
                                     if ($name == "src" || $name == "href") {
                                         $val = CMS_DEFAULT_URL_BASE . $val;
                                     }
-                                    echo " $name=\"$val\"";
+                                    $auxHook .= " $name=\"$val\"";
+                                    $auxTag[$tag][$name] = $val;
                                 }
-                                echo "></$tag>";
+                                $auxHook .= "></$tag>"."\n";
+                                $optionsHook['metas'][] = $auxTag;
                             }
                         }
                     }
-                    echo '<script src="'.CMS_DEFAULT_URL_BASE.'?command=getBaseJS&interface=nothing"></script>
+                    $auxHook .= '<script src="'.CMS_DEFAULT_URL_BASE.'?command=getBaseJS&interface=nothing"></script>
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->
             <!--[if lt IE 9]>
               <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
               <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-            <![endif]-->';
-                    echo '</head>';
-                    echo '<body>';
-                    echo '<div class="container-fluid">';
+            <![endif]-->'."\n";
+                    $auxHook .= '</head>'."\n";
+                    $optionsHook['element'] = &$auxHook;
+                    driverHook::CallHook('pageToHtmlHeadHook', array(
+                        'element' => &$auxHook,
+                        'charset' => &$optionsHook['charset'],
+                        'pagetitle' => &$optionsHook['pagetitle'],
+                        'generalTitle' => &$optionsHook['generalTitle'],
+                        'metas' => &$optionsHook['metas'],
+                    ));
+                    echo $auxHook;
+                    
+                    $auxHook = '<body>'."\n";
+                    driverHook::CallHook('pageToHtmlOpenBodyHook', array(
+                        'element' => &$auxHook,
+                    ));
+                    echo $auxHook;
+                    
+                    $auxHook = '<div class="container-fluid">'."\n";
+                    $classHook = 'container-fluid';
+                    $tagContainerHook = 'div';
+                    driverHook::CallHook('pageToHtmlOpenMainContentHook', array(
+                        'element' => &$auxHook,
+                        'class' => &$classHook,
+                        'tag' => &$tagContainerHook,
+                    ));
+                    echo $auxHook;
+                    
                     if (CMS_DEBUG)
                         echo "<h6><span class=\"label label-success\">Body</span></h6>";
                     pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["body"][0]);
-                    echo "</div>";
+                    echo "</$tagContainerHook>"."\n";
 //                    echo '<div id="footer">';
 //                    echo '<div class="container-fluid">';
 //                    if (CMS_DEBUG)
@@ -154,11 +233,23 @@ if (!class_exists("commandPageToHTML")) {
 //                    echo "</div>";
                     $reg = self::getRegister("customscripts");
                     if ($reg != "") {
-                        echo "<script>".$reg."</script>";
+                        $auxHook = "<script>".$reg."</script>"."\n";
+                        $regHook = $reg;
+                        driverHook::CallHook('pageToHtmlCustomJavascriptHook', array(
+                            'element' => &$auxHook,
+                            'raw' => &$regHook,
+                        ));
+                        echo $auxHook;
                     }
                     $reg = self::getRegister("customcss");
                     if ($reg != "") {
-                        echo "<style>".$reg."</style>";
+                        $auxHook = "<style>".$reg."</style>"."\n";
+                        $regHook = $reg;
+                        driverHook::CallHook('pageToHtmlCustomStylesHook', array(
+                            'element' => &$auxHook,
+                            'raw' => &$regHook,
+                        ));
+                        echo $auxHook;
                     }
                     echo '</body>';
                 } else {
@@ -190,7 +281,85 @@ if (!class_exists("commandPageToHTML")) {
                     ), 
                     "response" => array(),
                 ),
-                "echo" => true
+                "echo" => true,
+                "hooks" => array(
+                        array(
+                            "name" => "pageToHtmlTypeHook",
+                            "description" => __("Allow change the document type."),
+                            "parameters" => array(
+                                'element' => __("Document type tag, default is '<!DOCTYPE html>'."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlRootHook",
+                            "description" => __("Allow change default HTML root tag."),
+                            "parameters" => array(
+                                'element' => __("The actual tag."),
+                                'lang' => __("Raw language code needed."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlHeadHook",
+                            "description" => __("Allow change default head tag."),
+                            "parameters" => array(
+                                'charset' => __("Needed charset"),
+                                'pagetitle' => __("Main page title."),
+                                'generalTitle' => __("General page title."),
+                                'metas' => __("Array of tags required by the XML template."),
+                                'element' => __("Prebuild head tag."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlOpenBodyHook",
+                            "description" => __("Allow change default open body tag."),
+                            "parameters" => array(
+                                'element' => __("Prebuild open body tag."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlOpenMainContentHook",
+                            "description" => __("Allow change default container block."),
+                            "parameters" => array(
+                                'element' => __("Prebuild open tag."),
+                                'class' => __("Class attribute to set to the block."),
+                                'tag' => __("Tag type to close the block, default is 'div'."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlCustomJavascriptHook",
+                            "description" => __("Allow change custom Javascript in page foot."),
+                            "parameters" => array(
+                                'element' => __("Prebuild <script> block."),
+                                'raw' => __("Required Javascript code."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlCustomStylesHook",
+                            "description" => __("Allow change custom CSS styles in page foot."),
+                            "parameters" => array(
+                                'element' => __("Prebuild <style> block."),
+                                'raw' => __("Required CSS."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlOpenRowHook",
+                            "description" => __("Allow change the open row tag."),
+                            "parameters" => array(
+                                'element' => __("Prebuild open tag."),
+                                'attributes' => __("Array of attributes to apply."),
+                                'tag' => __("Tag type to close the block, default is 'div'."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlOpenColHook",
+                            "description" => __("Allow change the open column tag."),
+                            "parameters" => array(
+                                'element' => __("Prebuild open tag."),
+                                'attributes' => __("Array of attributes to apply."),
+                                'tag' => __("Tag type to close the block, default is 'div'."),
+                            )
+                        ),
+                )
             );
         }
 
