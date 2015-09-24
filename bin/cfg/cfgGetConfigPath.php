@@ -26,6 +26,7 @@ if (!class_exists("commandCfgGetConfigPath")) {
         public static function runMe(&$params, $debug = true) {
             $resp = array(
                 'path' => driverConfig::getConfigFilePath(),
+                'best' => driverConfig::getConfigFilePathDefault(),
             );
             return $resp;
         }
@@ -36,12 +37,14 @@ if (!class_exists("commandCfgGetConfigPath")) {
                 "description" => __("Return configuration file path."), 
                 "parameters" => array(), 
                 "response" => array(
-                    "path" => __("Configuration file path.")
+                    "path" => __("Configuration file path."),
+                    "best" => __("The best file path.")
                 ),
                 "type" => array(
                     "parameters" => array(), 
                     "response" => array(
-                        "path" => "string"
+                        "path" => "string",
+                        "best" => "string",
                     ),
                 ),
                 "echo" => false

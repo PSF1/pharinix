@@ -58,6 +58,15 @@ class driverConfig {
     }
     
     /**
+     * Return the best config file path to this call.
+     * 
+     * @return string Config file path to load
+     */
+    public static function getConfigFilePathDefault() {
+        return "etc/".$_SERVER["HTTP_HOST"].".pharinix.config.php";
+    }
+    
+    /**
      * Search the best config file to load.
      * 
      * @return string Config file path to load
