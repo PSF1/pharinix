@@ -49,7 +49,7 @@ if (!class_exists("commandPageToHTML")) {
                                 foreach ($row['@attributes'] as $name => $attr) {
                                     $auxHook .= " $name=\"$attr\"";
                                 }
-                                $auxHook .= ">";
+                                $auxHook .= ">"."\n";
                                 $rowTag = pageToHtmlOpenRow($auxHook, $row['@attributes'], 'div');
                                 if (CMS_DEBUG)
                                     echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
@@ -58,7 +58,7 @@ if (!class_exists("commandPageToHTML")) {
                                     foreach ($col['@attributes'] as $name => $attr) {
                                         $auxHook .= " $name=\"$attr\"";
                                     }
-                                    $auxHook .= ">";
+                                    $auxHook .= ">"."\n";
                                     $colTag = pageToHtmlOpenCol($auxHook, $col['@attributes'], 'div');
                                     
                                     if (CMS_DEBUG)
@@ -74,9 +74,9 @@ if (!class_exists("commandPageToHTML")) {
                                     if (isset($col['row'])) {
                                         pageToHTMLParseBlock($pageId, $col);
                                     }
-                                    echo "</$colTag>";
+                                    echo "</$colTag>"."\n";
                                 }
-                                echo "</$rowTag>";
+                                echo "</$rowTag>"."\n";
                             }
                         }
                     }
