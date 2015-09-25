@@ -223,7 +223,14 @@ if (!class_exists("commandPageToHTML")) {
                     if (CMS_DEBUG)
                         echo "<h6><span class=\"label label-success\">Body</span></h6>";
                     pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["body"][0]);
-                    echo "</$tagContainerHook>"."\n";
+                    
+                    $auxHook = "</$tagContainerHook>"."\n";
+                    driverHook::CallHook('pageToHtmlCloseMainContentHook', array(
+                        'element' => &$auxHook,
+                        'tag' => &$tagContainerHook,
+                    ));
+                    echo $auxHook;
+                    
 //                    echo '<div id="footer">';
 //                    echo '<div class="container-fluid">';
 //                    if (CMS_DEBUG)
@@ -251,7 +258,13 @@ if (!class_exists("commandPageToHTML")) {
                         ));
                         echo $auxHook;
                     }
-                    echo '</body>';
+                    $auxHook = '</body>'."\n";
+                    driverHook::CallHook('pageToHtmlCloseBodyHook', array(
+                        'element' => &$auxHook,
+                        'tag' => &$tagContainerHook,
+                    ));
+                    echo $auxHook;
+                    echo '</html>';
                 } else {
                     throw new Exception(sprintf(__("Page template '%s' not found."), $def->fields["template"]));
                 }
@@ -317,11 +330,26 @@ if (!class_exists("commandPageToHTML")) {
                             )
                         ),
                         array(
+                            "name" => "pageToHtmlCloseBodyHook",
+                            "description" => __("Allow change default close body tag."),
+                            "parameters" => array(
+                                'element' => __("Prebuild close body tag."),
+                            )
+                        ),
+                        array(
                             "name" => "pageToHtmlOpenMainContentHook",
                             "description" => __("Allow change default container block."),
                             "parameters" => array(
                                 'element' => __("Prebuild open tag."),
                                 'class' => __("Class attribute to set to the block."),
+                                'tag' => __("Tag type to close the block, default is 'div'."),
+                            )
+                        ),
+                        array(
+                            "name" => "pageToHtmlCloseMainContentHook",
+                            "description" => __("Allow change default container block."),
+                            "parameters" => array(
+                                'element' => __("Prebuild open tag."),
                                 'tag' => __("Tag type to close the block, default is 'div'."),
                             )
                         ),
