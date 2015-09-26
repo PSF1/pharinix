@@ -74,9 +74,9 @@ if (!class_exists("commandPageToHTML")) {
                                     if (isset($col['row'])) {
                                         pageToHTMLParseBlock($pageId, $col);
                                     }
-                                    echo "</$colTag>"."\n";
+                                    if ($colTag != '') echo "</$colTag>"."\n";
                                 }
-                                echo "</$rowTag>"."\n";
+                                if ($rowTag != '') echo "</$rowTag>"."\n";
                             }
                         }
                     }
@@ -375,7 +375,7 @@ if (!class_exists("commandPageToHTML")) {
                             "parameters" => array(
                                 'element' => __("Prebuild open tag."),
                                 'attributes' => __("Array of attributes to apply."),
-                                'tag' => __("Tag type to close the block, default is 'div'."),
+                                'tag' => __("Tag type to close the block, default is 'div'. If is empty, '', pageToHTML don't add the close tag."),
                             )
                         ),
                         array(
@@ -384,7 +384,7 @@ if (!class_exists("commandPageToHTML")) {
                             "parameters" => array(
                                 'element' => __("Prebuild open tag."),
                                 'attributes' => __("Array of attributes to apply."),
-                                'tag' => __("Tag type to close the block, default is 'div'."),
+                                'tag' => __("Tag type to close the block, default is 'div'. If is empty, '', pageToHTML don't add the close tag."),
                             )
                         ),
                 )
