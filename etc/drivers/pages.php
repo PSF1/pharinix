@@ -24,6 +24,17 @@ if (!defined("CMS_VERSION")) {
 }
 
 class driverPages {
+    /**
+     * 
+     * @return boolean TRUE if we must show block areas in pages.
+     */
+    public static function showAreas() {
+        $sec = driverConfig::getCFG()->getSection('[pageToHTML]');
+        if ($sec != null) {
+            return $sec->getAsBoolean('show_areas');
+        }
+        return false;
+    }
     
     /**
      * Find the page definition in data base or return FALSE

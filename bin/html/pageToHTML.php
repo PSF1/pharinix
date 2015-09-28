@@ -51,7 +51,7 @@ if (!class_exists("commandPageToHTML")) {
                                 }
                                 $auxHook .= ">"."\n";
                                 $rowTag = pageToHtmlOpenRow($auxHook, $row['@attributes'], 'div');
-                                if (CMS_DEBUG)
+                                if (driverPages::showAreas())
                                     echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
                                 foreach ($row["col"] as $col) {
                                     $auxHook = "<div";
@@ -61,7 +61,7 @@ if (!class_exists("commandPageToHTML")) {
                                     $auxHook .= ">"."\n";
                                     $colTag = pageToHtmlOpenCol($auxHook, $col['@attributes'], 'div');
                                     
-                                    if (CMS_DEBUG)
+                                    if (driverPages::showAreas())
                                         echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $col['@attributes']["id"] . "</span></h6>";
                                     // Call command list
                                     $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
@@ -220,7 +220,7 @@ if (!class_exists("commandPageToHTML")) {
                     ));
                     echo $auxHook;
                     
-                    if (CMS_DEBUG)
+                    if (driverPages::showAreas())
                         echo "<h6><span class=\"label label-success\">Body</span></h6>";
                     pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["body"][0]);
                     
@@ -233,7 +233,7 @@ if (!class_exists("commandPageToHTML")) {
                     
 //                    echo '<div id="footer">';
 //                    echo '<div class="container-fluid">';
-//                    if (CMS_DEBUG)
+//                    if (driverPages::showAreas())
 //                        echo "<h6><span class=\"label label-success\">Foot</span></h6>";
 //                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
 //                    echo "</div>";
