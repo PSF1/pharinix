@@ -41,4 +41,4 @@ user = 'aaaaa976@gmail.com'
 pass = '1234'
 
 [pageToHTML]
-show_areas = true
+show_areas = false
