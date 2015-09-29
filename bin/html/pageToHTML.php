@@ -68,6 +68,16 @@ if (!class_exists("commandPageToHTML")) {
                                     while ($cmd !== false && !$cmd->EOF) {
                                         $params = array();
                                         parse_str($cmd->fields["parameters"], $params);
+                                        if (driverPages::showAreas()) {
+                                            $iParams = ' ()';
+                                            if (count($params) > 0) {
+                                                $iParams = str_replace("<","&lt;",print_r($params, 1));
+                                                $iParams = str_replace("\t","&nbsp;",$iParams);
+                                                $iParams = str_replace("\n","<br>",$iParams);
+                                                $iParams = " <br>$iParams";
+                                            }
+                                            echo "<div class=\"alert alert-success\" role=\"alert\"><h6><b>".__("Command")."</b>: {$cmd->fields["command"]}".$iParams."</h6></div>";
+                                        }
                                         driverCommand::run($cmd->fields["command"], $params);
                                         $cmd->MoveNext();
                                     }
