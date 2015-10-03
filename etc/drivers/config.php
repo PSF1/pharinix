@@ -51,7 +51,13 @@ class driverConfig {
             driverConfig::$cfg = new driverConfigIni(driverConfig::getConfigFilePath());
             driverConfig::$cfg->parse();
             define('CMS_DEBUG', driverConfig::$cfg->getSection('[core]')->getAsBoolean('CMS_DEBUG'));
-            define('CMS_DEFAULT_URL_BASE', driverConfig::$cfg->getSection('[core]')->get('CMS_DEFAULT_URL_BASE'));
+            $baseURL = driverConfig::$cfg->getSection('[core]')->get('CMS_DEFAULT_URL_BASE');
+            if ($baseURL == "auto" || $baseURL == "") {
+                $baseURL = driverTools::base_url(true, true);
+            } else if ($baseURL == "root") {
+                $baseURL = driverTools::base_url();
+            }
+            define('CMS_DEFAULT_URL_BASE', $baseURL);
             define('ADODB_PERF_NO_RUN_SQL', driverConfig::$cfg->getSection('[mysql]')->get('ADODB_PERF_NO_RUN_SQL'));
         }
         return driverConfig::$cfg;

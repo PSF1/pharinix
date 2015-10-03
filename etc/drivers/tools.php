@@ -262,6 +262,50 @@
         $cap = substr($string, -1 * strlen($end));
         return ($cap == $end);
     }
+    
+    /**
+     * http://stackoverflow.com/a/20075147<br>
+     * //  url like: http://stackoverflow.com/questions/2820723/how-to-get-base-url-with-php<br>
+     * <br>
+     * echo base_url();    //  will produce something like: http://stackoverflow.com/questions/2820723/<br>
+     * echo base_url(TRUE);    //  will produce something like: http://stackoverflow.com/<br>
+     * echo base_url(TRUE, TRUE); || echo base_url(NULL, TRUE);    //  will produce something like: http://stackoverflow.com/questions/<br>
+     * //  and finally<br>
+     * echo base_url(NULL, NULL, TRUE);<br>
+     * //  will produce something like: <br>
+     * //      array(3) {<br>
+     * //          ["scheme"] => string(4) "http"<br>
+     * //          ["host"] => string(12) "stackoverflow.com"<br>
+     * //          ["path"] => string(35) "/questions/2820723/"<br>
+     * //      }
+     * @param boolean $atRoot
+     * @param boolean $atCore
+     * @param boolean $parse
+     * @return string
+     */
+    public static function base_url($atRoot = FALSE, $atCore = FALSE, $parse = FALSE) {
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
+            $hostname = $_SERVER['HTTP_HOST'];
+            $dir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+
+            $core = preg_split('@/@', str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(dirname(__FILE__))), NULL, PREG_SPLIT_NO_EMPTY);
+            $core = $core[0];
+
+            $tmplt = $atRoot ? ($atCore ? "%s://%s/%s/" : "%s://%s/") : ($atCore ? "%s://%s/%s/" : "%s://%s%s");
+            $end = $atRoot ? ($atCore ? $core : $hostname) : ($atCore ? $core : $dir);
+            $base_url = sprintf($tmplt, $http, $hostname, $end);
+        } else
+            $base_url = 'http://localhost/';
+
+        if ($parse) {
+            $base_url = parse_url($base_url);
+            if (isset($base_url['path']))
+                if ($base_url['path'] == '/')
+                    $base_url['path'] = '';
+        }
+        return $base_url;
+    }
 }
 
 if (!function_exists('json_last_error_msg')) {
