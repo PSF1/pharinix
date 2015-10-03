@@ -46,7 +46,7 @@ if (!class_exists("commandPageToHTML")) {
                         if ($key != '@attributes') {
                             foreach ($rows as $row) {
                                 $auxHook = "<div class=\"row\" ";
-                                foreach ($row['@attributes'] as $name => $attr) {
+                                foreach ((array)$row['@attributes'] as $name => $attr) {
                                     $auxHook .= " $name=\"$attr\"";
                                 }
                                 $auxHook .= ">"."\n";
