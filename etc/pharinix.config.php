@@ -23,7 +23,7 @@ CMS_TITLE = Pharinix
 CMS_DEBUG = false
 CMS_DEBUG_LOG_SQL = false
 CMS_MIN_PHP_VER = "5.3"
-CMS_DEFAULT_URL_BASE = "http://127.0.0.1/pharinix/"
+CMS_DEFAULT_URL_BASE = "auto"
 path = 'bin/;bin/node_type/;bin/router/;bin/user/;bin/html/;bin/cfg/;bin/gettext/;bin/lpmonitor/'
 
 [mysql]
