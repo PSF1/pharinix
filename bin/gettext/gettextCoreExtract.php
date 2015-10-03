@@ -40,6 +40,7 @@ if (!class_exists("commandGettextCoreExtract")) {
                 'user',
                 'group',
                 'modules',
+                'menu',
             );
             
             // Long process progress
