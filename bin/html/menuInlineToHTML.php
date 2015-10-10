@@ -199,15 +199,11 @@ $(document).ready(function(){
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __('Transform a menu to HTML inline navigation bar'),
-                "parameters" => array(
-                    "menu" => __("Menu to convert.")
-                    ),
+                "description" => __('Default inline navigation bar'),
+                "parameters" => array(),
                 "response" => array(),
                 "type" => array(
-                    "parameters" => array(
-                        "menu" => "string"
-                    ), 
+                    "parameters" => array(), 
                     "response" => array(),
                 ),
                 "echo" => true
