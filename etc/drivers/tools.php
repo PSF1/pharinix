@@ -32,6 +32,8 @@
      * <li>Array (7)</li>
      * <li>(</li>
      * <li>|    ["exists"] = Boolean(1) TRUE</li>
+     * <li>|    ["isfile"] = Boolean(1) TRUE</li>
+     * <li>|    ["isdir"] = Boolean(1) FALSE</li>
      * <li>|    ["writable"] = Boolean(0) FALSE</li>
      * <li>|    ["chmod"] = String(4) " 0644 "</li>
      * <li>|    ["ext"] = String(8) " htaccess "</li>
@@ -180,6 +182,65 @@
         return false;
     }
 
+    /**
+     * Copy a file or a entire folder from $source to $final.
+     * @param string $source Path to the source file.
+     * @param string $final <p>
+     * The destination path.
+     * </p>
+     * <p>
+     * If the destination file already exists, it will be overwritten.
+     * </p>
+     * @param integer $mod <p>
+     * The mode is 0777 by default, which means the widest possible
+     * access. For more information on modes, read the details
+     * on the <b>chmod</b> page.
+     * </p>
+     * <p>
+     * <i>mode</i> is ignored on Windows.
+     * </p>
+     * <p>
+     * Note that you probably want to specify the mode as an octal number,
+     * which means it should have a leading zero. The mode is also modified
+     * by the current umask, which you can change using
+     * <b>umask</b>.
+     * </p>
+     * @return boolean|\Exception
+     */
+    public static function pathCopy($source, $final, $mod = 0777) {
+        $sourceInfo = driverTools::pathInfo($source);
+        if ($sourceInfo['exists']) {
+            if ($sourceInfo['isdir']) {
+                $directory = opendir($source);
+                if (false === $directory) {
+                    $error = new Exception(sprintf(__("Can't open the directory: '%s'."), $source));
+                    return $error;
+                }
+                while (($sChild = readdir($directory)) !== false) {
+                    if ($sChild == '.' or $sChild == '..') {
+                        continue;
+                    }
+                    if (is_dir($source.'/'.$sChild) && !is_dir($final.'/'.$sChild)) {
+                        if (!mkdir($final.'/'.$sChild, $mod)) {
+                            return new Exception(sprintf(__("Can't make folder: '%s'."), $final.'/'.$sChild));
+                        }
+                    }
+                    $result = self::pathCopy($source.'/'.$sChild, $final.'/'.$sChild, $mod);
+                    if ($result instanceof Exception) {
+                        return $result;
+                    }
+                }
+                closedir($directory);
+            } else {
+                if(!copy($source, $final)) {
+                    return new Exception(sprintf(__("Can't copy the file: '%s'."), $source));
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Compare two versions strings. Version numbers must have de format <mayor>.<minor>.<revision>, and all parts must be numbers. Ex. '1.2.3' . In $need, minor or revision can be 'x' to allow any value.
      * @param string $need Version number
