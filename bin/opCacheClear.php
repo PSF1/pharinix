@@ -43,7 +43,7 @@ if (!class_exists("commandOpCacheClear")) {
                     "response" => array(),
                 ),
                 "echo" => false,
-                "interface" => true,
+                "interface" => false,
 //                "hooks" => array(
 //                        array(
 //                            "name" => "nothingHook",

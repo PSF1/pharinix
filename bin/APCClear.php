@@ -44,7 +44,7 @@ if (!class_exists("commandAPCClear")) {
                     "response" => array(),
                 ),
                 "echo" => false,
-                "interface" => true,
+                "interface" => false,
 //                "hooks" => array(
 //                        array(
 //                            "name" => "nothingHook",
