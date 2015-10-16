@@ -2,7 +2,7 @@
     "meta":{
         "name":"Pharinix",
         "slugname":"core",
-        "version": "1.09.11",
+        "version": "1.10.16",
         "autor": "Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)",
         "website": "https://github.com/PSF1/pharinix",
         "description": "Light weight framework with many interesting features. Data model with unix like security, configurable with it self, URL rewrite and mapping, etc... it's the perfect backend to your application.",

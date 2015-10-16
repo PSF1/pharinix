@@ -20,14 +20,15 @@
  */
 if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
-if (!class_exists("commandOpCacheClear")) {
-    class commandOpCacheClear extends driverCommand {
+if (!class_exists("commandAPCClear")) {
+    class commandAPCClear extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            if (function_exists('opcache_reset')) {
-                opcache_reset();
+            if (function_exists('apc_clear_cache')) {
+                apc_clear_cache();
+                apc_clear_cache('user');
             } else {
-                return array('ok' => false, 'msg' => __('Opcache not installed'));
+                return array('ok' => false, 'msg' => __('APC not installed'));
             }
             return array('ok' => true);
         }
@@ -35,7 +36,7 @@ if (!class_exists("commandOpCacheClear")) {
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __("Clear PHP Opcache."), 
+                "description" => __("Clear PHP APC cache."), 
                 "parameters" => array(), 
                 "response" => array(),
                 "type" => array(
@@ -67,4 +68,4 @@ if (!class_exists("commandOpCacheClear")) {
 //        }
     }
 }
-return new commandOpCacheClear();
+return new commandAPCClear();
