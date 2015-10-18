@@ -32,6 +32,10 @@ if (!class_exists("commandGetBaseJS")) {
             $po = driverUser::getTranslations();
             if ($po == null) $po = new Gettext\Translations();
             echo "var PHARINIX_TRANSLATIONS = ".Gettext\Generators\JsonDictionary::toString($po).";";
+            
+            // sprintf
+            echo "\n\n";
+            echo file_get_contents('etc/templates/pharinix/sprintf.js');
         }
 
         public static function getAccess($ignore = "") {
