@@ -41,6 +41,7 @@ Translator::initGettextFunctions($t);
 
 include_once("usr/adodb/cmsapi.php");
 include_once 'etc/drivers/hooks.php';
+include_once("etc/drivers/nodes.php");
 include_once("etc/drivers/command.php");
 include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
