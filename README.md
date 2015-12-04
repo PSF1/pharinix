@@ -2,7 +2,10 @@
 
 More info in the Wiki: <https://github.com/PSF1/pharinix/wiki>
 
-Travis CI state: [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
+Travis CI state: 
+Testing on PHP 5.3, 5.4, 5.5 and 5.6
+Allowing failures with PHP 5.2 and 7.0
+[![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
 
 Live Pharinix:
 
