@@ -26,7 +26,7 @@ matrix:
     #- php: 5.6
     - php: 7.0
     - php: hhvm-5.4
-    - nightly
+    - php: nightly
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
@@ -36,12 +36,11 @@ env:
 sudo: required
 
 before_install:
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then curl -s -o $HOME/.phpenv/versions/5.5/bin/phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then chmod +x $HOME/.phpenv/versions/5.5/bin/phpunit
+    # Using PHPUnit 4,8
+  - curl -s -o $HOME/.phpenv/versions/5.5/bin/phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
+  - chmod +x $HOME/.phpenv/versions/5.5/bin/phpunit
+  #- if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then chmod +x $HOME/.phpenv/versions/5.5/bin/phpunit
 
-install:  
-  - travis_retry composer install --no-interaction --ignore-platform-reqs
-  
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
 #    - sudo apt-get update
