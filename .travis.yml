@@ -17,14 +17,14 @@ php:
   - 5.6
   # aliased to a recent 7.x version
   - 7.0
-  - hhvm
+  #- hhvm
 
 matrix:
   fast_finish: true
   allow_failures:
-    - php: 5.6
+    #- php: 5.6
     - php: 7.0
-    - php: hhvm
+    #- php: hhvm
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
@@ -33,6 +33,12 @@ env:
 
 sudo: required
 
+before_install:
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then composer require --dev --no-update phpunit/phpunit ~4; fi
+
+install:  
+  - travis_retry composer install --no-interaction --ignore-platform-reqs
+  
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
 #    - sudo apt-get update
@@ -54,7 +60,7 @@ before_script:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script: 
-    - phpunit --configuration etc/travis-ci/phpunit.xml.dist
+    - phpunit --configuration etc/travis-ci/phpunit.xml.dist --coverage-text
 
 # configure notifications (email, IRC, campfire etc)
 notifications:
