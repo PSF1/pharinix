@@ -17,14 +17,16 @@ php:
   - 5.6
   # aliased to a recent 7.x version
   - 7.0
-  #- hhvm
+  - hhvm-5.4
+  - nightly
 
 matrix:
   fast_finish: true
   allow_failures:
     #- php: 5.6
     - php: 7.0
-    #- php: hhvm
+    - php: hhvm-5.4
+    - nightly
 
 # optionally specify a list of environments, for example to test different RDBMS
 env:
@@ -34,7 +36,8 @@ env:
 sudo: required
 
 before_install:
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then composer require --dev --no-update phpunit/phpunit ~4; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then curl -s -o $HOME/.phpenv/versions/5.5/bin/phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.5" ]]; then chmod +x $HOME/.phpenv/versions/5.5/bin/phpunit
 
 install:  
   - travis_retry composer install --no-interaction --ignore-platform-reqs
