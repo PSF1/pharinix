@@ -52,14 +52,19 @@ function apiCall(postData, onSuccess, onFail, onStart, onEnd) {
  */
 function remoteApiCall(url, postData, onSuccess, onFail, onStart, onEnd) {
     if (onStart) onStart();
-    $.ajax({
+    var ajaxObj = {
         type: "POST",
         url: url,
         data: postData,
         success: function (data) {
             if (onSuccess) onSuccess(data);
         }
-    }).fail(function(jqXHR, textStatus, errorThrown){
+    };
+    if (Object.prototype.toString.call(postData) === "[object FormData]") {
+        ajaxObj.processData = false;
+        ajaxObj.contentType = false;
+    }
+    $.ajax(ajaxObj).fail(function(jqXHR, textStatus, errorThrown){
         if (onFail) onFail(jqXHR.status, errorThrown, jqXHR.responseText);
     }).always(function(){
         if (onEnd) onEnd();
