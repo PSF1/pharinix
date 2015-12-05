@@ -114,6 +114,15 @@ class driverUrlRewrite {
                 if ($mapResponse !== false) {
                     // I find a match, I go out.
                     $mapping = self::mapReplace($mapResponse, $q->fields["rewriteto"]);
+                    // Create the URL context in driverCommad register
+                    $reg = &driverCommand::getRegister("url_context");
+                    // Clear $ from variables
+                    $clear = array();
+                    foreach($mapResponse as $key => $value) {
+//                        $nkey = str_replace('$', '', $key);
+                        $clear[$key] = $value;
+                    }
+                    $reg = $clear;
                     break;
                 }
                 $q->MoveNext();

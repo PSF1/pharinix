@@ -67,7 +67,10 @@ if (!class_exists("commandPageToHTML")) {
                                     $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
                                     while ($cmd !== false && !$cmd->EOF) {
                                         $params = array();
-                                        parse_str($cmd->fields["parameters"], $params);
+                                        // Change URL context variables in parameters
+                                        $context = &driverCommand::getRegister("url_context");
+                                        $rawParams = driverUrlRewrite::mapReplace($context, $cmd->fields["parameters"]);
+                                        parse_str($rawParams, $params);
                                         if (driverPages::showAreas()) {
                                             $iParams = ' ()';
                                             if (count($params) > 0) {
