@@ -159,18 +159,19 @@ if (!class_exists("commandAddNode")) {
                                         dbConn::Execute($sqlMulti);
                                     }
                                     // Add personalized page
-                                    driverCommand::run("addPage", array(
-                                        'name' => "node_type_".$params["nodetype"]."_".$last,
-                                        'template' => "etc/templates/pages/default.xml",
-                                        'title' => "Node {$last}",
-                                        'description' => "",
-                                        'keys' => "",
-                                    ));
-                                    driverCommand::run("addBlockToPage", array(
-                                        'page' => "node_type_".$params["nodetype"]."_".$last,
-                                        'command' => "getNodeHtml",
-                                        'parameters' => "nodetype=".$params["nodetype"]."&node=$last",
-                                    ));
+                                    // since Pharinix 1.12.04 node types use context URL mapping.
+//                                    driverCommand::run("addPage", array(
+//                                        'name' => "node_type_".$params["nodetype"]."_".$last,
+//                                        'template' => "etc/templates/pages/default.xml",
+//                                        'title' => "Node {$last}",
+//                                        'description' => "",
+//                                        'keys' => "",
+//                                    ));
+//                                    driverCommand::run("addBlockToPage", array(
+//                                        'page' => "node_type_".$params["nodetype"]."_".$last,
+//                                        'command' => "getNodeHtml",
+//                                        'parameters' => "nodetype=".$params["nodetype"]."&node=$last",
+//                                    ));
                                 }
                             }
                         }

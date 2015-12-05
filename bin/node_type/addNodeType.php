@@ -193,18 +193,19 @@ if (!class_exists("commandAddNodeType")) {
                 $resp["ok"] = true;
                 $resp["nid"] = $id;
                 // Add page
-                driverCommand::run("addPage", array(
-                    'name' => "node_type_".$params["name"],
-                    'template' => "etc/templates/pages/default.xml",
-                    'title' => "{$params["name"]} node type",
-                    'description' => "",
-                    'keys' => "",
-                ));
-                driverCommand::run("addBlockToPage", array(
-                    'page' => "node_type_".$params["name"],
-                    'command' => "getNodeTypeDefHtml",
-                    'parameters' => "nodetype=".$params["name"],
-                ));
+                // since Pharinix 1.12.04 node types use context URL mapping.
+//                driverCommand::run("addPage", array(
+//                    'name' => "node_type_".$params["name"],
+//                    'template' => "etc/templates/pages/default.xml",
+//                    'title' => "{$params["name"]} node type",
+//                    'description' => "",
+//                    'keys' => "",
+//                ));
+//                driverCommand::run("addBlockToPage", array(
+//                    'page' => "node_type_".$params["name"],
+//                    'command' => "getNodeTypeDefHtml",
+//                    'parameters' => "nodetype=".$params["name"],
+//                ));
             } else {
                 $resp["ok"] = false;
                 $resp["msg"] = "Node type '{$params["name"]}' already exist.";
