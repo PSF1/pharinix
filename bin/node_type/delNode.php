@@ -75,9 +75,10 @@ if (!class_exists("commandDelNode")) {
                         $sql = "delete from `node_{$params["nodetype"]}` where `id` = ".$params["nid"];
                         dbConn::Execute($sql);
                         // Delete page
-                        driverCommand::run("delPage", array(
-                            'name' => "node_type_" . $params["nodetype"] . "_" . $params["nid"],
-                        ));
+                        // since Pharinix 1.12.04 node types use context URL mapping.
+//                        driverCommand::run("delPage", array(
+//                            'name' => "node_type_" . $params["nodetype"] . "_" . $params["nid"],
+//                        ));
                         $resp["ok"] = true;
                     } else {
                         $resp["msg"] = __("You can't delete nodes.");

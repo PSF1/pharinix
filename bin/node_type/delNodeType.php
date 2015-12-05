@@ -65,9 +65,10 @@ if (!class_exists("commandDelNodeType")) {
                     }
                     set_time_limit(ini_get('max_execution_time'));
                     // Del page of node type
-                    driverCommand::run("delPage", array(
-                        'name' => "node_type_".$params["name"],
-                    ));
+                    // since Pharinix 1.12.04 node types use context URL mapping.
+//                    driverCommand::run("delPage", array(
+//                        'name' => "node_type_".$params["name"],
+//                    ));
                 }
             }
         }
