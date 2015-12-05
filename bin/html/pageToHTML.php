@@ -172,8 +172,10 @@ if (!class_exists("commandPageToHTML")) {
                         $optionsHook['charset'] = $charset;
                     }
                     if (isset($struct["page"][0]["title"][0])) {
-                        $auxHook .= '<title>' . $def->fields["title"];
-                        $optionsHook['pagetitle'] = $def->fields["title"];
+                        $context = &driverCommand::getRegister("url_context");
+                        $rawTitle = driverUrlRewrite::mapReplace($context, $def->fields["title"]);
+                        $auxHook .= '<title>' . $rawTitle;
+                        $optionsHook['pagetitle'] = $rawTitle;
                         if ($struct["page"][0]["title"][0] != "") {
                             $auxHook .= " :: ";
                             $auxHook .= $struct["page"][0]["title"][0];
