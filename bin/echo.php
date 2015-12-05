@@ -38,7 +38,7 @@ if (!class_exists("commandEcho")) {
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
-                        "any" => "any"
+                        "any" => "args"
                     ), 
                     "response" => array(),
                 ),
