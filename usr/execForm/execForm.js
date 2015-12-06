@@ -73,6 +73,7 @@ function addParamToTable(name, type, help, defValue) {
     if(!defValue) defValue = "";
     var html = "<tr>";
     html += "<td>";
+    // Hidde a input field to set the parameter name
     if (!name) {
         html += '<input class="form-control" name="pname[]" type="text">';
     } else {
@@ -82,7 +83,14 @@ function addParamToTable(name, type, help, defValue) {
     }
     html += "</td>";
     html += "<td>";
-    html += '<input class="form-control" name="pvalue[]" type="text" value="'+defValue+'">';
+    // Show input control by type
+    switch (type) {
+        case 'file':
+            html += '<input class="form-control" name="pvalue[]" type="file">';
+            break;
+        default:
+            html += '<input class="form-control" name="pvalue[]" type="text" value="'+defValue+'">';
+    }
     html += "</td>";
     html += "</tr>";
     if (help) {
@@ -157,21 +165,32 @@ $(document).ready(function(){
     $("#addRow").click(function(){
         addParamToTable();
     });
+    $("#addFileRow").click(function(){
+        addParamToTable(null, 'file');
+    });
     
     $("#executeCmd").click(function(){
         $("#response").html("...");
-        var frm = $("#remoteApi").serializeArray();
-        var query = {
-            command: frm[0].value,
-            interface: "echoJson",
-        };
+        // Build form
+        // http://stackoverflow.com/a/8758614
+        var frm = $("#remoteApi :input");
+        var formData = new FormData();
+        var interface = frm[2].value;
+        formData.append("command", $("#cmdList option:selected").text());
         for(var i = 1; i < frm.length; i = i+2) {
-            if (frm[i+1].value != "") {
-                query[frm[i].value] = frm[i+1].value;
+            if (frm[i+1].type == 'file') {
+                var fileInput = frm[i].value;
+                $.each(frm[i+1].files, function(i, file) {
+                    formData.append(fileInput, file);
+                });
+            } else if (frm[i+1].value != "") {
+                formData.append(frm[i].value, frm[i+1].value);
             }
         }
+        
+        // Send data
         var dataType = "json";
-        switch(query.interface) {
+        switch(interface.interface) {
             case "echoSimpleXML":
                 dataType = null;
                 break;
@@ -181,11 +200,11 @@ $(document).ready(function(){
                 dataType = "text";
                 break;
         }
-        apiCall(query, function(data){
+        apiCall(formData, function(data){
             var resp = data;
             console.log(resp);
             $('#response').removeClass();
-            switch(query.interface) {
+            switch(interface) {
                 case "echoJson":
                     $('#response').addClass('json_hightlight');
                     resp = jsonSyntaxHighlight(data);
