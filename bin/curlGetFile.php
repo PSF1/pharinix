@@ -76,7 +76,7 @@ if (!class_exists("commandCurlGetFile")) {
                     "response" => array(
                         "ok" => "booelan",
                         "msg" => "string",
-                        "path" => "string",
+                        "file" => "string",
                     ),
                 ),
                 "echo" => false
