@@ -66,6 +66,10 @@ driverHook::CallHook('coreCatchParametersHook', array());
 foreach ($_GET as $key => $value) {
     $_POST[$key] = $value;
 }
+// "FILES" fused with "POST"
+foreach ($_FILES as $key => $value) {
+    $_POST[$key] = &$value;
+}
 
 // Boot process
 $boot = driverCommand::run("listBooting");
