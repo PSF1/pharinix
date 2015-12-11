@@ -236,7 +236,7 @@ if (!class_exists("commandPageToHTML")) {
                     echo $auxHook;
                     
                     if (driverPages::showAreas())
-                        echo "<h6><span class=\"label label-success\">Body</span></h6>";
+                        echo "<h6><span class=\"label label-success\">Body of {$params["page"]}</span></h6>";
                     pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["body"][0]);
                     
                     $auxHook = "</$tagContainerHook>"."\n";
