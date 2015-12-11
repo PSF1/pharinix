@@ -30,10 +30,14 @@ class driverPages {
      */
     public static function showAreas() {
         $sec = driverConfig::getCFG()->getSection('[pageToHTML]');
+        $resp = false;
         if ($sec != null) {
-            return $sec->getAsBoolean('show_areas');
+            $resp = $sec->getAsBoolean('show_areas');
         }
-        return false;
+        driverHook::CallHook('driverPagesShowAreasHook', array(
+            'show' => &$resp
+        ));
+        return $resp;
     }
     
     /**
