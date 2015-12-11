@@ -183,6 +183,13 @@ class driverUrlRewrite {
             if ($params != "") $params .= "&";
             $params .= $pair;
         }
+        // Add global parameters how map replacing one.
+        $context = &driverCommand::getRegister("url_context");
+        foreach($_POST as $paramKey => $paramValue) {
+            if (!isset($context['$'.$paramKey])) {
+                $context['$'.$paramKey] = $paramValue;
+            }
+        }
         return $params;
     }
 }
