@@ -40,6 +40,9 @@ if (!class_exists("commandDelPage")) {
                 dbConn::Execute($sql);
                 $sql = "delete FROM `pages` where `name` = '{$params["name"]}'";
                 dbConn::Execute($sql);
+                return array('ok' => true);
+            } else {
+                return array('ok' => false, 'msg' => __('Page not found.'));
             }
         }
 
