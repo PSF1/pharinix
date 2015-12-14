@@ -46,13 +46,22 @@ if (!class_exists("commandPageToHTML")) {
                         if ($key != '@attributes') {
                             foreach ($rows as $row) {
                                 $auxHook = "<div class=\"row\" ";
-                                foreach ((array)$row['@attributes'] as $name => $attr) {
-                                    $auxHook .= " $name=\"$attr\"";
+                                
+                                if(isset($row['@attributes'])) {
+                                    foreach ((array)$row['@attributes'] as $name => $attr) {
+                                        $auxHook .= " $name=\"$attr\"";
+                                    }
                                 }
                                 $auxHook .= ">"."\n";
-                                $rowTag = pageToHtmlOpenRow($auxHook, $row['@attributes'], 'div');
-                                if (driverPages::showAreas())
+                                if(isset($row['@attributes'])) {
+                                    $rowTag = pageToHtmlOpenRow($auxHook, $row['@attributes'], 'div');
+                                }
+                                else {
+                                    $rowTag = pageToHtmlOpenRow($auxHook,"", 'div');
+                                }
+                                if (driverPages::showAreas() && isset($row['@attributes'])) {
                                     echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
+                                }
                                 foreach ($row["col"] as $col) {
                                     $auxHook = "<div";
                                     foreach ($col['@attributes'] as $name => $attr) {
@@ -61,28 +70,28 @@ if (!class_exists("commandPageToHTML")) {
                                     $auxHook .= ">"."\n";
                                     $colTag = pageToHtmlOpenCol($auxHook, $col['@attributes'], 'div');
                                     
-                                    if (driverPages::showAreas())
+                                    if (driverPages::showAreas() && isset($col['@attributes']["id"])) {
                                         echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $col['@attributes']["id"] . "</span></h6>";
+                                    }
                                     // Call command list
-                                    $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
-                                    while ($cmd !== false && !$cmd->EOF) {
-                                        $params = array();
-                                        // Change URL context variables in parameters
-                                        $context = &driverCommand::getRegister("url_context");
-                                        $rawParams = driverUrlRewrite::mapReplace($context, $cmd->fields["parameters"]);
-                                        parse_str($rawParams, $params);
-                                        if (driverPages::showAreas()) {
-                                            $iParams = ' ()';
-                                            if (count($params) > 0) {
-                                                $iParams = str_replace("<","&lt;",print_r($params, 1));
-                                                $iParams = str_replace("\t","&nbsp;",$iParams);
-                                                $iParams = str_replace("\n","<br>",$iParams);
-                                                $iParams = " <br>$iParams";
+                                    if(isset($col['@attributes']["id"])) {
+                                        $cmd = driverPages::getCommands($pageId, $col['@attributes']["id"]);
+                                        while ($cmd !== false && !$cmd->EOF) {
+                                            $params = array();
+                                            parse_str($cmd->fields["parameters"], $params);
+                                            if (driverPages::showAreas()) {
+                                                $iParams = ' ()';
+                                                if (count($params) > 0) {
+                                                    $iParams = str_replace("<", "&lt;", print_r($params, 1));
+                                                    $iParams = str_replace("\t", "&nbsp;", $iParams);
+                                                    $iParams = str_replace("\n", "<br>", $iParams);
+                                                    $iParams = " <br>$iParams";
+                                                }
+                                                echo "<div class=\"alert alert-success\" role=\"alert\"><h6><b>" . __("Command") . "</b>: {$cmd->fields["command"]}" . $iParams . "</h6></div>";
                                             }
-                                            echo "<div class=\"alert alert-success\" role=\"alert\"><h6><b>".__("Command")."</b>: {$cmd->fields["command"]}".$iParams."</h6></div>";
+                                            driverCommand::run($cmd->fields["command"], $params);
+                                            $cmd->MoveNext();
                                         }
-                                        driverCommand::run($cmd->fields["command"], $params);
-                                        $cmd->MoveNext();
                                     }
                                     if (isset($col['row'])) {
                                         pageToHTMLParseBlock($pageId, $col);
@@ -172,10 +181,8 @@ if (!class_exists("commandPageToHTML")) {
                         $optionsHook['charset'] = $charset;
                     }
                     if (isset($struct["page"][0]["title"][0])) {
-                        $context = &driverCommand::getRegister("url_context");
-                        $rawTitle = driverUrlRewrite::mapReplace($context, $def->fields["title"]);
-                        $auxHook .= '<title>' . $rawTitle;
-                        $optionsHook['pagetitle'] = $rawTitle;
+                        $auxHook .= '<title>' . $def->fields["title"];
+                        $optionsHook['pagetitle'] = $def->fields["title"];
                         if ($struct["page"][0]["title"][0] != "") {
                             $auxHook .= " :: ";
                             $auxHook .= $struct["page"][0]["title"][0];
