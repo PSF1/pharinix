@@ -27,7 +27,7 @@ CREATE TABLE `booting` (
   `priority` int(10) unsigned NOT NULL,
   `ref` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=178 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=latin1;
 CREATE TABLE `node_algo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `group_owner` int(10) unsigned DEFAULT '0',
@@ -144,7 +144,7 @@ CREATE TABLE `node_modules` (
   `user_owner` int(10) unsigned DEFAULT '0',
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=812 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=830 DEFAULT CHARSET=latin1;
 INSERT INTO `node_modules` VALUES  (477,'1.5','{\"meta\":{\"name\":\"phpSysInfo v 3.2.2\",\"slugname\":\"phpsysinfo\",\"version\":\"1.5\",\"autor\":\"Copyright (c), 1999-2008, Uriah Welcome (precision@users.sf.net)\\nCopyright (c), 1999-2009, Michael Cramer (bigmichi1@users.sf.net)\\nCopyright (c), 2007-2008, Audun Larsen (xqus@users.sf.net)\\nCopyright (c), 2007-2015, Erkan Valentin\\nCopyright (c), 2009-2015, Mieczyslaw Nalewaj (namiltd@users.sf.net)\\nCopyright (c), 2010-2012, Damien Roth (iysaak@users.sf.net)\\nPharinix mod Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_phpsysinfo\",\"description\":\"phpSysInfo: a customizable PHP script that displays information about your system nicely\",\"licence\":\"GNU GENERAL PUBLIC LICENSE Version 2, June 1991\"},\"configuration\":{\"[phpsysinfo]\":{\"default_group\":\"\'phpsysinfo\'\"}},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{\"psihost\":{\"url\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":true,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Host\",\"help\":\"Pharinix host\'s url with phpSysInfo installed.\"},\"user\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"User\",\"help\":\"User name that can call commands.\"},\"pass\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Password\",\"help\":\"User password that can call commands.\"}}},\"sql\":{},\"install\":[{\"addNode\":{\"nodetype\":\"group\",\"title\":\"phpsysinfo\"}},{\"delNodeField\":{\"nodetype\":\"psihost\",\"name\":\"title\"}}],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\",\"raphael_js\":\"2.1.4\"},\"platforms\":[\"win\",\"linux\"]}','usr/phpsysinfo/',23,'2015-09-06 13:22:29',0,'2015-09-06 13:22:29',3904,0,0,'phpsysinfo'),
  (748,'2.1.4','{\"meta\":{\"name\":\"Rapha\\u00ebl - JavaScript Vector Library\",\"slugname\":\"raphael_js\",\"version\":\"2.1.4\",\"autor\":\"Copyright \\u00a9 2008-2012 Dmitry Baranovskiy (http:\\/\\/raphaeljs.com), Copyright \\u00a9 2008-2012 Sencha Labs (http:\\/\\/sencha.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_raphael\",\"description\":\"Small JavaScript library that should simplify your work with vector graphics on the web.\",\"licence\":\"MIT License\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.07.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/raphael_js/',23,'2015-10-26 21:46:25',0,'2015-10-26 21:46:25',3904,0,0,'raphael_js'),
  (722,'3.0.2','{\"meta\":{\"name\":\"Bootstrap dual listbox\",\"slugname\":\"pharinix_mod_bootstrap_duallistbox\",\"version\":\"3.0.2\",\"autor\":\"Copyright 2013-2014 Istv\\u00e1n Ujj-M\\u00e9sz\\u00e1ros, Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_bootstrap_duallistbox\",\"description\":\"Responsive dual listbox widget optimized for Twitter Bootstrap.\",\"licence\":\"Apache License, Version 2.0\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_bootstrap_duallistbox/',23,'2015-10-16 18:05:17',0,'2015-10-16 18:05:17',3904,0,0,'pharinix_mod_bootstrap_duallistbox'),
@@ -220,7 +220,7 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM AUTO_INCREMENT=8995 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9143 DEFAULT CHARSET=latin1;
 INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
  (21,23,21),
  (6558,5695,5695),
@@ -256,7 +256,7 @@ CREATE TABLE `node_type` (
   `group_owner` int(10) unsigned NOT NULL,
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25521 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25761 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18:38:55',0,'0','title',0,0,3904),
  (555,'user','2015-03-21 18:56:43',0,'2015-08-21 18:06:12',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-10-03 18:27:56',0,'1','title',0,0,3904),
@@ -282,7 +282,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=230375 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=232587 DEFAULT CHARSET=latin1;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','1','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','1','1',556,'0','User creator','','0','0'),
@@ -418,7 +418,7 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7934 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8058 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (2,'',0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
  (23,'en',0,23,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez'),
  (7582,NULL,0,7582,3904,0,'otro@mail','0cc175b9c0f1b6a831c399e269772661','Otro',7582,'2015-11-02 12:09:13',0,'2015-10-26 21:09:23','Otro');
@@ -503,7 +503,7 @@ CREATE TABLE `url_rewrite` (
   `priority` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=52525 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=52527 DEFAULT CHARSET=latin1;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r',0),
  (3,'help/command','command=pageToHTML&page=help/command','r',0),
  (13,'template/editor','command=pageToHTML&page=template/editor','r',0),
