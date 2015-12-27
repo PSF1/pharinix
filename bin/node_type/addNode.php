@@ -140,7 +140,7 @@ if (!class_exists("commandAddNode")) {
                                                 // Single value fields
                                                 if ($sql != "") $sql .= ", ";
                                                 if ($fieldDef["type"] == "password") { // Type password
-                                                    $fVal = md5($value);
+                                                    $fVal = driverUser::passwordObfuscation($value);
                                                 } else { // Type other
                                                     $fVal = dbConn::qstr($value);
                                                 }

@@ -22,6 +22,14 @@
     ],
     "hooks": [
             {
+                "name": "driverUserPasswordObfuscation",
+                "description": "Allow rewrite driverUser::passwordObfuscation response. Obfuscate a password.",
+                "parameters": {
+                    "pass": "Raw password.",
+                    "obfuscated": "Obfuscated password, if empty apply default obfuscation."
+                }
+            },
+            {
                 "name": "driverPagesShowAreasHook",
                 "description": "Allow rewrite driverPages::showAreas response.",
                 "parameters": {

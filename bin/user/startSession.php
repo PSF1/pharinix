@@ -28,7 +28,7 @@ if (!class_exists("commandStartSession")) {
                 "user" => "guest@localhost",
                 "pass" => ""
             ), $params);
-            driverUser::logIn($params["user"], md5($params["pass"]));
+            driverUser::logIn($params["user"], $params["pass"]);
             $_SESSION["log_error"] = !driverUser::isLoged();
             return array(
                 "ok" => driverUser::isLoged(),

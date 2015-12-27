@@ -68,7 +68,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
     // Sessions
     public function testUserHaveGroup() {
         driverUser::logOut();
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // Tests
         $this->assertTrue(driverUser::haveGroup("testlogin"));
         $this->assertFalse(driverUser::haveGroup("sudoers"));
@@ -106,7 +106,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         $user = array_keys($user);
         // Login with it
         driverUser::logOut();
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         
         $this->assertTrue(isset($_SESSION["started"]));
         $this->assertEquals(0, $_SESSION["user_root_id"]);
@@ -143,7 +143,7 @@ class userPermissionsTest extends PHPUnit_Framework_TestCase {
         driverCommand::run("updateNode", $nnode);
         driverUser::logOut();
         // Command sudo
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         $this->assertEquals($usrKeys[0], $_SESSION["user_id"]);
         driverCommand::run("sudo", array(
             "user" => "root@localhost",

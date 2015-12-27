@@ -188,7 +188,7 @@ class fakeRecordset {
                             $data);
                     $data = str_replace(
                             '[{ms5_pass}]', 
-                            md5($cfg->getSection('[safe_mode]')->get('pass')), 
+                            driverUser::passwordObfuscation($cfg->getSection('[safe_mode]')->get('pass')), 
                             $data);
                 }
                 if ($data != null) {

@@ -155,7 +155,7 @@ class commandTest extends PHPUnit_Framework_TestCase {
     
     public function testCommandChOwn_bad_ownership() {
         driverUser::sudo(false);
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // Change ownership
         $resp = driverCommand::run("chown",array(
             "cmd" => "nothing",

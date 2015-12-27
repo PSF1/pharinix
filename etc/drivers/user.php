@@ -334,6 +334,9 @@ use Gettext\Translator;
      * @param string $pass md5 password
      */
     public static function logIn($user, $pass) {
+        if ($pass != '') {
+            $pass = self::passwordObfuscation($pass);
+        }
         $user = strtolower($user);
         if ($user == "root@localhost") {
             $user = ""; // Root can't start session
@@ -353,6 +356,24 @@ use Gettext\Translator;
             }
             session_write_close();
         }
+    }
+    
+    /**
+     * Obfuscate a password
+     * @param string $pass Raw password
+     * @return type Obfuscated password
+     */
+    public static function passwordObfuscation($pass) {
+        $obfpass = "";
+        driverHook::CallHook('driverUserPasswordObfuscation', array(
+            'pass' => &$pass,
+            'obfuscated' => &$obfpass
+        ));
+        if ($obfpass == "") {
+            $obfpass = hash("sha256", $pass);
+            $obfpass = hash("md5", $obfpass);
+        }
+        return $obfpass;
     }
     
     /**

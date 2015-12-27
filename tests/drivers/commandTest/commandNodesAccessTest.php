@@ -169,7 +169,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
             "flags" => 0777,
         ));
         driverUser::sudo(false);
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // Add field
         $resp = driverCommand::run("addNodeField",array(
             "node_type" => "test",
@@ -237,7 +237,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         driverUser::sudo(false);
         // User login
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // User add a node
         $resp = driverCommand::run("addNode", array(
             "nodetype" => "test",
@@ -282,7 +282,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         driverUser::sudo(false);
         // User login
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // User add a node
         $resp = driverCommand::run("addNode", array(
             "nodetype" => "test",
@@ -409,7 +409,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         driverUser::sudo(false);
         // User login
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // Update a node
         $resp = driverCommand::run("updateNode", array(
             "nodetype" => "test",
@@ -455,7 +455,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         driverUser::sudo(false);
         // User login
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // User add a node
         $resp = driverCommand::run("updateNode", array(
             "nodetype" => "test",
@@ -567,7 +567,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
         ));
         driverUser::sudo(false);
         // User login
-        driverUser::logIn("testlogin@localhost", md5("testlogin"));
+        driverUser::logIn("testlogin@localhost", "testlogin");
         // Read
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
@@ -581,7 +581,7 @@ class commandNodesAccessTest extends PHPUnit_Framework_TestCase {
     // Owner group can read only her nodes
     public function testGroupCanReadNodes() {
         // User login
-        driverUser::logIn("testlogin2@localhost", md5("testlogin2"));
+        driverUser::logIn("testlogin2@localhost", "testlogin2");
         // Read
         $resp = driverCommand::run("getNodes", array(
             "nodetype" => "test",
