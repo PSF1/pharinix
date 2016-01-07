@@ -32,7 +32,7 @@ if (!class_exists("commandAddBlockToPage")) {
             $params = array_merge(array(
                         'page' => '',
                         'idcol' => 'content',
-                        'command' => 'nothing',
+                        'cmd' => 'nothing',
                         'parameters' => '',
                         'priority' => 0, 
                     ), $params);
@@ -44,7 +44,7 @@ if (!class_exists("commandAddBlockToPage")) {
                 $sql = "insert into `page-blocks` set ";
                 $sql .= "`idpage` = {$page->fields["id"]}, ";
                 $sql .= "`idcol` = '{$params["idcol"]}', ";
-                $sql .= "`command` = '{$params["command"]}', ";
+                $sql .= "`command` = '{$params["cmd"]}', ";
                 $sql .= "`parameters` = '{$params["parameters"]}', ";
                 $sql .= "`priority` = {$params["priority"]}";
                 dbConn::Execute($sql);
@@ -65,7 +65,7 @@ if (!class_exists("commandAddBlockToPage")) {
                 "parameters" => array(
                     'page' => __('Name ID of page.'),
                     'idcol' => __('Column ID where put the block.'),
-                    'command' => __('Command to execute.'),
+                    'cmd' => __('Command to execute.'),
                     'parameters' => __('Parameters of command, it must be a URL encoded string.'),
                     'priority' => __('Order of blocks. Default 0, first.'),
                 ),
@@ -74,7 +74,7 @@ if (!class_exists("commandAddBlockToPage")) {
                     "parameters" => array(
                         'page' => 'string',
                         'idcol' => 'integer',
-                        'command' => 'string',
+                        'cmd' => 'string',
                         'parameters' => 'string',
                         'priority' => 'integer',
                     ), 
