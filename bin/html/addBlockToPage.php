@@ -50,6 +50,7 @@ if (!class_exists("commandAddBlockToPage")) {
                 dbConn::Execute($sql);
                 $resp["ok"] = true;
             }
+            return $resp;
         }
 
         public static function getAccess($ignore = "") {
