@@ -47,13 +47,13 @@ if (!class_exists("commandGetNodeHtml")) {
                 "package" => 'core',
                 "description" => __("Show node content in HTML."), 
                 "parameters" => array(
-                    "type" => __("Node type."),
+                    "nodetype" => __("Node type."),
                     "node" => __("Node ID."),
                 ), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
-                        "type" => "string",
+                        "nodetype" => "string",
                         "node" => "integer",
                     ), 
                     "response" => array(),
