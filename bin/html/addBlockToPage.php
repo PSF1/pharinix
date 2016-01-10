@@ -73,7 +73,7 @@ if (!class_exists("commandAddBlockToPage")) {
                 "type" => array(
                     "parameters" => array(
                         'page' => 'string',
-                        'idcol' => 'integer',
+                        'idcol' => 'string',
                         'cmd' => 'string',
                         'parameters' => 'string',
                         'priority' => 'integer',
