@@ -169,8 +169,10 @@ class driverUrlRewrite {
      * @return string $params with variables replaced
      */
     public static function mapReplace($mapVar, $params) {
-        foreach($mapVar as $search => $value) {
-            $params = str_replace($search, $value, $params);
+        if (is_array($mapVar)) {
+            foreach($mapVar as $search => $value) {
+                $params = str_replace($search, $value, $params);
+            }
         }
         // Clear empty variables
         $parts = explode("&", $params);
