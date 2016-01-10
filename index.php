@@ -24,6 +24,9 @@ include_once("etc/drivers/tools.php");
 include_once 'etc/drivers/config.php';
 driverConfig::getCFG();
 
+include_once 'etc/drivers/hooks.php';
+new driverHook();
+
 //Create a translator instance
 include_once "etc/gettext/src/autoloader.php";
 include_once "etc/cldr-to-gettext-plural-rules/src/autoloader.php";
@@ -32,9 +35,6 @@ include_once("usr/adodb/cmsapi.php");
 include_once("etc/drivers/user.php");
 driverUser::loadTranslations();
 
-include_once("etc/drivers/tools.php");
-include_once 'etc/drivers/hooks.php';
-new driverHook();
 include_once("etc/drivers/nodes.php");
 include_once("etc/drivers/command.php");
 include_once("etc/drivers/urlRewrite.php");
