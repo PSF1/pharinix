@@ -219,7 +219,7 @@ $(document).ready(function(){
         
         public static function formatURL($url) {
             $resp = $url;
-            if (!driverTools::str_start('http', $url)) {
+            if (strpos($url, '://') === false) {
                 if (driverTools::str_start('/', $url)) {
                     $url = substr($url, -1, strlen($url) - 1);
                 }
