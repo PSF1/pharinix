@@ -97,19 +97,19 @@
         if ($p3 === false) $p3 = array();
         $p4 = @explode($data["ext"], $data["path"]);
         if ($p4 === false) $p4 = array();
-        $data["path"] = ($data["exists"] ? 
-                ($data["name"] ? 
-                    realpath(array_shift($p1)) : 
-                    realpath(array_shift($p2))) : 
-                ($data["name"] ? 
-                    array_shift($p3) : 
-                    ($data["ext"] ? 
-                            array_shift($p4) : 
+        $data["path"] = ($data["exists"] ?
+                ($data["name"] ?
+                    realpath(array_shift($p1)) :
+                    realpath(array_shift($p2))) :
+                ($data["name"] ?
+                    array_shift($p3) :
+                    ($data["ext"] ?
+                            array_shift($p4) :
                             rtrim($data["path"], "/"))));
         // Devolvemos los resultados
         return $data;
     }
-    
+
      /**
      * http://www.programacionweb.net/articulos/articulo/listar-archivos-de-un-directorio/
      * @param string $path Folder path to explore. Must include "/" at the end.
@@ -132,7 +132,7 @@
         closedir($directorio);
         return $resp;
     }
-    
+
     /**
      +-------------------------------------------------------------------------+
      | Revive Adserver                                                         |
@@ -240,7 +240,7 @@
         }
         return false;
     }
-    
+
     /**
      * Compare two versions strings. Version numbers must have de format <mayor>.<minor>.<revision>, and all parts must be numbers. Ex. '1.2.3' . In $need, minor or revision can be 'x' to allow any value.
      * @param string $need Version number
@@ -266,7 +266,7 @@
         }
         return true;
     }
-    
+
     public static function formatDate($mysqlDate, $withTime = true) {
         if ($mysqlDate == "")
             return "";
@@ -299,7 +299,7 @@
 
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
-    
+
     /**
      * start $string with $start ?
      * @param string $start Start string
@@ -311,7 +311,7 @@
         $cap = substr($string, 0, strlen($start));
         return ($cap == $start);
     }
-    
+
     /**
      * end $string with $end ?
      * @param string $end End string
@@ -323,7 +323,7 @@
         $cap = substr($string, -1 * strlen($end));
         return ($cap == $end);
     }
-    
+
     /**
      * http://stackoverflow.com/a/20075147<br>
      * //  url like: http://stackoverflow.com/questions/2820723/how-to-get-base-url-with-php<br>
@@ -367,12 +367,46 @@
         }
         return $base_url;
     }
+
+    /**
+     * Generate a new password string
+     * @link http://www.catchstudio.com/labs/password-generator/
+     * @param boolean $alpha Use alpha lowercase characters
+     * @param boolean $alpha_upper Use alpha uppercase characters
+     * @param boolean $numeric Use numeric characters
+     * @param boolean $special Use special characters
+     * @param integer $length Password length
+     * @return string The new password
+     */
+    public static function passNew($alpha, $alpha_upper, $numeric, $special, $length = 9) {
+        $_alpha = "abcdefghijklmnopqrstuvwxyz";
+        $_alpha_upper = strtoupper($_alpha);
+        $_numeric = "0123456789";
+        $_special = ".-+=_,!@$#*%<>[]{}";
+        $chars = "";
+
+        // if you want a form like above
+        if ($alpha)         $chars .= $_alpha;
+        if ($alpha_upper)   $chars .= $_alpha_upper;
+        if ($numeric)       $chars .= $_numeric;
+        if ($special)       $chars .= $_special;
+
+        $len = strlen($chars);
+        $pw = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $pw .= substr($chars, rand(0, $len - 1), 1);
+        }
+
+        // the finished password
+        return str_shuffle($pw);
+    }
 }
 
 if (!function_exists('json_last_error_msg')) {
     /**
      * http://es1.php.net/manual/es/function.json-last-error-msg.php#117393
-     * 
+     *
      * @staticvar array $ERRORS
      * @return string
      */

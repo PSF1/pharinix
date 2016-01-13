@@ -50,6 +50,18 @@ class driverToolsTest extends PHPUnit_Framework_TestCase {
         
     }
     
+    public function test_PassNew() {
+        $this->assertEquals(1, strlen(driverTools::passNew(1, 0, 0, 0, 1)));
+        $this->assertEquals(1, strlen(driverTools::passNew(1, 1, 0, 0, 1)));
+        $this->assertEquals(1, strlen(driverTools::passNew(1, 1, 1, 0, 1)));
+        $this->assertEquals(1, strlen(driverTools::passNew(1, 1, 1, 1, 1)));
+        
+        $this->assertEquals(50, strlen(driverTools::passNew(1, 0, 0, 0, 50)));
+        $this->assertEquals(50, strlen(driverTools::passNew(1, 1, 0, 0, 50)));
+        $this->assertEquals(50, strlen(driverTools::passNew(1, 1, 1, 0, 50)));
+        $this->assertEquals(50, strlen(driverTools::passNew(1, 1, 1, 1, 50)));
+    }
+    
     public function test_Str_Start() {
         $this->assertTrue(driverTools::str_start("", "abc"), 'str_start("", "abc")');
         $this->assertTrue(driverTools::str_start("a", "abc"), 'str_start("a", "abc")');
