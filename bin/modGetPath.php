@@ -22,16 +22,22 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 
 if (!class_exists("commandModGetPath")) {
     class commandModGetPath extends driverCommand {
-
+        protected static $cache = array();
+        
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
                 'name' => ''
             ), $params);
-            $sql = 'select `path` from `node_modules` where `title` = \''.$params['name'].'\'';
-            $resp = '';
-            $q = dbConn::get()->Execute($sql);
-            if (!$q->EOF) {
-                $resp = $q->fields['path'];
+            if (!isset(self::$cache[$params['name']])) {
+                $sql = 'select `path` from `node_modules` where `title` = \''.$params['name'].'\'';
+                $resp = '';
+                $q = dbConn::get()->Execute($sql);
+                if (!$q->EOF) {
+                    $resp = $q->fields['path'];
+                }
+                self::$cache[$params['name']] = $resp;
+            } else {
+                $resp = self::$cache[$params['name']];
             }
             return array('path' => $resp);
         }
