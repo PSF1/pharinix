@@ -25,6 +25,7 @@ if (isset($_SERVER["TRAVIS"]) && $_SERVER["TRAVIS"]) {
 }
 // Requires
 include_once("etc/drivers/tools.php");
+include_once('etc/drivers/txtlog.php');
 include_once 'etc/drivers/config.php';
 driverConfig::getCFG();
 

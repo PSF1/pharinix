@@ -70,6 +70,10 @@ class hookTest extends PHPUnit_Framework_TestCase {
     public function dummyBeforeNothingHookFail($params) {
         throw new Exception('Test message');
     }
+    
+    public function dummyAfterNothingHookFail($params) {
+        trigger_error("Dummy fatal error", E_ERROR);
+    }
 
     public function testBeforeHook() {
         // We can register a hook handler
@@ -146,4 +150,12 @@ class hookTest extends PHPUnit_Framework_TestCase {
         $resp = driverCommand::run('nothing');
         $this->assertNotTrue(driverHook::HasHookHandler('beforenothingHook'));
     }
+    
+//    public function testAutoPermanentHookFatalErrorMethod() {
+//        new driverHook('tests/drivers/etc/hookHandlersTest.inc');
+//        
+//        $this->assertTrue(driverHook::HasHookHandler('afternothingHook'));
+//        $resp = driverCommand::run('nothing');
+//        $this->assertNotTrue(driverHook::HasHookHandler('afternothingHook'));
+//    }
 }

@@ -84,7 +84,8 @@ class driverHook {
         $error = error_get_last();
         if ($error['type'] == 1) {
             // type, message, file, line
-            $newBuffer = '<html><header><title>'.__('Fatal Error').' </title></header>
+            $txtLog = "Fatal error\n";
+            $newBuffer = '<html><header><title>Fatal Error </title></header>
                     <style>                 
                     .error_content{                     
                         background: ghostwhite;
@@ -104,17 +105,22 @@ class driverHook {
                     </style>
                     <body style="text-align: center;">  
                       <div class="error_content">
-                          <label >'.__('Fatal Error').' </label>
+                          <label >'.'Fatal Error'.' </label>
                           <ul>
-                            <li><b>'.__('Line').':</b> ' . $error['line'] . '</li>
-                            <li><b>'.__('Message').':</b> ' . $error['message'] . '</li>
-                            <li><b>'.__('File').':</b> ' . $error['file'] . '</li>                             
+                            <li><b>'.'Line'.':</b> ' . $error['line'] . '</li>
+                            <li><b>'.'Message'.':</b> ' . $error['message'] . '</li>
+                            <li><b>'.'File'.':</b> ' . $error['file'] . '</li>                             
                           </ul>';
+                $txtLog .= "Line: {$error['line']}\n";
+                $txtLog .= "Message: {$error['message']}\n";
+                $txtLog .= "File: {$error['file']}\n";
                 if (is_array(self::$loadingHook)) {
-                    $newBuffer .= '<label >'.__('Ofender').' </label>';
+                    $txtLog .= 'Ofender'."\n";
+                    $newBuffer .= '<label >'.'Ofender'.' </label>';
                     $newBuffer .= '<ul>';
                     foreach(self::$loadingHook as $key => $val) {
                         $newBuffer .= "<li><b>$key:</b> $val</li>";
+                        $txtLog .= "\t* $key => $val\n";
                     }
                     $newBuffer .= '</ul>';
                     // Remove ofender
@@ -125,11 +131,13 @@ class driverHook {
                     driverHook::saveHandler(self::$loadingHook['hook'], self::$loadingHook['file'], self::$loadingHook['handler'], false);
                     // Restore normal permanent list
                     driverHook::$permanent = 'etc/hookHandlers.inc';
-                    $newBuffer .= '<p>'.__('Ofender hook was removed.').'</p>';
+                    $newBuffer .= '<p>'.'Ofender hook was removed.'.'</p>';
+                    $txtLog .= 'Ofender hook was removed.'."\n";
                 }
                 $newBuffer .= '</div>
                       </body></html>';
 
+            driverLogTXT::logNow('error_fatal.log', $txtLog);
             return $newBuffer;
         }
 
