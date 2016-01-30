@@ -42,7 +42,7 @@ class driverLogTXT {
      */
     public function setPath($path) {
         $fInfo = driverTools::pathInfo($path);
-        if (!$fInfo['$fInfo']) {
+        if ($fInfo['path'] === FALSE) {
             // Don't have a path defined
             $curdir = __FILE__;
             $curdir = str_replace('\\', '/', $curdir);
