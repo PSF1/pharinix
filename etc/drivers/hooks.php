@@ -18,7 +18,7 @@ this program; if not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Pharinix
- * Pharinix Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
+ * Pharinix Copyright (C) 2016 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
  * This program is free software; you can redistribute it and/or
@@ -44,7 +44,11 @@ class driverHook {
      * @var array
      */
     protected static $Config = Array('extensions' => array());
-    protected static $loadingHook = array();
+    /**
+     * Hook loader control
+     * @var array 
+     */
+    protected static $loadingHook = null;
     protected static $permanent = '';
     protected static $basePath = '';
 
@@ -68,6 +72,7 @@ class driverHook {
                     // And remove it
                     self::removeHandler($hl['hook'], $hl['file'], $hl['handler']);
                 }
+                self::$loadingHook = null;
             }
         }
 
