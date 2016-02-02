@@ -74,6 +74,7 @@ class driverCommand extends driverHook {
                     ));
                     $resp = $object->runMe($params);
                     self::CallHook('after'.$cmd.'Hook', array(
+                        'parameters' => &$params,
                         'response' => &$resp,
                     ));
                     if (CMS_DEBUG && $debug) {
