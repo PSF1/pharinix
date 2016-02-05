@@ -54,7 +54,7 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
                 $meta = json_decode($jsonMeta);
                 if (json_last_error() != 0) {
                     self::closeMonitor($lp);
-                    return array("ok" => false, "msg" => json_last_error_msg());
+                    return array("ok" => false, "msg" => __('JSON error:').' '.json_last_error_msg());
                 }
                 // Verify if install folder is in use
                 $installPath = $params['path'].$meta->meta->slugname.'/';
