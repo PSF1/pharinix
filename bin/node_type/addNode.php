@@ -127,15 +127,17 @@ if (!class_exists("commandAddNode")) {
                                         if ($name != "nodetype") {
                                             $fieldDef = self::getFieldDef($name, $ndefFields);
                                             if ($fieldDef["multi"]) {
-                                                // Prepare all multivalue inserts.
-                                                $vals = explode(",", $value);
-                                                $table = '`node_relation_'.$params["nodetype"].'_'.$name.'_'.$fieldDef["type"].'`';
-                                                $multi = "";
-                                                foreach($vals as $val) {
-                                                    if ($multi != "") $multi .= ", ";
-                                                    $multi .= " (null, {NID}, $val)";
+                                                if ($value != '') {
+                                                    // Prepare all multivalue inserts.
+                                                    $vals = explode(",", $value);
+                                                    $table = '`node_relation_'.$params["nodetype"].'_'.$name.'_'.$fieldDef["type"].'`';
+                                                    $multi = "";
+                                                    foreach($vals as $val) {
+                                                        if ($multi != "") $multi .= ", ";
+                                                        $multi .= " (null, {NID}, $val)";
+                                                    }
+                                                    $sqlMultis[] = "insert into $table values ".$multi;
                                                 }
-                                                $sqlMultis[] = "insert into $table values ".$multi;
                                             } else {
                                                 // Single value fields
                                                 if ($sql != "") $sql .= ", ";
