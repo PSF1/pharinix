@@ -116,7 +116,7 @@ class driverNodes {
             if ($limit != "")
                 $limit = " limit " . $limit;
             // Build query
-            if ($params["count"] === true) {
+            if ($params["count"] == true) {
                 $fieldList = "count(*) as amount";
             }
             $sql = "select {$fieldList} from `node_{$params["nodetype"]}` ";
@@ -133,7 +133,7 @@ class driverNodes {
                             $item[$field] = $value;
                         }
                     }
-                    if ($params["count"] === true) {
+                    if ($params["count"] == true) {
                         $resp[] = $item;
                     } else {
                         $item['id'] = $q->fields["id"];
@@ -142,7 +142,7 @@ class driverNodes {
                     $q->MoveNext();
                 }
                 // Add the multivalue data
-                if ($params["count"] !== true) {
+                if ($params["count"] != true) {
                     $multis = self::getFieldsMulti($nodeFields);
                     foreach ($multis as $multi) {
                         $fDef = self::getFieldDef($multi, $nodeFields);
