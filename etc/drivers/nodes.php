@@ -135,6 +135,7 @@ class driverNodes {
                     }
                     if ($params["count"] == true) {
                         $resp[] = $item;
+                        $resp['amount'] = $item[0]['amount'];
                     } else {
                         $item['id'] = $q->fields["id"];
                         $resp[$q->fields["id"]] = $item;
