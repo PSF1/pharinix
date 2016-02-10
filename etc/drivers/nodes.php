@@ -120,7 +120,7 @@ class driverNodes {
                 $fieldList = "count(*) as amount";
             }
             $sql = "select {$fieldList} from `node_{$params["nodetype"]}` ";
-            $sql .= "{$params["where"]} {$params["order"]} {$params["group"]} {$limit}";
+            $sql .= "{$params["where"]} {$params["group"]} {$params["order"]} {$limit}";
             // Return data
             try {
                 $q = dbConn::Execute($sql);
