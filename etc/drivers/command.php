@@ -53,6 +53,19 @@ class driverCommand extends driverHook {
     }
     
     /**
+     * Return the module base path
+     * @param string $mod Module slugname
+     * @return string Module path
+     */
+    public static function getModPath($mod) {
+        //TODO: Swap funcional code with the command.
+        $resp = driverCommand::run('modGetPath', array(
+            'name' => $mod
+        ));
+        return $resp['path'];
+    }
+
+    /**
      * Execute a command
      * @param string $cmd
      * @param array $params
