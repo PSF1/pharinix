@@ -166,10 +166,14 @@ if (!class_exists("commandUpdateNodes")) {
                                                     $tableMultis[] = $table;
                                                     $multi = "";
                                                     foreach($vals as $val) {
-                                                        if ($multi != "") $multi .= ", ";
-                                                        $multi .= " (null, {NID}, $val)";
+                                                        if ($val != '') {
+                                                            if ($multi != "") $multi .= ", ";
+                                                            $multi .= " (null, {NID}, $val)";
+                                                        }
                                                     }
-                                                    $sqlMultis[] = "insert into $table values ".$multi;
+                                                    if ($multi != '') {
+                                                        $sqlMultis[] = "insert into $table values ".$multi;
+                                                    }
                                                 }
                                             } else {
                                                 // Single value fields
