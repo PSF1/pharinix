@@ -29,7 +29,54 @@ if (!defined("CMS_VERSION")) {
  * @author Pedro Pelaez <aaaaa976@gmail.com>
  */
 class driverNodes {
-
+    const CHANGECRUD_OWNER = 8;
+    const CHANGECRUD_GROUP = 4;
+    const CHANGECRUD_ALL = 0;
+    
+    /**
+     * Change access flags of a node.
+     * 
+     * @param string $nodetype Node type name
+     * @param integer $idnode Node ID
+     * @param integer $segment See constants CHANGECRUD_*
+     * @param boolean $create
+     * @param boolean $read
+     * @param boolean $update
+     * @param boolean $delete
+     * @return array ('ok' => boolean)
+     */
+    public static function chCRUDNode($nodetype, $idnode, $segment, 
+                                      $create, $read, $update, $delete) {
+        $me = driverCommand::run('getNodes', array(
+            'nodetype' => $nodetype,
+            'fields' => '`access`',
+            'where' => '`id` = '.$idnode,
+        ));
+        if (count($me) > 0) {
+            $ncrud = decbin($me[$idnode]['access']);
+            $require = ($create?1:0).($read?1:0).($update?1:0).($delete?1:0);
+            switch ($segment) {
+                case self::CHANGECRUD_ALL:
+                    $require = substr($ncrud, 0, 8).$require;
+                    break;
+                case self::CHANGECRUD_GROUP:
+                    $require = substr($ncrud, 0, 4).$require.substr($ncrud, 8);
+                    break;
+                case self::CHANGECRUD_OWNER:
+                    $require = $require.substr($ncrud, 4);
+                    break;
+            }
+            $require = bindec($require);
+            return driverCommand::run('chmodNode', array(
+                'nodetype' => $nodetype,
+                'nid' => $idnode,
+                'flags' => $require,
+            ));
+        } else {
+            return array("ok" => false, "msg" => __("Bad node id."));
+        }
+    }
+    
     /**
      * Read nodes from data base
      * 
