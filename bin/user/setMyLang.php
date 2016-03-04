@@ -33,21 +33,29 @@ if (!class_exists("commandSetMyLang")) {
             if ($params['lang'] != '') {
                 $_SESSION['lang'] = explode(",", $params['lang']);
             } else {
-                driverCommand::run('updateNode', array(
-                    'nodetype' => 'user',
-                    'nid' => driverUser::getID(true),
-                    'language' => '',
-                ));
                 unset($_SESSION['lang']);
-                driverUser::getLangOfUser();
+                if (driverUser::getID(true) != $_SESSION["user_guest_id"]) {
+                    driverCommand::run('updateNode', array(
+                        'nodetype' => 'user',
+                        'nid' => driverUser::getID(true),
+                        'language' => '',
+                    ));
+                    driverUser::getLangOfUser();
+                } else {
+                    @session_start();
+                    $_SESSION['lang'] = array($params['lang']);
+                    session_write_close();
+                }
             }
             if ($params['lang'] != '' && isset($_SESSION['lang']) && 
                     is_array($_SESSION['lang']) && count($_SESSION['lang']) > 0) {
-                driverCommand::run('updateNode', array(
-                    'nodetype' => 'user',
-                    'nid' => driverUser::getID(true),
-                    'language' => $_SESSION['lang'][0],
-                ));
+                 if (driverUser::getID(true) != $_SESSION["user_guest_id"]) {
+                    driverCommand::run('updateNode', array(
+                        'nodetype' => 'user',
+                        'nid' => driverUser::getID(true),
+                        'language' => $_SESSION['lang'][0],
+                    ));
+                 }
             }
             $resp['lang'] = $_SESSION['lang'];
             return $resp;

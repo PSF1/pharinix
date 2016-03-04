@@ -28,9 +28,27 @@ if (!class_exists("commandGetNodeHtml")) {
 
         public static function runMe(&$params, $debug = true) {
             // TODO: Format the output...
+            $node = driverCommand::run("getNode", $params);
             echo "<pre>";
-            var_dump(driverCommand::run("getNode", $params));
+            var_dump($node);
             echo "</pre>";
+            if (isset($node[$params['node']]['access'])) {
+                $canEdit = (driverUser::getID() == 0) || (driverUser::getID() == $node[$params['node']]['user_owner']);
+                driverCommand::run('formatFieldCRUD', array(
+                    'fieldname' => 'access',
+                    'toread' => !$canEdit,
+                    'towrite' => $canEdit,
+                    'value' => $node[$params['node']]['access'],
+    //                'length' => '',
+    //                'required' => '',
+    //                'readonly' => '',
+    //                'system' => '',
+    //                'multivalued' => '',
+    //                'default' => '',
+    //                'label' => '',
+    //                'help' => '',
+                ));
+            }
         }
 
         public static function getAccess($ignore = "") {
