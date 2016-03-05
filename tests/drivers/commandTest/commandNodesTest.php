@@ -23,7 +23,7 @@ class commandNodesTest extends PHPUnit_Framework_TestCase {
     
     protected function setUp() {
 //        include_once 'commandTools.php';
-        while (!is_file("etc/pharinix.config.php")) {
+        while (!is_file("etc/pharinix.config.DEFAULT.php")) {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';

@@ -26,7 +26,7 @@ class hookTest extends PHPUnit_Framework_TestCase {
     public static function setUpBeforeClass() {
 //        error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
         //        include_once 'commandTools.php';
-        while (!is_file("etc/pharinix.config.php")) {
+        while (!is_file("etc/pharinix.config.DEFAULT.php")) {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';

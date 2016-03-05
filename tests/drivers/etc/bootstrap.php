@@ -23,6 +23,10 @@ if (isset($_SERVER["TRAVIS"]) && $_SERVER["TRAVIS"]) {
     $_SERVER["HTTP_HOST"] = "localhost";
     phpInfo();
 }
+// Build default configuration file
+if (!is_file('etc/pharinix.config.php')) {
+    copy('etc/pharinix.config.DEFAULT.php', 'etc/pharinix.config.php');
+}
 // Requires
 include_once("etc/drivers/tools.php");
 include_once('etc/drivers/txtlog.php');

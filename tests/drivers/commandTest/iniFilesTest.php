@@ -26,7 +26,7 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        while (!is_file("etc/pharinix.config.php")) {
+        while (!is_file("etc/pharinix.config.DEFAULT.php")) {
             chdir("../");
         }
         include_once 'tests/drivers/etc/bootstrap.php';

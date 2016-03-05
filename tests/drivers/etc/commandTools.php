@@ -4,7 +4,7 @@
  * @author Pedro Peláez <aaaaa976@gmail.com>
  * @since 2014.11.24
  */
-//while (!is_file("etc/pharinix.config.php")) {
+//while (!is_file("etc/pharinix.config.DEFAULT.php")) {
 //    chdir("../");
 //}
 //include_once 'tests/drivers/etc/bootstrap.php';
