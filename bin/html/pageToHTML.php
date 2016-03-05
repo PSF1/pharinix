@@ -60,7 +60,11 @@ if (!class_exists("commandPageToHTML")) {
                                     $rowTag = pageToHtmlOpenRow($auxHook,"", 'div');
                                 }
                                 if (driverPages::showAreas() && isset($row['@attributes'])) {
-                                    echo "<h6><span class=\"label label-success\">".__("row ID").": " . $row['@attributes']["id"] . "</span></h6>";
+                                    $rid = '';
+                                    if (isset($row['@attributes']["id"])) {
+                                        $rid = $row['@attributes']["id"];
+                                    }
+                                    echo "<h6><span class=\"label label-success\">".__("row ID").": " . $rid . "</span></h6>";
                                 }
                                 foreach ($row["col"] as $col) {
                                     $auxHook = "<div";
@@ -71,7 +75,11 @@ if (!class_exists("commandPageToHTML")) {
                                     $colTag = pageToHtmlOpenCol($auxHook, $col['@attributes'], 'div');
                                     
                                     if (driverPages::showAreas() && isset($col['@attributes']["id"])) {
-                                        echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $col['@attributes']["id"] . "</span></h6>";
+                                        $rid = '';
+                                        if (isset($col['@attributes']["id"])) {
+                                            $rid = $col['@attributes']["id"];
+                                        }
+                                        echo "<h6><span class=\"label label-success\">".__("Col ID").": " . $rid . "</span></h6>";
                                     }
                                     // Call command list
                                     if(isset($col['@attributes']["id"])) {
@@ -190,7 +198,8 @@ if (!class_exists("commandPageToHTML")) {
                         $optionsHook['pagetitle'] = $rawTitle;
                         if ($struct["page"][0]["title"][0] != "") {
                             $auxHook .= " :: ";
-                            $auxHook .= $struct["page"][0]["title"][0];
+//                            $auxHook .= $struct["page"][0]["title"][0];
+                            $auxHook .= driverConfig::getCFG()->getSection('[core]')->get('CMS_TITLE');
                             $optionsHook['generalTitle'] = $struct["page"][0]["title"][0];
                         }
                         $auxHook .= '</title>'."\n";
