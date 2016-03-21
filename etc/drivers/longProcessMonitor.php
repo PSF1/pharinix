@@ -28,8 +28,12 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
 class driverLPMonitor {
     protected static $path = 'var/lp/';
 
-    public static function getPath() {
-        $usrFolder = driverUser::getID();
+    public static function getPath($usrID = null) {
+        if ($usrID == null) {
+            $usrFolder = driverUser::getID();
+        } else {
+            $usrFolder = $usrID;
+        }
         $resp = self::$path.'/'.$usrFolder.'/';
         if (!is_dir($resp)) {
             mkdir($resp, 0777, true);
@@ -100,8 +104,8 @@ class driverLPMonitor {
      * @param string $id Monitor ID
      * @return \stdClass Started monitor object.
      */
-    public static function read($id) {
-        if (!is_file(self::getPath().$id.'.lpm')) {
+    public static function read($id, $usrID = null) {
+        if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
             $resp->id = '';
@@ -112,7 +116,7 @@ class driverLPMonitor {
             $resp->percent = 0;
             $resp->error = true;
         } else {
-            $json = file_get_contents(self::getPath().$id.'.lpm');
+            $json = file_get_contents(self::getPath($usrID).$id.'.lpm');
             $resp = json_decode($json);
         }
         return $resp;
