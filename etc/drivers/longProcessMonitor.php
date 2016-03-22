@@ -29,12 +29,12 @@ class driverLPMonitor {
     protected static $path = 'var/lp/';
 
     public static function getPath($usrID = null) {
-        if ($usrID == null) {
+        if ($usrID === null) {
             $usrFolder = driverUser::getID();
         } else {
             $usrFolder = $usrID;
         }
-        $resp = self::$path.'/'.$usrFolder.'/';
+        $resp = self::$path.$usrFolder.'/';
         if (!is_dir($resp)) {
             mkdir($resp, 0777, true);
         }
