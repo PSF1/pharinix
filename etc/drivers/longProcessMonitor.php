@@ -90,7 +90,7 @@ class driverLPMonitor {
             $resp->step = $step;
             $resp->stepLabel = $stepLabel;
             $resp->error = false;
-            if ($stepsTotal >= 0) $resp->stepTotal = $stepsTotal;
+            if ($stepsTotal >= 0) $resp->stepsTotal = $stepsTotal;
             if ($resp->stepsTotal > 0) {
                 $resp->percent = round(($resp->step * 100) / $resp->stepsTotal, 2);
             }
