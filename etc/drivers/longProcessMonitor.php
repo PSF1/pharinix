@@ -47,7 +47,7 @@ class driverLPMonitor {
      * @param string $label Global label
      * @return \stdClass Started monitor object.
      */
-    public static function start($stepsTotal = 0, $label = null) {
+    public static function start($stepsTotal = 0, $label = null, $usrID = null) {
         if ($label == null) {
             $label = __('Long process');
         }
@@ -61,7 +61,7 @@ class driverLPMonitor {
         $resp->percent = 0;
         $resp->error = false;
         
-        file_put_contents(self::getPath().$resp->id.'.lpm', json_encode($resp));
+        file_put_contents(self::getPath($usrID).$resp->id.'.lpm', json_encode($resp));
         return $resp;
     }
     
@@ -73,8 +73,8 @@ class driverLPMonitor {
      * @param integer $stepsTotal New total steps. Optional, if not defined don't change.
      * @return \stdClass Monitor object.
      */
-    public static function update($id, $step, $stepLabel, $stepsTotal = -1) {
-        if (!is_file(self::getPath().$id.'.lpm')) {
+    public static function update($id, $step, $stepLabel, $stepsTotal = -1, $usrID = null) {
+        if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
             $resp->id = '';
@@ -85,7 +85,7 @@ class driverLPMonitor {
             $resp->percent = 0;
             $resp->error = true;
         } else {
-            $json = file_get_contents(self::getPath().$id.'.lpm');
+            $json = file_get_contents(self::getPath($usrID).$id.'.lpm');
             $resp = json_decode($json);
             $resp->step = $step;
             $resp->stepLabel = $stepLabel;
@@ -94,7 +94,7 @@ class driverLPMonitor {
             if ($resp->stepsTotal > 0) {
                 $resp->percent = round(($resp->step * 100) / $resp->stepsTotal, 2);
             }
-            file_put_contents(self::getPath().$resp->id.'.lpm', json_encode($resp));
+            file_put_contents(self::getPath($usrID).$resp->id.'.lpm', json_encode($resp));
         }
         return $resp;
     }
@@ -122,8 +122,8 @@ class driverLPMonitor {
         return $resp;
     }
     
-    public static function setError($id, $val) {
-        if (!is_file(self::getPath().$id.'.lpm')) {
+    public static function setError($id, $val, $usrID = null) {
+        if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
             $resp->id = '';
@@ -134,10 +134,10 @@ class driverLPMonitor {
             $resp->percent = 0;
             $resp->error = true;
         } else {
-            $json = file_get_contents(self::getPath().$id.'.lpm');
+            $json = file_get_contents(self::getPath($usrID).$id.'.lpm');
             $resp = json_decode($json);
             $resp->error = $val;
-            file_put_contents(self::getPath().$resp->id.'.lpm', json_encode($resp));
+            file_put_contents(self::getPath($usrID).$resp->id.'.lpm', json_encode($resp));
         }
         return $resp;
     }
@@ -148,11 +148,11 @@ class driverLPMonitor {
      * @param string $id Monitor ID
      * @return boolean TRUE if exist the monitor.
      */
-    public static function close($id) {
-        if (!is_file(self::getPath().$id.'.lpm')) {
+    public static function close($id, $usrID = null) {
+        if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             return false;
         } else {
-            @unlink(self::getPath().$id.'.lpm');
+            @unlink(self::getPath($usrID).$id.'.lpm');
             return true;
         }
     }
@@ -162,8 +162,8 @@ class driverLPMonitor {
      * @param boolean $withContent If TRUE return state of each monitor.
      * @return array List of monitor objects.
      */
-    public static function getActives($withContent = false) {
-        $files = driverTools::lsDir(self::getPath(), '*.lpm');
+    public static function getActives($withContent = false, $usrID = null) {
+        $files = driverTools::lsDir(self::getPath($usrID), '*.lpm');
         $resp = array();
         foreach($files['files'] as $file) {
             $item = new stdClass();
