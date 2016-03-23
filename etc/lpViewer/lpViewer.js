@@ -51,7 +51,7 @@ function updateState(mon) {
     var html = '';
     html += '<span><b>'+mon.label+'</b>: '+mon.step+' / '+mon.stepsTotal+' · '+mon.stepLabel+'</span>';
     html += '<div class="progress">';
-    var barStyle = 'progress-bar-success';
+    var barStyle = 'progress-bar-info';
     if (mon.error) {
         barStyle = 'progress-bar-danger';
     }
