@@ -326,6 +326,9 @@ use Gettext\Translator;
         // http://stackoverflow.com/questions/898190/jquery-making-simultaneous-ajax-requests-is-it-possible
         // http://stackoverflow.com/questions/28010156/stalled-and-pending-ajax-requests-by-jquery-in-chrome
         session_write_close();
+        @session_start();
+        driverHook::CallHook('driverUserSessionStarted', array());
+        session_write_close();
     }
     
     /**
@@ -354,6 +357,7 @@ use Gettext\Translator;
                 $_SESSION["user_groups"][] = $q->fields["type2"];
                 $q->MoveNext();
             }
+            driverHook::CallHook('driverUserNewLogin', array());
             session_write_close();
         }
     }
@@ -478,8 +482,11 @@ use Gettext\Translator;
      */
     public static function logOut() {
         @session_start();
+        driverHook::CallHook('driverUserLikeLogout', array());
         session_destroy();
-        driverUser::sessionStart();
+        session_write_close();
+        header('location: '.CMS_DEFAULT_URL_BASE);
+        die();
     }
     
     /**
