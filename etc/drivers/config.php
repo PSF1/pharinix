@@ -50,15 +50,21 @@ class driverConfig {
         if (driverConfig::$cfg == null) {
             driverConfig::$cfg = new driverConfigIni(driverConfig::getConfigFilePath());
             driverConfig::$cfg->parse();
-            define('CMS_DEBUG', driverConfig::$cfg->getSection('[core]')->getAsBoolean('CMS_DEBUG'));
+            if (!defined('CMS_DEBUG')) {
+                define('CMS_DEBUG', driverConfig::$cfg->getSection('[core]')->getAsBoolean('CMS_DEBUG'));
+            }
             $baseURL = driverConfig::$cfg->getSection('[core]')->get('CMS_DEFAULT_URL_BASE');
             if ($baseURL == "auto" || $baseURL == "") {
                 $baseURL = driverTools::base_url(true, true);
             } else if ($baseURL == "root") {
                 $baseURL = driverTools::base_url();
             }
-            define('CMS_DEFAULT_URL_BASE', $baseURL);
-            define('ADODB_PERF_NO_RUN_SQL', driverConfig::$cfg->getSection('[mysql]')->get('ADODB_PERF_NO_RUN_SQL'));
+            if (!defined('CMS_DEFAULT_URL_BASE')) {
+                define('CMS_DEFAULT_URL_BASE', $baseURL);
+            }
+            if (!defined('ADODB_PERF_NO_RUN_SQL')) {
+                define('ADODB_PERF_NO_RUN_SQL', driverConfig::$cfg->getSection('[mysql]')->get('ADODB_PERF_NO_RUN_SQL'));
+            }
         }
         return driverConfig::$cfg;
     }
@@ -186,6 +192,7 @@ class driverConfigIni {
             }
         }
         fclose($h);
+        driverConfig::$cfg = null; // Force reload in the next usage.
     }
     
     public function addSection($name) {
