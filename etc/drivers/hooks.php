@@ -186,7 +186,7 @@ class driverHook {
         while (++$i < $len) {
 //            self::Debug('Call ' . self::$Config['extensions'][$name][$keys[$i]]);
             try {
-                if (!call_user_func(self::$Config['extensions'][$name][$keys[$i]], $data)) {
+                if (call_user_func(self::$Config['extensions'][$name][$keys[$i]], $data) === false) {
 //                self::Debug('Handler stopped hook execution');
                     return false;
                 }
