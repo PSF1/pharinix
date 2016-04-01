@@ -74,6 +74,7 @@ class driverLPMonitor {
      * @return \stdClass Monitor object.
      */
     public static function update($id, $step, $stepLabel, $stepsTotal = -1, $usrID = null) {
+        if (empty($id)) return;
         if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
@@ -105,6 +106,7 @@ class driverLPMonitor {
      * @return \stdClass Started monitor object.
      */
     public static function read($id, $usrID = null) {
+        if (empty($id)) return null;
         if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
@@ -123,6 +125,7 @@ class driverLPMonitor {
     }
     
     public static function setError($id, $val, $usrID = null) {
+        if (empty($id)) return null;
         if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             $resp = new stdClass();
             $resp->label = __('Unknowed process monitor.');
@@ -149,6 +152,7 @@ class driverLPMonitor {
      * @return boolean TRUE if exist the monitor.
      */
     public static function close($id, $usrID = null) {
+        if (empty($id)) return null;
         if (!is_file(self::getPath($usrID).$id.'.lpm')) {
             return false;
         } else {
