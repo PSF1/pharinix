@@ -26,7 +26,10 @@ if (!class_exists("commandCommandHelp")) {
         public static function runMe(&$params, $debug = true) {
             $hlp = driverCommand::run('getCommandHelp');
             echo "<legend>".__("Command's list")."</legend>";
+            $cmdTotal = 0;
+            $modTotal = 0;
             foreach($hlp as $madule => $info) {
+                ++$modTotal;
                 echo "<h2>".sprintf(__("Module '%s'"), $info->package['name'])."</h2>";
                 echo "<h6>".sprintf(
                         __("Licence: %s"), 
@@ -42,6 +45,7 @@ if (!class_exists("commandCommandHelp")) {
                 echo '&nbsp;<a href="'.$info->package['meta']['meta']->website.'" target="_blank">'.__('See more information.').'</a>';
                 echo '</p>';
                 echo '<p>';
+                $cmdTotal += count($info->commands);
                 echo sprintf(__("It add %s command(s)"), count($info->commands)).':';
                 echo '</p>';
                 foreach($info->commands as $command) {
@@ -88,6 +92,9 @@ if (!class_exists("commandCommandHelp")) {
                     echo "</ul>";
                 }
             }
+            echo '<p>';
+            echo sprintf(__("This instalation have %s commands in %s modules."), $cmdTotal, $modTotal);
+            echo '</p>';
         }
 
         public static function getAccess($ignore = "") {
