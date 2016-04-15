@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.6.20
+-- Server version	5.6.26
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,22 +28,6 @@ CREATE TABLE `booting` (
   `ref` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=latin1;
-CREATE TABLE `node_algo` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  `access` int(11) DEFAULT '3904',
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `title` varchar(250) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-INSERT INTO `node_algo` VALUES  (1,0,0,3904,0,'2015-04-17 19:41:34',0,'2015-03-26 20:33:13','Hola'),
- (2,21,0,3904,0,NULL,0,NULL,'Grupo'),
- (3,0,23,3904,0,NULL,0,NULL,'Propietario'),
- (4,0,0,15,0,NULL,0,NULL,'Todos');
 CREATE TABLE `node_formats` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `command` varchar(250) NOT NULL,
@@ -75,13 +59,7 @@ CREATE TABLE `node_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5806 DEFAULT CHARSET=latin1;
 INSERT INTO `node_group` VALUES  (219,NULL,0,0,3904,0,NULL,0,NULL,'sudoers'),
- (21,NULL,0,0,3904,2,'2015-04-02 23:44:27',2,'2015-04-02 23:44:27','PSF'),
- (5795,NULL,0,0,3904,23,'2015-09-06 11:42:43',0,'2015-09-06 11:42:43','user'),
- (5804,NULL,0,0,3904,2,'2015-09-10 22:57:46',0,'2015-09-10 22:57:46','testlogin'),
- (5803,NULL,0,0,3904,2,'2015-09-10 22:57:46',0,'2015-09-10 22:57:46','testlogin2'),
- (5802,NULL,0,0,3904,2,'2015-09-06 15:41:19',0,'2015-09-06 15:41:19','Example'),
- (5801,NULL,0,0,3904,23,'2015-09-06 13:22:29',0,'2015-09-06 13:22:29','phpsysinfo'),
- (5805,NULL,0,0,3904,23,'2015-10-26 22:30:47',0,'2015-10-26 22:30:47','useradmin');
+ (5795,NULL,0,0,3904,23,'2015-09-06 11:42:43',0,'2015-09-06 11:42:43','user');
 CREATE TABLE `node_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `icon` varchar(250) DEFAULT '',
@@ -145,74 +123,6 @@ CREATE TABLE `node_modules` (
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=830 DEFAULT CHARSET=latin1;
-INSERT INTO `node_modules` VALUES  (477,'1.5','{\"meta\":{\"name\":\"phpSysInfo v 3.2.2\",\"slugname\":\"phpsysinfo\",\"version\":\"1.5\",\"autor\":\"Copyright (c), 1999-2008, Uriah Welcome (precision@users.sf.net)\\nCopyright (c), 1999-2009, Michael Cramer (bigmichi1@users.sf.net)\\nCopyright (c), 2007-2008, Audun Larsen (xqus@users.sf.net)\\nCopyright (c), 2007-2015, Erkan Valentin\\nCopyright (c), 2009-2015, Mieczyslaw Nalewaj (namiltd@users.sf.net)\\nCopyright (c), 2010-2012, Damien Roth (iysaak@users.sf.net)\\nPharinix mod Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_phpsysinfo\",\"description\":\"phpSysInfo: a customizable PHP script that displays information about your system nicely\",\"licence\":\"GNU GENERAL PUBLIC LICENSE Version 2, June 1991\"},\"configuration\":{\"[phpsysinfo]\":{\"default_group\":\"\'phpsysinfo\'\"}},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{\"psihost\":{\"url\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":true,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Host\",\"help\":\"Pharinix host\'s url with phpSysInfo installed.\"},\"user\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"User\",\"help\":\"User name that can call commands.\"},\"pass\":{\"type\":\"string\",\"iskey\":false,\"length\":0,\"required\":false,\"locked\":false,\"readOnly\":false,\"system\":false,\"multivalued\":false,\"default\":\"\",\"label\":\"Password\",\"help\":\"User password that can call commands.\"}}},\"sql\":{},\"install\":[{\"addNode\":{\"nodetype\":\"group\",\"title\":\"phpsysinfo\"}},{\"delNodeField\":{\"nodetype\":\"psihost\",\"name\":\"title\"}}],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\",\"raphael_js\":\"2.1.4\"},\"platforms\":[\"win\",\"linux\"]}','usr/phpsysinfo/',23,'2015-09-06 13:22:29',0,'2015-09-06 13:22:29',3904,0,0,'phpsysinfo'),
- (748,'2.1.4','{\"meta\":{\"name\":\"Rapha\\u00ebl - JavaScript Vector Library\",\"slugname\":\"raphael_js\",\"version\":\"2.1.4\",\"autor\":\"Copyright \\u00a9 2008-2012 Dmitry Baranovskiy (http:\\/\\/raphaeljs.com), Copyright \\u00a9 2008-2012 Sencha Labs (http:\\/\\/sencha.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_raphael\",\"description\":\"Small JavaScript library that should simplify your work with vector graphics on the web.\",\"licence\":\"MIT License\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.07.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/raphael_js/',23,'2015-10-26 21:46:25',0,'2015-10-26 21:46:25',3904,0,0,'raphael_js'),
- (722,'3.0.2','{\"meta\":{\"name\":\"Bootstrap dual listbox\",\"slugname\":\"pharinix_mod_bootstrap_duallistbox\",\"version\":\"3.0.2\",\"autor\":\"Copyright 2013-2014 Istv\\u00e1n Ujj-M\\u00e9sz\\u00e1ros, Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_bootstrap_duallistbox\",\"description\":\"Responsive dual listbox widget optimized for Twitter Bootstrap.\",\"licence\":\"Apache License, Version 2.0\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_bootstrap_duallistbox/',23,'2015-10-16 18:05:17',0,'2015-10-16 18:05:17',3904,0,0,'pharinix_mod_bootstrap_duallistbox'),
- (726,'0.5.2','{\"meta\":{\"name\":\"Bootstrap form validator\",\"slugname\":\"pharinix_mod_bootstrapvalidator\",\"version\":\"0.5.2\",\"autor\":\"(c) 2013 - 2014 Nguyen Huu Phuoc, Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_bootstrapvalidator\",\"description\":\"The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3.\",\"licence\":\"MIT\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_bootstrapvalidator/',23,'2015-10-17 01:04:53',0,'2015-10-17 01:04:53',3904,0,0,'pharinix_mod_bootstrapvalidator'),
- (727,'1.0','{\"meta\":{\"name\":\"User GUI\",\"slugname\":\"pharinix_mod_usergui\",\"version\":\"1.0\",\"autor\":\"Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"\",\"description\":\"Pharinix visual user management.\",\"licence\":\"GNU GENERAL PUBLIC LICENSE Version 2, June 1991\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\",\"pharinix_mod_bootstrap_duallistbox\":\"3.0.2\",\"pharinix_mod_bootstrapvalidator\":\"0.5.2\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_usergui/',23,'2015-10-17 01:05:10',0,'2015-10-17 01:05:10',3904,0,0,'pharinix_mod_usergui'),
- (737,'2.2.6','{\"meta\":{\"name\":\"Bootstrap modal\",\"slugname\":\"pharinix_mod_bootstrap_modal\",\"version\":\"2.2.6\",\"autor\":\"Copyright 2012 Jordan Schroter, Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_bootstrap_modal\",\"description\":\"Extends the default Bootstrap Modal class. Responsive, stackable, ajax and more.\",\"licence\":\"Apache License Version 2.0, January 2004\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_bootstrap_modal/',23,'2015-10-18 12:04:47',0,'2015-10-18 12:04:47',3904,0,0,'pharinix_mod_bootstrap_modal'),
- (738,'1.0','{\"meta\":{\"name\":\"Bootstrap 3 dialog\",\"slugname\":\"pharinix_mod_bootstrap3_dialog\",\"version\":\"1.0\",\"autor\":\"Copyright 2015 javanoob@hotmail.com, Copyright (c), 2015, Pedro Pelaez (aaaaa976@gmail.com)\",\"website\":\"https:\\/\\/github.com\\/PSF1\\/pharinix_mod_bootstrap3_dialog\",\"description\":\"Make use of Bootstrap Modal more monkey-friendly.\",\"licence\":\"MIT License\"},\"configuration\":{},\"booting\":[],\"bin_paths\":[\"bin\\/\"],\"nodetypes\":{},\"sql\":{},\"install\":[],\"uninstall\":[],\"requirements\":{\"pharinix\":\"1.09.x\"},\"platforms\":[\"win\",\"linux\"]}','usr/pharinix_mod_bootstrap3_dialog/',23,'2015-10-18 12:19:27',0,'2015-10-18 12:19:27',3904,0,0,'pharinix_mod_bootstrap3_dialog');
-CREATE TABLE `node_notes` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `note` longtext,
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `access` int(11) DEFAULT '3904',
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  `title` varchar(250) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-INSERT INTO `node_notes` VALUES  (1,NULL,2,'2015-05-02 09:45:17',2,'2015-05-02 09:45:17',3908,0,0,'Note'),
- (2,NULL,2,'2015-05-02 09:49:09',2,'2015-05-02 09:49:09',3904,0,0,'Note'),
- (3,NULL,2,'2015-05-02 10:06:02',2,'2015-05-02 10:06:02',3904,0,0,'otra nota'),
- (4,NULL,2,'2015-05-02 10:11:45',2,'2015-05-02 10:11:45',3904,0,2,'a ver este....'),
- (5,'This node don\'t have self URL, it use mapping...',0,'2015-05-15 18:44:01',0,'2015-05-15 18:44:01',3904,0,0,'A new note...'),
- (6,'Contenido de la nota',23,'2015-09-13 10:05:02',23,'2015-09-13 10:05:02',3904,219,23,'Nota de Ejemplo para Alfredo');
-CREATE TABLE `node_nuevo` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `access` int(11) DEFAULT '3904',
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  `title` varchar(250) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-CREATE TABLE `node_otracosa` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `access` int(11) DEFAULT '3904',
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  `title` varchar(250) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-CREATE TABLE `node_psihost` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `pass` varchar(250) DEFAULT '',
-  `user` varchar(250) DEFAULT '',
-  `url` varchar(250) DEFAULT '',
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `access` int(11) DEFAULT '3904',
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-INSERT INTO `node_psihost` VALUES  (2,'','','http://inicial.cloudapp.net/',23,'2015-09-06 13:32:02',0,'2015-09-06 13:32:02',3904,0,0),
- (3,'','','http://wrong.example.com/',23,'2015-09-06 14:28:26',0,'2015-09-06 14:28:26',3904,0,0),
- (6,'','','http://try-pharinix.rhcloud.com/',23,'2015-09-06 19:14:55',0,'2015-09-06 19:14:55',3904,0,0),
- (8,'rueiwoqp','aaaaa976@gmail.com','http://suraventura.agiliacenter.com/monitor/',23,'2015-11-02 12:23:18',0,'2015-11-02 12:23:18',3904,5801,0);
 CREATE TABLE `node_relation_user_groups_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type1` int(10) unsigned NOT NULL,
@@ -227,22 +137,7 @@ INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
  (5849,5044,5044),
  (6612,5745,5745),
  (6666,5795,0),
- (6719,5844,0),
- (8615,7582,5805),
- (8614,7582,5795);
-CREATE TABLE `node_servicios` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `descripcion` longtext,
-  `modifier` int(10) unsigned DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `creator` int(10) unsigned DEFAULT '0',
-  `created` datetime DEFAULT NULL,
-  `access` int(11) DEFAULT '3904',
-  `group_owner` int(10) unsigned DEFAULT '0',
-  `user_owner` int(10) unsigned DEFAULT '0',
-  `title` varchar(250) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+ (6719,5844,0);
 CREATE TABLE `node_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -257,16 +152,10 @@ CREATE TABLE `node_type` (
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=25761 DEFAULT CHARSET=latin1;
-INSERT INTO `node_type` VALUES  (8,'algo','2015-03-21 13:21:14',0,'2015-04-17 18:38:55',0,'0','title',0,0,3904),
- (555,'user','2015-03-21 18:56:43',0,'2015-08-21 18:06:12',0,'1','name',0,0,3904),
+INSERT INTO `node_type` VALUES  (555,'user','2015-03-21 18:56:43',0,'2015-08-21 18:06:12',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-10-03 18:27:56',0,'1','title',0,0,3904),
- (8180,'otracosa','2015-04-11 17:59:42',0,'2015-04-11 17:59:42',0,'0','title',0,0,3904),
- (8935,'nuevo','2015-04-17 17:03:39',0,'2015-04-17 17:03:39',0,'0','title',0,0,3904),
- (11772,'notes','2015-05-02 09:44:01',0,'2015-05-13 23:48:54',0,'0','title',0,0,15),
  (23720,'menu','2015-10-03 17:04:41',0,'2015-10-09 18:59:09',0,'1','title',0,0,3908),
- (21471,'servicios','2015-09-13 10:09:03',0,'2015-09-13 10:17:47',0,'0','title',0,0,3904),
- (16471,'modules','2015-08-05 16:54:35',0,'2015-08-05 23:56:30',0,'1','title',0,0,3904),
- (20880,'psihost','2015-09-06 13:22:29',0,'2015-09-06 13:22:29',0,'0','title',0,0,3904);
+ (16471,'modules','2015-08-05 16:54:35',0,'2015-08-05 23:56:30',0,'1','title',0,0,3904);
 CREATE TABLE `node_type_field` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -296,11 +185,6 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (12393,'modified','datetime',0,'0','1','1',555,'','Modified date','','0','0'),
  (12392,'creator','user',0,'0','1','1',555,'0','User creator','','0','0'),
  (12391,'created','datetime',0,'0','1','1',555,'','Creation date','','0','0'),
- (9121,'title','string',250,'1','0','0',8,'','Title','A title string for this node.','0','0'),
- (9122,'created','datetime',0,'0','1','1',8,'','Creation date','','0','0'),
- (9123,'creator','user',0,'0','1','1',8,'0','User creator','','0','0'),
- (9124,'modified','datetime',0,'0','1','1',8,'','Modified date','','0','0'),
- (9125,'modifier','user',0,'0','1','1',8,'0','Modifier user','','0','0'),
  (12390,'title','string',250,'1','0','0',555,'','Title','A title string for this node.','0','0'),
  (215044,'slugname','string',250,'1','0','1',23720,'','Slugname','A required unique name used how reference','0','1'),
  (215043,'isbrand','bool',0,'0','0','0',23720,'0','Is brand?','Show this option how a menu title, or brand','0','0'),
@@ -309,20 +193,13 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (215041,'isnotloged','bool',0,'0','0','0',23720,'0','User is not loged','Show option if the user is not loged','0','0'),
  (215039,'issudoed','bool',0,'0','0','0',23720,'0','User is sudoed','Show option if the user is root','0','0'),
  (215033,'linkto','string',250,'0','0','0',23720,'0','Link to','URL linked from this option, if set value \'command\' it execute the command, and parameters, associated','0','0'),
- (83178,'group_owner','group',0,'0','0','1',8,'0','Group','Owner group','0','0'),
- (83177,'user_owner','user',0,'0','0','1',8,'0','Owner','Owner user','0','0'),
- (83176,'access','nodesec',0,'0','0','1',8,'3904','Access','Access control flags.','0','0'),
  (83155,'group_owner','group',0,'0','0','1',556,'0','Group','Owner group','0','0'),
  (83153,'user_owner','user',0,'0','0','1',556,'0','Owner','Owner user','0','0'),
  (83154,'group_owner','group',0,'0','0','1',555,'0','Group','Owner group','0','0'),
  (83152,'user_owner','user',0,'0','0','1',555,'0','Owner','Owner user','0','0'),
  (83151,'access','nodesec',0,'0','0','1',556,'3904','Access','Access control flags.','0','0'),
  (83150,'access','nodesec',0,'0','0','1',555,'3904','Access','Access control flags.','0','0'),
- (76155,'modifier','user',0,'0','1','1',8180,'0','Modifier user','','0','0'),
- (76154,'modified','datetime',0,'0','1','1',8180,'','Modified date','','0','0'),
- (76153,'creator','user',0,'0','1','1',8180,'0','User creator','','0','0'),
  (65416,'order','integer',0,'0','0','0',7,'','Field','','0','0'),
- (76152,'created','datetime',0,'0','1','1',8180,'','Creation date','','0','0'),
  (65415,'modifier','user',0,'0','1','1',7,'0','Modifier user','','0','0'),
  (65414,'modified','datetime',0,'0','1','1',7,'','Modified date','','0','0'),
  (65413,'creator','user',0,'0','1','1',7,'0','User creator','','0','0'),
@@ -331,18 +208,6 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (65410,'group_owner','group',0,'0','0','1',7,'0','Group','Owner group','0','0'),
  (65409,'user_owner','user',0,'0','0','1',7,'0','Owner','Owner user','0','0'),
  (65408,'title','string',250,'1','0','0',7,'','Title','A title string for this node.','0','0'),
- (76151,'access','nodesec',0,'0','0','1',8180,'3904','Access','Access control flags.','0','0'),
- (76150,'group_owner','group',0,'0','0','1',8180,'0','Group','Owner group','0','0'),
- (76149,'user_owner','user',0,'0','0','1',8180,'0','Owner','Owner user','0','0'),
- (76148,'title','string',250,'1','0','0',8180,'','Title','A title string for this node.','0','0'),
- (83149,'modifier','user',0,'0','1','1',8935,'0','Modifier user','','0','0'),
- (83148,'modified','datetime',0,'0','1','1',8935,'','Modified date','','0','0'),
- (83147,'creator','user',0,'0','1','1',8935,'0','User creator','','0','0'),
- (83142,'title','string',250,'1','0','0',8935,'','Title','A title string for this node.','0','0'),
- (83146,'created','datetime',0,'0','1','1',8935,'','Creation date','','0','0'),
- (83145,'access','nodesec',0,'0','0','1',8935,'3904','Access','Access control flags.','0','0'),
- (83144,'group_owner','group',0,'0','0','1',8935,'0','Group','Owner group','0','0'),
- (83143,'user_owner','user',0,'0','0','1',8935,'0','Owner','Owner user','0','0'),
  (215032,'parent','menu',0,'0','0','0',23720,'0','Parent','Owner option','0','0'),
  (215031,'modifier','user',0,'0','1','1',23720,'0','Modifier user','','0','0'),
  (215030,'modified','datetime',0,'0','1','1',23720,'','Modified date','','0','0'),
@@ -354,45 +219,17 @@ INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556
  (148186,'meta','longtext',0,'1','0','1',16471,'','Meta','Module meta information.','0','0'),
  (148184,'modifier','user',0,'0','1','1',16471,'0','Modifier user','','0','0'),
  (148183,'modified','datetime',0,'0','1','1',16471,'','Modified date','','0','0'),
- (109354,'modifier','user',0,'0','1','1',11772,'0','Modifier user','','0','0'),
- (109353,'modified','datetime',0,'0','1','1',11772,'','Modified date','','0','0'),
- (109352,'creator','user',0,'0','1','1',11772,'0','User creator','','0','0'),
- (109351,'created','datetime',0,'0','1','1',11772,'','Creation date','','0','0'),
- (109350,'access','nodesec',0,'0','0','1',11772,'3904','Access','Access control flags.','0','0'),
- (109349,'group_owner','group',0,'0','0','1',11772,'0','Group','Owner group','0','0'),
- (109348,'user_owner','user',0,'0','0','1',11772,'0','Owner','Owner user','0','0'),
- (109347,'title','string',250,'1','0','0',11772,'','Title','A title string for this node.','0','0'),
  (148182,'creator','user',0,'0','1','1',16471,'0','User creator','','0','0'),
  (148181,'created','datetime',0,'0','1','1',16471,'','Creation date','','0','0'),
  (148180,'access','nodesec',0,'0','0','1',16471,'3904','Access','Access control flags.','0','0'),
  (148179,'group_owner','group',0,'0','0','1',16471,'0','Group','Owner group','0','0'),
  (148178,'user_owner','user',0,'0','0','1',16471,'0','Owner','Owner user','0','0'),
  (148177,'title','string',250,'1','0','0',16471,'','Title','A title string for this node.','0','0'),
- (112562,'note','longtext',0,'1','0','0',11772,'','Note','A long text','0','0'),
  (148187,'version','string',250,'1','0','1',16471,'','Version','Module version','0','0'),
  (215024,'title','string',250,'1','0','0',23720,'','Title','A title string for this node.','0','0'),
  (215025,'user_owner','user',0,'0','0','1',23720,'0','Owner','Owner user','0','0'),
  (161493,'language','string',10,'0','0','1',555,'','Language','Primary user language','0','0'),
- (194295,'descripcion','longtext',0,'0','0','0',21471,'','DescripciÃ³n','Una descripciÃ³n del servicio...','0','0'),
  (215038,'isloged','bool',0,'0','0','0',23720,'0','User Is logged','Show option if the user is logged','0','0'),
- (194287,'title','string',250,'1','0','0',21471,'','Title','A title string for this node.','0','0'),
- (194288,'user_owner','user',0,'0','0','1',21471,'0','Owner','Owner user','0','0'),
- (194289,'group_owner','group',0,'0','0','1',21471,'0','Group','Owner group','0','0'),
- (194290,'access','nodesec',0,'0','0','1',21471,'3904','Access','Access control flags.','0','0'),
- (194291,'created','datetime',0,'0','1','1',21471,'','Creation date','','0','0'),
- (194292,'creator','user',0,'0','1','1',21471,'0','User creator','','0','0'),
- (194293,'modified','datetime',0,'0','1','1',21471,'','Modified date','','0','0'),
- (194294,'modifier','user',0,'0','1','1',21471,'0','Modifier user','','0','0'),
- (188846,'pass','string',250,'0','0','0',20880,'','Password','User password that can call commands.','0','0'),
- (188845,'user','string',250,'0','0','0',20880,'','User','User name that can call commands.','0','0'),
- (188844,'url','string',250,'1','0','0',20880,'','Host','Pharinix host\'s url with phpSysInfo installed.','0','0'),
- (188843,'modifier','user',0,'0','1','1',20880,'0','Modifier user','','0','0'),
- (188842,'modified','datetime',0,'0','1','1',20880,'','Modified date','','0','0'),
- (188841,'creator','user',0,'0','1','1',20880,'0','User creator','','0','0'),
- (188840,'created','datetime',0,'0','1','1',20880,'','Creation date','','0','0'),
- (188839,'access','nodesec',0,'0','0','1',20880,'3904','Access','Access control flags.','0','0'),
- (188838,'group_owner','group',0,'0','0','1',20880,'0','Group','Owner group','0','0'),
- (188837,'user_owner','user',0,'0','0','1',20880,'0','Owner','Owner user','0','0'),
  (215037,'params','longtext',0,'0','0','0',23720,'','Parameters','Command parameters if linkto value is \'command\'','0','0'),
  (215036,'cmd','string',250,'0','0','0',23720,'','Command','Command to execute if linkto value is \'command\'','0','0'),
  (215034,'opennew','bool',0,'0','0','0',23720,'0','New windows','Open in a new window or tab','0','0'),
@@ -420,8 +257,7 @@ CREATE TABLE `node_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8058 DEFAULT CHARSET=latin1;
 INSERT INTO `node_user` VALUES  (2,'',0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
- (23,'en',0,23,3904,0,'aaaaa976@gmail.com','0cc175b9c0f1b6a831c399e269772661','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez'),
- (7582,NULL,0,7582,3904,0,'otro@mail','0cc175b9c0f1b6a831c399e269772661','Otro',7582,'2015-11-02 12:09:13',0,'2015-10-26 21:09:23','Otro');
+ (23,'en',0,23,3904,0,'aaaaa976@gmail.com','c7442538de880b6772dd3731f440c695','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez');
 CREATE TABLE `page-blocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpage` int(10) unsigned NOT NULL,
@@ -430,7 +266,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=108073 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=108074 DEFAULT CHARSET=latin1;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','execForm','',1),
  (10,0,'footCopy','echoHTML','html=%3Ch4%3EPharinix%20Copyright%20%C2%A9%20%3C%3Fphp%20echo%20date(%22Y%22)%3B%20%3F%3E%20Pedro%20Pelaez%3C%2Fh4%3E%0A%3Ch5%3EGNU%20Software%3C%2Fh5%3E',0),
  (69332,69246,'colLeft','textUrlEncoder','',10),
@@ -472,7 +308,8 @@ INSERT INTO `page-blocks` VALUES  (47435,46837,'htmltext_write','formatFieldHtml
  (108071,107979,'colRight','echo','nodetype=$type&where=group_owner%3D%27$group_owner%27',10),
  (108072,107979,'colRight','rewriteContext','html=1',20),
  (103111,0,'mainMenu','mnuRenderHead','menu=main',0),
- (74489,1,'colRight','psiBlock','',10);
+ (74489,1,'colRight','psiBlock','',10),
+ (108073,0,'colLeft','rewriteContext','html=1',1000);
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
