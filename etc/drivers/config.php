@@ -91,8 +91,8 @@ class driverConfig {
             $resp = $_section->get($key);
         }
         if ($resp == null) {
-            $_section->set($key, $default);
-            self::getCFG()->save();
+            //$_section->set($key, $default);
+            //self::getCFG()->save();
             $resp = $default;
         }
         return $resp;
