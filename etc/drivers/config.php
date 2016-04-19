@@ -75,16 +75,21 @@ class driverConfig {
      * @param string $section Section name with []
      * @param string $key Key name to read
      * @param string $default If key is not defined create it with this value
-     * @return string Key value or default one
+     * @param boolean $asBool Return a boolean value
+     * @return string/boolean Key value or default one
      */
-    public static function getCfgValue($section, $key, $default) {
+    public static function getCfgValue($section, $key, $default, $asBool = false) {
         $_section = self::getCFG()->getSection($section);
         if ($_section == null) {
             self::getCFG()->addSection($section);
             self::getCFG()->save();
             $_section = self::getCFG()->getSection($section);
         }
-        $resp = $_section->get($key);
+        if ($asBool) {
+            $resp = $_section->getAsBoolean($key);
+        } else {
+            $resp = $_section->get($key);
+        }
         if ($resp == null) {
             $_section->set($key, $default);
             self::getCFG()->save();
