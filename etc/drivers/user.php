@@ -101,8 +101,8 @@ use Gettext\Translator;
      * @param type $group is group?
      * @return boolean I can create?
      */
-    public static function secNodeCanCreate($key = 0, $owner = false, $group = false) {
-        if (driverUser::isSudoed()) return true;
+    public static function secNodeCanCreate($key = 0, $owner = false, $group = false, $considerSudo = true) {
+        if ($considerSudo && driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_CREATE:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_CREATE:0) | 
                 (self::PERMISSION_NODE_ALL_CREATE);
@@ -116,8 +116,8 @@ use Gettext\Translator;
      * @param type $group is group?
      * @return boolean I can read?
      */
-    public static function secNodeCanRead($key = 0, $owner = false, $group = false) {
-        if (driverUser::isSudoed()) return true;
+    public static function secNodeCanRead($key = 0, $owner = false, $group = false, $considerSudo = true) {
+        if ($considerSudo && driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_READ:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_READ:0) | 
                 (self::PERMISSION_NODE_ALL_READ);
@@ -131,8 +131,8 @@ use Gettext\Translator;
      * @param type $group is group?
      * @return boolean I can update?
      */
-    public static function secNodeCanUpdate($key = 0, $owner = false, $group = false) {
-        if (driverUser::isSudoed()) return true;
+    public static function secNodeCanUpdate($key = 0, $owner = false, $group = false, $considerSudo = true) {
+        if ($considerSudo && driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_UPDATE:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_UPDATE:0) | 
                 (self::PERMISSION_NODE_ALL_UPDATE);
@@ -146,8 +146,8 @@ use Gettext\Translator;
      * @param type $group is group?
      * @return boolean I can delete?
      */
-    public static function secNodeCanDelete($key = 0, $owner = false, $group = false) {
-        if (driverUser::isSudoed()) return true;
+    public static function secNodeCanDelete($key = 0, $owner = false, $group = false, $considerSudo = true) {
+        if ($considerSudo && driverUser::isSudoed()) return true;
         $user = ($owner?self::PERMISSION_NODE_OWNER_DEL:0) | 
                 ($group?self::PERMISSION_NODE_GROUP_DEL:0) | 
                 (self::PERMISSION_NODE_ALL_DEL);
