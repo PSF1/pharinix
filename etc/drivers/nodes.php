@@ -52,7 +52,7 @@ class driverNodes {
             'fields' => '`access`',
             'where' => '`id` = '.$idnode,
         ));
-        if (count($me) > 0) {
+        if (!isset($me['ok']) && $me['ok'] !== false && count($me) > 0) {
             $ncrud = decbin($me[$idnode]['access']);
             $require = ($create?1:0).($read?1:0).($update?1:0).($delete?1:0);
             switch ($segment) {
@@ -73,7 +73,11 @@ class driverNodes {
                 'flags' => $require,
             ));
         } else {
-            return array("ok" => false, "msg" => __("Bad node id."));
+            $msg = __("Bad node id.");
+            if (isset($me['msg'])) {
+                $msg = $me['msg'];
+            }
+            return array("ok" => false, "msg" => $msg);
         }
     }
     
