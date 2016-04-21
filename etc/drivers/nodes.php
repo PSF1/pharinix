@@ -52,7 +52,7 @@ class driverNodes {
             'fields' => '`access`',
             'where' => '`id` = '.$idnode,
         ));
-        if (!isset($me['ok']) && $me['ok'] !== false && count($me) > 0) {
+        if ((!isset($me['ok']) || $me['ok'] !== false) && count($me) > 0) {
             $ncrud = decbin($me[$idnode]['access']);
             $require = ($create?1:0).($read?1:0).($update?1:0).($delete?1:0);
             switch ($segment) {
