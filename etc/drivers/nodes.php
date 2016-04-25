@@ -34,6 +34,35 @@ class driverNodes {
     const CHANGECRUD_ALL = 0;
     
     /**
+     * Return the "where" condition to filter by access level
+     * @param string $nodetype The node type to verify
+     * @param integer $usrId User ID that must be node's owner, the default is active user
+     * @param array $usrGrps ID of groups that could be owner, the default is the active user groups
+     * @return string A chainable SQL "where" condition string. IMPORTANT: This method don't verify $nodetype.
+     */
+    public static function getAccessFilter($nodetype, $usrId = null, $usrGrps = null) {
+        $secWhere = '';
+        if ($usrId == null) {
+            $usrId = driverUser::getID();
+        }
+        if ($usrGrps == null) {
+            $usrGrps = driverUser::getGroupsID();
+        }
+        $grpQuery = "";
+        foreach ($usrGrps as $grp) {
+            if ($grpQuery != "")
+                $grpQuery .= " || ";
+            if ($grp == "")
+                $grp = -1;
+            $grpQuery .= "`node_$nodetype`.`group_owner` = $grp";
+        }
+        $secWhere = "(( IF(`node_$nodetype`.`user_owner` = " . $usrId . ",1024,0) | ";
+        $secWhere .= "IF($grpQuery,64,0) | 4) ";
+        $secWhere .= "& `node_$nodetype`.`access`)";
+        return $secWhere;
+    }
+    
+    /**
      * Change access flags of a node.
      * 
      * @param string $nodetype Node type name
