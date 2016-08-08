@@ -39,6 +39,7 @@ if (!class_exists("commandMan")) {
             $paths = driverCommand::getPaths();
             foreach($paths as $path) {
                 $cmds = driverTools::lsDir($path);
+                $systemKeys = array('description', 'echo', 'interface', 'parameters', 'response', 'hooks', 'type', 'package');
                 foreach($cmds["files"] as $cmd) {
                     $cmd = str_replace($path, "", $cmd);
                     $cmd = str_replace(".php", "", $cmd);
@@ -108,6 +109,12 @@ if (!class_exists("commandMan")) {
                                 $resp["help"][$cmd]['package']['name'] = __('Unknowed');
                                 $resp["help"][$cmd]['package']['version'] = '?.?';
                                 $resp["help"][$cmd]['package']['meta'] = null;
+                            }
+                        }
+                        // Add non standard help keys
+                        foreach($hlp as $hlpKey => $hlpData) {
+                            if(!in_array($hlpKey, $systemKeys)) {
+                                $resp["help"][$cmd][$hlpKey] = $hlpData;
                             }
                         }
                         return $resp;
