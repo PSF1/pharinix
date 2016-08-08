@@ -89,6 +89,10 @@ class dbConn {
                         $cfg->getSection('[mysql]')->get('MYSQL_PASS'), 
                         $cfg->getSection('[mysql]')->get('MYSQL_DBNAME')
                     );
+                $charset = $cfg->getSection('[mysql]')->get('charset');
+                if ($charset != null) {
+                    self::$conn->EXECUTE("set names '".$charset."'");
+                }
                 self::$connected = true;
             } catch (Exception $exc) {
                 self::$connected = false;

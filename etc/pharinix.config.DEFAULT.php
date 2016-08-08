@@ -32,6 +32,8 @@ MYSQL_PASS = ''
 MYSQL_HOST = "127.0.0.1"
 MYSQL_DBNAME = "miana"
 ADODB_PERF_NO_RUN_SQL = 1
+charset = 'utf8'
+table_charset = 'utf8_general_ci'
 
 [safe_mode]
 ; Ignore database connection

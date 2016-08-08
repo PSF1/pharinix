@@ -82,7 +82,17 @@ if (!class_exists("commandAddNodeType")) {
                 $sql = "CREATE TABLE `node_{$params["name"]}` ( ";
                 $sql .= "`id` int(10) unsigned NOT NULL AUTO_INCREMENT, ";
                 $sql .= "PRIMARY KEY (`id`) ";
-                $sql .= ") ENGINE=MyISAM";
+                $sql .= ") ENGINE=MyISAM ";
+                //ALTER TABLE `onlinedescargartorrent`.`booting` CHARACTER SET utf8 COLLATE utf8_general_ci;
+                $cfg = driverConfig::getCFG();
+                $charset = $cfg->getSection('[mysql]')->get('charset');
+                if ($charset != null) {
+                    $sql .= 'CHARACTER SET '.$charset.' ';
+                }
+                $tableCharset = $cfg->getSection('[mysql]')->get('table_charset');
+                if ($tableCharset != null) {
+                    $sql .= 'COLLATE '.$tableCharset.' ';
+                }
                 dbConn::Execute($sql);
                 // Add default fields
                 $nField = array(
