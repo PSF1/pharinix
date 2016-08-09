@@ -44,14 +44,28 @@ function jsonSyntaxHighlight(json) {
 }
     
 function loadCmdDef(cmd, callback) {
-    $.ajax({
-        type: "POST",
-        url:  PHARINIX_ROOT_URL,
-        data: {
+    var data;
+    var isRemote = (getRemoteHostUrl() != PHARINIX_ROOT_URL);
+    if (!isRemote) {
+        data = {
             command: "man",
             cmd: cmd,
             interface: "echoJson",
-        }
+        };
+    } else {
+        data = {
+            command: "remoteAPICall",
+            interface: "echoJson",
+            host: getRemoteHostUrl(),
+            rcmd: "man",
+            iface: "echoJson",
+            cmd: cmd,
+        };
+    }
+    $.ajax({
+        type: "POST",
+        url:  PHARINIX_ROOT_URL,
+        data: data
     }).done(callback);    
 }
 
@@ -59,14 +73,24 @@ function execute(query, dataType, callback) {
     $("#response").html("...");
     $.ajax({
         type: "POST",
-        url:  PHARINIX_ROOT_URL,
+        url:  getRemoteHostUrl(),
         data: query,
         dataType: dataType,
     }).done(callback);    
 }
 
 function clearParamsTable() {
-    $('#paramsTable > tbody:last').empty();
+    $.each($('#paramsTable > tbody:last'), function(i, item){
+        $.each($(item).find('tr'), function(i, sub){
+            var fixme = $(sub).find('[name^="pfix"]');
+            if ($(fixme).length && $(fixme).prop('checked')) {
+                // Retain it
+            } else {
+                $(sub).remove();
+            }
+        });
+    });
+//    $('#paramsTable > tbody:last').empty();
 }
 
 function addParamToTable(name, type, help, defValue) {
@@ -75,7 +99,8 @@ function addParamToTable(name, type, help, defValue) {
     html += "<td>";
     // Hidde a input field to set the parameter name
     if (!name) {
-        html += '<input class="form-control" name="pname[]" type="text">';
+        html += '<input name="pfix[]" style="float:left;" type="checkbox" data-toggle="tooltip" title="'+__('Fix me')+'" value="1">';
+        html += '<input class="form-control" style="width:90%;float:left;" name="pname[]" type="text">';
     } else {
         html += '<a href="#" data-toggle="tooltip" title="'+help+'"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a> ';
         html += '<input name="pname[]" type="hidden" value="'+name+'">';
@@ -124,29 +149,76 @@ function addInterfaceToTable(name, type, help, defValue) {
         
     }
     
-    $('#paramsTable > tbody:last').append(html);
+    $('#paramsTable > tbody:last').prepend(html);
 }
 
-$(document).ready(function(){
+function refreshCommandList() {
+    $("#cmdHelp").html('');
+    clearParamsTable();
+    
+    var data;
+    var isRemote = (getRemoteHostUrl() != PHARINIX_ROOT_URL);
+    if (!isRemote) {
+        data = {
+            command: "getCommandList",
+            interface: "echoJson",
+        };
+    } else {
+        data = {
+            command: "remoteAPICall",
+            interface: "echoJson",
+            host: getRemoteHostUrl(),
+            rcmd: "getCommandList",
+            iface: "echoJson",
+        };
+    }
     $.ajax({
         type: "POST",
         url:  PHARINIX_ROOT_URL,
-        data: {
-            command: "getCommandList",
-            interface: "echoJson",
-        }
+        data: data,
     }).done(function ( data ) {
         var opts = "";
+        $("#cmdList").html('');
         $("#cmdList").append('<option></option>');
         $.each(data.commands, function(i, item){
             $("#cmdList").append('<option>'+item+'</option>');
         });
     });
+}
+
+function getRemoteHostUrl() {
+    var resp = $("#urlHost").val();
+    if (resp == '') {
+        resp = PHARINIX_ROOT_URL;
+    }
+    return resp;
+}
+
+$(document).ready(function(){
+    refreshCommandList();
+
+    $("#urlHost").on('change', function() {
+        refreshCommandList();
+    });
     
     $("#cmdList").change(function(){
         var cmd = $("#cmdList").val();
         loadCmdDef(cmd, function(data){
-            var cmdHelp = data.help[cmd];
+            var cmdHelp;
+            if (data.ok === false) {
+                cmdHelp = {
+                    description: data.msg,
+                    echo: false,
+                    type: {
+                        parameters: {
+                            name: 'any',
+                            type: 'args',
+                        }
+                    }
+                };
+            } else {
+                cmdHelp = data.help[cmd];
+            }
             $("#cmdHelp").html(cmdHelp.description);
             clearParamsTable();
             var defInterface = "echoJson";
@@ -171,13 +243,21 @@ $(document).ready(function(){
     
     $("#executeCmd").click(function(){
         $("#response").html("...");
+        var isRemote = (getRemoteHostUrl() != PHARINIX_ROOT_URL);
         // Build form
         // http://stackoverflow.com/a/8758614
-        var frm = $("#remoteApi :input");
+        var frm = $("#remoteApi :input").not('[name^="pfix"]');
         var formData = new FormData();
-        var interface = frm[2].value;
-        formData.append("command", $("#cmdList option:selected").text());
-        for(var i = 1; i < frm.length; i = i+2) {
+        var interface = frm[3].value;
+        if (!isRemote) {
+            formData.append("command", $("#cmdList option:selected").text());
+        } else {
+            formData.append("command", 'remoteAPICall');
+            formData.append("host", getRemoteHostUrl());
+            formData.append("rcmd", $("#cmdList option:selected").text());
+            formData.append("iface", interface);
+        }
+        for(var i = 2; i < frm.length; i = i+2) {
             if (frm[i+1].type == 'file') {
                 var fileInput = frm[i].value;
                 $.each(frm[i+1].files, function(i, file) {
@@ -200,7 +280,7 @@ $(document).ready(function(){
                 dataType = "text";
                 break;
         }
-        apiCall(formData, function(data){
+        remoteApiCall(PHARINIX_ROOT_URL, formData, function(data){
             var resp = data;
             console.log(resp);
             $('#response').removeClass();

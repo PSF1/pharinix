@@ -29,7 +29,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
         <!-- Form Name -->
         <legend><?php __e('Remote API'); ?></legend>
-
+        
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="urlHost"><?php __e('Host'); ?></label>
+            <div class="col-md-5">
+                <input type="url" id="urlHost" name="urlHost" class="form-control " value="<?php echo CMS_DEFAULT_URL_BASE; ?>">
+                <span class="help-block"><?php echo __('This host: ').CMS_DEFAULT_URL_BASE; ?></span>
+                <span class="help-block"><?php echo __('You can use the parameter "auth_token" to retain session.'); ?></span>
+            </div>
+        </div>
+        
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="cmd"><?php __e('Command'); ?></label>
