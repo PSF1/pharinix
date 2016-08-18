@@ -81,7 +81,7 @@ class dbConn {
     public static function get() {
         $cfg = driverConfig::getCFG();
         if (self::$conn == null) {
-            self::$conn = NewADOConnection('mysql');
+            self::$conn = NewADOConnection('mysqli');
             try {
                 @self::$conn->Connect(
                         $cfg->getSection('[mysql]')->get('MYSQL_HOST'), 
