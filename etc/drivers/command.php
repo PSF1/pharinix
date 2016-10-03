@@ -163,11 +163,11 @@ EOT;
         if (driverUser::getID() == 0) return true;
         // Mortals don't have it... :S
         $accData = static::getAccessData($path);
-        
         $usrGrps = driverUser::getGroupsID();
+        $idgrp = array_search($accData["group"], $usrGrps);
         return driverUser::secFileCanExecute($accData["flags"], 
                 $accData["owner"] == driverUser::getID(), 
-                array_search($accData["group"], $usrGrps) !== FALSE );
+                $idgrp !== FALSE && $idgrp != null);
     }
     
     public static function getAccessData($path = "") {
