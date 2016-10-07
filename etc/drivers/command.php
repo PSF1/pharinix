@@ -167,7 +167,7 @@ EOT;
         $idgrp = array_search($accData["group"], $usrGrps);
         return driverUser::secFileCanExecute($accData["flags"], 
                 $accData["owner"] == driverUser::getID(), 
-                $idgrp !== FALSE && $idgrp != null);
+                $idgrp !== FALSE && !is_null($idgrp));
     }
     
     public static function getAccessData($path = "") {
