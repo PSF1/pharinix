@@ -257,7 +257,7 @@ CREATE TABLE `node_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8058 DEFAULT CHARSET=utf8;
 INSERT INTO `node_user` VALUES  (2,'',0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
- (23,'en',0,23,3904,0,'aaaaa976@gmail.com','c7442538de880b6772dd3731f440c695','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez');
+ (23,'en',0,23,3904,0,'aaaaa976@gmail.com','c7442538de880b6772dd3731f440c695','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro Peláez');
 CREATE TABLE `page-blocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idpage` int(10) unsigned NOT NULL,
