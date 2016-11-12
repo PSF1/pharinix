@@ -39,7 +39,7 @@ table_charset = 'utf8_general_ci'
 ; Ignore database connection
 active = false
 ; Root access without data base connection
-user = 'aaaaa976@gmail.com'
+user = 'root@pharinix'
 pass = '1234'
 
 [pageToHTML]
