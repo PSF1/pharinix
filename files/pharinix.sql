@@ -27,7 +27,7 @@ CREATE TABLE `booting` (
   `priority` int(10) unsigned NOT NULL,
   `ref` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=utf8;
 CREATE TABLE `node_formats` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `command` varchar(250) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `node_formats` (
   `write` varchar(1) NOT NULL DEFAULT '0',
   `default` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 INSERT INTO `node_formats` VALUES  (1,'formatFieldLongtext','longtext','1','1','1'),
  (2,'formatFieldBool','bool','1','1','1'),
  (3,'formatFieldDouble','double','1','1','1'),
@@ -57,7 +57,7 @@ CREATE TABLE `node_group` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5806 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5806 DEFAULT CHARSET=utf8;
 INSERT INTO `node_group` VALUES  (219,NULL,0,0,3904,0,NULL,0,NULL,'sudoers'),
  (5795,NULL,0,0,3904,23,'2015-09-06 11:42:43',0,'2015-09-06 11:42:43','user');
 CREATE TABLE `node_menu` (
@@ -88,7 +88,7 @@ CREATE TABLE `node_menu` (
   `user_owner` int(10) unsigned DEFAULT '0',
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 INSERT INTO `node_menu` VALUES  (1,'','','1','left',100,'main','0','0','1','0','1','','','','0','',0,23,'2015-10-08 21:42:56',0,'2015-10-08 21:42:56',3908,0,0,'main'),
  (4,'','','1','left',100,'main_brand','1','0','1','0','1','','','0','0','/',1,23,'2015-10-08 21:58:52',0,'2015-10-08 21:58:52',3908,0,0,'Pharinix'),
  (5,'','','1','right',200,'main_login_form','0','0','1','0','0','','inlineLoginForm','0','0','',1,23,'2015-10-08 22:03:35',0,'2015-10-08 22:03:35',3908,0,0,''),
@@ -122,7 +122,7 @@ CREATE TABLE `node_modules` (
   `user_owner` int(10) unsigned DEFAULT '0',
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=830 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=830 DEFAULT CHARSET=utf8;
 CREATE TABLE `node_relation_user_groups_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type1` int(10) unsigned NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `node_relation_user_groups_group` (
   PRIMARY KEY (`id`),
   KEY `type1` (`type1`),
   KEY `type2` (`type2`)
-) ENGINE=MyISAM AUTO_INCREMENT=9143 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9143 DEFAULT CHARSET=utf8;
 INSERT INTO `node_relation_user_groups_group` VALUES  (64,23,219),
  (21,23,21),
  (6558,5695,5695),
@@ -151,7 +151,7 @@ CREATE TABLE `node_type` (
   `group_owner` int(10) unsigned NOT NULL,
   `access` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25761 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25761 DEFAULT CHARSET=utf8;
 INSERT INTO `node_type` VALUES  (555,'user','2015-03-21 18:56:43',0,'2015-08-21 18:06:12',0,'1','name',0,0,3904),
  (556,'group','2015-03-21 19:10:19',0,'2015-10-03 18:27:56',0,'1','title',0,0,3904),
  (23720,'menu','2015-10-03 17:04:41',0,'2015-10-09 18:59:09',0,'1','title',0,0,3908),
@@ -171,7 +171,7 @@ CREATE TABLE `node_type_field` (
   `multi` varchar(1) NOT NULL DEFAULT '0' COMMENT 'Multivalue',
   `iskey` varchar(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=232587 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=232587 DEFAULT CHARSET=utf8;
 INSERT INTO `node_type_field` VALUES  (12403,'modifier','user',0,'0','1','1',556,'0','Modifier user','','0','0'),
  (12402,'modified','datetime',0,'0','1','1',556,'','Modified date','','0','0'),
  (12401,'creator','user',0,'0','1','1',556,'0','User creator','','0','0'),
@@ -255,7 +255,7 @@ CREATE TABLE `node_user` (
   `created` datetime DEFAULT NULL,
   `title` varchar(250) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8058 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8058 DEFAULT CHARSET=utf8;
 INSERT INTO `node_user` VALUES  (2,'',0,0,3904,0,'guest@localhost','','guest',1,'0000-00-00 00:00:00',1,'0000-00-00 00:00:00','Guest'),
  (23,'en',0,23,3904,0,'aaaaa976@gmail.com','c7442538de880b6772dd3731f440c695','PSF',23,'2015-10-26 21:36:37',2,'2015-04-02 23:44:27','Pedro PelÃ¡ez');
 CREATE TABLE `page-blocks` (
@@ -266,7 +266,7 @@ CREATE TABLE `page-blocks` (
   `parameters` longtext NOT NULL,
   `priority` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=108074 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=108074 DEFAULT CHARSET=utf8;
 INSERT INTO `page-blocks` VALUES  (9,1,'colRight','execForm','',1),
  (10,0,'footCopy','echoHTML','html=%3Ch4%3EPharinix%20Copyright%20%C2%A9%20%3C%3Fphp%20echo%20date(%22Y%22)%3B%20%3F%3E%20Pedro%20Pelaez%3C%2Fh4%3E%0A%3Ch5%3EGNU%20Software%3C%2Fh5%3E',0),
  (69332,69246,'colLeft','textUrlEncoder','',10),
@@ -318,7 +318,7 @@ CREATE TABLE `pages` (
   `description` longtext NOT NULL,
   `keys` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=107980 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=107980 DEFAULT CHARSET=utf8;
 INSERT INTO `pages` VALUES  (1,'home','etc/templates/pages/two_row_two_column.xml','Home','',''),
  (4,'help/command','etc/templates/pages/default.xml','Command\'s help','',''),
  (3,'404','etc/templates/pages/default.xml','Page not found','',''),
@@ -340,7 +340,7 @@ CREATE TABLE `url_rewrite` (
   `priority` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `url` (`url`(250))
-) ENGINE=MyISAM AUTO_INCREMENT=52527 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=52527 DEFAULT CHARSET=utf8;
 INSERT INTO `url_rewrite` VALUES  (1,'home','command=pageToHTML&page=home','r',0),
  (3,'help/command','command=pageToHTML&page=help/command','r',0),
  (13,'template/editor','command=pageToHTML&page=template/editor','r',0),

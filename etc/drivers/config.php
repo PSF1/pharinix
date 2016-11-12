@@ -118,6 +118,9 @@ class driverConfig {
                 return "etc/".$_SERVER["HTTP_HOST"].".pharinix.config.php";
             }
         }
+        if (!is_file("etc/pharinix.config.php")) {
+            copy("etc/pharinix.config.DEFAULT.php", "etc/pharinix.config.php");
+        }
         return "etc/pharinix.config.php";
     }
 }
