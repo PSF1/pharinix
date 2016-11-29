@@ -33,23 +33,28 @@ include_once('etc/drivers/txtlog.php');
 include_once 'etc/drivers/config.php';
 driverConfig::getCFG();
 
+include_once 'etc/drivers/hooks.php';
+new driverHook();
+
 //Create a translator instance
 include_once "etc/gettext/src/autoloader.php";
 include_once "etc/cldr-to-gettext-plural-rules/src/autoloader.php";
-use Gettext\Translator;
-$t = new Translator();
-//if (is_file('etc/i18n/es.po')) {
-//    $po = Gettext\Extractors\Mo::fromFile('etc/i18n/es.mo');
-//    $t->loadTranslations($po);
-//}
-Translator::initGettextFunctions($t);
 
 include_once("usr/adodb/cmsapi.php");
-include_once 'etc/drivers/hooks.php';
+include_once("etc/drivers/user.php");
+driverUser::loadTranslations();
+//use Gettext\Translator;
+//$t = new Translator();
+////if (is_file('etc/i18n/es.po')) {
+////    $po = Gettext\Extractors\Mo::fromFile('etc/i18n/es.mo');
+////    $t->loadTranslations($po);
+////}
+//Translator::initGettextFunctions($t);
+
 include_once("etc/drivers/nodes.php");
 include_once("etc/drivers/command.php");
-include_once("etc/drivers/user.php");
 include_once("etc/drivers/urlRewrite.php");
+include_once 'etc/drivers/longProcessMonitor.php';
 
 // Create sudoers default group
 $sql = "SELECT * FROM `node_group` where `title` = 'sudoers'";
