@@ -485,7 +485,7 @@ use Gettext\Translator;
         driverHook::CallHook('driverUserLikeLogout', array());
         session_destroy();
         session_write_close();
-        header('location: '.CMS_DEFAULT_URL_BASE);
+        //header('location: '.CMS_DEFAULT_URL_BASE);
         die();
     }
     
