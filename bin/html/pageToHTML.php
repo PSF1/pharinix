@@ -155,6 +155,15 @@ if (!class_exists("commandPageToHTML")) {
             }
             if ($def !== false) {
                 if (is_file($def->fields["template"])) {
+                    $finfo = driverTools::pathInfo($def->fields["template"]);
+                    if (strtolower($finfo['ext']) == 'tpl') {
+                        // It's a smarty template
+                        driverCommand::run('smartyRender', array(
+                            "page" => $params["page"],
+                            "tpl" => $def->fields["template"],
+                        ));
+                        return;
+                    }
                     $page = file_get_contents($def->fields["template"]);
                     $struct = xml_string_to_array($page);
                     $htmlLang = "";
