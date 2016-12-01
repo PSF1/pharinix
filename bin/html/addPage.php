@@ -39,7 +39,8 @@ if (!class_exists("commandAddPage")) {
                     ), $params);
             
             $resp = array("ok" => false, "msg" => '');
-            if (!is_file($params["template"])) {
+            $finfo = driverTools::pathInfo($params["template"]);
+            if (!is_file($params["template"]) && strtolower($finfo['ext']) != 'tpl') {
                 $resp["ok"] = false;
                 $resp["msg"] = sprintf(__("Page template '%s' not found."), $params["template"]);
             } else {
