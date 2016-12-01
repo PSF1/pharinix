@@ -43,7 +43,7 @@ class commandAccessTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testCommand_Default_Access_Guest_fail() {
-        $resp = driverCommand::getAccess();
+        $resp = driverCommand::getAccess(); 
         $this->assertFalse($resp);
     }
     

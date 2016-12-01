@@ -19,6 +19,11 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+//error_reporting(E_ALL | E_STRICT);
+error_reporting(E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+
 if (isset($_SERVER["TRAVIS"]) && $_SERVER["TRAVIS"]) {
     $_SERVER["HTTP_HOST"] = "localhost";
     phpInfo();
