@@ -154,8 +154,8 @@ if (!class_exists("commandPageToHTML")) {
                 $def = driverPages::getPage('404');
             }
             if ($def !== false) {
-                if (is_file($def->fields["template"])) {
-                    $finfo = driverTools::pathInfo($def->fields["template"]);
+                $finfo = driverTools::pathInfo($def->fields["template"]);
+                if (is_file($def->fields["template"]) || strtolower($finfo['ext']) == 'tpl') {
                     if (strtolower($finfo['ext']) == 'tpl') {
                         // It's a smarty template
                         driverCommand::run('smartyRender', array(
