@@ -24,11 +24,18 @@ if (!class_exists("commandSmartyRender")) {
     class commandSmartyRender extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            $params = array_merge(array(
+                "page" => '',
+                "tpl" => 'index.tpl',
+            ), $params);
+            
             if (!defined('SMARTY_DIR')) {
                 define('SMARTY_DIR', getcwd().'/etc/smarty/libs/');
             }
             require_once SMARTY_DIR.'Smarty.class.php';
             
+            $context = &driverCommand::getRegister("url_context");
+            $def = driverPages::getPage($params["page"]);
             $smarty = new Smarty;
 
             $smarty->force_compile = driverConfig::getCFG()
@@ -47,12 +54,39 @@ if (!class_exists("commandSmartyRender")) {
             $smarty->compile_dir = getcwd().'/var/smarty/templates_c/';
             $smarty->cache_dir = getcwd().'/var/smarty/cache/';
             //@TODO: Render native page using TPL files how base.
-            $smarty->assign("name", "User", true);
+            $page_title = driverConfig::getCFG()->getSection('[core]')->get('CMS_TITLE');
+            $smarty->assign("base_url", CMS_DEFAULT_URL_BASE);
+            $smarty->assign("page_title", $page_title, true);
+            $smarty->assign("page_charset", 'utf-8');
+            $user_language = driverUser::getLangOfUser();
+            $smarty->assign("user_language", $user_language[0], true);
+            if (!$def->EOF) {
+                if (!empty($page_title) && !empty($def->fields['title'])) {
+                    $page_title = ' :: '.$page_title;
+                }
+                $smarty->assign("page_title", $def->fields['title'].$page_title, true);
+                $block = array();
+                $sql = "SELECT * FROM `page-blocks` where idpage = {$def->fields['id']} || idpage = 0 order by idcol";
+                $b = dbConn::get()->Execute($sql);
+                while (!$b->EOF) {
+                    var_dump($b->fields);
+                    $b->MoveNext();
+                }
+                $smarty->assign("block", $block, true);
+            }
             //@TODO: Add all available contextual variables.
-            $context = driverCommand::getRegister("url_context");
             $smarty->assign("url_context", $context, true);
-            //@TODO: Render the correct template.
-            $smarty->display('index.tpl');
+            $smarty->assign("customscripts", self::getRegister("customscripts"), true);
+            $smarty->assign("customcss", self::getRegister("customcss"), true);
+            // Hook
+            $tpl = $params['tpl']; // Render the correct template.
+            driverHook::CallHook('smartyRenderBeforeDisplay', array(
+                        'page' => $params['page'],
+                        'smarty' => &$smarty,
+                        'tpl' => &$tpl,
+                    ));
+            
+            $smarty->display($tpl);
         }
 
         public static function getHelp() {
@@ -60,17 +94,30 @@ if (!class_exists("commandSmartyRender")) {
                 "package" => 'core',
                 "description" => __("Render a page using Smarty engine."), 
                 "parameters" => array(
-                    "page" => __("Page to convert, see 'url_rewrite' table.")
+                    "page" => __("Page to convert, see 'url_rewrite' table."),
+                    "tpl" => __("Template file to render, Default file index.tpl."),
                 ), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
-                        "page" => "string"
+                        "page" => "string",
+                        "tpl" => "string",
                     ), 
                     "response" => array(),
                 ),
                 "echo" => true,
                 "interface" => false,
+                "hooks" => array(
+                        array(
+                            "name" => "smartyRenderBeforeDisplay",
+                            "description" => __("Allow change configuration of the Smarty instance before render the template."),
+                            "parameters" => array(
+                                'page' => __("Readonly, rendered page ID."),
+                                'smarty' => __("Configured Smarty instance before display the template."),
+                                'tpl' => __("Template file to render."),
+                            )
+                        ),
+                    ),
             );
         }
         
