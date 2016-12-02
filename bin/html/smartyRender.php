@@ -26,7 +26,7 @@ if (!class_exists("commandSmartyRender")) {
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
                 "page" => '',
-                "tpl" => 'index.tpl',
+                "tpl" => 'document.tpl',
             ), $params);
             
             if (!defined('SMARTY_DIR')) {
@@ -66,10 +66,35 @@ if (!class_exists("commandSmartyRender")) {
                 }
                 $smarty->assign("page_title", $def->fields['title'].$page_title, true);
                 $block = array();
-                $sql = "SELECT * FROM `page-blocks` where idpage = {$def->fields['id']} || idpage = 0 order by idcol";
+                $sql = "SELECT idcol FROM `page-blocks` where idpage = {$def->fields['id']} || idpage = 0 group by idcol";
                 $b = dbConn::get()->Execute($sql);
                 while (!$b->EOF) {
-                    var_dump($b->fields);
+                    $cmd = driverPages::getCommands($def->fields['id'], $b->fields['idcol']);
+                    ob_start();
+                    while ($cmd !== false && !$cmd->EOF) {
+                        $cmdParams = array();
+                        // Change URL context variables in parameters
+                        $context = &driverCommand::getRegister("url_context");
+                        $rawParams = driverUrlRewrite::mapReplace($context, $cmd->fields["parameters"]);
+                        parse_str($rawParams, $cmdParams);
+                        if (driverPages::showAreas()) {
+                            $iParams = ' ()';
+                            if (count($cmdParams) > 0) {
+                                $iParams = str_replace("<", "&lt;", print_r($cmdParams, 1));
+                                $iParams = str_replace("\t", "&nbsp;", $iParams);
+                                $iParams = str_replace("\n", "<br>", $iParams);
+                                $iParams = " <br>$iParams";
+                            }
+                            echo "<div class=\"alert alert-success\" role=\"alert\"><h6><b>" . __("Command") . "</b>: {$cmd->fields["command"]}" . $iParams . "</h6></div>";
+                        }
+                        driverCommand::run($cmd->fields["command"], $cmdParams);
+                        $cmd->MoveNext();
+                    }
+                    $rendered = ob_get_clean();
+                    if (!isset($block[$b->fields['idcol']])) {
+                        $block[$b->fields['idcol']] = $rendered;
+                        unset($rendered);
+                    }
                     $b->MoveNext();
                 }
                 $smarty->assign("block", $block, true);
@@ -81,11 +106,10 @@ if (!class_exists("commandSmartyRender")) {
             // Hook
             $tpl = $params['tpl']; // Render the correct template.
             driverHook::CallHook('smartyRenderBeforeDisplay', array(
-                        'page' => $params['page'],
-                        'smarty' => &$smarty,
-                        'tpl' => &$tpl,
-                    ));
-            
+                'page' => $params['page'],
+                'smarty' => &$smarty,
+                'tpl' => &$tpl,
+            ));
             $smarty->display($tpl);
         }
 
@@ -95,7 +119,7 @@ if (!class_exists("commandSmartyRender")) {
                 "description" => __("Render a page using Smarty engine."), 
                 "parameters" => array(
                     "page" => __("Page to convert, see 'url_rewrite' table."),
-                    "tpl" => __("Template file to render, Default file index.tpl."),
+                    "tpl" => __("Template file to render, Default file document.tpl."),
                 ), 
                 "response" => array(),
                 "type" => array(
