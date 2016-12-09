@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Pharinix Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
+ * Pharinix Copyright (C) 2016 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
  * This program is free software; you can redistribute it and/or
@@ -24,9 +24,9 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-if (!class_exists("commandMnuRenderHead")) {
+if (!class_exists("commandMnuRenderList")) {
 
-    class commandMnuRenderHead extends driverCommand {
+    class commandMnuRenderList extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
             $params = array_merge(array(
@@ -67,23 +67,8 @@ if (!class_exists("commandMnuRenderHead")) {
                 }
                 break;
             }
-            echo '<style>body {padding-top: 61px;}</style>';
-            echo '<div id="top">';
-            echo '<nav class="navbar navbar-fixed-top navbar-default ">';
-            echo '<div class="container-fluid">';
             
-            
-?>
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only"><?php echo __('Toggle navigation'); ?></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-<?php
         // BRAND
-        driverCommand::run('mnuRenderBrand', $params);
 //        $brands = driverCommand::run('getNodes', array(
 //                'nodetype' => 'menu',
 //                'where' => '`parent` = \''.$params['menu'].'\' && `isbrand` = \'1\'',
@@ -94,53 +79,44 @@ if (!class_exists("commandMnuRenderHead")) {
 //                echo self::renderMenu($brand);
 //            }
 //        }
-?>
-    </div>
-<?php
-            echo '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">';
-            driverCommand::run('mnuRenderList', $params);
             // LEFT
-//            $lefts = driverCommand::run('getNodes', array(
-//                    'nodetype' => 'menu',
-//                    'where' => '`parent` = \''.$params['menu'].'\' && `isbrand` = \'0\' && `aling` <> \'right\'',
-//                    'order' => '`order`',
-//            ));
-//            echo '<ul class="nav navbar-nav">';
-//            foreach($lefts as $left) {
-//                if (self::ICanShow($left)) {
-//                    if ($left['title'] == '-') {
-//                        echo '<li class="divider">';
-//                    } else {
-//                        echo '<li>';
-//                        echo self::renderMenu($left);
-//                    }
-//                    echo '</li>';
-//                }
-//            }
-//            echo '</ul>';
+            $lefts = driverCommand::run('getNodes', array(
+                    'nodetype' => 'menu',
+                    'where' => '`parent` = \''.$params['menu'].'\' && `isbrand` = \'0\' && `aling` <> \'right\'',
+                    'order' => '`order`',
+            ));
+            echo '<ul class="nav navbar-nav">';
+            foreach($lefts as $left) {
+                if (self::ICanShow($left)) {
+                    if ($left['title'] == '-') {
+                        echo '<li class="divider">';
+                    } else {
+                        echo '<li>';
+                        echo self::renderMenu($left);
+                    }
+                    echo '</li>';
+                }
+            }
+            echo '</ul>';
             // RIGHT
-//            $rights = driverCommand::run('getNodes', array(
-//                    'nodetype' => 'menu',
-//                    'where' => '`parent` = \''.$params['menu'].'\' && `isbrand` = \'0\' && `aling` = \'right\'',
-//                    'order' => '`order`',
-//            ));
-//            echo '<ul class="nav navbar-nav navbar-right">';
-//            foreach($rights as $right) {
-//                if (self::ICanShow($right)) {
-//                    if ($right['title'] == '-') {
-//                        echo '<li class="divider">';
-//                    } else {
-//                        echo '<li>';
-//                        echo self::renderMenu($right);
-//                    }
-//                    echo '</li>';
-//                }
-//            }
-//            echo '</ul>';
-            echo '</div>';
-            echo '</div>';
-            echo '</nav>';
-            echo '</div>';
+            $rights = driverCommand::run('getNodes', array(
+                    'nodetype' => 'menu',
+                    'where' => '`parent` = \''.$params['menu'].'\' && `isbrand` = \'0\' && `aling` = \'right\'',
+                    'order' => '`order`',
+            ));
+            echo '<ul class="nav navbar-nav navbar-right">';
+            foreach($rights as $right) {
+                if (self::ICanShow($right)) {
+                    if ($right['title'] == '-') {
+                        echo '<li class="divider">';
+                    } else {
+                        echo '<li>';
+                        echo self::renderMenu($right);
+                    }
+                    echo '</li>';
+                }
+            }
+            echo '</ul>';
             $reg = &self::getRegister("customscripts");
             $reg .= file_get_contents("etc/templates/pharinix/mnuRender.js");
         }
@@ -234,7 +210,7 @@ if (!class_exists("commandMnuRenderHead")) {
         public static function getHelp() {
             return array(
                 "package" => 'core',
-                "description" => __('Render a menu in HTML how inline navigation bar'),
+                "description" => __('Render a menu in HTML how unorderer list.'),
                 "parameters" => array(
                     "menu" => __("Menu ID, slugname, to render.")
                     ),
@@ -252,4 +228,4 @@ if (!class_exists("commandMnuRenderHead")) {
     }
 
 }
-return new commandMnuRenderHead();
+return new commandMnuRenderList();
