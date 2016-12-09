@@ -151,6 +151,7 @@ if (!class_exists("commandPageToHTML")) {
 
             $def = driverPages::getPage($params["page"]);
             if ($def === false) {
+                header("HTTP/1.0 404 Not Found");
                 $def = driverPages::getPage('404');
             }
             if ($def !== false) {
