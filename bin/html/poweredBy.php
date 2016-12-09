@@ -55,7 +55,7 @@ if (!class_exists("commandPoweredBy")) {
             echo __('Powered by ');
             echo '<a href="https://github.com/PSF1/pharinix" target="_blank">';
             echo 'Pharinix';
-            echo '</a';
+            echo '</a>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
