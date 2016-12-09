@@ -33,6 +33,7 @@ if (!class_exists("commandSmartyRender")) {
                 define('SMARTY_DIR', getcwd().'/etc/smarty/libs/');
             }
             require_once SMARTY_DIR.'Smarty.class.php';
+            include_once("etc/drivers/pages.php");
             
             $context = &driverCommand::getRegister("url_context");
             $def = driverPages::getPage($params["page"]);
