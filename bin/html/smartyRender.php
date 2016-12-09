@@ -45,16 +45,18 @@ if (!class_exists("commandSmartyRender")) {
             $smarty->debugging = driverConfig::getCFG()
                     ->getSection('[core]')
                     ->getAsBoolean('CMS_DEBUG_TEMPLATE');
-            //@TODO: Allow set this by configuration file.
-            $smarty->caching = true;
-            $smarty->cache_lifetime = 120;
-            //@TODO: Allow replace theme dir, but if not found the required TPL use the default one.
+            $smarty->caching = driverConfig::getCFG()
+                    ->getSection('[core]')
+                    ->getAsBoolean('CMS_CACHING_TEMPLATE');
+            $smarty->cache_lifetime = driverConfig::getCFG()
+                    ->getSection('[core]')
+                    ->get('CMS_CACHE_LIFETIME_TEMPLATE');
             $smarty->template_dir = getcwd().'/etc/templates/smarty/';
             $smarty->config_dir = getcwd().'/var/smarty/configs/';
             // Autocreated folders of work
             $smarty->compile_dir = getcwd().'/var/smarty/templates_c/';
             $smarty->cache_dir = getcwd().'/var/smarty/cache/';
-            //@TODO: Render native page using TPL files how base.
+            // Render native page using TPL files how base.
             $page_title = driverConfig::getCFG()->getSection('[core]')->get('CMS_TITLE');
             $smarty->assign("base_url", CMS_DEFAULT_URL_BASE);
             $smarty->assign("page_title", $page_title, true);
@@ -100,7 +102,7 @@ if (!class_exists("commandSmartyRender")) {
                 }
                 $smarty->assign("block", $block, true);
             }
-            //@TODO: Add all available contextual variables.
+            // Add all available contextual variables.
             $smarty->assign("url_context", $context, true);
             $smarty->assign("customscripts", self::getRegister("customscripts"), true);
             $smarty->assign("customcss", self::getRegister("customcss"), true);
@@ -109,6 +111,7 @@ if (!class_exists("commandSmartyRender")) {
             driverHook::CallHook('smartyRenderBeforeDisplay', array(
                 'page' => $params['page'],
                 'smarty' => &$smarty,
+                'template_dir' => &$smarty->template_dir,
                 'tpl' => &$tpl,
             ));
             $smarty->display($tpl);
@@ -139,6 +142,7 @@ if (!class_exists("commandSmartyRender")) {
                             "parameters" => array(
                                 'page' => __("Readonly, rendered page ID."),
                                 'smarty' => __("Configured Smarty instance before display the template."),
+                                'template_dir' =>  __("Default template's folder."),
                                 'tpl' => __("Template file to render."),
                             )
                         ),
