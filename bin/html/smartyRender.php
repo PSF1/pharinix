@@ -117,7 +117,6 @@ if (!class_exists("commandSmartyRender")) {
             driverHook::CallHook('smartyRenderBeforeDisplay', array(
                 'page' => $params['page'],
                 'smarty' => &$smarty,
-                'template_dir' => &$smarty->template_dir,
                 'tpl' => &$tpl,
             ));
             $smarty->display($tpl);
@@ -148,7 +147,6 @@ if (!class_exists("commandSmartyRender")) {
                             "parameters" => array(
                                 'page' => __("Readonly, rendered page ID."),
                                 'smarty' => __("Configured Smarty instance before display the template."),
-                                'template_dir' =>  __("Default template's folder."),
                                 'tpl' => __("Template file to render."),
                             )
                         ),
