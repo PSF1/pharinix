@@ -106,6 +106,12 @@ if (!class_exists("commandSmartyRender")) {
             $smarty->assign("url_context", $context, true);
             $smarty->assign("customscripts", self::getRegister("customscripts"), true);
             $smarty->assign("customcss", self::getRegister("customcss"), true);
+            $auxparams = $params;
+            unset($auxparams['page']);
+            unset($auxparams['tpl']);
+            unset($auxparams['command']);
+            unset($auxparams['interface']);
+            $smarty->assign("render_params", $auxparams, true);
             // Hook
             $tpl = $params['tpl']; // Render the correct template.
             driverHook::CallHook('smartyRenderBeforeDisplay', array(
