@@ -284,6 +284,17 @@ if (!class_exists("commandPageToHTML")) {
 //                    pageToHTMLParseBlock($def->fields["id"], $struct["page"][0]["foot"][0]);
 //                    echo "</div>";
 //                    echo "</div>";
+                    
+                    $cssFiles = &self::getRegister("filecss");
+                    foreach($cssFiles as $cssFile) {
+                        echo '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+                    }
+
+                    $cssFiles = &self::getRegister("filescripts");
+                    foreach($cssFiles as $cssFile) {
+                        echo '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+                    }
+                    
                     $reg = self::getRegister("customscripts");
                     if ($reg != "") {
                         $auxHook = "<script>".$reg."</script>"."\n";

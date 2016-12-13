@@ -104,6 +104,21 @@ if (!class_exists("commandSmartyRender")) {
             }
             // Add all available contextual variables.
             $smarty->assign("url_context", $context, true);
+            
+            $cssFiles = &self::getRegister("filecss");
+            $cssFilesStr = "";
+            foreach($cssFiles as $cssFile) {
+                $cssFilesStr = '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+            }
+            $smarty->assign("filecss", $cssFilesStr, true);
+            
+            $cssFiles = &self::getRegister("filescripts");
+            $cssFilesStr = "";
+            foreach($cssFiles as $cssFile) {
+                $cssFilesStr = '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+            }
+            $smarty->assign("filescripts", $cssFilesStr, true);
+            
             $smarty->assign("customscripts", self::getRegister("customscripts"), true);
             $smarty->assign("customcss", self::getRegister("customcss"), true);
             $auxparams = $params;

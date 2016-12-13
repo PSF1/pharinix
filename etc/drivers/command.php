@@ -227,4 +227,34 @@ EOT;
         }
         return self::$register[$name];
     }
+    
+    /**
+     * Add a JS file to be loaded by the browser client. This method add the file to 
+     * the register driverCommand::getRegister("filescripts") without duplicates.
+     * @param string $relativePath Relative path to the Pharinix's root path.
+     */
+    public static function addJSFile($relativePath) {
+        $reg = &self::getRegister("filescripts");
+        if ($reg == null) {
+            $reg = array();
+        }
+        if (!in_array($relativePath, $reg)) {
+            $reg[] = $relativePath;
+        }
+    }
+    
+    /**
+     * Add a CSS file to be loaded by the browser client. This method add the file to 
+     * the register driverCommand::getRegister("filecss") without duplicates.
+     * @param string $relativePath Relative path to the Pharinix's root path.
+     */
+    public static function addCSSFile($relativePath) {
+        $reg = &self::getRegister("filecss");
+        if ($reg == null) {
+            $reg = array();
+        }
+        if (!in_array($relativePath, $reg)) {
+            $reg[] = $relativePath;
+        }
+    }
 }
