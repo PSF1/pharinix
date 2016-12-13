@@ -24,7 +24,7 @@ if (!class_exists("commandTextUrlEncoder")) {
     class commandTextUrlEncoder extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            $fid = &driverCommand::run("newID");
+            $fid = driverCommand::run("newID");
             $fid = $fid["id"];
 ?>
 <script type="text/javascript">
