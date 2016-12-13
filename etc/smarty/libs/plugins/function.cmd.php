@@ -49,12 +49,19 @@ function smarty_function_cmd($params, &$smarty) {
         $command = $params['command'];
         unset($params['command']);
         
-        if (!isset($params['interface'])) {
-            $params['interface'] = "echoHtml";
+        if (!isset($params['interface']) || $params["interface"] == "1" || $params["interface"] == "echoHtml") {
+            unset($params['interface']);
+            ob_start();
+            driverCommand::run($command, $params);
+            $output = ob_get_clean();
+        } else {
+            $interface = $params['interface'];
+            unset($params['interface']);
+            ob_start();
+            $resp = driverCommand::run($command, $params);
+            driverCommand::run($interface, $resp);
+            $output = ob_get_clean();
         }
-        ob_start();
-        driverCommand::run($command, $params);
-        $output = ob_get_clean();
         
         return $output;
 }
