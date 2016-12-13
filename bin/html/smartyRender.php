@@ -63,7 +63,7 @@ if (!class_exists("commandSmartyRender")) {
             $smarty->assign("page_charset", 'utf-8');
             $user_language = driverUser::getLangOfUser();
             $smarty->assign("user_language", $user_language[0], true);
-            if (!$def->EOF) {
+            if ($def !== false) {
                 if (!empty($page_title) && !empty($def->fields['title'])) {
                     $page_title = ' :: '.$page_title;
                 }
@@ -127,7 +127,7 @@ if (!class_exists("commandSmartyRender")) {
                 "package" => 'core',
                 "description" => __("Render a page using Smarty engine."), 
                 "parameters" => array(
-                    "page" => __("Page to convert, see 'url_rewrite' table."),
+                    "page" => __("Optional. Page to convert, see 'url_rewrite' table."),
                     "tpl" => __("Template file to render, Default file document.tpl."),
                 ), 
                 "response" => array(),
