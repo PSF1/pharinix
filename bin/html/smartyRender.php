@@ -107,15 +107,19 @@ if (!class_exists("commandSmartyRender")) {
             
             $cssFiles = &self::getRegister("filecss");
             $cssFilesStr = "";
-            foreach($cssFiles as $cssFile) {
-                $cssFilesStr = '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+            if ($cssFiles != null) {
+                foreach($cssFiles as $cssFile) {
+                    $cssFilesStr = '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+                }
             }
             $smarty->assign("filecss", $cssFilesStr, true);
             
             $cssFiles = &self::getRegister("filescripts");
             $cssFilesStr = "";
-            foreach($cssFiles as $cssFile) {
-                $cssFilesStr = '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+            if ($cssFiles != null) {
+                foreach($cssFiles as $cssFile) {
+                    $cssFilesStr = '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+                }
             }
             $smarty->assign("filescripts", $cssFilesStr, true);
             
