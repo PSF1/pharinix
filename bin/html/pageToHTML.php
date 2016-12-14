@@ -286,13 +286,17 @@ if (!class_exists("commandPageToHTML")) {
 //                    echo "</div>";
                     
                     $cssFiles = &self::getRegister("filecss");
-                    foreach($cssFiles as $cssFile) {
-                        echo '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+                    if ($cssFiles != null) {
+                        foreach($cssFiles as $cssFile) {
+                            echo '<link href="'.CMS_DEFAULT_URL_BASE.$cssFile.'" rel="stylesheet" type="text/css"/>'."\n";
+                        }
                     }
 
                     $cssFiles = &self::getRegister("filescripts");
-                    foreach($cssFiles as $cssFile) {
-                        echo '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+                    if ($cssFiles != null) {
+                        foreach($cssFiles as $cssFile) {
+                            echo '<script src="'.CMS_DEFAULT_URL_BASE.$cssFile.'"></script>'."\n";
+                        }
                     }
                     
                     $reg = self::getRegister("customscripts");
