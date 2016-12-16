@@ -30,7 +30,8 @@ if (!class_exists("commandMnuDel")) {
             
             $params = array_merge(array(
                         'nodetype' => 'menu',
-                        'slugname' => ''
+                        'slugname' => '',
+                        'recursive' => false,
                     ), $params);
             if (!is_numeric($params['slugname'])) {
                 $parent = driverCommand::run('getNodes', array(
@@ -48,7 +49,20 @@ if (!class_exists("commandMnuDel")) {
                     return array('ok' => false, 'msg' => __('Parent menu not found.'));
                 }
             }
-			// TODO: Change permissions to allow any user read the menu entry.
+            if ($params['recursive']) {
+                // Remove submenus too
+                $parent = driverCommand::run('getNodes', array(
+                    'nodetype' => 'menu',
+                    'fields' => 'id',
+                    'where' => "`parent` = '{$params['nid']}'",
+                ));
+                foreach($parent as $key => $what) {
+                    driverCommand::run('mnuDel', array(
+                        'slugname' => $key,
+                        'recursive' => $params['recursive'],
+                    ));
+                }
+            }
             return driverCommand::run('delNode', $params);
         }
 
@@ -57,12 +71,14 @@ if (!class_exists("commandMnuDel")) {
                 "package" => 'core',
                 "description" => __("Remove a menu option."), 
                 "parameters" => array(
-                        'slugname' => __('A required unique name used how reference')
+                        'slugname' => __('A required unique name used how reference'),
+                        'recursive' => __('If TRUE remove submenus too. Default FALSE.'),
                     ), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
-                        'slugname' => 'string'
+                        'slugname' => 'string',
+                        'recursive' => 'boolean',
                     ), 
                     "response" => array(),
                 ),
