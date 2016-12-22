@@ -68,7 +68,7 @@ if (!class_exists("commandMnuAdd")) {
             if ($respAddNode['ok'] === TRUE)
             {
                 $respChmodNode = driverCommand::run('chmodNode', array(
-                    'nodetype' => 'node_menu',
+                    'nodetype' => 'menu',
                     'nid' => $respAddNode['nid'],
                     'flags' => '3908'
                 ));
