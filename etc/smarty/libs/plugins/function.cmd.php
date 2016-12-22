@@ -50,7 +50,7 @@ function smarty_function_cmd($params, &$smarty) {
         unset($params['command']);
         
         if (!isset($params['interface']) || $params["interface"] == "1" || $params["interface"] == "echoHtml") {
-            unset($params['interface']);
+            $params["interface"] = "echoHtml";
             ob_start();
             driverCommand::run($command, $params);
             $output = ob_get_clean();
