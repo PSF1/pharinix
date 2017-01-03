@@ -60,8 +60,26 @@ if (!class_exists("commandMnuAdd")) {
                     return array('ok' => false, 'msg' => __('Parent menu not found.'));
                 }
             }
-			// TODO: Change permissions to allow any user read the menu entry.
-            return driverCommand::run('addNode', $params);
+	    // TODO: Change permissions to allow any user read the menu entry.
+            // Modified by: Domingo Llanes <domingollanes.dev@gmail.com>
+            
+            $respAddNode = driverCommand::run('addNode', $params);
+            
+            if ($respAddNode['ok'] === TRUE)
+            {
+                $respChmodNode = driverCommand::run('chmodNode', array(
+                    'nodetype' => 'menu',
+                    'nid' => $respAddNode['nid'],
+                    'flags' => '3908'
+                ));
+                
+                if($respChmodNode['ok'] === FALSE)
+                {
+                    return $respChmodNode;
+                }
+            }
+            
+            return $respAddNode;
         }
 
         public static function getHelp() {
