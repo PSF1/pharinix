@@ -34,7 +34,7 @@ if (!class_exists("commandAddGroup")) {
                     'count' => true,
                     'where' => "`title` = '{$params["group"]}'",
                 ));
-                if ($exist['amount'] == 0) {
+                if ($exist[0]['amount'] == 0) {
                     return driverCommand::run('addNode', array(
                         "nodetype" => "group",
                         "title" => $params["group"]
