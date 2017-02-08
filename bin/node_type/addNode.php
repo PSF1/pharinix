@@ -28,6 +28,7 @@ if (!class_exists("commandAddNode")) {
     class commandAddNode extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            // TODO: Use driverNodes::addNode instead !!
             $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
             // Default values

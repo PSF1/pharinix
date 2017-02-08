@@ -29,10 +29,11 @@ if (!defined("CMS_VERSION")) {
  * @author Pedro Pelaez <aaaaa976@gmail.com>
  */
 class driverNodes {
+
     const CHANGECRUD_OWNER = 8;
     const CHANGECRUD_GROUP = 4;
     const CHANGECRUD_ALL = 0;
-    
+
     /**
      * Return the "where" condition to filter by access level
      * @param string $nodetype The node type to verify
@@ -61,7 +62,7 @@ class driverNodes {
         $secWhere .= "& `node_$nodetype`.`access`)";
         return $secWhere;
     }
-    
+
     /**
      * Change access flags of a node.
      * 
@@ -74,32 +75,31 @@ class driverNodes {
      * @param boolean $delete
      * @return array ('ok' => boolean)
      */
-    public static function chCRUDNode($nodetype, $idnode, $segment, 
-                                      $create, $read, $update, $delete) {
+    public static function chCRUDNode($nodetype, $idnode, $segment, $create, $read, $update, $delete) {
         $me = driverCommand::run('getNodes', array(
-            'nodetype' => $nodetype,
-            'fields' => '`access`',
-            'where' => '`id` = '.$idnode,
+                    'nodetype' => $nodetype,
+                    'fields' => '`access`',
+                    'where' => '`id` = ' . $idnode,
         ));
         if ((!isset($me['ok']) || $me['ok'] !== false) && count($me) > 0) {
             $ncrud = decbin($me[$idnode]['access']);
-            $require = ($create?1:0).($read?1:0).($update?1:0).($delete?1:0);
+            $require = ($create ? 1 : 0) . ($read ? 1 : 0) . ($update ? 1 : 0) . ($delete ? 1 : 0);
             switch ($segment) {
                 case self::CHANGECRUD_ALL:
-                    $require = substr($ncrud, 0, 8).$require;
+                    $require = substr($ncrud, 0, 8) . $require;
                     break;
                 case self::CHANGECRUD_GROUP:
-                    $require = substr($ncrud, 0, 4).$require.substr($ncrud, 8);
+                    $require = substr($ncrud, 0, 4) . $require . substr($ncrud, 8);
                     break;
                 case self::CHANGECRUD_OWNER:
-                    $require = $require.substr($ncrud, 4);
+                    $require = $require . substr($ncrud, 4);
                     break;
             }
             $require = bindec($require);
             return driverCommand::run('chmodNode', array(
-                'nodetype' => $nodetype,
-                'nid' => $idnode,
-                'flags' => $require,
+                        'nodetype' => $nodetype,
+                        'nid' => $idnode,
+                        'flags' => $require,
             ));
         } else {
             $msg = __("Bad node id.");
@@ -109,7 +109,7 @@ class driverNodes {
             return array("ok" => false, "msg" => $msg);
         }
     }
-    
+
     /**
      * Read nodes from data base
      * 
@@ -254,32 +254,197 @@ class driverNodes {
     }
 
     /**
-         * Get field definition
-         * @param string $name Queried field name
-         * @param string $fields Fields definition array
-         * @return array Field definition or FALSE if not found.
-         */
-        protected static function getFieldDef($name, &$fields) {
-            foreach($fields as $field) {
-                if ($field["name"] == $name) {
-                    return $field;
+     * Add a new node
+     * 
+     * @param array $params see addNodes command.
+     * @param boolean $secured If FALSE don't filter by access security
+     */
+    public static function addNodes($params, $secured = true) {
+        $resp = array("ok" => false, "nid" => 0, "msg" => "");
+
+        // Default values
+        $params = array_merge(array(
+            "nodetype" => "",
+                ), $params);
+        if ($params["nodetype"] == "") { // Node type defined?
+            $resp["msg"] = __("Node type required");
+        } else {
+            // Erase insecure parameters for nodes
+            unset($params["access"]);
+            unset($params["user_owner"]);
+            unset($params["group_owner"]);
+            unset($params["modifier"]);
+            unset($params["modified"]);
+            unset($params["creator"]);
+            unset($params["created"]);
+            $params["modifier"] = driverUser::getID(true);
+            $params["modified"] = date("Y-m-d H:i:s");
+            $params["created"] = date("Y-m-d H:i:s");
+            $params["creator"] = driverUser::getID();
+            $params["user_owner"] = driverUser::getID();
+            $params["group_owner"] = driverUser::getDefaultGroupID();
+
+            // Verify node type
+            $typeDef = driverCommand::run("getNodeTypeDef", array(
+                        "nodetype" => $params["nodetype"],
+            ));
+            if ($typeDef["id"] === false) { // I dont know the node type
+                $resp["msg"] = sprintf(__("Unknowed node type '%s'"), $params["nodetype"]);
+            } else {
+                // Access control
+                $usrGrps = driverUser::getGroupsID();
+                $allowed = !$secured || driverUser::secNodeCanCreate($typeDef["access"], $typeDef["user_owner"] == driverUser::getID(), array_search($typeDef["group_owner"], $usrGrps) !== FALSE);
+                if ($allowed) {
+                    // Required fields presents? (required or iskey)
+                    $ndefFields = driverCommand::run("getNodeTypeDef", $params);
+                    $ndefFields = $ndefFields["fields"];
+                    $okRequired = true;
+                    foreach ($ndefFields as $ndefField) {
+                        if (($ndefField["required"] || $ndefField["iskey"]) && !isset($params[$ndefField["name"]])) {
+                            $okRequired = false;
+                            break;
+                        }
+                    }
+                    if (!$okRequired) {
+                        // You miss a required node field
+                        $resp["msg"] = __("Missing node field required.");
+                    } else {
+                        // All selected items are fields of the node?
+                        $allOk = true;
+                        foreach ($params as $name => $value) {
+                            if ($name != "nodetype") {
+                                $nameOk = $name;
+                                foreach ($ndefFields as $ndefField) {
+                                    if ($ndefField["name"] == $name) {
+                                        $nameOk = true;
+                                        break;
+                                    }
+                                }
+                                if ($nameOk !== true) {
+                                    $allOk = $nameOk;
+                                    break;
+                                }
+                            }
+                        }
+                        if ($allOk !== true) {
+                            $resp["msg"] = sprintf(__("Field '%s' are not fields of '%s' node type."), $allOk, $params["nodetype"]);
+                        } else {
+                            // Duplicated keys?
+                            $where = "";
+                            foreach ($ndefFields as $ndefField) {
+                                if ($ndefField["iskey"]) {
+                                    if ($where != "")
+                                        $where .= " || ";
+                                    $where .= "`{$ndefField["name"]}` = '" . dbConn::qstr($params[$ndefField["name"]]) . "'";
+                                }
+                            }
+                            // Some?
+                            $ctrl = 0;
+                            if ($where != "") {
+                                $sql = "select count(*) from `node_{$params["nodetype"]}` where $where";
+                                $q = dbConn::Execute($sql);
+                                $ctrl = $q->fields[0];
+                            }
+                            if ($ctrl > 0) {
+                                // Duplicate keys
+                                $resp["msg"] = __("Duplicate keys.");
+                            } else {
+                                // NOW, we can save node !! :D :D
+                                $sql = "";
+                                $sqlMultis = array();
+                                foreach ($params as $name => $value) {
+                                    // Ignore nodetype parameter because isn't a field
+                                    if ($name != "nodetype") {
+                                        $fieldDef = self::getFieldDef($name, $ndefFields);
+                                        if ($fieldDef["multi"]) {
+                                            if ($value != '') {
+                                                // Prepare all multivalue inserts.
+                                                $vals = explode(",", $value);
+                                                $table = '`node_relation_' . $params["nodetype"] . '_' . $name . '_' . $fieldDef["type"] . '`';
+                                                $multi = "";
+                                                foreach ($vals as $val) {
+                                                    if ($multi != "")
+                                                        $multi .= ", ";
+                                                    $multi .= " (null, {NID}, $val)";
+                                                }
+                                                $sqlMultis[] = "insert into $table values " . $multi;
+                                            }
+                                        } else {
+                                            // Single value fields
+                                            if ($sql != "")
+                                                $sql .= ", ";
+                                            if ($fieldDef["type"] == "password") { // Type password
+                                                $fVal = driverUser::passwordObfuscation($value);
+                                            } else { // Type other
+                                                $fVal = dbConn::qstr($value);
+                                            }
+                                            $sql .= "`$name` = '" . $fVal . "'";
+                                        }
+                                    }
+                                }
+                                $sql = "insert into `node_{$params["nodetype"]}` set " . $sql;
+                                dbConn::Execute($sql);
+                                $last = dbConn::lastID();
+                                $resp["nid"] = $last;
+                                $resp["ok"] = true;
+                                // Add Multi values
+                                foreach ($sqlMultis as $sqlMulti) {
+                                    $sqlMulti = str_replace("{NID}", $last, $sqlMulti);
+                                    dbConn::Execute($sqlMulti);
+                                }
+                                // Add personalized page
+                                // since Pharinix 1.12.04 node types use context URL mapping.
+//                                    driverCommand::run("addPage", array(
+//                                        'name' => "node_type_".$params["nodetype"]."_".$last,
+//                                        'template' => "etc/templates/pages/default.xml",
+//                                        'title' => "Node {$last}",
+//                                        'description' => "",
+//                                        'keys' => "",
+//                                    ));
+//                                    driverCommand::run("addBlockToPage", array(
+//                                        'page' => "node_type_".$params["nodetype"]."_".$last,
+//                                        'command' => "getNodeHtml",
+//                                        'parameters' => "nodetype=".$params["nodetype"]."&node=$last",
+//                                    ));
+                            }
+                        }
+                    }
+                } else {
+                    $resp["msg"] = __("You can't add nodes.");
                 }
             }
-            return false;
         }
-        
-        /**
-         * Return a list of multivalue fields.
-         * @param array $fields Fields definitions
-         * @return array
-         */
-        protected static function getFieldsMulti(&$fields) {
-            $resp = array();
-            foreach($fields as $field) {
-                if ($field["multi"]) {
-                    $resp[] = $field["name"];
-                }
+        return $resp;
+    }
+
+    /**
+     * Get field definition
+     * @param string $name Queried field name
+     * @param string $fields Fields definition array
+     * @return array Field definition or FALSE if not found.
+     */
+    protected static function getFieldDef($name, &$fields) {
+        foreach ($fields as $field) {
+            if ($field["name"] == $name) {
+                return $field;
             }
-            return $resp;
         }
+        return false;
+    }
+
+    /**
+     * Return a list of multivalue fields.
+     * @param array $fields Fields definitions
+     * @return array
+     */
+    protected static function getFieldsMulti(&$fields) {
+        $resp = array();
+        foreach ($fields as $field) {
+            if ($field["multi"]) {
+                $resp[] = $field["name"];
+            }
+        }
+        return $resp;
+    }
+
 }
