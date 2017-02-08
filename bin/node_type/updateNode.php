@@ -23,10 +23,11 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
-if (!class_exists("commandUpdateNodes")) {
-    class commandUpdateNodes extends driverCommand {
+if (!class_exists("commandUpdateNode")) {
+    class commandUpdateNode extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            // TODO: Use driverNodes::addNode instead !!
             $resp = array("ok" => false, "msg" => "");
 
             // Default values
@@ -259,4 +260,4 @@ if (!class_exists("commandUpdateNodes")) {
         }
     }
 }
-return new commandUpdateNodes();
+return new commandUpdateNode();
