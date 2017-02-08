@@ -259,7 +259,7 @@ class driverNodes {
      * @param array $params see addNodes command.
      * @param boolean $secured If FALSE don't filter by access security
      */
-    public static function addNodes($params, $secured = true) {
+    public static function addNode($params, $secured = true) {
         $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
         // Default values
