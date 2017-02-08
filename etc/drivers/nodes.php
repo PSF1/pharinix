@@ -436,7 +436,7 @@ class driverNodes {
             $resp["msg"] = __("Node type required");
         } else {
             // Erase insecure parameters for user nodes
-            if (!driverUser::isSudoed() && $params["nodetype"] == "user") {
+            if ($secured && !driverUser::isSudoed() && $params["nodetype"] == "user") {
                 unset($params["groups"]);
             }
             // Erase insecure parameters for nodes
