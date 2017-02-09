@@ -215,7 +215,7 @@ EOT;
                 $params[$key] = self::getPOSTParams($value);
             } else {
                 $params[$key] = @strip_tags($value);
-                $params[$key] = str_replace("]]>", "]--]>", $value);
+                $params[$key] = str_replace("]]>", "]--]>", $params[$key]);
             }
         }
         return $params;
