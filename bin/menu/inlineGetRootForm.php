@@ -24,14 +24,16 @@ if (!class_exists("commandInlineLoginForm")) {
     class commandInlineLoginForm extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            echo '<form class="navbar-form navbar-left" role="form" action="'.CMS_DEFAULT_URL_BASE.'" method="post" enctype="application/x-www-form-urlencoded">';
-            echo    '<input type="hidden" name="cmd" value="sudo"/>';
-            echo    '<input type="hidden" name="user" value="root@localhost"/>';
-            echo    '<input type="hidden" name="command" value="goTo"/>';
-            echo    '<input type="hidden" name="interface" value="nothing"/>';
-            echo    '<input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>';
-            echo    '<button type="submit" class="btn btn-link">'.__('Get superuser').'</button>';
-            echo '</form>';
+            if (driverUser::haveSudoersGroup()) {
+                echo '<form class="navbar-form navbar-left" role="form" action="'.CMS_DEFAULT_URL_BASE.'" method="post" enctype="application/x-www-form-urlencoded">';
+                echo    '<input type="hidden" name="cmd" value="sudo"/>';
+                echo    '<input type="hidden" name="user" value="root@localhost"/>';
+                echo    '<input type="hidden" name="command" value="goTo"/>';
+                echo    '<input type="hidden" name="interface" value="nothing"/>';
+                echo    '<input type="hidden" name="gtpath" class="menuInlineToHTMLReloadURL" value=""/>';
+                echo    '<button type="submit" class="btn btn-link">'.__('Get superuser').'</button>';
+                echo '</form>';
+            }
         }
 
         public static function getHelp() {
