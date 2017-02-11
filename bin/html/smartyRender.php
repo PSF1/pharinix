@@ -103,7 +103,11 @@ if (!class_exists("commandSmartyRender")) {
                 $smarty->assign("block", $block, true);
             }
             // Add all available contextual variables.
-            $smarty->assign("url_context", $context, true);
+            $aux = array();
+            foreach($context as $key => $ctx) {
+                $aux[str_replace('$', '', $key)] = $ctx;
+            }
+            $smarty->assign("url_context", $aux, true);
             
             $cssFiles = &self::getRegister("filecss");
             $cssFilesStr = "";
