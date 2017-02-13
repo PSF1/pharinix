@@ -615,7 +615,7 @@ class driverNodes {
      * @param boolean $secured  If FALSE don't filter by access security
      * @return array
      */
-    public function delNode($params, $secured = true) {
+    public static function delNode($params, $secured = true) {
         $resp = array("ok" => false, "msg" => "");
 
         // Default values
