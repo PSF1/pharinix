@@ -27,6 +27,7 @@ if (!class_exists("commandSmartyRender")) {
             $params = array_merge(array(
                 "page" => '',
                 "tpl" => 'document.tpl',
+                "debug" => false,
             ), $params);
             
             if (!defined('SMARTY_DIR')) {
@@ -44,7 +45,7 @@ if (!class_exists("commandSmartyRender")) {
                     ->getAsBoolean('CMS_ALWAYS_COMPILE_TEMPLATE');
             $smarty->debugging = driverConfig::getCFG()
                     ->getSection('[core]')
-                    ->getAsBoolean('CMS_DEBUG_TEMPLATE');
+                    ->getAsBoolean('CMS_DEBUG_TEMPLATE') || $params['debug'];
             $smarty->caching = driverConfig::getCFG()
                     ->getSection('[core]')
                     ->getAsBoolean('CMS_CACHING_TEMPLATE');
@@ -152,12 +153,14 @@ if (!class_exists("commandSmartyRender")) {
                 "parameters" => array(
                     "page" => __("Optional. Page to convert, see 'url_rewrite' table."),
                     "tpl" => __("Template file to render, Default file document.tpl."),
+                    "debug" => __("Debug this template, default false."),
                 ), 
                 "response" => array(),
                 "type" => array(
                     "parameters" => array(
                         "page" => "string",
                         "tpl" => "string",
+                        "debug" => "bool",
                     ), 
                     "response" => array(),
                 ),
