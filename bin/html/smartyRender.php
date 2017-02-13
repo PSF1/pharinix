@@ -105,8 +105,10 @@ if (!class_exists("commandSmartyRender")) {
             }
             // Add all available contextual variables.
             $aux = array();
-            foreach($context as $key => $ctx) {
-                $aux[str_replace('$', '', $key)] = $ctx;
+            if (is_array($context)) {
+                foreach($context as $key => $ctx) {
+                    $aux[str_replace('$', '', $key)] = $ctx;
+                }
             }
             $smarty->assign("url_context", $aux, true);
             
