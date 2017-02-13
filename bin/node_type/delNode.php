@@ -28,6 +28,7 @@ if (!class_exists("commandDelNode")) {
     class commandDelNode extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            // TODO: Use driverNodes::delNode instead !!
             $resp = array("ok" => false, "msg" => "");
 
             // Default values

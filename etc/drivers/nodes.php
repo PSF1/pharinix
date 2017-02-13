@@ -609,6 +609,72 @@ class driverNodes {
     }
 
     /**
+     * Delete a node.
+     * 
+     * @param array $params
+     * @param boolean $secured  If FALSE don't filter by access security
+     * @return array
+     */
+    public function delNode($params, $secured = true) {
+        $resp = array("ok" => false, "msg" => "");
+
+        // Default values
+        $params = array_merge(array(
+            "nodetype" => "",
+            "nid" => "",
+                ), $params);
+        if ($params["nodetype"] == "") { // Node type defined?
+            $resp["msg"] = __("Node type required");
+        } else if ($params["nid"] == "") {
+            $resp["msg"] = __("Node ID required");
+        } else {
+            try {
+                $def = driverCommand::run("getNodeTypeDef", $params);
+                $nodeAccess = 0;
+                $nodeUser_owner = 0;
+                $nodeGroup_owner = 0;
+                $sql = "select `id`, `access`, `user_owner`, `group_owner` from `node_{$params["nodetype"]}` where `id` = " . $params["nid"];
+                $q = dbConn::Execute($sql);
+                if (!$q->EOF) {
+                    $nodeAccess = $q->fields["access"];
+                    $nodeUser_owner = $q->fields["user_owner"];
+                    $nodeGroup_owner = $q->fields["group_owner"];
+                }
+                $usrGrps = driverUser::getGroupsID();
+                $allowed = driverUser::secNodeCanDelete($nodeAccess, $nodeUser_owner == driverUser::getID(), array_search($nodeGroup_owner, $usrGrps) !== FALSE);
+                if (!$allowed) {
+                    $allowed = driverUser::secNodeCanDelete($def["access"], $def["user_owner"] == driverUser::getID(), array_search($def["group_owner"], $usrGrps) !== FALSE);
+                }
+                if (!$secured || $allowed) {
+                    // Delete relations
+                    foreach ($def["fields"] as $field) {
+                        if ($field["multi"]) {
+                            $table = '`node_relation_' . $params["nodetype"] . '_'
+                                    . $field["name"] . '_' . $field["type"] . '`';
+                            $sql = "delete from $table where `type1` = " . $params["nid"];
+                            dbConn::Execute($sql);
+                        }
+                    }
+                    // Delete node
+                    $sql = "delete from `node_{$params["nodetype"]}` where `id` = " . $params["nid"];
+                    dbConn::Execute($sql);
+                    // Delete page
+                    // since Pharinix 1.12.04 node types use context URL mapping.
+//                        driverCommand::run("delPage", array(
+//                            'name' => "node_type_" . $params["nodetype"] . "_" . $params["nid"],
+//                        ));
+                    $resp["ok"] = true;
+                } else {
+                    $resp["msg"] = __("You can't delete nodes.");
+                }
+            } catch (Exception $exc) {
+                $resp["msg"] = $exc->getMessage();
+            }
+        }
+        return $resp;
+    }
+    
+    /**
      * Get field definition
      * @param string $name Queried field name
      * @param string $fields Fields definition array
