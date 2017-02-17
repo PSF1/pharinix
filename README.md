@@ -6,7 +6,7 @@ Travis CI state:
 
 Testing on PHP 5.3, 5.4, 5.5 and 5.6
 
-Allowing failures with PHP 7.0
+100% compatible with PHP 7.0 !!
 
 [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
 
