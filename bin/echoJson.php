@@ -24,7 +24,7 @@ if (!class_exists("commandEchoJSON")) {
     class commandEchoJSON extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
-            @header("Content-type: application/json");
+            @header("Content-type: application/json; charset=utf-8");
             $json = driverCommand::run("toJson", $params);
             echo $json["json"];
         }
