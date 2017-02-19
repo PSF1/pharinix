@@ -27,6 +27,7 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
             $params = array_merge(array(
                 "path" => "usr/",
                 "folder" => "",
+                'inplace' => false,
             ), $params);
             
             if (!is_dir($params['path'])) {
@@ -59,7 +60,7 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
                 // Verify if install folder is in use
                 $installPath = $params['path'].$meta->meta->slugname.'/';
                 $folder = driverTools::pathInfo($installPath);
-                if ($folder['exists']) {
+                if (!$params['inplace'] && $folder['exists']) {
                     self::closeMonitor($lp);
                     return array("ok" => false, "msg" => __('Install path is in use.'));
                 }
@@ -114,18 +115,20 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
                 }
                 // Copy module to final path
                 driverLPMonitor::update($lp->id, ++$lpStep, __('Copy module to final path'));
-                mkdir($installPath);
-                $resul = driverTools::pathCopy($tmpFolder, $installPath);
-                if ($resul !== true) {
-                    $resp = array(
-                        'ok' => false,
-                        'msg' => __(sprintf('Can\'t copy files from \'%s\' to \'%s\'.', $params['folder'], $params['path'])),
-                        );
-                    if ($resul instanceof Exception) {
-                        $resp['msg'] .= ' '.$resul->getMessage();
+                if (!$params['inplace']) {
+                    mkdir($installPath);
+                    $resul = driverTools::pathCopy($tmpFolder, $installPath);
+                    if ($resul !== true) {
+                        $resp = array(
+                            'ok' => false,
+                            'msg' => __(sprintf('Can\'t copy files from \'%s\' to \'%s\'.', $params['folder'], $params['path'])),
+                            );
+                        if ($resul instanceof Exception) {
+                            $resp['msg'] .= ' '.$resul->getMessage();
+                        }
+                        self::closeMonitor($lp);
+                        return $resp;
                     }
-                    self::closeMonitor($lp);
-                    return $resp;
                 }
                 // Apply configuration
                 if (isset($meta->configuration)) {
@@ -312,6 +315,7 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
                 "parameters" => array(
                     "path" => __("Optional path where install the module, relative to Pharinix root path. If not defined the default path is 'usr/'"),
                     "folder" => __("Path to the folder with the new module."),
+                    'inplace' => __('If TRUE install module in some folder where is. Default FALSE.'),
                 ), 
                 "response" => array(
                         "ok" => __("TRUE if the installation is OK."),
@@ -322,6 +326,7 @@ if (!class_exists("commandModInstallFromLocalFolder")) {
                     "parameters" => array(
                         "path" => "string",
                         "folder" => "string",
+                        'inplace' => 'boolean',
                     ), 
                     "response" => array(
                         "ok" => "booelan",
