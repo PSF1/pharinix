@@ -455,7 +455,81 @@
         fclose($f);
         return trim($output);
     }
+    
+    /**
+     * Do a remote call with cURL
+     * 
+     * @param string $url URL to call
+     * @param array $params Parameters list to send by POST, if no has value do a GET call.
+     * @param boolean $parseParams If TRUE try to parse $params how array.
+     * @param boolean $binary If TRUE add the --data-binary parameter to cURL.
+     * @param array $headers Extra headers to add.
+     * @param integer $timeoutsec Seconds before timeout.
+     * @return array array ( "header" => Petition headers, "body" => Response body, "error" => Error message );
+     * @link http://hayageek.com/php-curl-post-get
+     */
+    public static function apiCall($url, $params = null, $parseParams = true, $binary = false, $headers = null, $timeoutsec = 30) {
+        $postData = '';
+        if ($parseParams && $params != null) {
+            //create name value pairs seperated by &
+            foreach($params as $k => $v)
+            {
+               $postData .= $k . '='.$v.'&';
+            }
+            rtrim($postData, '&');
+        } else {
+            $postData = $params;
+        }
 
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        if ($binary) curl_setopt($ch, CURLOPT_BINARYTRANSFER, TRUE); // --data-binary
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 0);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
+        if ($postData != "") {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false); // Allow use @ to upload files
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        }
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeoutsec); //timeout in seconds
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //not verify certificate
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow location headers
+        curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+//        curl_setopt($ch, CURLOPT_REFERER, self::API_URL.'dashboard');
+        if ($headers != null) {
+            $h = array();
+            foreach($headers as $key => $value) {
+                $h[] = $key.': '.$value;
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $h);
+        }
+        $response = curl_exec($ch);
+
+        // Then, after your curl_exec call:
+        $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $header = substr($response, 0, $header_size);
+        $body = substr($response, $header_size);
+        $lastError = curl_error($ch);
+
+        $aux = explode("\n", $header);
+        $rHeaders = array();
+        foreach($aux as $head) {
+            $rHeaders[] = trim($head);
+        }
+
+        $resp = array (
+            "header" => $rHeaders,
+            "request" => curl_getinfo($ch),
+            "request_body" => $postData,
+            "body" => $body,
+            "error" => $lastError
+        );
+        curl_close($ch);
+        return $resp;
+    }
 }
 
 if (!function_exists('json_last_error_msg')) {
