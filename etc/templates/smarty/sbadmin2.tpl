@@ -54,7 +54,10 @@
 
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
-                        {$block.colLeft}
+                        {if isset($block.colLeftMenu)}{$block.colLeftMenu}{/if}
+                    </div>
+                    <div class="sidebar-nav col-md-12">
+                        {if isset($block.colLeft)}{$block.colLeft}{/if}
                     </div>
                     <!-- /.sidebar-collapse -->
                 </div>
@@ -64,7 +67,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        {$block.colRight}
+                        {if isset($block.colRight)}{$block.colRight}{/if}
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -79,7 +82,7 @@
             <div id="col1" type="nav" class="col-sm-12">
                 <div class="row"  id="foot1">
                     <div id="footCopy" class="col-md-12">
-                        {$block.footCopy}
+                        {if isset($block.footCopy)}{$block.footCopy}{/if}
                         <h6>{cmd command="translate" str="Admin theme based on"} <a href="https://startbootstrap.com/template-overviews/sb-admin-2/" target="_blank">SB Admin 2</a></h6>
                     </div>
                 </div>
