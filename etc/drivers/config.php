@@ -486,5 +486,7 @@ class driverConfigIniSection {
 
 $meta = driverConfig::getMeta();
 define("CMS_VERSION", $meta->meta->version);
-@header("Author: Pedro Pelaez <aaaaa976@gmail.com>");
-@header("X-Generator: Pharinix/".CMS_VERSION.' (https://github.com/PSF1/pharinix/)');
+if (!headers_sent()) {
+    header("X-Pharinix-Author: Pedro Pelaez <aaaaa976@gmail.com>");
+    header("X-Generator: Pharinix/".CMS_VERSION.' (https://github.com/PSF1/pharinix/)');
+}

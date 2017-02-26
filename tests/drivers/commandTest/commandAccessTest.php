@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Pharinix Copyright (C) 2015 Pedro Pelaez <aaaaa976@gmail.com>
  * Sources https://github.com/PSF1/pharinix
  *
@@ -41,18 +41,18 @@ class commandAccessTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
         driverUser::logOut();
     }
-    
+
     public function testCommand_Default_Access_Guest_fail() {
-        $resp = driverCommand::getAccess(); 
+        $resp = driverCommand::getAccess();
         $this->assertFalse($resp);
     }
-    
+
     public function testCommand_Default_Access_Root_ok() {
         driverUser::sudo();
         $resp = driverCommand::getAccess();
         $this->assertTrue($resp);
     }
-    
+
     public function testCommand_Access_Root_Unsudo_ok() {
         // Not
         $resp = driverCommand::getAccess();
