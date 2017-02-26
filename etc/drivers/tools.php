@@ -542,6 +542,47 @@
         curl_close($ch);
         return $resp;
     }
+    
+    /**
+     * Return a label about de error level.
+     * 
+     * @param integer $type Error level
+     * @return string
+     */
+    public static function getErrorLevelLabelByType($type) {
+        switch ($type) {
+                case E_ERROR:
+                    return 'Fatal run-time error';
+                case E_PARSE:
+                    return 'Compile-time parse error';
+                case E_CORE_ERROR:
+                    return 'Fatal errors during PHP\'s initial startup';
+                case E_COMPILE_ERROR:
+                    return 'Fatal compile-time error';
+                case E_RECOVERABLE_ERROR:
+                    return 'Catchable fatal error not catched';
+                case E_WARNING:
+                    return 'Warning';
+                case E_NOTICE:
+                    return 'Notice';
+                case E_CORE_WARNING:
+                    return 'Core warnings';
+                case E_COMPILE_WARNING:
+                    return 'Compile-time warning';
+                case E_USER_ERROR:
+                    return 'User-generated error';
+                case E_USER_WARNING:
+                    return 'User-generated warning';
+                case E_USER_NOTICE:
+                    return 'User-generated notice';
+                case E_DEPRECATED:
+                    return 'Deprecated';
+                case E_USER_DEPRECATED:
+                    return 'User-generated deprecated';
+                default:
+                    return 'Error level '.$type;
+        }
+    }
 }
 
 if (!function_exists('json_last_error_msg')) {
