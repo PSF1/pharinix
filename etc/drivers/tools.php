@@ -349,15 +349,27 @@
             $http = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off' ? 'https' : 'http';
             $hostname = $_SERVER['HTTP_HOST'];
             $dir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+            if ($dir == '/') {
+                $dir = '';
+            }
 
             $core = preg_split('@/@', str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(dirname(__FILE__))), NULL, PREG_SPLIT_NO_EMPTY);
-            $core = $core[0];
-
-            $tmplt = $atRoot ? ($atCore ? "%s://%s/%s/" : "%s://%s/") : ($atCore ? "%s://%s/%s/" : "%s://%s%s");
+            $core = str_replace('\\', '/', $core[0]);
+            $core = str_replace('/etc/drivers', '', $core);
+            
+            if (driverTools::str_start('/', $core)) {
+                $core = substr($core, 1);
+            }
+            
+            $tmplt = $atRoot ? ($atCore ? "%s://%s/%s" : "%s://%s") : ($atCore ? "%s://%s/%s" : "%s://%s%s");
             $end = $atRoot ? ($atCore ? $core : $hostname) : ($atCore ? $core : $dir);
             $base_url = sprintf($tmplt, $http, $hostname, $end);
-        } else
+            if (!driverTools::str_end('/', $base_url)) {
+                $base_url .= '/';
+            }
+        } else {
             $base_url = 'http://localhost/';
+        }
 
         if ($parse) {
             $base_url = parse_url($base_url);
