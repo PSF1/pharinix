@@ -608,6 +608,15 @@ if (!function_exists('json_last_error_msg')) {
 
 }
 
+if (!function_exists('session_status')) {
+    if (!defined('PHP_SESSION_DISABLED')) define('PHP_SESSION_DISABLED', 0);
+    if (!defined('PHP_SESSION_NONE')) define('PHP_SESSION_NONE', 1);
+    if (!defined('PHP_SESSION_ACTIVE')) define('PHP_SESSION_ACTIVE', 2);
+    function session_status() {
+        return session_id() === '' ? PHP_SESSION_NONE : PHP_SESSION_ACTIVE;
+    }
+}
+
 // Internal PHP Server routering
 if (php_sapi_name() == 'cli-server') {
     //http://stackoverflow.com/a/38926070
