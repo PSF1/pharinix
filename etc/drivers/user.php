@@ -577,7 +577,7 @@ use Gettext\Translator;
             // Select language of the client
             $resp = self::getLangOfClient();
         }
-        if (isset($_SESSION)) {
+        if (session_status() != PHP_SESSION_ACTIVE) {
             @session_start();
             $_SESSION['lang'] = $resp;
             session_write_close();

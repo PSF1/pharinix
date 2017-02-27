@@ -78,10 +78,10 @@ class driverHook {
         }
 
         ob_end_clean(); //'driverHook::fatal_error_handler'
-        if (trim(self::$lastError) != '') {
-            echo self::$lastError;
-            self::$lastError = '';
-        }
+//        if (trim(self::$lastError) != '') {
+//            echo self::$lastError;
+//            self::$lastError = '';
+//        }
     }
 
     /**
@@ -200,8 +200,10 @@ class driverHook {
                     $txtLog .= "Message: {$error['message']}\n";
                     $txtLog .= "File: {$error['file']}\n";
                     $txtLog .= "Line: {$error['line']}\n";
+                    $txtLog .= "Trace: ".print_r(debug_backtrace(), 1)."\n";
                     $buffer .= $txtLog;
                     self::$lastError = $txtLog;
+                    return false;
                     break;
         }
 

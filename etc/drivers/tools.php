@@ -607,3 +607,50 @@ if (!function_exists('json_last_error_msg')) {
     }
 
 }
+
+// Internal PHP Server routering
+if (php_sapi_name() == 'cli-server') {
+    //http://stackoverflow.com/a/38926070
+    $dir = str_replace('\\', '/', __DIR__);
+    $dir = str_replace('/etc/drivers', '', $dir);
+    $filePath = realpath(ltrim($_SERVER["REQUEST_URI"], '/'));
+    if ($filePath && is_dir($filePath)){
+        // attempt to find an index file
+        foreach (array('index.php', 'index.html') as $indexFile){
+            if ($filePath = realpath($filePath . DIRECTORY_SEPARATOR . $indexFile)){
+                break;
+            }
+        }
+    }
+    if ($filePath && is_file($filePath)) {
+        // 1. check that file is not outside of this directory for security
+        // 2. check for circular reference to router.php
+        // 3. don't serve dotfiles
+        if (strpos($filePath, $dir . DIRECTORY_SEPARATOR) === 0 &&
+                    $filePath != $dir . DIRECTORY_SEPARATOR . 'router.php' &&
+                    substr(basename($filePath), 0, 1) != '.'
+            ) {
+//                if (strtolower(substr($filePath, -4)) == '.php') {
+//                    // php file; serve through interpreter
+////                    include $filePath;
+////                    return true;
+//                } else {
+//                    // asset file; serve from filesystem
+////                    return false;
+//                }
+//            } else {
+//                // disallowed file
+//                header("HTTP/1.1 404 Not Found");
+//                echo "404 Not Found";
+            }
+        } else {
+            // rewrite to our index file
+            $query = '';
+            if (isset($_SERVER['QUERY_STRING'])) {
+                $query = '?'.$_SERVER['QUERY_STRING'];
+            }
+            $_GET['rewrite'] = str_replace($query, '', $_SERVER['REQUEST_URI']);
+            $_GET['rewrite'] = substr($_GET['rewrite'], 1);
+//            include $dir . DIRECTORY_SEPARATOR . 'index.php';
+        }
+}

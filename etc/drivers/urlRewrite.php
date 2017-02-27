@@ -92,11 +92,9 @@ class driverUrlRewrite {
      * @return Recordset
      */
     public function getRewritedUrl($url, &$mapping) {
-        $db = dbConn::get();
-        
         // Search rewrite URL
         $sql = "SELECT * FROM `url_rewrite` where `url` = '$url'";
-        $q = $db->Execute($sql);
+        $q = dbConn::Execute($sql);
         if (!$q->EOF) {
             return $q;
         }
@@ -106,7 +104,7 @@ class driverUrlRewrite {
         $nparts = count($parts);
         $where = '(@nvars:=ROUND((CHAR_LENGTH(`url`)-CHAR_LENGTH(REPLACE(`url`,"$","")))/CHAR_LENGTH("$"))) and @nvars > 0 && @nvars <= '.$nparts;
         $sql = "SELECT * FROM `url_rewrite` where $where order by priority desc";
-        $q = $db->Execute($sql);
+        $q = dbConn::Execute($sql);
         if (!$q->EOF) {
             // Find the correct map
             while (!$q->EOF) {

@@ -89,11 +89,7 @@ class dbConn {
                         $cfg->getSection('[mysql]')->get('MYSQL_PASS'), 
                         $cfg->getSection('[mysql]')->get('MYSQL_DBNAME')
                     );
-                $charset = $cfg->getSection('[mysql]')->get('charset');
-                if ($charset != null) {
-                    self::$conn->EXECUTE("set names '".$charset."'");
-                }
-                self::$connected = true;
+                self::$connected = self::$conn->isConnected();
             } catch (Exception $exc) {
                 self::$connected = false;
 //                echo $exc->getTraceAsString();
@@ -102,6 +98,12 @@ class dbConn {
                 self::$perf =& NewPerfMonitor(self::$conn);
             }
             self::$conn->LogSQL($cfg->getSection('[mysql]')->getAsBoolean('CMS_DEBUG_LOG_SQL'));
+        }
+        if (self::$connected) {
+            $charset = $cfg->getSection('[mysql]')->get('charset');
+            if ($charset != null) {
+                self::$conn->EXECUTE("set names '".$charset."'");
+            }
         }
         return self::$conn;
     }
