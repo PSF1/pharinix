@@ -112,6 +112,7 @@ if (!class_exists("commandSmartyRender")) {
             }
             // Add all available contextual variables.
             $aux = array();
+            $context = &driverCommand::getRegister("url_context");
             if (is_array($context)) {
                 foreach($context as $key => $ctx) {
                     $aux[str_replace('$', '', $key)] = $ctx;
