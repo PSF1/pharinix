@@ -38,6 +38,10 @@ if (!class_exists("commandSmartyRender")) {
             
             $context = &driverCommand::getRegister("url_context");
             $def = driverPages::getPage($params["page"]);
+            if ($def === false) {
+                header("HTTP/1.0 404 Not Found");
+                $def = driverPages::getPage('404');
+            }
             $smarty = new Smarty;
 
             $smarty->force_compile = driverConfig::getCFG()
@@ -60,7 +64,10 @@ if (!class_exists("commandSmartyRender")) {
             // Render native page using TPL files how base.
             $page_title = driverConfig::getCFG()->getSection('[core]')->get('CMS_TITLE');
             $smarty->assign("base_url", CMS_DEFAULT_URL_BASE);
-            $smarty->assign("page_title", $page_title, true);
+            $smarty->assign("page_subtitle", $page_title, true);
+            $smarty->assign("page_main_title", $def->fields['title'], true);
+            $smarty->assign("page_description", $def->fields['description'], true);
+            $smarty->assign("page_keys", $def->fields['keys'], true);
             $smarty->assign("page_charset", 'utf-8');
             $user_language = driverUser::getLangOfUser();
             $smarty->assign("user_language", $user_language[0], true);
