@@ -699,6 +699,7 @@ class driverNodes {
      */
     public static function generateDriver($nodetype, $module_slugname, $debug = false) {
         $resp = false;
+        $nodetype = strtolower($nodetype);
         $modPath = driverCommand::getModPath($module_slugname);
         if ($modPath != '') {
             $nodetype = driverCommand::run('getNodeTypeDef', array(
@@ -728,9 +729,10 @@ class driverNodes {
                 $lines[] = "/**";
                 $lines[] = " * Driver base class to the Node type: " . $nodetype['name'];
                 $lines[] = " */";
-                $lines[] = "class $base {";
+                $lines[] = "class $base extends driverNodeBase {";
                 $lines[] = "\t// Attributes";
-                $lines[] = "\tvar \$id = 0;";
+//                $lines[] = "\tvar \$id = 0;";
+                $constructorInit = array();
                 foreach($nodetype['fields'] as $field) {
                     $type = 'string';
                     $default = "''";
@@ -748,12 +750,16 @@ class driverNodes {
                             break;
                         case "datetime":
                             $type = "integer [{$field['type']} -> Unix time stamp]";
-                            $default = 'time()';
+                            $default = '0';
+                            $constructorInit[] = array(
+                                'attr' => $field['name'],
+                                'value' => "time()",
+                            );
                             break;
                         case "integer":
                         case "nodesec":
                             $type = "integer [{$field['type']}]";
-                            $default = "{$field['default']}";
+                            $default = intval($field['default']);
                             break;
                         case "double":
                             $type = "float";
@@ -773,12 +779,18 @@ class driverNodes {
                     $lines[] = "\tvar \${$field['name']} = $default;";
                 }
                 $lines[] = "";
+                // Constructor
                 $lines[] = "\t/**";
+                $lines[] = "\t * Constructor";
                 $lines[] = "\t *";
                 $lines[] = "\t * @param integer \$id Node ID, 0 to new instances.";
                 $lines[] = "\t * @param integer \$node getNode response, it's needed to start the instance.";
                 $lines[] = "\t */";
                 $lines[] = "\tpublic function __construct(\$id = 0, \$node = null) {";
+                $lines[] = "\t\t\$this->nodetype = '{$nodetype['name']}';";
+                foreach($constructorInit as $init) {
+                    $lines[] = "\t\t\$this->{$init['attr']} = {$init['value']};";
+                }
                 $lines[] = "\t\tif (\$id != 0 && \$node != null) {";
                 $lines[] = "\t\t\t// Set data";
                 $lines[] = "\t\t\t\$this->id = \$id;";
@@ -789,6 +801,8 @@ class driverNodes {
                 $lines[] = "\t\t}";
                 $lines[] = "";
                 $lines[] = "\t}";
+                $lines[] = "";
+                $lines[] = "\t// Methods";
                 $lines[] = "";
                 // Save method
                 $lines[] = "\tpublic function save() {";
@@ -834,13 +848,15 @@ class driverNodes {
                 $lines[] = "\t}";
                 $lines[] = "";
                 // Getters and setters
-                $lines[] = "\tpublic function getID() {";
-                $lines[] = "\t\treturn \$this->id;";
-                $lines[] = "\t}";
-                $lines[] = "\tprotected function setID(\$value) {";
-                $lines[] = "\t\t\$this->id = \$value;";
-                $lines[] = "\t}";
+                $lines[] = "\t// Getters & Setters";
                 $lines[] = "";
+//                $lines[] = "\tpublic function getID() {";
+//                $lines[] = "\t\treturn \$this->id;";
+//                $lines[] = "\t}";
+//                $lines[] = "\tprotected function setID(\$value) {";
+//                $lines[] = "\t\t\$this->id = \$value;";
+//                $lines[] = "\t}";
+//                $lines[] = "";
                 foreach($nodetype['fields'] as $field) {
                     $type = 'string';
                     $default = "''";
@@ -919,10 +935,11 @@ class driverNodes {
                 $lines[] = "}";
                 $fBase = fopen($modPath.'drivers/'.$base.'.php', 'w');
                 foreach($lines as $line) {
-                    fwrite($fBase, $line."\n");
+                    fwrite($fBase, str_replace("\t", "    ", $line)."\n");
                 }
                 fclose($fBase);
                 if ($debug) {
+                    echo '<h3>'.$modPath.'drivers/'.$base.'.php'.'</h3>';
                     echo '<pre>';
                     $file = file_get_contents($modPath.'drivers/'.$base.'.php');
                     echo str_replace('<?php', '', $file);
@@ -967,10 +984,11 @@ class driverNodes {
                     
                     $fHuman = fopen($modPath.'drivers/'.$human.'.php', 'w');
                     foreach($lines as $line) {
-                        fwrite($fHuman, $line."\n");
+                        fwrite($fHuman, str_replace("\t", "    ", $line)."\n");
                     }
                     fclose($fHuman);
                     if ($debug) {
+                        echo '<h3>'.$modPath.'drivers/'.$human.'.php'.'</h3>';
                         echo '<pre>';
                         $file = file_get_contents($modPath.'drivers/'.$human.'.php');
                         echo str_replace('<?php', '', $file);
@@ -1068,6 +1086,10 @@ class driverNodeBase extends driverNodes {
      * @var integer Node ID.
      */
     var $id = 0;
+    /**
+     * @var string Actual node type name
+     */
+    var $nodetype = '';
     
     /**
      * Persist instance data
