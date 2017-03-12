@@ -842,6 +842,7 @@ class driverNodes {
                 }
                 $lines[] = "\t\t\t);";
                 $lines[] = "\t\t\t\$resp = driverNodes::updateNode(\$params, true);";
+                $lines[] = "\t\t\tdriverNodeBase::cacheDel('{$nodetype['name']}', \$this->id);";
                 $lines[] = "\t\t\treturn \$resp;";
                 $lines[] = "\t\t}";
                 $lines[] = "\t\treturn false;";
@@ -980,6 +981,43 @@ class driverNodes {
                     $lines[] = "\t\tparent::__construct(\$id, \$node);";
                     $lines[] = "\t\t";
                     $lines[] = "\t}";
+                    foreach($nodetype['fields'] as $field) {
+                        switch ($field['type']) {
+                            case "htmltext":
+                            case "longtext":
+                            case "string":
+                            case "password":
+                            case "bool":
+                            case "datetime":
+                            case "integer":
+                            case "nodesec":
+                            case "double":
+                            default: // Node type
+                                if ($field['multi']) {
+                                    $lines[] = "\t/**";
+                                    $lines[] = "\t * @return array Instances of {$field['type']}, {$field['help']}";
+                                    $lines[] = "\t */";
+                                    $lines[] = "\tpublic function getInstancesOf".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."() {";
+                                    $lines[] = "\t\t\$modPath = driverCommand::getModPath('$module_slugname');";
+                                    $lines[] = "\t\treturn driverNodeBase::getInstancesOf(\$modPath, \$this->nodetype, \$this->get".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."());";
+                                    $lines[] = "\t}";
+                                    $visibility = 'public';
+                                    if ($field['locked']) {
+                                        $visibility = 'protected';
+                                    }
+                                    $lines[] = "\t/**";
+                                    $lines[] = "\t * @param array \$value {$field['help']}";
+                                    $lines[] = "\t */";
+                                    $lines[] = "\t$visibility function setInstancesOf".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."(\$value) {";
+                                    // TODO: Set intances IDs
+                                    $lines[] = "\t}";
+                                    $lines[] = "";
+                                } else {
+                                    
+                                }
+                                break;
+                        }
+                    }
                     $lines[] = "}";
                     
                     $fHuman = fopen($modPath.'drivers/'.$human.'.php', 'w');
@@ -1083,6 +1121,11 @@ class driverNodes {
  */
 class driverNodeBase extends driverNodes {
     /**
+     * @var array Node's cache.
+     */
+    protected static $nodeCache = array();
+    
+    /**
      * @var integer Node ID.
      */
     var $id = 0;
@@ -1104,6 +1147,93 @@ class driverNodeBase extends driverNodes {
     protected function setID($value) {
         $this->id = $value;
     }
+    
+    /**
+     * Return instances by her IDs
+     * @param string $modPath Module path with the driver definitions
+     * @param string $nodetype
+     * @param array $ids ID's list
+     * @return array of nodes by getNode
+     */
+    public static function getInstancesOf($modPath, $nodetype, $ids) {
+        $resp = array();
+        $lids = array();
+        // Get cached nodes, non cached nodes will be loader later.
+        foreach($ids as $nid) {
+            $bnode = self::cacheGet($nodetype, $nid);
+            if ($bnode === false) {
+                $lids[] = $nid;
+            } else {
+                $resp[] = $bnode;
+            }
+        }
+        $lnodes = driverCommand::run('getNodes', array(
+            'nodetype' => $nodetype,
+            'where' => '`id` in ('.join(',', $lids).')',
+        ));
+        foreach($lnodes as $nkey => $nnode) {
+            self::cacheAdd($nodetype, $nnode);
+            $resp[] = $nnode;
+        }
+        return $resp;
+    }
+    
+    /**
+     * Clear node's cache
+     */
+    public static function cacheClear() {
+        self::$nodeCache = array();
+    }
+    
+    public static function cached($nodetype, $nid) {
+        return isset(self::$nodeCache[$nodetype][$nid]);
+    }
+    
+    /**
+     * Add a node to the cache.
+     * @param string $nodetype
+     * @param array $node Node information returned by getNode.
+     * @return boolean FALSE if fail
+     */
+    public static function cacheAdd($nodetype, $node) {
+        if (empty($nodetype)) {
+            return false;
+        }
+        if (!isset($node['id'])) {
+            return false;
+        }
+        if (!isset(self::$nodeCache[$nodetype])) {
+            self::$nodeCache[$nodetype] = array();
+        }
+        self::$nodeCache[$nodetype][$node['id']] = $node;
+    }
+    
+    /**
+     * Del a node from cache
+     * @param type $nodetype
+     * @param integer $nid Node ID
+     */
+    public static function cacheDel($nodetype, $nid) {
+        unset(self::$nodeCache[$nodetype][$node['id']]);
+    }
+    
+    /**
+     * Get a node from cache
+     * @param string $nodetype
+     * @param integer $nid Node ID
+     * @return array The node information, FALSE if not cached
+     */
+    public static function cacheGet($nodetype, $nid) {
+        if (!isset(self::$nodeCache[$nodetype])) {
+            return false;
+        }
+        if (!isset(self::$nodeCache[$nodetype][$nid])) {
+            return false;
+        } else {
+            return self::$nodeCache[$nodetype][$nid];
+        }
+    }
+
     /**
      * 
      * @return string Default owner group, if not persistent instance return FALSE.
