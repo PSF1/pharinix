@@ -741,15 +741,15 @@ class driverNodes {
                         case "longtext":
                         case "string":
                         case "password":
-                            $type = "string [{$field['type']}]";
+                            $type = "string [{$field['name']}] ({$field['type']})";
                             $default = "'{$field['default']}'";
                             break;
                         case "bool":
-                            $type = "boolean";
+                            $type = "boolean [{$field['name']}]";
                             $default = $field['default'] == '1'?"true":"false";
                             break;
                         case "datetime":
-                            $type = "integer [{$field['type']} -> Unix time stamp]";
+                            $type = "integer [{$field['name']}] ({$field['type']} -> Unix time stamp)";
                             $default = '0';
                             $constructorInit[] = array(
                                 'attr' => $field['name'],
@@ -758,19 +758,19 @@ class driverNodes {
                             break;
                         case "integer":
                         case "nodesec":
-                            $type = "integer [{$field['type']}]";
+                            $type = "integer [{$field['name']}] ({$field['type']})";
                             $default = intval($field['default']);
                             break;
                         case "double":
-                            $type = "float";
+                            $type = "float [{$field['name']}]";
                             $default = "{$field['default']}";
                             break;
                         default: // Node type
                             if ($field['multi']) {
-                                $type = "array [{$field['type']}]";
+                                $type = "array [{$field['name']}] ({$field['type']})";
                                 $default = "array()";
                             } else {
-                                $type = "integer [{$field['type']}]";
+                                $type = "integer [{$field['name']}] ({$field['type']})";
                                 $default = "{$field['default']}";
                             }
                             break;
@@ -808,7 +808,7 @@ class driverNodes {
                 $lines[] = "\tpublic function save() {";
                 $lines[] = "\t\tif (\$this->id != 0) {";
                 $lines[] = "\t\t\t\$params = array(";
-                $lines[] = "\t\t\t\t'nodetype' => 'zone',";
+                $lines[] = "\t\t\t\t'nodetype' => '{$nodetype['name']}',";
                 $lines[] = "\t\t\t\t'nid' => \$this->id,";
                 foreach($nodetype['fields'] as $field) {
                     if (!$field['locked']) {
@@ -832,7 +832,7 @@ class driverNodes {
                                 break;
                             default: // Node type
                                 if ($field['multi']) {
-                                    // Multifields are updated in place.
+                                    $lines[] = "\t\t\t\t'{$field['name']}' => join(',', \$this->{$field['name']}),";
                                 } else {
                                     $lines[] = "\t\t\t\t'{$field['name']}' => \$this->{$field['name']},";
                                 }
@@ -859,6 +859,7 @@ class driverNodes {
 //                $lines[] = "\t}";
 //                $lines[] = "";
                 foreach($nodetype['fields'] as $field) {
+                    // Getters
                     $type = 'string';
                     $default = "''";
                     switch ($field['type']) {
@@ -902,6 +903,34 @@ class driverNodes {
                     $lines[] = "\tpublic function get".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."() {";
                     $lines[] = "\t\treturn \$this->{$field['name']};";
                     $lines[] = "\t}";
+                    $lines[] = "";
+                    // Special getters
+                    switch ($field['name']) {
+                        case 'user_owner':
+                        case 'group_owner':
+                            $lines[] = "\t/**";
+                            $lines[] = "\t * This method only return the node if the user is a root user.";
+                            $lines[] = "\t */";
+                            $lines[] = "\tpublic function get".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."Node() {";
+                            if ($field['name'] == 'user_owner') {
+                                $lines[] = "\t\treturn driverNodes::getNodes(array('nodetype' => 'user', 'where' => '`id` = '.\$this->user_owner));";
+                            } else {
+                                $lines[] = "\t\treturn driverNodes::getNodes(array('nodetype' => 'group', 'where' => '`id` = '.\$this->group_owner));";
+                            }
+                            $lines[] = "\t}";
+                            $lines[] = "";
+                            break;
+                        case 'access':
+                        case 'created':
+                        case 'creator':
+                        case 'modified':
+                        case 'modifier':
+                            break;
+                        default:
+                            // Nothing to do
+                            break;
+                    }
+                    // Setters
                     $visibility = 'public';
                     if ($field['locked']) {
                         $visibility = 'protected';
@@ -912,13 +941,13 @@ class driverNodes {
                     $lines[] = "\t$visibility function set".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."(\$value) {";
                     switch ($field['name']) {
                         case 'user_owner':
-                            $lines[] = "\t\tdriverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'owner' => \$value));";
+                            $lines[] = "\t\treturn driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'owner' => \$value));";
                             break;
                         case 'group_owner':
-                            $lines[] = "\t\tdriverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'group' => \$value));";
+                            $lines[] = "\t\treturn driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'group' => \$value));";
                             break;
                         case 'access':
-                            $lines[] = "\t\tdriverCommand::run('chmodNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'flags' => \$value));";
+                            $lines[] = "\t\treturn driverCommand::run('chmodNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'flags' => \$value));";
                             break;
                         case 'created':
                         case 'creator':
@@ -932,6 +961,44 @@ class driverNodes {
                     }
                     $lines[] = "\t}";
                     $lines[] = "";
+                }
+                // Multi value fields
+                foreach ($nodetype['fields'] as $field) {
+                    switch ($field['type']) {
+                        case "htmltext":
+                        case "longtext":
+                        case "string":
+                        case "password":
+                        case "bool":
+                        case "datetime":
+                        case "integer":
+                        case "nodesec":
+                        case "double":
+                        default: // Node type
+                            if ($field['multi']) {
+                                $lines[] = "\t/**";
+                                $lines[] = "\t * @return array Instances of {$field['type']}, {$field['help']}";
+                                $lines[] = "\t */";
+                                $lines[] = "\tpublic function getInstancesOf" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "() {";
+                                $lines[] = "\t\t\$modPath = driverCommand::getModPath('$module_slugname');";
+                                $lines[] = "\t\treturn driverNodeBase::getInstancesOf(\$modPath, \$this->nodetype, \$this->get" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "());";
+                                $lines[] = "\t}";
+                                $visibility = 'public';
+                                if ($field['locked']) {
+                                    $visibility = 'protected';
+                                }
+                                $lines[] = "\t/**";
+                                $lines[] = "\t * @param array \$value {$field['help']}";
+                                $lines[] = "\t */";
+                                $lines[] = "\t$visibility function setInstancesOf" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "(\$value) {";
+                                // TODO: Set intances IDs
+                                $lines[] = "\t}";
+                                $lines[] = "";
+                            } else {
+                                
+                            }
+                            break;
+                    }
                 }
                 $lines[] = "}";
                 $fBase = fopen($modPath.'drivers/'.$base.'.php', 'w');
@@ -981,43 +1048,6 @@ class driverNodes {
                     $lines[] = "\t\tparent::__construct(\$id, \$node);";
                     $lines[] = "\t\t";
                     $lines[] = "\t}";
-                    foreach($nodetype['fields'] as $field) {
-                        switch ($field['type']) {
-                            case "htmltext":
-                            case "longtext":
-                            case "string":
-                            case "password":
-                            case "bool":
-                            case "datetime":
-                            case "integer":
-                            case "nodesec":
-                            case "double":
-                            default: // Node type
-                                if ($field['multi']) {
-                                    $lines[] = "\t/**";
-                                    $lines[] = "\t * @return array Instances of {$field['type']}, {$field['help']}";
-                                    $lines[] = "\t */";
-                                    $lines[] = "\tpublic function getInstancesOf".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."() {";
-                                    $lines[] = "\t\t\$modPath = driverCommand::getModPath('$module_slugname');";
-                                    $lines[] = "\t\treturn driverNodeBase::getInstancesOf(\$modPath, \$this->nodetype, \$this->get".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."());";
-                                    $lines[] = "\t}";
-                                    $visibility = 'public';
-                                    if ($field['locked']) {
-                                        $visibility = 'protected';
-                                    }
-                                    $lines[] = "\t/**";
-                                    $lines[] = "\t * @param array \$value {$field['help']}";
-                                    $lines[] = "\t */";
-                                    $lines[] = "\t$visibility function setInstancesOf".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."(\$value) {";
-                                    // TODO: Set intances IDs
-                                    $lines[] = "\t}";
-                                    $lines[] = "";
-                                } else {
-                                    
-                                }
-                                break;
-                        }
-                    }
                     $lines[] = "}";
                     
                     $fHuman = fopen($modPath.'drivers/'.$human.'.php', 'w');
@@ -1032,6 +1062,22 @@ class driverNodes {
                         echo str_replace('<?php', '', $file);
                         echo '</pre>';
                     }
+                }
+                $output = "<?php\n";
+                $output .= "// Augenerated loader\n";
+                $files = driverTools::lsDir($modPath.'drivers/', 'driverNodeType*.php');
+                foreach($files['files'] as $file) {
+                    $output .= "require_once '$file';\n";
+                }
+                $fLoader = fopen($modPath.'drivers/nodeTypeLoader.php', 'w');
+                fwrite($fLoader, str_replace("\t", "    ", $output));
+                fclose($fLoader);
+                if ($debug) {
+                    echo '<h3>' . $modPath . 'drivers/nodeTypeLoader.php' . '</h3>';
+                    echo '<pre>';
+                    $file = file_get_contents($modPath . 'drivers/nodeTypeLoader.php');
+                    echo str_replace('<?php', '', $file);
+                    echo '</pre>';
                 }
                 $resp = true;
             }
@@ -1153,9 +1199,10 @@ class driverNodeBase extends driverNodes {
      * @param string $modPath Module path with the driver definitions
      * @param string $nodetype
      * @param array $ids ID's list
+     * @param boolean $tryDriver If the default driver is included return instances of it.
      * @return array of nodes by getNode
      */
-    public static function getInstancesOf($modPath, $nodetype, $ids) {
+    public static function getInstancesOf($modPath, $nodetype, $ids, $tryDriver = true) {
         $resp = array();
         $lids = array();
         // Get cached nodes, non cached nodes will be loader later.
@@ -1167,6 +1214,7 @@ class driverNodeBase extends driverNodes {
                 $resp[] = $bnode;
             }
         }
+        // Load non cached nodes and cache it
         $lnodes = driverCommand::run('getNodes', array(
             'nodetype' => $nodetype,
             'where' => '`id` in ('.join(',', $lids).')',
@@ -1174,6 +1222,14 @@ class driverNodeBase extends driverNodes {
         foreach($lnodes as $nkey => $nnode) {
             self::cacheAdd($nodetype, $nnode);
             $resp[] = $nnode;
+        }
+        $humanClass = 'driverNodeType'.strtoupper(substr($nodetype, 0, 1)).substr($nodetype, 1);
+        if ($tryDriver && class_exists($human)) {
+            $iResp = array();
+            foreach($resp as $node) {
+                $iResp[] = new $humanClass($node['id'], $node);
+            }
+            $resp = $iResp;
         }
         return $resp;
     }
