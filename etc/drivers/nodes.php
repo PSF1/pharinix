@@ -806,10 +806,8 @@ class driverNodes {
                 $lines[] = "";
                 // Save method
                 $lines[] = "\tpublic function save() {";
-                $lines[] = "\t\tif (\$this->id != 0) {";
-                $lines[] = "\t\t\t\$params = array(";
-                $lines[] = "\t\t\t\t'nodetype' => '{$nodetype['name']}',";
-                $lines[] = "\t\t\t\t'nid' => \$this->id,";
+                $lines[] = "\t\t\$params = array(";
+                $lines[] = "\t\t\t'nodetype' => '{$nodetype['name']}',";
                 foreach($nodetype['fields'] as $field) {
                     if (!$field['locked']) {
                         switch ($field['type']) {
@@ -817,32 +815,40 @@ class driverNodes {
                             case "longtext":
                             case "string":
                             case "password":
-                                $lines[] = "\t\t\t\t'{$field['name']}' => \$this->{$field['name']},";
+                                $lines[] = "\t\t\t'{$field['name']}' => \$this->{$field['name']},";
                                 break;
                             case "bool":
-                                $lines[] = "\t\t\t\t'{$field['name']}' => \$this->{$field['name']}?'1':'0',";
+                                $lines[] = "\t\t\t'{$field['name']}' => \$this->{$field['name']}?'1':'0',";
                                 break;
                             case "datetime":
-                                $lines[] = "\t\t\t\t'{$field['name']}' => date('Y-m-d H:i:s', \$this->{$field['name']}),";
+                                $lines[] = "\t\t\t'{$field['name']}' => date('Y-m-d H:i:s', \$this->{$field['name']}),";
                                 break;
                             case "integer":
                             case "nodesec":
                             case "double":
-                                $lines[] = "\t\t\t\t'{$field['name']}' => \$this->{$field['name']},";
+                                $lines[] = "\t\t\t'{$field['name']}' => \$this->{$field['name']},";
                                 break;
                             default: // Node type
                                 if ($field['multi']) {
-                                    $lines[] = "\t\t\t\t'{$field['name']}' => join(',', \$this->{$field['name']}),";
+                                    $lines[] = "\t\t\t'{$field['name']}' => join(',', \$this->{$field['name']}),";
                                 } else {
-                                    $lines[] = "\t\t\t\t'{$field['name']}' => \$this->{$field['name']},";
+                                    $lines[] = "\t\t\t'{$field['name']}' => \$this->{$field['name']},";
                                 }
                                 break;
                         }
                     }
                 }
-                $lines[] = "\t\t\t);";
+                $lines[] = "\t\t);";
+                $lines[] = "\t\tif (\$this->id != 0) {";
+                $lines[] = "\t\t\t\$params['nid'] = \$this->id;";
                 $lines[] = "\t\t\t\$resp = driverNodes::updateNode(\$params, true);";
                 $lines[] = "\t\t\tdriverNodeBase::cacheDel('{$nodetype['name']}', \$this->id);";
+                $lines[] = "\t\t\treturn \$resp;";
+                $lines[] = "\t\t} else {";
+                $lines[] = "\t\t\t\$resp = driverNodes::addNode(\$params, true);";
+                $lines[] = "\t\t\tif(\$resp['ok']) {";
+                $lines[] = "\t\t\t\t\$this->id = \$resp['nid'];";
+                $lines[] = "\t\t\t}";
                 $lines[] = "\t\t\treturn \$resp;";
                 $lines[] = "\t\t}";
                 $lines[] = "\t\treturn false;";
@@ -981,7 +987,7 @@ class driverNodes {
                                 $lines[] = "\t */";
                                 $lines[] = "\tpublic function getInstancesOf" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "() {";
                                 $lines[] = "\t\t\$modPath = driverCommand::getModPath('$module_slugname');";
-                                $lines[] = "\t\treturn driverNodeBase::getInstancesOf(\$modPath, \$this->nodetype, \$this->get" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "());";
+                                $lines[] = "\t\treturn driverNodeBase::getInstancesOf(\$modPath, '{$field['type']}', \$this->get" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "());";
                                 $lines[] = "\t}";
                                 $visibility = 'public';
                                 if ($field['locked']) {
@@ -991,7 +997,15 @@ class driverNodes {
                                 $lines[] = "\t * @param array \$value {$field['help']}";
                                 $lines[] = "\t */";
                                 $lines[] = "\t$visibility function setInstancesOf" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "(\$value) {";
-                                // TODO: Set intances IDs
+                                $lines[] = "\t\t\$ids = array();";
+                                $lines[] = "\t\tforeach(\$value as \$node) {";
+                                $lines[] = "\t\t\tif(is_array(\$node)) {";
+                                $lines[] = "\t\t\t\t\$ids[] = \$node['id'];";
+                                $lines[] = "\t\t\t} elseif (\$node instanceof driverNodeBase) {";
+                                $lines[] = "\t\t\t\t\$ids[] = \$node->getID();";
+                                $lines[] = "\t\t\t}";
+                                $lines[] = "\t\t}";
+                                $lines[] = "\t\t\$this->set" . strtoupper(substr($field['name'], 0, 1)) . substr($field['name'], 1) . "(\$ids);";
                                 $lines[] = "\t}";
                                 $lines[] = "";
                             } else {
