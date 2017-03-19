@@ -101,6 +101,57 @@
                 "parameters": {
                     "command": "The command to execute, default 'nothing'."
                 }
+            },
+            {
+                "name": "driverNodesBeforeAddNodeHook",
+                "description": "Before node add.",
+                "parameters": {
+                    "params": "driverNodes::addNode parameters",
+                    "secured": "Apply security"
+                }
+            },
+            {
+                "name": "driverNodesAfterAddNodeHook",
+                "description": "After node add.",
+                "parameters": {
+                    "resp": "driverNodes::addNode response",
+                    "params": "driverNodes::addNode parameters",
+                    "secured": "Apply security"
+                }
+            },
+            {
+                "name": "driverNodesBeforeDelNodeHook",
+                "description": "Before node delete.",
+                "parameters": {
+                    "params": "driverNodes::delNode parameters",
+                    "secured": "Apply security"
+                }
+            },
+            {
+                "name": "driverNodesAfterDelNodeHook",
+                "description": "After node delete.",
+                "parameters": {
+                    "resp": "driverNodes::delNode response",
+                    "params": "driverNodes::delNode parameters",
+                    "secured": "Apply security"
+                }
+            },
+            {
+                "name": "driverNodesBeforeUpdateNodeHook",
+                "description": "Before node update.",
+                "parameters": {
+                    "params": "driverNodes::updateNode parameters",
+                    "secured": "Apply security"
+                }
+            },
+            {
+                "name": "driverNodesAfterUpdateNodeHook",
+                "description": "After node update.",
+                "parameters": {
+                    "resp": "driverNodes::updateNode response",
+                    "params": "driverNodes::updateNode parameters",
+                    "secured": "Apply security"
+                }
             }
     ]
 }

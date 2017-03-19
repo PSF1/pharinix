@@ -268,6 +268,11 @@ class driverNodes {
      * @param boolean $secured If FALSE don't filter by access security
      */
     public static function addNode($params, $secured = true) {
+        driverHook::CallHook('driverNodesBeforeAddNodeHook', array(
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
+        $_POST["command"] = $com;
         $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
         // Default values
@@ -422,6 +427,11 @@ class driverNodes {
                 }
             }
         }
+        driverHook::CallHook('driverNodesAfterAddNodeHook', array(
+            'resp' => &$resp,
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
         return $resp;
     }
 
@@ -432,13 +442,17 @@ class driverNodes {
      * @param boolean $secured If FALSE don't filter by access security
      */
     public static function updateNode($params, $secured = true) {
+        driverHook::CallHook('driverNodesBeforeUpdateNodeHook', array(
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
         $resp = array("ok" => false, "msg" => "");
 
         // Default values
         $params = array_merge(array(
             "nodetype" => "",
             "nid" => "",
-                ), $params);
+        ), $params);
 
         if ($params["nodetype"] == "") { // Node type defined?
             $resp["msg"] = __("Node type required");
@@ -464,6 +478,11 @@ class driverNodes {
             $nodeGroup_owner = 0;
             if ($params["nid"] == "") {
                 $resp["msg"] = __("Node ID required");
+                driverHook::CallHook('driverNodesAfterUpdateNodeHook', array(
+                    'resp' => &$resp,
+                    'params' => &$params,
+                    'secured' => &$secured,
+                ));
                 return $resp;
             } else {
                 $eof = true;
@@ -481,6 +500,11 @@ class driverNodes {
                 }
                 if ($eof) {
                     $resp["msg"] = __("Unknowed node ID");
+                    driverHook::CallHook('driverNodesAfterUpdateNodeHook', array(
+                        'resp' => &$resp,
+                        'params' => &$params,
+                        'secured' => &$secured,
+                    ));
                     return $resp;
                 }
             }
@@ -613,6 +637,11 @@ class driverNodes {
                 }
             }
         }
+        driverHook::CallHook('driverNodesAfterUpdateNodeHook', array(
+            'resp' => &$resp,
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
         return $resp;
     }
 
@@ -624,6 +653,10 @@ class driverNodes {
      * @return array
      */
     public static function delNode($params, $secured = true) {
+        driverHook::CallHook('driverNodesBeforeDelNodeHook', array(
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
         $resp = array("ok" => false, "msg" => "");
 
         // Default values
@@ -679,6 +712,11 @@ class driverNodes {
                 $resp["msg"] = $exc->getMessage();
             }
         }
+        driverHook::CallHook('driverNodesAfterDelNodeHook', array(
+            'resp' => &$resp,
+            'params' => &$params,
+            'secured' => &$secured,
+        ));
         return $resp;
     }
     
