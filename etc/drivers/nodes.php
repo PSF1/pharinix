@@ -892,6 +892,7 @@ class driverNodes {
                 $lines[] = "\t\treturn false;";
                 $lines[] = "\t}";
                 $lines[] = "";
+                // Remove method
                 $lines[] = "\t/**";
                 $lines[] = "\t * Remove this instance and set ID to cero, 0.";
                 $lines[] = "\t */";
@@ -900,6 +901,53 @@ class driverNodes {
                 $lines[] = "\t\tif (\$resp['ok'] === true) {";
                 $lines[] = "\t\t\t\$tihs->id = 0;";
                 $lines[] = "\t\t}";
+                $lines[] = "\t}";
+                $lines[] = "";
+                // findAll method
+                $lines[] = "\t/**";
+                $lines[] = "\t * Find all instances.";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic static function findAll() {";
+                $lines[] = "\t\t\$resp = array();";
+                $lines[] = "\t\t\$nodes = driverNodes::getNodes(array('nodetype' => '{$nodetype['name']}'));";
+                $lines[] = "\t\tforeach(\$nodes as \$id => \$node) {";
+                $lines[] = "\t\t\t\$item = new $human(\$id, \$node);";
+                $lines[] = "\t\t\t\$resp[] = \$item;";
+                $lines[] = "\t\t}";
+                $lines[] = "\t\treturn \$resp;";
+                $lines[] = "\t}";
+                $lines[] = "";
+                // findByID method
+                $lines[] = "\t/**";
+                $lines[] = "\t * Find instance by ID.";
+                $lines[] = "\t *";
+                $lines[] = "\t * @param integer \$id Node ID";
+                $lines[] = "\t * @return $human Instance or null if not found";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic static function findByID(\$id) {";
+                $lines[] = "\t\t\$nodes = driverNodes::getNodes(array('nodetype' => '{$nodetype['name']}', 'where' => '`id` = '.\$id));";
+                $lines[] = "\t\tforeach(\$nodes as \$id => \$node) {";
+                $lines[] = "\t\t\t\$item = new $human(\$id, \$node);";
+                $lines[] = "\t\t\treturn \$item;";
+                $lines[] = "\t\t}";
+                $lines[] = "\t\treturn null;";
+                $lines[] = "\t}";
+                $lines[] = "";
+                // findByID method
+                $lines[] = "\t/**";
+                $lines[] = "\t * Find instance by field.";
+                $lines[] = "\t *";
+                $lines[] = "\t * @param string \$condition SQL where conditions";
+                $lines[] = "\t * @return array of $human Instance or null if not found";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic static function findBy(\$condition) {";
+                $lines[] = "\t\t\$resp = array();";
+                $lines[] = "\t\t\$nodes = driverNodes::getNodes(array('nodetype' => '{$nodetype['name']}', 'where' => \$condition));";
+                $lines[] = "\t\tforeach(\$nodes as \$id => \$node) {";
+                $lines[] = "\t\t\t\$item = new $human(\$id, \$node);";
+                $lines[] = "\t\t\t\$resp[] = \$item;";
+                $lines[] = "\t\t}";
+                $lines[] = "\t\treturn \$resp;";
                 $lines[] = "\t}";
                 $lines[] = "";
                 // Getters and setters
