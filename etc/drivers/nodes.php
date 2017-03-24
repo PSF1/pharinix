@@ -892,6 +892,16 @@ class driverNodes {
                 $lines[] = "\t\treturn false;";
                 $lines[] = "\t}";
                 $lines[] = "";
+                $lines[] = "\t/**";
+                $lines[] = "\t * Remove this instance and set ID to cero, 0.";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic function remove() {";
+                $lines[] = "\t\t\$resp = driverNodes::delNode(array('nodetype' => \$this->nodetype, 'nid' => \$this->id));";
+                $lines[] = "\t\tif (\$resp['ok'] === true) {";
+                $lines[] = "\t\t\t\$tihs->id = 0;";
+                $lines[] = "\t\t}";
+                $lines[] = "\t}";
+                $lines[] = "";
                 // Getters and setters
                 $lines[] = "\t// Getters & Setters";
                 $lines[] = "";
@@ -976,7 +986,7 @@ class driverNodes {
                     }
                     // Setters
                     $visibility = 'public';
-                    if ($field['locked']) {
+                    if ($field['readonly']) {
                         $visibility = 'protected';
                     }
                     $lines[] = "\t/**";
