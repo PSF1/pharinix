@@ -900,7 +900,7 @@ class driverNodes {
                 $lines[] = "\tpublic function remove() {";
                 $lines[] = "\t\t\$resp = driverNodes::delNode(array('nodetype' => \$this->nodetype, 'nid' => \$this->id));";
                 $lines[] = "\t\tif (\$resp['ok'] === true) {";
-                $lines[] = "\t\t\t\$tihs->id = 0;";
+                $lines[] = "\t\t\t\$this->id = 0;";
                 $lines[] = "\t\t}";
                 $lines[] = "\t}";
                 $lines[] = "";
