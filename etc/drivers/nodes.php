@@ -938,7 +938,7 @@ class driverNodes {
                 $lines[] = "\t * Find instance by field.";
                 $lines[] = "\t *";
                 $lines[] = "\t * @param string \$condition SQL where conditions";
-                $lines[] = "\t * @return array of $human Instance or null if not found";
+                $lines[] = "\t * @return array of $human Instances";
                 $lines[] = "\t */";
                 $lines[] = "\tpublic static function findBy(\$condition) {";
                 $lines[] = "\t\t\$resp = array();";
