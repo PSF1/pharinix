@@ -104,11 +104,13 @@ class driverNodes {
                     break;
             }
             $require = bindec($require);
-            return driverCommand::run('chmodNode', array(
+            $resp = driverCommand::run('chmodNode', array(
                         'nodetype' => $nodetype,
                         'nid' => $idnode,
                         'flags' => $require,
             ));
+            $resp['flags'] = $require;
+            return $resp;
         } else {
             $msg = __("Bad node id.");
             if (isset($me['msg'])) {
@@ -272,7 +274,6 @@ class driverNodes {
             'params' => &$params,
             'secured' => &$secured,
         ));
-        $_POST["command"] = $com;
         $resp = array("ok" => false, "nid" => 0, "msg" => "");
 
         // Default values
@@ -1038,18 +1039,37 @@ class driverNodes {
                         $visibility = 'protected';
                     }
                     $lines[] = "\t/**";
+                    switch ($field['name']) {
+                        case 'user_owner':
+                        case 'group_owner':
+                        case 'access':
+                            $lines[] = "\t * Update and save, only if the node exist.";
+                            break;
+                    }
                     $lines[] = "\t * @param $type \$value {$field['help']}";
                     $lines[] = "\t */";
                     $lines[] = "\t$visibility function set".strtoupper(substr($field['name'], 0, 1)).substr($field['name'], 1)."(\$value) {";
                     switch ($field['name']) {
                         case 'user_owner':
-                            $lines[] = "\t\treturn driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'owner' => \$value));";
+                            $lines[] = "\t\tif(\$this->id == 0) return;";
+                            $lines[] = "\t\t\$resp = driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'owner' => \$value));";
+                            $lines[] = "\t\tif (\$resp['ok'] === true) {";
+                            $lines[] = "\t\t\t\$this->user_owner = \$value;";
+                            $lines[] = "\t\t}";
                             break;
                         case 'group_owner':
-                            $lines[] = "\t\treturn driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'group' => \$value));";
+                            $lines[] = "\t\tif(\$this->id == 0) return;";
+                            $lines[] = "\t\t\$resp = driverCommand::run('chownNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'group' => \$value));";
+                            $lines[] = "\t\tif (\$resp['ok'] === true) {";
+                            $lines[] = "\t\t\t\$this->group_owner = \$value;";
+                            $lines[] = "\t\t}";
                             break;
                         case 'access':
-                            $lines[] = "\t\treturn driverCommand::run('chmodNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'flags' => \$value));";
+                            $lines[] = "\t\tif(\$this->id == 0) return;";
+                            $lines[] = "\t\t\$resp = driverCommand::run('chmodNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'flags' => \$value));";
+                            $lines[] = "\t\tif (\$resp['ok'] === true) {";
+                            $lines[] = "\t\t\t\$this->access = \$value;";
+                            $lines[] = "\t\t}";
                             break;
                         case 'created':
                         case 'creator':
@@ -1058,11 +1078,35 @@ class driverNodes {
                             $lines[] = "\t\t// Can't be modified...";
                             break;
                         default:
-                            $lines[] = "\t\t\$this->{$field['name']} = \$value;";
+                            if ($field['multi']) {
+                                $lines[] = "\t\t\$this->{$field['name']} = array_unique(\$value);";
+                            } else {
+                                $lines[] = "\t\t\$this->{$field['name']} = \$value;";
+                            }
                             break;
                     }
                     $lines[] = "\t}";
                     $lines[] = "";
+                    if ($field['name'] == 'access') {
+                        $segments = array('All' => 0, 'Group' => 4, 'Owner' => 8);
+                        foreach($segments as $segment => $id) {
+                            $lines[] = "\t/**";
+                            $lines[] = "\t * Update, and save, the {$segment} access segment, only if the node exist.";
+                            $lines[] = "\t *";
+                            $lines[] = "\t * @param boolean \$c Can create?";
+                            $lines[] = "\t * @param boolean \$r Can read?";
+                            $lines[] = "\t * @param boolean \$u Can update?";
+                            $lines[] = "\t * @param boolean \$d Can delete?";
+                            $lines[] = "\t */";
+                            $lines[] = "\t$visibility function setAccess".$segment."(\$c, \$r, \$u, \$d) {";
+                            $lines[] = "\t\t\$resp = driverCommand::run('chCRUDNode', array('nodetype' => '{$nodetype['name']}', 'nid' => \$this->id, 'segment' => {$id}, 'create' => \$c, 'read' => \$r, 'update' => \$u, 'delete' => \$d));";
+                            $lines[] = "\t\tif (\$resp['ok'] === true) {";
+                            $lines[] = "\t\t\t\$this->access = \$resp['flags'];";
+                            $lines[] = "\t\t}";
+                            $lines[] = "\t}";
+                            $lines[] = "";
+                        }
+                    }
                 }
                 // Multi value fields
                 foreach ($nodetype['fields'] as $field) {
@@ -1319,22 +1363,24 @@ class driverNodeBase extends driverNodes {
         foreach($ids as $nid) {
             $bnode = self::cacheGet($nodetype, $nid);
             if ($bnode === false) {
-                $lids[] = $nid;
+                $lids[] = $nid; // Need get cached
             } else {
                 $resp[] = $bnode;
             }
         }
         // Load non cached nodes and cache it
-        $lnodes = driverCommand::run('getNodes', array(
-            'nodetype' => $nodetype,
-            'where' => '`id` in ('.join(',', $lids).')',
-        ));
-        foreach($lnodes as $nkey => $nnode) {
-            self::cacheAdd($nodetype, $nnode);
-            $resp[] = $nnode;
+        if (count($lids) > 0) {
+            $lnodes = driverCommand::run('getNodes', array(
+                'nodetype' => $nodetype,
+                'where' => '`id` in ('.join(',', $lids).')',
+            ));
+            foreach($lnodes as $nkey => $nnode) {
+                self::cacheAdd($nodetype, $nnode);
+                $resp[] = $nnode;
+            }
         }
         $humanClass = 'driverNodeType'.strtoupper(substr($nodetype, 0, 1)).substr($nodetype, 1);
-        if ($tryDriver && class_exists($human)) {
+        if ($tryDriver && count($resp) > 0 && class_exists($humanClass)) {
             $iResp = array();
             foreach($resp as $node) {
                 $iResp[] = new $humanClass($node['id'], $node);
@@ -1380,7 +1426,7 @@ class driverNodeBase extends driverNodes {
      * @param integer $nid Node ID
      */
     public static function cacheDel($nodetype, $nid) {
-        unset(self::$nodeCache[$nodetype][$node['id']]);
+        unset(self::$nodeCache[$nodetype][$nid]);
     }
     
     /**

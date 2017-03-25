@@ -58,7 +58,8 @@ if (!class_exists("commandChCRUDNode")) {
                     'delete' => __('Delete flag.')
                 ), 
                 "response" => array(
-                    "ok" => __("TRUE if changed.")
+                    "ok" => __("TRUE if changed."),
+                    "flags" => __("If ok = TRUE contains the seted value."),
                 ),
                 "type" => array(
                     "parameters" => array(
@@ -71,7 +72,8 @@ if (!class_exists("commandChCRUDNode")) {
                         'delete' => 'boolean'
                     ), 
                     "response" => array(
-                        "ok" => "boolean"
+                        "ok" => "boolean",
+                        "flags" => "integer",
                     ),
                 ),
                 "echo" => false
