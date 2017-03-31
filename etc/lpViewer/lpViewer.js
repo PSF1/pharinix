@@ -27,14 +27,17 @@ function loadStates() {
         interface: 'echoJson',
     };
     readInterval = 5000;
-    apiCall(data, function(mons){
-        $('#lpmviewer').empty();
-        $.each(mons.monitors, function(i, mon){
-            readInterval = 2000;
-            updateState(mon);
-            actMons.push(mon);
-        });
-    })
+    if ($('#lpmviewerswitch').is(':checked')) {
+        console.log('llamada');
+        apiCall(data, function(mons){
+            $('#lpmviewer').empty();
+            $.each(mons.monitors, function(i, mon){
+                readInterval = 2000;
+                updateState(mon);
+                actMons.push(mon);
+            });
+        })
+    }
     setTimeout(loadStates, readInterval);
 }
 
