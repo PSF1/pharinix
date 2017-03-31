@@ -28,7 +28,6 @@ function loadStates() {
     };
     readInterval = 5000;
     if ($('#lpmviewerswitch').is(':checked')) {
-        console.log('llamada');
         apiCall(data, function(mons){
             $('#lpmviewer').empty();
             $.each(mons.monitors, function(i, mon){
