@@ -25,6 +25,27 @@ if (!defined("CMS_VERSION")) { header("HTTP/1.0 404 Not Found"); die(""); }
  */
 class driverCommand extends driverHook {
     /**
+     * array With context parameters
+     */
+    const REGISTER_URL_CONTEXT = 'url_context';
+    /**
+     * array With required CSS files
+     */
+    const REGISTER_FILECSS = 'filecss';
+    /**
+     * array With required Javascript files
+     */
+    const REGISTER_FILESCRIPTS = 'filescripts';
+    /**
+     * string With custom scripts. When you'll add scritps don't include <script> tags, and you must end it with Carriage return.
+     */
+    const REGISTER_CUSTOMSCRIPTS = 'customscripts';
+    /**
+     * string With custom CSS styles. When you'll add CSS don't include <style> tags, and you must end it with Carriage return.
+     */
+    const REGISTER_CUSTOMCSS = 'customcss';
+
+    /**
      * Array to pass delayed information between commands.
      * @var array 
      */
