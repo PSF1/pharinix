@@ -33,7 +33,7 @@ if (!class_exists("commandQueryDB")) {
             ), $params);
             
             $resp = array( "recordset" => array() );
-            $conn = NewADOConnection('mysql');
+            $conn = NewADOConnection('mysqli');
             try {
                 @$conn->Connect(
                     $params['host'], 
