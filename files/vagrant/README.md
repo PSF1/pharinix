@@ -1,4 +1,4 @@
-#How to up a Vagrant server to test Pharinix
+# How to up a Vagrant server to test Pharinix
 
 Requirements:
 
