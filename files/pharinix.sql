@@ -308,7 +308,6 @@ INSERT INTO `page-blocks` VALUES  (47435,46837,'htmltext_write','formatFieldHtml
  (108071,107979,'colRight','echo','nodetype=$type&where=group_owner%3D%27$group_owner%27',10),
  (108072,107979,'colRight','rewriteContext','html=1',20),
  (103111,0,'mainMenu','mnuRenderHead','menu=main',0),
- (74489,1,'colRight','psiBlock','',10),
  (108073,0,'colLeft','rewriteContext','html=1',1000);
 CREATE TABLE `pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
