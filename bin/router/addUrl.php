@@ -24,6 +24,13 @@ if (!class_exists("commandAddUrl")) {
     class commandAddUrl extends driverCommand {
 
         public static function runMe(&$params, $debug = true) {
+            $params = array_merge(array(
+                "url" => "",
+                "cmd" => "",
+                "mode" => "",
+                "priority" => 0
+            ), $params);
+            
             $resp = array("ok" => false, "msg" => "");
             if ($params["url"] == "" || $params["cmd"] == "") {
                 $resp["msg"] = __("URL or CMD is empty.");
@@ -31,9 +38,19 @@ if (!class_exists("commandAddUrl")) {
                 $sql = "SELECT `id` FROM `url_rewrite` where `url` = '{$params["url"]}'";
                 $q = dbConn::Execute($sql);
                 if (!$q->EOF) {
-                    $resp["msg"] = __("URL just existe.");
+                    $resp["msg"] = __("URL just exists.");
                 } else {
                     $sql = "insert into `url_rewrite` set `url` = '{$params["url"]}', `rewriteto` = '{$params["cmd"]}'";
+                    
+                    // Check 'mode' from parameters
+                    if ($params['mode'] === "r" || $params['mode'] === "m") {
+                        $sql .= ", `type` = '{$params['mode']}'";
+                    }
+                    // Check 'priority' from parameters
+                    if (is_numeric($params['priority']) && $params['priority'] > 0 && $params['priority'] <= 100) {
+                        $sql .= ", `priority` = '{$params['priority']}'";
+                    }
+                    
                     dbConn::Execute($sql);
                     $resp["ok"] = true;
                 }
@@ -53,7 +70,10 @@ if (!class_exists("commandAddUrl")) {
                 "description" => __("Add a new URL to the rewrite list."), 
                 "parameters" => array(
                     "url" => __("The new URL, relative at root. Ex. home to http://127.0.0.1/home"), 
-                    "cmd" => __("POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home")), 
+                    "cmd" => __("POST's encoded string with command and parameters. Ex. command=pageToHTML&page=home"),
+                    "mode" => __("Rewrite mode. 'r' => simple rewrite, without params interpreter, 'm' => params interpreter. Optional, 'r' by default."),
+                    "priority" => __("Priority. Order of the rewrite rule, number between 0 and 100. Optional, 0 by default. 0 is the highest.")
+                    ),
                 "response" => array(
                     "ok" => __("TRUE if new URL added."), 
                     "msg" => __("If FALSE contain the error message.")
@@ -61,7 +81,10 @@ if (!class_exists("commandAddUrl")) {
                 "type" => array(
                     "parameters" => array(
                         "url" => "string", 
-                        "cmd" => "string"), 
+                        "cmd" => "string",
+                        "mode" => "string",
+                        "priority" => "integer"
+                        ),
                     "response" => array(
                         "ok" => "boolean", 
                         "msg" => "string"
