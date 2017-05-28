@@ -481,6 +481,22 @@
      * @link http://hayageek.com/php-curl-post-get
      */
     public static function apiCall($url, $params = null, $parseParams = true, $binary = false, $headers = null, $timeoutsec = 30) {
+        self::apiCallMS($url, $params, $parseParams, $binary, $headers, $timeoutsec * 1000);
+    }
+    
+    /**
+     * Do a remote call with cURL
+     * 
+     * @param string $url URL to call
+     * @param array $params Parameters list to send by POST, if no has value do a GET call.
+     * @param boolean $parseParams If TRUE try to parse $params how array.
+     * @param boolean $binary If TRUE add the --data-binary parameter to cURL.
+     * @param array $headers Extra headers to add.
+     * @param integer $timeoutms Miliseconds before timeout.
+     * @return array array ( "header" => Petition headers, "body" => Response body, "error" => Error message );
+     * @link http://hayageek.com/php-curl-post-get
+     */
+    public static function apiCallMS($url, $params = null, $parseParams = true, $binary = false, $headers = null, $timeoutms = 30000) {
         $postData = '';
         if ($parseParams && $params != null) {
             //create name value pairs seperated by &
@@ -506,7 +522,7 @@
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         }
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 5);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeoutsec); //timeout in seconds
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $timeoutms); //timeout in seconds
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //not verify certificate
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow location headers
         curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');

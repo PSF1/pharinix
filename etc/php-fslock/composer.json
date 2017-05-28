@@ -1,0 +1,29 @@
+{
+    "name": "yriveiro/php-fslock",
+    "description": "A simple lock implementation using flock.",
+    "keywords": ["php", "PHP", "lock file", "lock", "flock"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yago Riveiro",
+            "email": "yago.riveiro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "satooshi/php-coveralls": "^0.6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "FSLock\\": "src/"
+        }
+    },
+    "autoload-dev": {
+           "psr-4": {
+               "FSLock\\Tests\\": "tests/"
+           }
+       }
+}

@@ -383,4 +383,32 @@ class iniFilesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("new value\nnew line", $cfg->getSection('[section 2]')->get('key'));
         $this->assertEquals("2", $cfg->getSection('[section 2]')->get('key2'));
     }
+    
+//    public function testThreadSafe() {
+//        include_once 'tests/drivers/etc/threadTest.php';
+//        $testfile = 'drivers/cfg_ini/threadsafe.ini';
+//        if (is_file('tests/'.$testfile)) {
+//            unlink('tests/'.$testfile);
+//        }
+//        // http://php.net/manual/es/book.pthreads.php#118320
+//        $pool = array();
+//        $results = array();
+//        // With 2 threads fails sometimes, with more will fail more.
+//        for ($i = 0; $i < 15; $i++) {
+//            $pool[] = new threadTest($testfile);
+//        }
+//        foreach ($pool as $worker) {
+//            $worker->start();
+//        }
+//        foreach ($pool as $worker) {
+//            $worker->join();
+//        }
+//        foreach ($pool as $worker) {
+//            $results[$worker->getResult()] = '';
+//        }
+//        // Saved ok?
+//        $this->assertEquals(1, count($results), "Sizes results: ".implode(', ', array_keys($results)));
+//        // Erase file
+//        unlink('tests/'.$testfile);
+//    }
 }

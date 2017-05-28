@@ -5,3 +5,4 @@
 /etc/pharinix.config.php
 /error_fatal.log
 /var/smarty/
+/etc/.pharinix.config.php.swp
