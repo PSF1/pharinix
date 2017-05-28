@@ -22,8 +22,8 @@
 // Requires
 include_once("etc/drivers/tools.php");
 include_once('etc/drivers/txtlog.php');
-include_once 'etc/php-fslock/src/FSLockInterface.php';
-include_once 'etc/php-fslock/src/FSLock.php';
+require_once 'etc/php-fslock/src/FSLockInterface.php';
+require_once 'etc/php-fslock/src/FSLock.php';
 include_once 'etc/drivers/config.php';
 driverConfig::getCFG();
 
