@@ -165,7 +165,7 @@ class driverConfigIni {
             return;
         }
         $this->file = $file;
-        $lock = new FSLock('driverConfig.'.$this->file);
+        $lock = new FSLock('driverConfig.'.md5($this->file));
         if ($lock->acquire(true)) {
             $this->fileContent = str_replace("\r","",file_get_contents($this->file));
             $lock->release();
@@ -217,7 +217,7 @@ class driverConfigIni {
      */
     public function save($file = '') {
         $resp = false;
-        $lock = new FSLock('driverConfig.'.$this->file);
+        $lock = new FSLock('driverConfig.'.md5($this->file));
         if ($lock->acquire(false)) {
             if ($file == '') {
                 $file = $this->file;
