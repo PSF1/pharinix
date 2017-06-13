@@ -84,13 +84,25 @@ class driverNodes {
      * @return array ('ok' => boolean)
      */
     public static function chCRUDNode($nodetype, $idnode, $segment, $create, $read, $update, $delete) {
-        $me = driverCommand::run('getNodes', array(
-                    'nodetype' => $nodetype,
-                    'fields' => '`access`',
-                    'where' => '`id` = ' . $idnode,
-        ));
-        if ((!isset($me['ok']) || $me['ok'] !== false) && count($me) > 0) {
-            $ncrud = decbin($me[$idnode]['access']);
+        if ($idnode != null) {
+            $me = driverCommand::run('getNodes', array(
+                        'nodetype' => $nodetype,
+                        'fields' => '`access`',
+                        'where' => '`id` = ' . $idnode,
+            ));
+        } else {
+            $me = driverCommand::run('getNodeTypeDef', array(
+                        'nodetype' => $nodetype
+            ));
+            $idnodeType = $me['id'];
+            $me = array($me['id'] => $me);
+        }
+        if ($idnode == null || ((!isset($me['ok']) || $me['ok'] !== false) && count($me) > 0)) {
+            if ($idnode == null) {
+                $ncrud = decbin($me[$idnodeType]['access']);
+            } else {
+                $ncrud = decbin($me[$idnode]['access']);
+            }
             $require = ($create ? 1 : 0) . ($read ? 1 : 0) . ($update ? 1 : 0) . ($delete ? 1 : 0);
             switch ($segment) {
                 case self::CHANGECRUD_ALL:
