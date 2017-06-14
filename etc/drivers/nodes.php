@@ -939,6 +939,19 @@ class driverNodes {
                 $lines[] = "\t\treturn \$resp;";
                 $lines[] = "\t}";
                 $lines[] = "";
+                // countAll method
+                $lines[] = "\t/**";
+                $lines[] = "\t * Count all instances.";
+                $lines[] = "\t *";
+                $lines[] = "\t * @return integer Total Instances";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic static function countAll() {";
+                $lines[] = "\t\t\$resp = 0;";
+                $lines[] = "\t\t\$query = array('nodetype' => '{$nodetype['name']}', 'count' => true);";
+                $lines[] = "\t\t\$nodes = driverNodes::getNodes(\$query);";
+                $lines[] = "\t\treturn \$nodes[0]['amount'];";
+                $lines[] = "\t}";
+                $lines[] = "";
                 // findByID method
                 $lines[] = "\t/**";
                 $lines[] = "\t * Find instance by ID.";
@@ -955,7 +968,7 @@ class driverNodes {
                 $lines[] = "\t\treturn null;";
                 $lines[] = "\t}";
                 $lines[] = "";
-                // findByID method
+                // findBy method
                 $lines[] = "\t/**";
                 $lines[] = "\t * Find instance by field.";
                 $lines[] = "\t *";
@@ -977,6 +990,20 @@ class driverNodes {
                 $lines[] = "\t\t\t\$resp[] = \$item;";
                 $lines[] = "\t\t}";
                 $lines[] = "\t\treturn \$resp;";
+                $lines[] = "\t}";
+                $lines[] = "";
+                // countBy method
+                $lines[] = "\t/**";
+                $lines[] = "\t * Count instances by field.";
+                $lines[] = "\t *";
+                $lines[] = "\t * @param string \$condition SQL where conditions";
+                $lines[] = "\t * @return integer Total instances";
+                $lines[] = "\t */";
+                $lines[] = "\tpublic static function countBy(\$condition) {";
+                $lines[] = "\t\t\$resp = 0;";
+                $lines[] = "\t\t\$query = array('nodetype' => '{$nodetype['name']}', 'where' => \$condition, 'count' => true);";
+                $lines[] = "\t\t\$nodes = driverNodes::getNodes(\$query);";
+                $lines[] = "\t\treturn \$nodes[0]['amount'];";
                 $lines[] = "\t}";
                 $lines[] = "";
                 // Getters and setters
