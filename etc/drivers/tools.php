@@ -481,7 +481,7 @@
      * @link http://hayageek.com/php-curl-post-get
      */
     public static function apiCall($url, $params = null, $parseParams = true, $binary = false, $headers = null, $timeoutsec = 30) {
-        self::apiCallMS($url, $params, $parseParams, $binary, $headers, $timeoutsec * 1000);
+        return self::apiCallMS($url, $params, $parseParams, $binary, $headers, $timeoutsec * 1000);
     }
     
     /**
@@ -527,6 +527,7 @@
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow location headers
         curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 //        curl_setopt($ch, CURLOPT_REFERER, self::API_URL.'dashboard');
+        curl_setopt($ch,CURLOPT_ENCODING , "");
         if ($headers != null) {
             $h = array();
             foreach($headers as $key => $value) {
