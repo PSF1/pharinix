@@ -146,6 +146,9 @@ if (!class_exists("commandSmartyRender")) {
             unset($auxparams['command']);
             unset($auxparams['interface']);
             $smarty->assign("render_params", $auxparams, true);
+            $smarty->assign("user_groups", driverUser::getGroupsNames());
+            $smarty->assign('user_isroot', driverUser::isSudoed());
+            $smarty->assign('user_isloged', driverUser::isLoged());
             // Hook
             $tpl = $params['tpl']; // Render the correct template.
             driverHook::CallHook('smartyRenderBeforeDisplay', array(
