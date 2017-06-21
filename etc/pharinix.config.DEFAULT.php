@@ -38,6 +38,11 @@ MYSQL_DBNAME = "miana"
 ADODB_PERF_NO_RUN_SQL = 1
 charset = 'utf8'
 table_charset = 'utf8_general_ci'
+ADODB_MEMCACHE_USAGE = false
+ADODB_MEMCACHE_HOSTS = '192.168.0.78,192.168.0.79,192.168.0.80'
+ADODB_MEMCACHE_PORT = 11211
+ADODB_MEMCACHE_COMPRESS = false
+ADODB_MEMCACHE_LIFE = 2400
 
 [safe_mode]
 ; Ignore database connection

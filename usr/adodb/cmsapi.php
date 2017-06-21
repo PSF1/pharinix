@@ -66,12 +66,15 @@ class dbConn {
         return $resp;
     }
     
-    public static function Execute($sql) {
-        // TODO: Introduce cache
+    public static function Execute($sql, $cached = true) {
         // TODO: Compatibility with other database engines.
         $resp = null;
         if (self::haveConnection()) {
-            $resp = self::get()->Execute($sql);
+            if ($cached) {
+                $resp = self::get()->Execute($sql);
+            } else {
+                $resp = self::get()->cacheExecute(intval($cfg->getSection('[mysql]')->get('ADODB_MEMCACHE_LIFE')), $sql);
+            }
         } else {
             $resp = new fakeRecordset($sql);
         }
@@ -82,6 +85,19 @@ class dbConn {
         $cfg = driverConfig::getCFG();
         if (self::$conn == null) {
             self::$conn = NewADOConnection('mysqli');
+            if($cfg->getSection('[mysql]')->getAsBoolean('ADODB_MEMCACHE_USAGE')) {
+                $mcHosts = explode(',', $cfg->getSection('[mysql]')->get('ADODB_MEMCACHE_HOSTS'));
+                $memCacheHost = array();
+                foreach($mcHosts as $mcHost) {
+                    $memCacheHost[] = trim($mcHost);
+                }
+                if (count($memCacheHost) > 0) {
+                    self::$conn->memCache = true;
+                    self::$conn->memCacheHost = $memCacheHost;
+                    self::$conn->memCachePort = $cfg->getSection('[mysql]')->get('ADODB_MEMCACHE_PORT');
+                    self::$conn->memCacheCompress = $cfg->getSection('[mysql]')->getAsBoolean('ADODB_MEMCACHE_COMPRESS');
+                }
+            }
             try {
                 @self::$conn->Connect(
                         $cfg->getSection('[mysql]')->get('MYSQL_HOST'), 
@@ -102,7 +118,7 @@ class dbConn {
         if (self::$connected) {
             $charset = $cfg->getSection('[mysql]')->get('charset');
             if ($charset != null) {
-                self::$conn->EXECUTE("set names '".$charset."'");
+                self::$conn->EXECUTE("set names '".$charset."'", false);
             }
         }
         return self::$conn;
@@ -152,7 +168,7 @@ class dbConn {
     public static function lastID() {
         if (self::haveConnection()) {
             $sql = "SELECT LAST_INSERT_ID()";
-            $rs = dbConn::Execute($sql);
+            $rs = dbConn::Execute($sql, false);
             return $rs->fields[0];
         } else {
             return 0;
