@@ -93,7 +93,7 @@ class driverUrlRewrite {
      */
     public function getRewritedUrl($url, &$mapping) {
         // Search rewrite URL
-        $sql = "SELECT * FROM `url_rewrite` where `url` = '$url'";
+        $sql = "SELECT * FROM `url_rewrite` where `url` = '". dbConn::qstr($url)."'";
         $q = dbConn::Execute($sql);
         if (!$q->EOF) {
             return $q;
