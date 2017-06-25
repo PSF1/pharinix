@@ -70,10 +70,10 @@ class dbConn {
         // TODO: Compatibility with other database engines.
         $resp = null;
         if (self::haveConnection()) {
-            if ($cached) {
+            if (!$cached) {
                 $resp = self::get()->Execute($sql);
             } else {
-                $resp = self::get()->cacheExecute(intval($cfg->getSection('[mysql]')->get('ADODB_MEMCACHE_LIFE')), $sql);
+                $resp = self::get()->cacheExecute(intval(driverConfig::getCFG()->getSection('[mysql]')->get('ADODB_MEMCACHE_LIFE')), $sql);
             }
         } else {
             $resp = new fakeRecordset($sql);
