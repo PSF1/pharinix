@@ -83,7 +83,7 @@ class driverMemcached implements iCache {
     }
     
     /**
-     * Add a node to the cache.
+     * Add, or update, a node to the cache.
      * @param string $nodetype
      * @param array $node Node information returned by getNode.
      * @return boolean FALSE if fail
@@ -98,10 +98,11 @@ class driverMemcached implements iCache {
         
         $m = self::getConn();
         if ($m != null) {
-            if (self::isCached($nodetype, $node['id'])) {
+            $resp = $m->add("node.$nodetype.{$node['id']}", $node, self::$MEMCACHE_LIFE);
+            if ($resp === false) {
                 $m->delete("node.$nodetype.{$node['id']}");
+                $m->add("node.$nodetype.{$node['id']}", $node, self::$MEMCACHE_LIFE);
             }
-            $m->add("node.$nodetype.{$node['id']}", $node, self::$MEMCACHE_LIFE);
             return true;
         }
         return false;
