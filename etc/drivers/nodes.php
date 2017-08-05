@@ -23,6 +23,10 @@ if (!defined("CMS_VERSION")) {
     die("");
 }
 
+include_once 'etc/interfaces/iCache.php';
+include_once 'etc/drivers/driverBasicCache.php';
+include_once 'etc/drivers/driverMemcached.php';
+
 /**
  * Data management
  *
@@ -1369,6 +1373,25 @@ class driverNodes {
             return round($size);
         }
     }
+    
+    /**
+     * Return cache class name
+     */
+    public static function getCacheClass() {
+        $cfgNodetypeGrp = driverConfig::getCFG()->getSection('[nodetypes]');
+        if ($cfgNodetypeGrp == null) {
+            return '';
+        }
+        $cfgNodeTypeCacheActive = $cfgNodetypeGrp->getAsBoolean('USAGE');
+        if (!$cfgNodeTypeCacheActive) {
+            return '';
+        }
+        $cfgNodeTypeClass = $cfgNodetypeGrp->get('CACHE_CLASS');
+        if ($cfgNodeTypeClass != '') {
+            return $cfgNodeTypeClass;
+        }
+        return 'driverBasicCache';
+    }
 }
 
 /**
@@ -1378,7 +1401,7 @@ class driverNodeBase extends driverNodes {
     /**
      * @var array Node's cache.
      */
-    protected static $nodeCache = array();
+//    protected static $nodeCache = array();
     
     /**
      * @var integer Node ID.
@@ -1449,11 +1472,24 @@ class driverNodeBase extends driverNodes {
      * Clear node's cache
      */
     public static function cacheClear() {
-        self::$nodeCache = array();
+//        self::$nodeCache = array();
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return;
+        $cache::cacheClear();
+    }
+    
+    public static function isCached($nodetype, $nid) {
+//        return self::cached($nodetype, $nid);
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return false;
+        return $cache::isCached($nodetype, $nid);
     }
     
     public static function cached($nodetype, $nid) {
-        return isset(self::$nodeCache[$nodetype][$nid]);
+//        return isset(self::$nodeCache[$nodetype][$nid]);
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return false;
+        return $cache::cached($nodetype, $nid);
     }
     
     /**
@@ -1463,16 +1499,19 @@ class driverNodeBase extends driverNodes {
      * @return boolean FALSE if fail
      */
     public static function cacheAdd($nodetype, $node) {
-        if (empty($nodetype)) {
-            return false;
-        }
-        if (!isset($node['id'])) {
-            return false;
-        }
-        if (!isset(self::$nodeCache[$nodetype])) {
-            self::$nodeCache[$nodetype] = array();
-        }
-        self::$nodeCache[$nodetype][$node['id']] = $node;
+//        if (empty($nodetype)) {
+//            return false;
+//        }
+//        if (!isset($node['id'])) {
+//            return false;
+//        }
+//        if (!isset(self::$nodeCache[$nodetype])) {
+//            self::$nodeCache[$nodetype] = array();
+//        }
+//        self::$nodeCache[$nodetype][$node['id']] = $node;
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return;
+        $cache::cacheAdd($nodetype, $node);
     }
     
     /**
@@ -1481,7 +1520,10 @@ class driverNodeBase extends driverNodes {
      * @param integer $nid Node ID
      */
     public static function cacheDel($nodetype, $nid) {
-        unset(self::$nodeCache[$nodetype][$nid]);
+//        unset(self::$nodeCache[$nodetype][$nid]);
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return;
+        $cache::cacheDel($nodetype, $nid);
     }
     
     /**
@@ -1491,14 +1533,17 @@ class driverNodeBase extends driverNodes {
      * @return array The node information, FALSE if not cached
      */
     public static function cacheGet($nodetype, $nid) {
-        if (!isset(self::$nodeCache[$nodetype])) {
-            return false;
-        }
-        if (!isset(self::$nodeCache[$nodetype][$nid])) {
-            return false;
-        } else {
-            return self::$nodeCache[$nodetype][$nid];
-        }
+//        if (!isset(self::$nodeCache[$nodetype])) {
+//            return false;
+//        }
+//        if (!isset(self::$nodeCache[$nodetype][$nid])) {
+//            return false;
+//        } else {
+//            return self::$nodeCache[$nodetype][$nid];
+//        }
+        $cache = driverNodes::getCacheClass();
+        if ($cache == '') return false;
+        return $cache::cacheGet($nodetype, $nid);
     }
 
     /**

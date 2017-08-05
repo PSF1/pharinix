@@ -44,6 +44,15 @@ ADODB_MEMCACHE_PORT = 11211
 ADODB_MEMCACHE_COMPRESS = false
 ADODB_MEMCACHE_LIFE = 2400
 
+[nodetypes]
+; You can use driverMemcached in CACHE_CLASS to memcached, or driverBasicCache for local memory cache.
+CACHE_CLASS = driverBasicCache
+USAGE = true
+MEMCACHE_HOSTS = '192.168.0.78,192.168.0.79,192.168.0.80'
+MEMCACHE_PORT = 11211
+MEMCACHE_COMPRESS = false
+MEMCACHE_LIFE = 2400
+
 [safe_mode]
 ; Ignore database connection
 active = false
