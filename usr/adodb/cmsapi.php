@@ -66,10 +66,13 @@ class dbConn {
         return $resp;
     }
     
-    public static function Execute($sql, $cached = true) {
+    public static function Execute($sql, $cached = null) {
         // TODO: Compatibility with other database engines.
         $resp = null;
         if (self::haveConnection()) {
+            if ($cached == null) {
+                $cached = driverConfig::getCFG()->getSection('[mysql]')->getAsBoolean('ADODB_DEFAULT_CACHE');
+            }
             if (!$cached) {
                 $resp = self::get()->Execute($sql);
             } else {

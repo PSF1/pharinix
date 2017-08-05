@@ -38,6 +38,9 @@ MYSQL_DBNAME = "miana"
 ADODB_PERF_NO_RUN_SQL = 1
 charset = 'utf8'
 table_charset = 'utf8_general_ci'
+; ADODB_DEFAULT_CACHE allow use the query cache by default
+ADODB_DEFAULT_CACHE = false
+; ADODB_MEMCACHE_USAGE allow the use of memcached if the query allow cache
 ADODB_MEMCACHE_USAGE = false
 ADODB_MEMCACHE_HOSTS = '192.168.0.78,192.168.0.79,192.168.0.80'
 ADODB_MEMCACHE_PORT = 11211
