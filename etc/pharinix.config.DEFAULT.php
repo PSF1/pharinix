@@ -28,6 +28,7 @@ CMS_CACHE_LIFETIME_TEMPLATE = 120
 CMS_DEBUG_LOG_SQL = false
 CMS_MIN_PHP_VER = "5.3"
 CMS_DEFAULT_URL_BASE = "auto"
+CURLOPT_USERAGENT = "Mozilla/5.0 (compatible; Pharinix/{version}; +{url_base})"
 path = 'bin/;bin/node_type/;bin/router/;bin/user/;bin/html/;bin/cfg/;bin/gettext/;bin/lpmonitor/;bin/menu/'
 
 [mysql]

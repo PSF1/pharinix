@@ -469,6 +469,21 @@
     }
     
     /**
+     * Get remote call user agent string based on configuration.
+     * It replace {version} and {url_base} with default values.
+     * @return string
+     */
+    public static function getUserAgent() {
+        $rowUA = driverConfig::getCFG()->getSection('[core]')->get('CURLOPT_USERAGENT');
+        if ($rowUA == null) {
+            $rowUA = 'Mozilla/5.0 (compatible; Pharinix/{version}; +{url_base})';
+        }
+        $ua = str_replace('{version}', CMS_VERSION, $rowUA);
+        $ua = str_replace('{url_base}', CMS_DEFAULT_URL_BASE, $ua);
+        return $ua;
+    }
+    
+    /**
      * Do a remote call with cURL
      * 
      * @param string $url URL to call
@@ -525,7 +540,7 @@
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $timeoutms); //timeout in seconds
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //not verify certificate
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow location headers
-        curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; es-ES; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+        curl_setopt($ch, CURLOPT_USERAGENT, driverTools::getUserAgent());
 //        curl_setopt($ch, CURLOPT_REFERER, self::API_URL.'dashboard');
         curl_setopt($ch,CURLOPT_ENCODING , "");
         if ($headers != null) {
