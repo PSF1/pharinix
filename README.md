@@ -10,9 +10,7 @@ Testing on PHP 5.3, 5.4, 5.5 and 5.6
 
 [![Build Status](https://travis-ci.org/PSF1/pharinix.svg?branch=master)](https://travis-ci.org/PSF1/pharinix)
 
-Live Pharinix:
-
-PHP 5.4 Live demo <http://try-pharinix.rhcloud.com/> in OpenShift <https://openshift.redhat.com> (If at to load fail, wait a few minutes and try again. This cloud idle the machines.)
+Live Pharinix in Azure: <http://www.wallogit.com/>
 
 Copyright (C) 2015-2017 Pedro Pelaez <aaaaa976@gmail.com>
 Sources https://github.com/PSF1/pharinix
