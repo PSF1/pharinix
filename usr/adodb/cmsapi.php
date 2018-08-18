@@ -228,7 +228,12 @@ class fakeRecordset {
                             foreach ($this->records as $record) {
                                 $accept = false;
                                 $jrec = json_encode($record);
-                                $accept = (eval("\$record = json_decode('$jrec'); return $where;"));
+				// @see http://php.net/manual/es/function.eval.php#121284
+				try {
+                                    $accept = (eval("\$record = json_decode('$jrec'); return $where;"));
+				} catch (Throwable $ex) {
+				    $accept = false;
+                                }
                                 if ($accept) {
                                     $aux[] = $record;
                                 }
